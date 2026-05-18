@@ -1,23 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>免費 QR Code 產生器 | 線上製作條碼</title>
-<meta name="description" content="免費線上 QR Code 產生器，輸入文字或網址即可快速生成條碼。支援 PNG 下載、多種尺寸，無須註冊，完全免費。">
+<title data-i18n="qr_title">Free QR Code Generator | Create QR Codes Online</title>
+<meta data-i18n="qr_desc" name="description" content="Free online QR Code Generator. Enter text or URL to create QR codes instantly. Download as PNG. No registration required.">
 <link rel="canonical" href="https://tools-site.pages.dev/qr-code-generator/">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "QR Code 產生器",
-  "url": "https://tools-site.pages.dev/qr-code-generator/",
-  "description": "免費線上 QR Code 產生器，輸入文字或網址立即生成並下載。",
-  "applicationCategory": "UtilityApplication",
-  "operatingSystem": "Any",
-  "browserRequirements": "JavaScript"
-}
-</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"QR Code Generator","url":"https://tools-site.pages.dev/qr-code-generator/","description":"Free online QR Code Generator. Enter text or URL to create and download QR codes instantly.","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"JavaScript"}</script>
 <style>
 :root {
   --primary: #6366f1;
@@ -39,7 +28,6 @@ body {
 }
 .container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
 
-/* Header */
 header {
   background: linear-gradient(135deg, var(--primary), #8b5cf6);
   color: #fff;
@@ -49,7 +37,41 @@ header {
 header h1 { font-size: 2rem; margin-bottom: 8px; letter-spacing: -0.5px; }
 header p { font-size: 1.05rem; opacity: 0.9; }
 
-/* Card */
+.top-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+}
+.top-nav .container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.top-nav .links { display: flex; gap: 20px; flex-wrap: wrap; }
+.top-nav a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .2s;
+}
+.top-nav a:hover, .top-nav a.active { color: var(--primary); }
+
+#langToggle {
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text);
+  transition: all .2s;
+  white-space: nowrap;
+}
+#langToggle:hover { border-color: var(--primary); color: var(--primary); }
+
 .card {
   background: var(--card);
   border-radius: var(--radius);
@@ -58,8 +80,6 @@ header p { font-size: 1.05rem; opacity: 0.9; }
   margin: -24px auto 24px;
   position: relative;
 }
-
-/* Form */
 .form-group { margin-bottom: 20px; }
 label {
   display: block;
@@ -82,14 +102,9 @@ textarea:focus, input[type="text"]:focus {
   border-color: var(--primary);
 }
 textarea { resize: vertical; min-height: 80px; }
-.form-row {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
+.form-row { display: flex; gap: 16px; flex-wrap: wrap; }
 .form-row .form-group { flex: 1; min-width: 140px; }
 
-/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -104,21 +119,13 @@ textarea { resize: vertical; min-height: 80px; }
   transition: all .2s;
   width: 100%;
 }
-.btn-primary {
-  background: var(--primary);
-  color: #fff;
-}
+.btn-primary { background: var(--primary); color: #fff; }
 .btn-primary:hover { background: var(--primary-hover); }
-.btn-secondary {
-  background: var(--bg);
-  color: var(--text);
-  border: 2px solid var(--border);
-}
+.btn-secondary { background: var(--bg); color: var(--text); border: 2px solid var(--border); }
 .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
 .btn-group { display: flex; gap: 12px; margin-top: 16px; }
 .btn-group .btn { flex: 1; }
 
-/* QR output */
 .qr-output {
   text-align: center;
   padding: 32px 0 16px;
@@ -135,23 +142,14 @@ textarea { resize: vertical; min-height: 80px; }
   border: 2px dashed var(--border);
   border-radius: 12px;
 }
-.qr-output .placeholder {
-  color: var(--text-light);
-  font-size: 0.95rem;
-}
+.qr-output .placeholder { color: var(--text-light); font-size: 0.95rem; }
 
-/* Sections */
 .section { margin: 32px 0; }
-.section h2 {
-  font-size: 1.3rem;
-  margin-bottom: 12px;
-  color: var(--text);
-}
+.section h2 { font-size: 1.3rem; margin-bottom: 12px; color: var(--text); }
 .section p, .section li { color: var(--text-light); }
 .section ul { padding-left: 20px; }
 .section li { margin-bottom: 6px; }
 
-/* FAQ */
 .faq-item {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -169,11 +167,7 @@ textarea { resize: vertical; min-height: 80px; }
   transition: background .2s;
 }
 .faq-question:hover { background: #f1f5f9; }
-.faq-question::after {
-  content: "+";
-  font-size: 1.2rem;
-  color: var(--primary);
-}
+.faq-question::after { content: "+"; font-size: 1.2rem; color: var(--primary); }
 .faq-question.open::after { content: "−"; }
 .faq-answer {
   padding: 0 18px;
@@ -185,7 +179,6 @@ textarea { resize: vertical; min-height: 80px; }
 .faq-answer.open { padding: 14px 18px; max-height: 300px; }
 .faq-answer p { margin-bottom: 8px; }
 
-/* Footer */
 footer {
   text-align: center;
   padding: 32px 20px;
@@ -195,27 +188,6 @@ footer {
   margin-top: 40px;
 }
 footer a { color: var(--primary); text-decoration: none; }
-
-/* Nav */
-.top-nav {
-  background: #fff;
-  border-bottom: 1px solid var(--border);
-  padding: 12px 0;
-}
-.top-nav .container {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-.top-nav a {
-  color: var(--text-light);
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: color .2s;
-}
-.top-nav a:hover, .top-nav a.active { color: var(--primary); }
-
 @media (max-width: 480px) {
   header { padding: 36px 16px 32px; }
   header h1 { font-size: 1.5rem; }
@@ -228,129 +200,155 @@ footer a { color: var(--primary); text-decoration: none; }
 
 <nav class="top-nav">
   <div class="container">
-    <a href="/" style="font-weight:700;color:var(--primary)">🛠 工具站</a>
-    <a href="/qr-code-generator/" class="active">QR Code 產生器</a>
-    <a href="/bmi-calculator/">BMI 計算機</a>
+    <div class="links">
+      <a href="/" style="font-weight:700;color:var(--primary)" data-i18n="nav_home">Home</a>
+      <a href="/qr-code-generator/" class="active" data-i18n="nav_qr">QR Code Generator</a>
+      <a href="/bmi-calculator/" data-i18n="nav_bmi">BMI Calculator</a>
+    </div>
+    <button id="langToggle" onclick="i18n.toggle()">中文</button>
   </div>
 </nav>
 
 <header>
-  <h1>📱 QR Code 產生器</h1>
-  <p>輸入文字或網址，快速生成 QR Code，免費下載 PNG</p>
+  <h1 data-i18n="qr_heading">📱 QR Code Generator</h1>
+  <p data-i18n="qr_sub">Enter text or a URL to generate a QR code. Free PNG download.</p>
 </header>
 
 <main class="container">
   <div class="card">
     <div class="form-group">
-      <label for="text">輸入內容</label>
-      <textarea id="text" placeholder="請輸入文字或網址，例如 https://example.com">https://github.com/soxoj/maigret</textarea>
+      <label data-i18n="qr_input_label" for="text">Content</label>
+      <textarea id="text" data-i18n="qr_input_placeholder" data-i18n-type="placeholder" placeholder="Enter text or URL, e.g. https://example.com">https://github.com/soxoj/maigret</textarea>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label for="size">QR Code 尺寸</label>
+        <label data-i18n="qr_size_label" for="size">QR Code Size</label>
         <select id="size">
-          <option value="160">小 (160px)</option>
-          <option value="256" selected>中 (256px)</option>
-          <option value="400">大 (400px)</option>
+          <option value="160" data-i18n="qr_size_small">Small (160px)</option>
+          <option value="256" selected data-i18n="qr_size_medium">Medium (256px)</option>
+          <option value="400" data-i18n="qr_size_large">Large (400px)</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="dark">前景顏色</label>
+        <label data-i18n="qr_color_label" for="dark">Foreground Color</label>
         <input type="color" id="dark" value="#000000">
       </div>
     </div>
-    <button class="btn btn-primary" onclick="generateQR()">🎯 產生 QR Code</button>
+    <button class="btn btn-primary" onclick="generateQR()" data-i18n="qr_generate_btn">🎯 Generate QR Code</button>
 
     <div class="qr-output">
-      <div id="qrcode"><span class="placeholder">點擊「產生 QR Code」按鈕</span></div>
+      <div id="qrcode"><span class="placeholder" data-i18n="qr_placeholder">Click "Generate QR Code" button</span></div>
     </div>
 
     <div class="btn-group" id="download-btns" style="display:none">
-      <button class="btn btn-secondary" onclick="downloadPNG()">⬇ 下載 PNG</button>
-      <button class="btn btn-secondary" onclick="resetQR()">🔄 重新產生</button>
+      <button class="btn btn-secondary" onclick="downloadPNG()" data-i18n="qr_download_btn">⬇ Download PNG</button>
+      <button class="btn btn-secondary" onclick="resetQR()" data-i18n="qr_reset_btn">🔄 Regenerate</button>
     </div>
   </div>
 
   <div class="section">
-    <h2>📖 使用說明</h2>
+    <h2 data-i18n="qr_instructions_title">📖 How to Use</h2>
     <ol>
-      <li>在上方輸入框貼上你想轉換的文字或網址</li>
-      <li>選擇 QR Code 尺寸（小/中/大）</li>
-      <li>可選前景顏色（預設黑色）</li>
-      <li>點擊「產生 QR Code」按鈕</li>
-      <li>點擊「下載 PNG」儲存圖片到電腦</li>
+      <li data-i18n="qr_step1">Paste the text or URL you want to encode in the input box above</li>
+      <li data-i18n="qr_step2">Choose the QR code size (Small / Medium / Large)</li>
+      <li data-i18n="qr_step3">Optionally change the foreground color (default is black)</li>
+      <li data-i18n="qr_step4">Click "Generate QR Code"</li>
+      <li data-i18n="qr_step5">Click "Download PNG" to save the image</li>
     </ol>
   </div>
 
   <div class="section">
-    <h2>❓ 常見問題（FAQ）</h2>
+    <h2 data-i18n="qr_faq_title">❓ Frequently Asked Questions</h2>
 
     <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)">QR Code 可以包含哪些類型的內容？</div>
-      <div class="faq-answer"><p>網址（URL）、純文字、電話號碼、電子郵件、簡訊、WiFi 設定、vCard 名片等。最常見的是將網址轉換為 QR Code，手機掃描後直接開啟網站。</p></div>
+      <div class="faq-question" onclick="toggleFAQ(this)" data-i18n="qr_faq1_q">What kind of content can a QR Code store?</div>
+      <div class="faq-answer"><p data-i18n="qr_faq1_a">URLs, plain text, phone numbers, email addresses, SMS, WiFi settings, vCard contacts, and more. The most common use is encoding a URL so people can scan it to open a website.</p></div>
     </div>
-
     <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)">掃描 QR Code 需要安裝 App 嗎？</div>
-      <div class="faq-answer"><p>現代手機（iOS 11+ 及 Android 9+）的內建相機 App 即可直接掃描 QR Code，不需要額外安裝軟體。</p></div>
+      <div class="faq-question" onclick="toggleFAQ(this)" data-i18n="qr_faq2_q">Do I need an app to scan QR codes?</div>
+      <div class="faq-answer"><p data-i18n="qr_faq2_a">Modern smartphones (iOS 11+ and Android 9+) can scan QR codes directly with the built-in camera app. No additional app required.</p></div>
     </div>
-
     <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)">QR Code 有期限嗎？會失效嗎？</div>
-      <div class="faq-answer"><p>QR Code 本身沒有有效期限。它只是一個圖形編碼，儲存的是內容本身（如網址）。只要內容指向的網站或資訊還存在，QR Code 就永遠有效。</p></div>
+      <div class="faq-question" onclick="toggleFAQ(this)" data-i18n="qr_faq3_q">Do QR codes expire?</div>
+      <div class="faq-answer"><p data-i18n="qr_faq3_a">No, QR codes themselves never expire. They are static images that encode the content directly. As long as the linked website or information still exists, the QR code will always work.</p></div>
     </div>
-
     <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)">QR Code 可以下載什麼格式？</div>
-      <div class="faq-answer"><p>目前支援下載為 PNG 格式，背景透明，適合用於印刷、網頁、數位看板等各種場景。</p></div>
+      <div class="faq-question" onclick="toggleFAQ(this)" data-i18n="qr_faq4_q">What format can I download?</div>
+      <div class="faq-answer"><p data-i18n="qr_faq4_a">Currently PNG format with transparent background. Suitable for print, web, and digital signage. SVG vector format is coming in a future update for higher resolution needs.</p></div>
     </div>
-
     <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)">產生的 QR Code 解析度夠印刷嗎？</div>
-      <div class="faq-answer"><p>選擇「大 (400px)」尺寸即可滿足一般印刷需求。若需要更高解析度，建議用向量格式（SVG），此功能將在後續版本提供。</p></div>
+      <div class="faq-question" onclick="toggleFAQ(this)" data-i18n="qr_faq5_q">Is the resolution good enough for printing?</div>
+      <div class="faq-answer"><p data-i18n="qr_faq5_a">The "Large (400px)" size works for most print needs. For higher resolution, SVG vector export will be available in a future version.</p></div>
     </div>
   </div>
 
   <div class="section">
-    <h2>🔗 相關工具</h2>
+    <h2 data-i18n="related_tools">🔗 Related Tools</h2>
     <ul>
-      <li><a href="/bmi-calculator/" style="color:var(--primary)">BMI 計算機</a> — 計算身體質量指數</li>
+      <li><a href="/bmi-calculator/" style="color:var(--primary)" data-i18n="qr_rel_bmi">BMI Calculator</a> <span data-i18n="qr_rel_bmi_desc">— Calculate your Body Mass Index</span></li>
     </ul>
   </div>
 </main>
 
 <footer>
   <div class="container">
-    <p><a href="/">🛠 工具站首頁</a> · <a href="/privacy-policy">隱私政策</a> · <a href="/terms">服務條款</a> · <a href="/about">關於我們</a></p>
-    <p style="margin-top:8px">© 2026 工具站 — 免費線上工具集</p>
+    <p><span data-i18n="footer_pages">Home · Privacy Policy · Terms · About</span></p>
+    <p style="margin-top:8px" data-i18n="footer_cr">© 2026 Free Online Tools</p>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="/common/i18n.js"></script>
 <script>
+i18n.register({
+  qr_title:          { en: 'Free QR Code Generator | Create QR Codes Online', zh: '免費 QR Code 產生器 | 線上製作條碼' },
+  qr_desc:           { en: 'Free online QR Code Generator. Enter text or URL to create QR codes instantly. Download as PNG. No registration required.', zh: '免費線上 QR Code 產生器，輸入文字或網址即可快速生成條碼。支援 PNG 下載、多種尺寸，無須註冊，完全免費。' },
+  qr_heading:        { en: '📱 QR Code Generator', zh: '📱 QR Code 產生器' },
+  qr_sub:            { en: 'Enter text or a URL to generate a QR code. Free PNG download.', zh: '輸入文字或網址，快速生成 QR Code，免費下載 PNG' },
+  qr_input_label:    { en: 'Content', zh: '輸入內容' },
+  qr_input_placeholder: { en: 'Enter text or URL, e.g. https://example.com', zh: '請輸入文字或網址，例如 https://example.com' },
+  qr_size_label:     { en: 'QR Code Size', zh: 'QR Code 尺寸' },
+  qr_size_small:     { en: 'Small (160px)', zh: '小 (160px)' },
+  qr_size_medium:    { en: 'Medium (256px)', zh: '中 (256px)' },
+  qr_size_large:     { en: 'Large (400px)', zh: '大 (400px)' },
+  qr_color_label:    { en: 'Foreground Color', zh: '前景顏色' },
+  qr_generate_btn:   { en: '🎯 Generate QR Code', zh: '🎯 產生 QR Code' },
+  qr_placeholder:    { en: 'Click "Generate QR Code" button', zh: '點擊「產生 QR Code」按鈕' },
+  qr_download_btn:   { en: '⬇ Download PNG', zh: '⬇ 下載 PNG' },
+  qr_reset_btn:      { en: '🔄 Regenerate', zh: '🔄 重新產生' },
+  qr_instructions_title: { en: '📖 How to Use', zh: '📖 使用說明' },
+  qr_step1:          { en: 'Paste the text or URL you want to encode in the input box above', zh: '在上方輸入框貼上你想轉換的文字或網址' },
+  qr_step2:          { en: 'Choose the QR code size (Small / Medium / Large)', zh: '選擇 QR Code 尺寸（小/中/大）' },
+  qr_step3:          { en: 'Optionally change the foreground color (default is black)', zh: '可選前景顏色（預設黑色）' },
+  qr_step4:          { en: 'Click "Generate QR Code"', zh: '點擊「產生 QR Code」按鈕' },
+  qr_step5:          { en: 'Click "Download PNG" to save the image', zh: '點擊「下載 PNG」儲存圖片到電腦' },
+  qr_faq_title:      { en: '❓ Frequently Asked Questions', zh: '❓ 常見問題' },
+  qr_faq1_q:         { en: 'What kind of content can a QR Code store?', zh: 'QR Code 可以包含哪些類型的內容？' },
+  qr_faq1_a:         { en: 'URLs, plain text, phone numbers, email addresses, SMS, WiFi settings, vCard contacts, and more. The most common use is encoding a URL so people can scan it to open a website.', zh: '網址（URL）、純文字、電話號碼、電子郵件、簡訊、WiFi 設定、vCard 名片等。最常見的是將網址轉換為 QR Code，手機掃描後直接開啟網站。' },
+  qr_faq2_q:         { en: 'Do I need an app to scan QR codes?', zh: '掃描 QR Code 需要安裝 App 嗎？' },
+  qr_faq2_a:         { en: 'Modern smartphones (iOS 11+ and Android 9+) can scan QR codes directly with the built-in camera app. No additional app required.', zh: '現代手機（iOS 11+ 及 Android 9+）的內建相機 App 即可直接掃描 QR Code，不需要額外安裝軟體。' },
+  qr_faq3_q:         { en: 'Do QR codes expire?', zh: 'QR Code 有期限嗎？會失效嗎？' },
+  qr_faq3_a:         { en: 'No, QR codes themselves never expire. They are static images that encode the content directly. As long as the linked website or information still exists, the QR code will always work.', zh: 'QR Code 本身沒有有效期限。它只是一個圖形編碼，儲存的是內容本身（如網址）。只要內容指向的網站或資訊還存在，QR Code 就永遠有效。' },
+  qr_faq4_q:         { en: 'What format can I download?', zh: 'QR Code 可以下載什麼格式？' },
+  qr_faq4_a:         { en: 'Currently PNG format with transparent background. Suitable for print, web, and digital signage. SVG vector format is coming in a future update for higher resolution needs.', zh: '目前支援下載為 PNG 格式，背景透明，適合用於印刷、網頁、數位看板等各種場景。' },
+  qr_faq5_q:         { en: 'Is the resolution good enough for printing?', zh: '產生的 QR Code 解析度夠印刷嗎？' },
+  qr_faq5_a:         { en: 'The "Large (400px)" size works for most print needs. For higher resolution, SVG vector export will be available in a future version.', zh: '選擇「大 (400px)」尺寸即可滿足一般印刷需求。若需要更高解析度，建議用向量格式（SVG），此功能將在後續版本提供。' },
+  qr_rel_bmi:        { en: 'BMI Calculator', zh: 'BMI 計算機' },
+  qr_rel_bmi_desc:   { en: '— Calculate your Body Mass Index', zh: '— 計算身體質量指數' },
+});
+
 let currentQR = null;
 
 function generateQR() {
   const text = document.getElementById('text').value.trim();
-  if (!text) { alert('請輸入文字或網址'); return; }
-
+  if (!text) { alert(i18n.isEN ? 'Please enter text or a URL' : '請輸入文字或網址'); return; }
   const container = document.getElementById('qrcode');
   container.innerHTML = '';
   const size = parseInt(document.getElementById('size').value);
   const dark = document.getElementById('dark').value;
-
-  currentQR = new QRCode(container, {
-    text: text,
-    width: size,
-    height: size,
-    colorDark: dark,
-    colorLight: '#ffffff',
-    correctLevel: QRCode.CorrectLevel.H
-  });
-
+  currentQR = new QRCode(container, { text, width: size, height: size, colorDark: dark, colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
   document.getElementById('download-btns').style.display = 'flex';
 }
-
 function downloadPNG() {
   const canvas = document.querySelector('#qrcode canvas');
   if (!canvas) return;
@@ -359,21 +357,16 @@ function downloadPNG() {
   link.href = canvas.toDataURL('image/png');
   link.click();
 }
-
 function resetQR() {
-  document.getElementById('qrcode').innerHTML = '<span class="placeholder">點擊「產生 QR Code」按鈕</span>';
+  document.getElementById('qrcode').innerHTML = '<span class="placeholder">' + (i18n.isEN ? 'Click "Generate QR Code" button' : '點擊「產生 QR Code」按鈕') + '</span>';
   document.getElementById('download-btns').style.display = 'none';
   currentQR = null;
 }
-
 function toggleFAQ(el) {
   el.classList.toggle('open');
-  const answer = el.nextElementSibling;
-  answer.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
 }
-
-// Auto-generate on page load with default text
-window.addEventListener('load', generateQR);
+window.addEventListener('load', () => { i18n.init(); generateQR(); });
 </script>
 </body>
 </html>

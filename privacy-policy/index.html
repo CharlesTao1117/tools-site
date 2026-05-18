@@ -1,17 +1,55 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>隱私政策 | 工具站</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.8;max-width:720px;margin:0 auto;padding:20px;color:#1e293b}a{color:#6366f1}h1{font-size:1.6rem;margin-bottom:20px}</style></head>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title data-i18n="privacy_title">Privacy Policy | Free Online Tools</title>
+<meta name="description" content="Privacy Policy for Free Online Tools.">
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.8;max-width:720px;margin:0 auto;padding:20px;color:#1e293b}
+a{color:#6366f1}
+h1{font-size:1.6rem;margin-bottom:20px}
+nav{display:flex;gap:20px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
+nav a{text-decoration:none;color:#64748b;font-size:0.9rem}
+nav a:hover{color:#6366f1}
+#langToggle{
+  background:#f8fafc;border:2px solid #e2e8f0;border-radius:20px;
+  padding:4px 14px;font-size:0.8rem;font-weight:600;cursor:pointer;
+  color:#1e293b;transition:all .2s;margin-left:auto
+}
+#langToggle:hover{border-color:#6366f1;color:#6366f1}
+</style></head>
 <body>
-<h1>🔒 隱私政策</h1>
-<p>上次更新：2026-05-18</p>
-<h2>我們收集的資訊</h2>
-<p>本工具站為純前端應用，所有計算與生成均在您的瀏覽器中完成。我們不會收集、儲存或傳輸您輸入的任何資料。</p>
-<h2>第三方服務</h2>
-<p>本網站使用 Google AdSense 投放廣告，可能使用 Cookie 以提供個人化廣告。詳情請參閱 <a href="https://policies.google.com/technologies/ads" target="_blank">Google 廣告技術說明</a>。</p>
-<h2>資料安全</h2>
-<p>由於所有資料皆在本地端處理，您的輸入內容不會離開您的裝置。</p>
-<h2>聯絡我們</h2>
-<p>如有任何問題，請透過 GitHub Issues 與我們聯繫。</p>
-<p><a href="/">← 返回首頁</a></p>
+<nav>
+  <a href="/" data-i18n="nav_home">Home</a>
+  <a href="/privacy-policy/" data-i18n="privacy_nav">Privacy Policy</a>
+  <button id="langToggle" onclick="i18n.toggle()">中文</button>
+</nav>
+<h1 data-i18n="privacy_h1">🔒 Privacy Policy</h1>
+<p data-i18n="privacy_updated">Last updated: 2026-05-18</p>
+<h2 data-i18n="privacy_what_h">What We Collect</h2>
+<p data-i18n="privacy_what_body">This is a pure frontend application. All calculations and generation happen in your browser. We do not collect, store, or transmit any data you enter.</p>
+<h2 data-i18n="privacy_third_h">Third-Party Services</h2>
+<p data-i18n="privacy_third_body">This site uses Google AdSense for advertising, which may use cookies to serve personalized ads. See <a href="https://policies.google.com/technologies/ads" target="_blank">Google Advertising Technologies</a> for details.</p>
+<h2 data-i18n="privacy_security_h">Data Security</h2>
+<p data-i18n="privacy_security_body">Since all processing happens locally, your input never leaves your device.</p>
+<h2 data-i18n="privacy_contact_h">Contact</h2>
+<p><span data-i18n="privacy_contact_body">For any questions, please reach out via GitHub Issues.</span> <a href="/" data-i18n="privacy_back">← Back to Home</a></p>
+<script src="/common/i18n.js"></script>
+<script>
+i18n.register({
+  privacy_title: {en:'Privacy Policy | Free Online Tools',zh:'隱私政策 | 工具站'},
+  privacy_nav:   {en:'Privacy Policy',zh:'隱私政策'},
+  privacy_h1:    {en:'🔒 Privacy Policy',zh:'🔒 隱私政策'},
+  privacy_updated:{en:'Last updated: 2026-05-18',zh:'上次更新：2026-05-18'},
+  privacy_what_h:{en:'What We Collect',zh:'我們收集的資訊'},
+  privacy_what_body:{en:'This is a pure frontend application. All calculations and generation happen in your browser. We do not collect, store, or transmit any data you enter.',zh:'本工具站為純前端應用，所有計算與生成均在您的瀏覽器中完成。我們不會收集、儲存或傳輸您輸入的任何資料。'},
+  privacy_third_h:{en:'Third-Party Services',zh:'第三方服務'},
+  privacy_third_body:{en:'This site uses Google AdSense for advertising, which may use cookies to serve personalized ads. See Google Advertising Technologies for details.',zh:'本網站使用 Google AdSense 投放廣告，可能使用 Cookie 以提供個人化廣告。詳情請參閱 Google 廣告技術說明。'},
+  privacy_security_h:{en:'Data Security',zh:'資料安全'},
+  privacy_security_body:{en:'Since all processing happens locally, your input never leaves your device.',zh:'由於所有資料皆在本地端處理，您的輸入內容不會離開您的裝置。'},
+  privacy_contact_h:{en:'Contact',zh:'聯絡我們'},
+  privacy_contact_body:{en:'For any questions, please reach out via GitHub Issues.',zh:'如有任何問題，請透過 GitHub Issues 與我們聯繫。'},
+  privacy_back:{en:'← Back to Home',zh:'← 返回首頁'},
+});
+i18n.init();
+</script>
 </body>
 </html>
