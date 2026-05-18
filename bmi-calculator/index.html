@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>免費 BMI 計算機 | 身體質量指數線上計算</title>
+<meta name="description" content="免費線上 BMI 計算機，輸入身高體重立即計算身體質量指數。附 BMI 標準對照表、體重分類與健康建議。無須註冊，完全免費。">
+<link rel="canonical" href="https://tools-site.pages.dev/bmi-calculator/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "BMI 計算機",
+  "url": "https://tools-site.pages.dev/bmi-calculator/",
+  "description": "免費線上 BMI 計算機，輸入身高體重立即計算身體質量指數與體重分類。",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "JavaScript"
+}
+</script>
+<style>
+:root {
+  --primary: #0891b2;
+  --primary-hover: #0e7490;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+  --underweight: #60a5fa;
+  --normal: #22c55e;
+  --overweight: #eab308;
+  --obese1: #f97316;
+  --obese2: #ef4444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+header {
+  background: linear-gradient(135deg, var(--primary), #06b6d4);
+  color: #fff;
+  text-align: center;
+  padding: 48px 20px 40px;
+}
+header h1 { font-size: 2rem; margin-bottom: 8px; letter-spacing: -0.5px; }
+header p { font-size: 1.05rem; opacity: 0.9; }
+
+/* Card */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  padding: 32px;
+  margin: -24px auto 24px;
+  position: relative;
+}
+
+/* Form */
+.form-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.form-group { flex: 1; min-width: 160px; margin-bottom: 20px; }
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.form-group .input-wrap {
+  position: relative;
+}
+.form-group .input-wrap input {
+  width: 100%;
+  padding: 12px 14px;
+  padding-right: 48px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1.1rem;
+  transition: border-color .2s;
+  font-family: inherit;
+}
+.form-group .input-wrap input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.form-group .input-wrap .unit {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Result */
+.result-box {
+  text-align: center;
+  padding: 24px;
+  margin: 16px 0 0;
+  background: var(--bg);
+  border-radius: 12px;
+}
+.result-box .bmi-value {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.result-box .bmi-category {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 4px;
+}
+.result-box .bmi-range {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* BMI Scale */
+.bmi-scale {
+  margin: 20px 0 8px;
+  position: relative;
+  height: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(to right,
+    var(--underweight) 0%, var(--underweight) 18.5%,
+    var(--normal) 18.5%, var(--normal) 24%,
+    var(--overweight) 24%, var(--overweight) 27%,
+    var(--obese1) 27%, var(--obese1) 30%,
+    var(--obese2) 30%, var(--obese2) 100%
+  );
+}
+.bmi-marker {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 24px;
+  background: #1e293b;
+  border-radius: 2px;
+  transition: left .3s;
+  z-index: 2;
+}
+.bmi-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  width: 100%;
+  margin-top: 16px;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--primary-hover); }
+
+/* BMI Reference Table */
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.9rem;
+}
+.ref-table th, .ref-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.ref-table th { background: var(--bg); font-weight: 600; }
+.ref-table .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* Sections */
+.section { margin: 32px 0; }
+.section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.section p, .section li { color: var(--text-light); }
+.section ul { padding-left: 20px; }
+.section li { margin-bottom: 6px; }
+
+/* FAQ */
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.faq-question {
+  padding: 14px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  transition: background .2s;
+}
+.faq-question:hover { background: #f1f5f9; }
+.faq-question::after {
+  content: "+";
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+.faq-question.open::after { content: "−"; }
+.faq-answer {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all .3s;
+  color: var(--text-light);
+}
+.faq-answer.open { padding: 14px 18px; max-height: 300px; }
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 32px 20px;
+  color: var(--text-light);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+footer a { color: var(--primary); text-decoration: none; }
+
+/* Nav */
+.top-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+}
+.top-nav .container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.top-nav a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .2s;
+}
+.top-nav a:hover, .top-nav a.active { color: var(--primary); }
+
+@media (max-width: 480px) {
+  header { padding: 36px 16px 32px; }
+  header h1 { font-size: 1.5rem; }
+  .card { padding: 20px; margin-top: -16px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="container">
+    <a href="/" style="font-weight:700;color:var(--primary)">🛠 工具站</a>
+    <a href="/qr-code-generator/">QR Code 產生器</a>
+    <a href="/bmi-calculator/" class="active">BMI 計算機</a>
+  </div>
+</nav>
+
+<header>
+  <h1>⚖️ BMI 計算機</h1>
+  <p>輸入身高體重，立即計算身體質量指數與體重分類</p>
+</header>
+
+<main class="container">
+  <div class="card">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="height">身高</label>
+        <div class="input-wrap">
+          <input type="number" id="height" value="170" min="50" max="250" step="0.1">
+          <span class="unit">cm</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="weight">體重</label>
+        <div class="input-wrap">
+          <input type="number" id="weight" value="65" min="10" max="300" step="0.1">
+          <span class="unit">kg</span>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="calcBMI()">📊 計算 BMI</button>
+
+    <div class="result-box">
+      <div class="bmi-value" id="bmiValue">22.5</div>
+      <div class="bmi-category" id="bmiCategory" style="color:var(--normal)">✅ 正常範圍</div>
+      <div class="bmi-range">正常範圍：18.5–24.0</div>
+
+      <div class="bmi-scale">
+        <div class="bmi-marker" id="bmiMarker" style="left:56%"></div>
+      </div>
+      <div class="bmi-labels">
+        <span>過輕</span>
+        <span>正常</span>
+        <span>過重</span>
+        <span>肥胖I</span>
+        <span>肥胖II</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📋 BMI 標準對照表（亞洲成年人）</h2>
+    <table class="ref-table">
+      <thead>
+        <tr><th>分類</th><th>BMI 範圍</th><th>風險程度</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="dot" style="background:var(--underweight)"></span>體重過輕</td><td>&lt; 18.5</td><td>營養不良風險較高</td></tr>
+        <tr><td><span class="dot" style="background:var(--normal)"></span>正常範圍</td><td>18.5 – 24.0</td><td>健康風險最低</td></tr>
+        <tr><td><span class="dot" style="background:var(--overweight)"></span>體重過重</td><td>24.0 – 27.0</td><td>代謝疾病風險增加</td></tr>
+        <tr><td><span class="dot" style="background:var(--obese1)"></span>輕度肥胖</td><td>27.0 – 30.0</td><td>中度健康風險</td></tr>
+        <tr><td><span class="dot" style="background:var(--obese2)"></span>中度/重度肥胖</td><td>≥ 30.0</td><td>高度健康風險</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.85rem;color:var(--text-light);margin-top:8px">※ 台灣衛生福利部建議採用亞洲成年人標準</p>
+  </div>
+
+  <div class="section">
+    <h2>📖 什麼是 BMI？</h2>
+    <p>BMI（Body Mass Index，身體質量指數）是一種國際通用的體重評估標準，計算公式為：</p>
+    <p style="text-align:center;font-size:1.2rem;font-weight:700;margin:12px 0;padding:12px;background:var(--bg);border-radius:8px">BMI = 體重（kg）÷ 身高²（m²）</p>
+    <p>BMI 是目前國際上最廣泛使用的體重評估工具，雖然不能直接測量體脂肪，但與體脂肪率有高度相關性，適用於大多數成年人作為健康篩檢的初步指標。</p>
+  </div>
+
+  <div class="section">
+    <h2>❓ 常見問題（FAQ）</h2>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">BMI 計算公式是什麼？</div>
+      <div class="faq-answer"><p>BMI = 體重（公斤）÷ 身高²（公尺²）。舉例來說：身高 170 公分（1.7 公尺）、體重 65 公斤，BMI = 65 ÷ (1.7 × 1.7) = 22.5，屬於正常範圍。</p></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">BMI 正常值是多少？</div>
+      <div class="faq-answer"><p>根據台灣衛生福利部的標準，亞洲成年人的 BMI 正常範圍為 18.5 至 24.0。低於 18.5 為過輕，24.0 至 27.0 為過重，27.0 以上為肥胖。</p></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">BMI 準確嗎？有哪些限制？</div>
+      <div class="faq-answer"><p>BMI 是一個方便的初步篩檢工具，但也有其限制：(1) 無法區分肌肉與脂肪重量，所以健身人士可能被誤判為過重；(2) 不適用於孕婦、老年人、運動員；(3) 無法反映脂肪分布（如內臟脂肪）。建議搭配腰圍測量與體脂率一起評估。</p></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">BMI 過高該怎麼辦？</div>
+      <div class="faq-answer"><p>建議諮詢醫師或營養師，制定個人化的飲食與運動計畫。一般原則：控制熱量攝取、增加蔬菜攝取、減少加工食品、每週至少 150 分鐘中等強度有氧運動。不建議極端節食。</p></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">小孩和青少年也能用 BMI 嗎？</div>
+      <div class="faq-answer"><p>兒童與青少年的 BMI 解讀方式與成人不同，需要參考年齡與性別的生長曲線百分比。本計算機適用於 18 歲以上成年人，兒童請參考兒科醫師或兒童生長曲線圖。</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🔗 相關工具</h2>
+    <ul>
+      <li><a href="/qr-code-generator/" style="color:var(--primary)">QR Code 產生器</a> — 免費線上生成條碼</li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p><a href="/">🛠 工具站首頁</a> · <a href="/privacy-policy">隱私政策</a> · <a href="/terms">服務條款</a> · <a href="/about">關於我們</a></p>
+    <p style="margin-top:8px">© 2026 工具站 — 免費線上工具集</p>
+  </div>
+</footer>
+
+<script>
+function calcBMI() {
+  const h = parseFloat(document.getElementById('height').value);
+  const w = parseFloat(document.getElementById('weight').value);
+
+  if (!h || !w || h < 20 || w < 1) {
+    alert('請輸入有效的身高與體重數值');
+    return;
+  }
+
+  const bmi = w / ((h / 100) * (h / 100));
+  const rounded = Math.round(bmi * 10) / 10;
+
+  document.getElementById('bmiValue').textContent = rounded;
+
+  let category, color, leftPct;
+
+  if (bmi < 18.5) {
+    category = '⚠️ 體重過輕';
+    color = 'var(--underweight)';
+    leftPct = Math.max(2, (bmi / 40) * 100);
+  } else if (bmi < 24) {
+    category = '✅ 正常範圍';
+    color = 'var(--normal)';
+    leftPct = (bmi / 40) * 100;
+  } else if (bmi < 27) {
+    category = '⚡ 體重過重';
+    color = 'var(--overweight)';
+    leftPct = (bmi / 40) * 100;
+  } else if (bmi < 30) {
+    category = '🔶 輕度肥胖';
+    color = 'var(--obese1)';
+    leftPct = (bmi / 40) * 100;
+  } else {
+    category = '🔴 中度/重度肥胖';
+    color = 'var(--obese2)';
+    leftPct = Math.min(98, (bmi / 40) * 100);
+  }
+
+  document.getElementById('bmiCategory').textContent = category;
+  document.getElementById('bmiCategory').style.color = color;
+  document.getElementById('bmiMarker').style.left = leftPct + '%';
+}
+
+function toggleFAQ(el) {
+  el.classList.toggle('open');
+  const answer = el.nextElementSibling;
+  answer.classList.toggle('open');
+}
+
+// Auto-calculate on page load
+window.addEventListener('load', calcBMI);
+
+// Auto-calculate on input change
+document.querySelectorAll('input').forEach(inp => {
+  inp.addEventListener('input', calcBMI);
+});
+</script>
+</body>
+</html>
