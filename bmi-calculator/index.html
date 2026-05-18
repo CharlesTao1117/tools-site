@@ -3,402 +3,177 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n="bmi_title">Free BMI Calculator | Body Mass Index Online</title>
-<meta data-i18n="bmi_desc" name="description" content="Free online BMI Calculator. Enter your height and weight to calculate your Body Mass Index instantly. Includes BMI chart, weight categories, and health guidelines.">
+<title>BMI Calculator — Calculate Your Body Mass Index</title>
+<meta name="description" content="Free BMI Calculator. Enter your height and weight to calculate your Body Mass Index instantly. Visual gauge, weight categories, and health chart included.">
 <link rel="canonical" href="https://tools-site.pages.dev/bmi-calculator/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"BMI Calculator","url":"https://tools-site.pages.dev/bmi-calculator/","description":"Free online BMI Calculator. Enter height and weight to calculate Body Mass Index and weight category.","applicationCategory":"HealthApplication","operatingSystem":"Any","browserRequirements":"JavaScript"}</script>
-<link rel="stylesheet" href="/common/ads.css">
+<link rel="stylesheet" href="/common/premium.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"BMI Calculator","applicationCategory":"HealthApplication"}</script>
 <style>
-:root {
-  --primary: #0891b2;
-  --primary-hover: #0e7490;
-  --bg: #f8fafc;
-  --card: #ffffff;
-  --text: #1e293b;
-  --text-light: #64748b;
-  --border: #e2e8f0;
-  --radius: 12px;
-  --underweight: #60a5fa;
-  --normal: #22c55e;
-  --overweight: #eab308;
-  --obese1: #f97316;
-  --obese2: #ef4444;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  min-height: 100vh;
-}
-.container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
-
-header {
-  background: linear-gradient(135deg, var(--primary), #06b6d4);
-  color: #fff;
-  text-align: center;
-  padding: 48px 20px 40px;
-}
-header h1 { font-size: 2rem; margin-bottom: 8px; letter-spacing: -0.5px; }
-header p { font-size: 1.05rem; opacity: 0.9; }
-
-.top-nav {
-  background: #fff;
-  border-bottom: 1px solid var(--border);
-  padding: 12px 0;
-}
-.top-nav .container {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  justify-content: space-between;
-}
-.top-nav .links { display: flex; gap: 20px; flex-wrap: wrap; }
-.top-nav a {
-  color: var(--text-light);
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: color .2s;
-}
-.top-nav a:hover, .top-nav a.active { color: var(--primary); }
-
-#langToggle {
-  background: var(--bg);
-  border: 2px solid var(--border);
-  border-radius: 20px;
-  padding: 4px 14px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--text);
-  transition: all .2s;
-  white-space: nowrap;
-}
-#langToggle:hover { border-color: var(--primary); color: var(--primary); }
-
-.card {
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: 0 1px 3px rgba(0,0,0,.08);
-  padding: 32px;
-  margin: -24px auto 24px;
+body { --accent: #0891b2; --accent-subtle: rgba(8,145,178,0.1); --accent-text: #0e7490; }
+.bmi-gauge {
   position: relative;
+  height: 12px;
+  border-radius: 6px;
+  margin: 20px 0 4px;
+  background: linear-gradient(to right, #60a5fa 0%, #60a5fa 18.5%, #22c55e 18.5%, #22c55e 24%, #eab308 24%, #eab308 27%, #f97316 27%, #f97316 30%, #ef4444 30%, #ef4444 100%);
+  overflow: visible;
 }
-.form-row { display: flex; gap: 16px; flex-wrap: wrap; }
-.form-group { flex: 1; min-width: 160px; margin-bottom: 20px; }
-.form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; color: var(--text); }
-.form-group .input-wrap { position: relative; }
-.form-group .input-wrap input {
-  width: 100%; padding: 12px 14px; padding-right: 48px;
-  border: 2px solid var(--border); border-radius: 8px; font-size: 1.1rem;
-  transition: border-color .2s; font-family: inherit;
+.bmi-marker {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 20px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: left 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  z-index: 2;
 }
-.form-group .input-wrap input:focus { outline: none; border-color: var(--primary); }
-.form-group .input-wrap .unit {
-  position: absolute; right: 14px; top: 50%;
-  transform: translateY(-50%); color: var(--text-light);
-  font-size: 0.9rem; font-weight: 600;
+.bmi-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+  margin-top: 4px;
 }
-
-.result-box {
-  text-align: center; padding: 24px; margin: 16px 0 0;
-  background: var(--bg); border-radius: 12px;
+.result-category {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 4px;
 }
-.result-box .bmi-value { font-size: 3rem; font-weight: 800; line-height: 1.2; }
-.result-box .bmi-category { font-size: 1.3rem; font-weight: 700; margin-top: 4px; }
-.result-box .bmi-range { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; }
-
-.bmi-scale {
-  margin: 20px 0 8px; position: relative; height: 16px;
-  border-radius: 8px; overflow: hidden;
-  background: linear-gradient(to right,
-    var(--underweight) 0%, var(--underweight) 18.5%,
-    var(--normal) 18.5%, var(--normal) 24%,
-    var(--overweight) 24%, var(--overweight) 27%,
-    var(--obese1) 27%, var(--obese1) 30%,
-    var(--obese2) 30%, var(--obese2) 100%);
+.bmi-value { font-size: 3.5rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+.result-box .ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  font-size: 0.82rem;
 }
-.bmi-marker { position: absolute; top: -4px; width: 4px; height: 24px; background: #1e293b; border-radius: 2px; transition: left .3s; z-index: 2; }
-.bmi-labels { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-light); margin-top: 2px; }
-
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 14px 28px; border: none; border-radius: 8px; font-size: 1rem;
-  font-weight: 600; cursor: pointer; transition: all .2s; width: 100%; margin-top: 16px;
+.result-box .ref-table th, .result-box .ref-table td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
 }
-.btn-primary { background: var(--primary); color: #fff; }
-.btn-primary:hover { background: var(--primary-hover); }
-
-.ref-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
-.ref-table th, .ref-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
-.ref-table th { background: var(--bg); font-weight: 600; }
-.ref-table .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
-
-.section { margin: 32px 0; }
-.section h2 { font-size: 1.3rem; margin-bottom: 12px; color: var(--text); }
-.section p, .section li { color: var(--text-light); }
-.section ul { padding-left: 20px; }
-.section li { margin-bottom: 6px; }
-
-.faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
-.faq-question {
-  padding: 14px 18px; font-weight: 600; cursor: pointer;
-  display: flex; justify-content: space-between; align-items: center;
-  background: #fff; transition: background .2s;
-}
-.faq-question:hover { background: #f1f5f9; }
-.faq-question::after { content: "+"; font-size: 1.2rem; color: var(--primary); }
-.faq-question.open::after { content: "−"; }
-.faq-answer { padding: 0 18px; max-height: 0; overflow: hidden; transition: all .3s; color: var(--text-light); }
-.faq-answer.open { padding: 14px 18px; max-height: 300px; }
-
-footer {
-  text-align: center; padding: 32px 20px; color: var(--text-light);
-  font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 40px;
-}
-footer a { color: var(--primary); text-decoration: none; }
-
-@media (max-width: 480px) {
-  header { padding: 36px 16px 32px; }
-  header h1 { font-size: 1.5rem; }
-  .card { padding: 20px; margin-top: -16px; }
+.result-box .ref-table th { font-weight: 500; color: var(--text-tertiary); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.result-box .ref-table td:first-child { display: flex; align-items: center; gap: 6px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+.formula-card {
+  text-align: center;
+  padding: 16px;
+  background: var(--accent-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  margin: 12px 0;
+  color: var(--accent-text);
 }
 </style>
 </head>
 <body>
-
-<nav class="top-nav">
-  <div class="container">
-    <div class="links">
-      <a href="/" style="font-weight:700;color:var(--primary)" data-i18n="nav_home">Home</a>
-      <a href="/qr-code-generator/" data-i18n="nav_qr">QR Code Generator</a>
-      <a href="/bmi-calculator/" class="active" data-i18n="nav_bmi">BMI Calculator</a>
-      <a href="/discount-calculator/" data-i18n="nav_discount">Discount Calculator</a>
-      <a href="/password-generator/" data-i18n="nav_password">Password Generator</a>
-      <a href="/percentage-calculator/">Percentage Calculator</a>
-      <a href="/age-calculator/">Age Calculator</a>
-      <a href="/date-calculator/">Date Calculator</a>
-    </div>
-    <button id="langToggle" onclick="i18n.toggle()">中文</button>
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/">Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/" class="active">BMI</a>
+    <a href="/percentage-calculator/">Percentage</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/discount-calculator/">Discount</a>
+    <a href="/password-generator/">Password</a>
   </div>
-</nav>
+</div></nav>
 
-<header>
-  <h1 data-i18n="bmi_heading">⚖️ BMI Calculator</h1>
-  <p data-i18n="bmi_sub">Enter your height and weight to calculate your Body Mass Index and weight category</p>
-</header>
-
-<!-- Ad Slot: Top Banner -->
-<div class="ad-slot">
-  <div class="ad-label">Advertisement</div>
-  <!-- Google AdSense code goes here -->
-  <div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div>
+<div class="hero">
+  <h1>⚖️ BMI Calculator</h1>
+  <p>Enter your height and weight to calculate your Body Mass Index</p>
 </div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:0.85rem">Ad Space</div></div>
 
 <main class="container">
   <div class="card">
     <div class="form-row">
       <div class="form-group">
-        <label data-i18n="bmi_height_label" for="height">Height</label>
+        <label>Height</label>
         <div class="input-wrap">
           <input type="number" id="height" value="170" min="50" max="250" step="0.1">
-          <span class="unit">cm</span>
+          <span class="suffix">cm</span>
         </div>
       </div>
       <div class="form-group">
-        <label data-i18n="bmi_weight_label" for="weight">Weight</label>
+        <label>Weight</label>
         <div class="input-wrap">
           <input type="number" id="weight" value="65" min="10" max="300" step="0.1">
-          <span class="unit">kg</span>
+          <span class="suffix">kg</span>
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="calcBMI()" data-i18n="bmi_calc_btn">📊 Calculate BMI</button>
 
-    <div class="result-box">
+    <div class="result-box animate-in">
       <div class="bmi-value" id="bmiValue">22.5</div>
-      <div class="bmi-category" id="bmiCategory" style="color:var(--normal)">✅ Normal</div>
-      <div class="bmi-range" data-i18n="bmi_normal_range">Normal range: 18.5–24.0</div>
-      <div class="bmi-scale">
+      <div class="result-category" id="bmiCategory" style="color:var(--accent)">Normal</div>
+      <div class="desc" id="bmiRange">Healthy range: 18.5 – 24.0</div>
+      <div class="bmi-gauge">
         <div class="bmi-marker" id="bmiMarker" style="left:56%"></div>
       </div>
       <div class="bmi-labels">
-        <span data-i18n="bmi_underweight">Underweight</span>
-        <span data-i18n="bmi_normal">Normal</span>
-        <span data-i18n="bmi_overweight">Overweight</span>
-        <span data-i18n="bmi_obese1">Obese I</span>
-        <span data-i18n="bmi_obese2">Obese II</span>
+        <span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese I</span><span>Obese II</span>
       </div>
+
+      <table class="ref-table">
+        <thead><tr><th>Category</th><th>Range</th><th>Risk</th></tr></thead>
+        <tbody>
+          <tr><td><span class="dot" style="background:#60a5fa"></span>Underweight</td><td>&lt; 18.5</td><td>Malnutrition risk</td></tr>
+          <tr><td><span class="dot" style="background:#22c55e"></span>Normal</td><td>18.5 – 24.0</td><td>Lowest risk</td></tr>
+          <tr><td><span class="dot" style="background:#eab308"></span>Overweight</td><td>24.0 – 27.0</td><td>Increased metabolic risk</td></tr>
+          <tr><td><span class="dot" style="background:#f97316"></span>Mild Obesity</td><td>27.0 – 30.0</td><td>Moderate risk</td></tr>
+          <tr><td><span class="dot" style="background:#ef4444"></span>Severe Obesity</td><td>≥ 30.0</td><td>High risk</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Ad Slot: In-Content -->
-  <div class="ad-slot">
-    <div class="ad-label">Advertisement</div>
-    <!-- Google AdSense code goes here -->
-    <div class="ad-placeholder" style="text-align:center">📢 Ad Space (300×250)</div>
+  <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:0.85rem">Ad Space</div></div>
+
+  <div class="section">
+    <h2>What is BMI?</h2>
+    <p>BMI (Body Mass Index) is a widely-used screening tool that estimates body fat based on height and weight. While it doesn't measure body fat directly, it correlates well for most adults.</p>
+    <div class="formula-card">BMI = Weight (kg) ÷ Height² (m²)</div>
   </div>
 
   <div class="section">
-    <h2 data-i18n="bmi_chart_title">📋 BMI Reference Chart (Asian Adults)</h2>
-    <table class="ref-table">
-      <thead><tr><th data-i18n="bmi_chart_h1">Category</th><th data-i18n="bmi_chart_h2">BMI Range</th><th data-i18n="bmi_chart_h3">Risk Level</th></tr></thead>
-      <tbody>
-        <tr><td><span class="dot" style="background:var(--underweight)"></span><span data-i18n="bmi_chart_uw">Underweight</span></td><td>&lt; 18.5</td><td data-i18n="bmi_chart_uw_risk">Higher risk of malnutrition</td></tr>
-        <tr><td><span class="dot" style="background:var(--normal)"></span><span data-i18n="bmi_chart_n">Normal</span></td><td>18.5 – 24.0</td><td data-i18n="bmi_chart_n_risk">Lowest health risk</td></tr>
-        <tr><td><span class="dot" style="background:var(--overweight)"></span><span data-i18n="bmi_chart_ow">Overweight</span></td><td>24.0 – 27.0</td><td data-i18n="bmi_chart_ow_risk">Increased metabolic risk</td></tr>
-        <tr><td><span class="dot" style="background:var(--obese1)"></span><span data-i18n="bmi_chart_o1">Mild Obesity</span></td><td>27.0 – 30.0</td><td data-i18n="bmi_chart_o1_risk">Moderate health risk</td></tr>
-        <tr><td><span class="dot" style="background:var(--obese2)"></span><span data-i18n="bmi_chart_o2">Moderate/Severe Obesity</span></td><td>≥ 30.0</td><td data-i18n="bmi_chart_o2_risk">High health risk</td></tr>
-      </tbody>
-    </table>
-    <p style="font-size:0.85rem;color:var(--text-light);margin-top:8px" data-i18n="bmi_chart_note">* Based on Taiwan Ministry of Health and Welfare guidelines for Asian adults</p>
-  </div>
-
-  <div class="section">
-    <h2 data-i18n="bmi_what_title">📖 What is BMI?</h2>
-    <p data-i18n="bmi_what_intro">BMI (Body Mass Index) is an internationally used measure for body weight assessment. The formula is:</p>
-    <p style="text-align:center;font-size:1.2rem;font-weight:700;margin:12px 0;padding:12px;background:var(--bg);border-radius:8px" data-i18n="bmi_formula">BMI = Weight (kg) ÷ Height² (m²)</p>
-    <p data-i18n="bmi_what_body">BMI is the most widely used weight assessment tool. While it doesn't directly measure body fat, it correlates highly with body fat percentage for most adults and serves as a useful initial health screening indicator.</p>
-  </div>
-
-  <div class="section">
-    <h2 data-i18n="bmi_faq_title">❓ Frequently Asked Questions</h2>
-
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)" data-i18n="bmi_faq1_q">What is the BMI formula?</div>
-      <div class="faq-answer"><p data-i18n="bmi_faq1_a">BMI = Weight (kg) ÷ Height² (m²). For example: height 170 cm (1.7 m), weight 65 kg → BMI = 65 ÷ (1.7 × 1.7) = 22.5, which is in the normal range.</p></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)" data-i18n="bmi_faq2_q">What is a normal BMI?</div>
-      <div class="faq-answer"><p data-i18n="bmi_faq2_a">For Asian adults, the normal BMI range is 18.5 to 24.0. Below 18.5 is underweight, 24.0 to 27.0 is overweight, and above 27.0 is obese.</p></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)" data-i18n="bmi_faq3_q">Is BMI accurate? What are its limitations?</div>
-      <div class="faq-answer"><p data-i18n="bmi_faq3_a">BMI is a convenient screening tool but has limitations: (1) It cannot distinguish muscle from fat, so athletes may be miscategorized as overweight. (2) Not suitable for pregnant women, the elderly, or bodybuilders. (3) Doesn't reflect fat distribution. Combine with waist measurement and body fat percentage for a fuller picture.</p></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)" data-i18n="bmi_faq4_q">What should I do if my BMI is high?</div>
-      <div class="faq-answer"><p data-i18n="bmi_faq4_a">Consult a doctor or nutritionist for a personalized diet and exercise plan. General principles: control calorie intake, eat more vegetables, reduce processed foods, and aim for at least 150 minutes of moderate aerobic exercise per week. Avoid extreme dieting.</p></div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFAQ(this)" data-i18n="bmi_faq5_q">Can children and teenagers use BMI?</div>
-      <div class="faq-answer"><p data-i18n="bmi_faq5_a">BMI interpretation for children and teens differs from adults — it must be compared to age and sex-specific growth percentile charts. This calculator is for adults 18+. For children, please consult a pediatrician or growth chart.</p></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2 data-i18n="related_tools">🔗 Related Tools</h2>
-    <ul>
-      <li><a href="/qr-code-generator/" style="color:var(--primary)" data-i18n="bmi_rel_qr">QR Code Generator</a> <span data-i18n="bmi_rel_qr_desc">— Create QR codes for free</span></li>
-    </ul>
+    <h2>FAQ</h2>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's a normal BMI?</div><div class="faq-answer"><p>For Asian adults, 18.5–24.0 is the normal range. Below 18.5 is underweight, 24.0+ is overweight, and 27.0+ is obese per Taiwan MOHW guidelines.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is BMI accurate?</div><div class="faq-answer"><p>BMI is a useful screening tool but has limits: it can't distinguish muscle from fat, isn't suitable for athletes/pregnant women/elderly, and doesn't measure fat distribution.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What should I do if my BMI is high?</div><div class="faq-answer"><p>Consult a doctor or nutritionist. General advice: control calories, eat more vegetables, reduce processed foods, and aim for 150+ minutes of exercise per week.</p></div></div>
   </div>
 </main>
 
-<!-- Ad Slot: Bottom Banner -->
-<div class="ad-slot">
-  <div class="ad-label">Advertisement</div>
-  <!-- Google AdSense code goes here -->
-  <div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div>
-</div>
+<footer><div class="container"><p><a href="/">Home</a> · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a></p><p style="margin-top:6px">© 2026 Free Online Tools</p></div></footer>
 
-<footer>
-  <div class="container">
-    <p><span data-i18n="footer_pages">Home · Privacy Policy · Terms · About</span></p>
-    <p style="margin-top:8px" data-i18n="footer_cr">© 2026 Free Online Tools</p>
-  </div>
-</footer>
-
-<script src="/common/i18n.js"></script>
 <script>
-i18n.register({
-  bmi_title:       { en: 'Free BMI Calculator | Body Mass Index Online', zh: '免費 BMI 計算機 | 身體質量指數線上計算' },
-  bmi_desc:        { en: 'Free online BMI Calculator. Enter your height and weight to calculate your Body Mass Index instantly. Includes BMI chart, weight categories, and health guidelines.', zh: '免費線上 BMI 計算機，輸入身高體重立即計算身體質量指數。附 BMI 標準對照表、體重分類與健康建議。無須註冊，完全免費。' },
-  bmi_heading:     { en: '⚖️ BMI Calculator', zh: '⚖️ BMI 計算機' },
-  bmi_sub:         { en: 'Enter your height and weight to calculate your Body Mass Index and weight category', zh: '輸入身高體重，立即計算身體質量指數與體重分類' },
-  bmi_height_label:{ en: 'Height', zh: '身高' },
-  bmi_weight_label:{ en: 'Weight', zh: '體重' },
-  bmi_calc_btn:    { en: '📊 Calculate BMI', zh: '📊 計算 BMI' },
-  bmi_normal_range:{ en: 'Normal range: 18.5–24.0', zh: '正常範圍：18.5–24.0' },
-  bmi_underweight: { en: 'Underweight', zh: '過輕' },
-  bmi_normal:      { en: 'Normal', zh: '正常' },
-  bmi_overweight:  { en: 'Overweight', zh: '過重' },
-  bmi_obese1:      { en: 'Obese I', zh: '肥胖I' },
-  bmi_obese2:      { en: 'Obese II', zh: '肥胖II' },
-  bmi_chart_title: { en: '📋 BMI Reference Chart (Asian Adults)', zh: '📋 BMI 標準對照表（亞洲成年人）' },
-  bmi_chart_h1:    { en: 'Category', zh: '分類' },
-  bmi_chart_h2:    { en: 'BMI Range', zh: 'BMI 範圍' },
-  bmi_chart_h3:    { en: 'Risk Level', zh: '風險程度' },
-  bmi_chart_uw:    { en: 'Underweight', zh: '體重過輕' },
-  bmi_chart_uw_risk: { en: 'Higher risk of malnutrition', zh: '營養不良風險較高' },
-  bmi_chart_n:     { en: 'Normal', zh: '正常範圍' },
-  bmi_chart_n_risk:{ en: 'Lowest health risk', zh: '健康風險最低' },
-  bmi_chart_ow:    { en: 'Overweight', zh: '體重過重' },
-  bmi_chart_ow_risk:{ en: 'Increased metabolic risk', zh: '代謝疾病風險增加' },
-  bmi_chart_o1:    { en: 'Mild Obesity', zh: '輕度肥胖' },
-  bmi_chart_o1_risk:{en: 'Moderate health risk', zh: '中度健康風險' },
-  bmi_chart_o2:    { en: 'Moderate/Severe Obesity', zh: '中度/重度肥胖' },
-  bmi_chart_o2_risk:{en: 'High health risk', zh: '高度健康風險' },
-  bmi_chart_note:  { en: '* Based on Taiwan Ministry of Health and Welfare guidelines for Asian adults', zh: '※ 台灣衛生福利部建議採用亞洲成年人標準' },
-  bmi_what_title:  { en: '📖 What is BMI?', zh: '📖 什麼是 BMI？' },
-  bmi_what_intro:  { en: 'BMI (Body Mass Index) is an internationally used measure for body weight assessment. The formula is:', zh: 'BMI（Body Mass Index，身體質量指數）是一種國際通用的體重評估標準，計算公式為：' },
-  bmi_formula:     { en: 'BMI = Weight (kg) ÷ Height² (m²)', zh: 'BMI = 體重（kg）÷ 身高²（m²）' },
-  bmi_what_body:   { en: 'BMI is the most widely used weight assessment tool. While it doesn\'t directly measure body fat, it correlates highly with body fat percentage for most adults and serves as a useful initial health screening indicator.', zh: 'BMI 是目前國際上最廣泛使用的體重評估工具，雖然不能直接測量體脂肪，但與體脂肪率有高度相關性，適用於大多數成年人作為健康篩檢的初步指標。' },
-  bmi_faq_title:   { en: '❓ Frequently Asked Questions', zh: '❓ 常見問題' },
-  bmi_faq1_q:      { en: 'What is the BMI formula?', zh: 'BMI 計算公式是什麼？' },
-  bmi_faq1_a:      { en: 'BMI = Weight (kg) ÷ Height² (m²). For example: height 170 cm (1.7 m), weight 65 kg → BMI = 65 ÷ (1.7 × 1.7) = 22.5, which is in the normal range.', zh: 'BMI = 體重（公斤）÷ 身高²（公尺²）。舉例來說：身高 170 公分（1.7 公尺）、體重 65 公斤，BMI = 65 ÷ (1.7 × 1.7) = 22.5，屬於正常範圍。' },
-  bmi_faq2_q:      { en: 'What is a normal BMI?', zh: 'BMI 正常值是多少？' },
-  bmi_faq2_a:      { en: 'For Asian adults, the normal BMI range is 18.5 to 24.0. Below 18.5 is underweight, 24.0 to 27.0 is overweight, and above 27.0 is obese.', zh: '根據台灣衛生福利部的標準，亞洲成年人的 BMI 正常範圍為 18.5 至 24.0。低於 18.5 為過輕，24.0 至 27.0 為過重，27.0 以上為肥胖。' },
-  bmi_faq3_q:      { en: 'Is BMI accurate? What are its limitations?', zh: 'BMI 準確嗎？有哪些限制？' },
-  bmi_faq3_a:      { en: 'BMI is a convenient screening tool but has limitations: (1) It cannot distinguish muscle from fat, so athletes may be miscategorized as overweight. (2) Not suitable for pregnant women, the elderly, or bodybuilders. (3) Doesn\'t reflect fat distribution. Combine with waist measurement and body fat percentage for a fuller picture.', zh: 'BMI 是一個方便的初步篩檢工具，但也有其限制：(1) 無法區分肌肉與脂肪重量，所以健身人士可能被誤判為過重；(2) 不適用於孕婦、老年人、運動員；(3) 無法反映脂肪分布（如內臟脂肪）。建議搭配腰圍測量與體脂率一起評估。' },
-  bmi_faq4_q:      { en: 'What should I do if my BMI is high?', zh: 'BMI 過高該怎麼辦？' },
-  bmi_faq4_a:      { en: 'Consult a doctor or nutritionist for a personalized diet and exercise plan. General principles: control calorie intake, eat more vegetables, reduce processed foods, and aim for at least 150 minutes of moderate aerobic exercise per week. Avoid extreme dieting.', zh: '建議諮詢醫師或營養師，制定個人化的飲食與運動計畫。一般原則：控制熱量攝取、增加蔬菜攝取、減少加工食品、每週至少 150 分鐘中等強度有氧運動。不建議極端節食。' },
-  bmi_faq5_q:      { en: 'Can children and teenagers use BMI?', zh: '小孩和青少年也能用 BMI 嗎？' },
-  bmi_faq5_a:      { en: 'BMI interpretation for children and teens differs from adults — it must be compared to age and sex-specific growth percentile charts. This calculator is for adults 18+. For children, please consult a pediatrician or growth chart.', zh: '兒童與青少年的 BMI 解讀方式與成人不同，需要參考年齡與性別的生長曲線百分位。本計算機適用於 18 歲以上成年人，兒童請參考兒科醫師或兒童生長曲線圖。' },
-  bmi_rel_qr:      { en: 'QR Code Generator', zh: 'QR Code 產生器' },
-  bmi_rel_qr_desc: { en: '— Create QR codes for free', zh: '— 免費線上生成條碼' },
-});
-
 function calcBMI() {
-  const h = parseFloat(document.getElementById('height').value);
-  const w = parseFloat(document.getElementById('weight').value);
-  if (!h || !w || h < 20 || w < 1) {
-    alert(i18n.isEN ? 'Please enter valid height and weight' : '請輸入有效的身高與體重數值');
-    return;
-  }
-  const bmi = w / ((h / 100) * (h / 100));
-  const rounded = Math.round(bmi * 10) / 10;
+  const h=parseFloat(document.getElementById('height').value);
+  const w=parseFloat(document.getElementById('weight').value);
+  if(!h||!w||h<20||w<1)return;
+  const bmi=w/((h/100)*(h/100));
+  const r=Math.round(bmi*10)/10;
+  document.getElementById('bmiValue').textContent=r;
 
-  document.getElementById('bmiValue').textContent = rounded;
+  let cat,color,pct;
+  if(bmi<18.5){cat='Underweight';color='#60a5fa';pct=Math.max(2,(bmi/40)*100);}
+  else if(bmi<24){cat='Normal';color='#22c55e';pct=(bmi/40)*100;}
+  else if(bmi<27){cat='Overweight';color='#eab308';pct=(bmi/40)*100;}
+  else if(bmi<30){cat='Mild Obesity';color='#f97316';pct=(bmi/40)*100;}
+  else{cat='Severe Obesity';color='#ef4444';pct=Math.min(98,(bmi/40)*100);}
 
-  let categoryEN, categoryZH, color, leftPct;
-  if (bmi < 18.5) {
-    categoryEN = '⚠️ Underweight'; categoryZH = '⚠️ 體重過輕';
-    color = 'var(--underweight)'; leftPct = Math.max(2, (bmi / 40) * 100);
-  } else if (bmi < 24) {
-    categoryEN = '✅ Normal'; categoryZH = '✅ 正常範圍';
-    color = 'var(--normal)'; leftPct = (bmi / 40) * 100;
-  } else if (bmi < 27) {
-    categoryEN = '⚡ Overweight'; categoryZH = '⚡ 體重過重';
-    color = 'var(--overweight)'; leftPct = (bmi / 40) * 100;
-  } else if (bmi < 30) {
-    categoryEN = '🔶 Mild Obesity'; categoryZH = '🔶 輕度肥胖';
-    color = 'var(--obese1)'; leftPct = (bmi / 40) * 100;
-  } else {
-    categoryEN = '🔴 Moderate/Severe Obesity'; categoryZH = '🔴 中度/重度肥胖';
-    color = 'var(--obese2)'; leftPct = Math.min(98, (bmi / 40) * 100);
-  }
-
-  document.getElementById('bmiCategory').textContent = i18n.isEN ? categoryEN : categoryZH;
-  document.getElementById('bmiCategory').style.color = color;
-  document.getElementById('bmiMarker').style.left = leftPct + '%';
+  document.getElementById('bmiCategory').textContent=cat;
+  document.getElementById('bmiCategory').style.color=color;
+  document.getElementById('bmiMarker').style.left=pct+'%';
 }
-
-function toggleFAQ(el) { el.classList.toggle('open'); el.nextElementSibling.classList.toggle('open'); }
-
-window.addEventListener('load', () => { i18n.init(); calcBMI(); });
-document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', calcBMI));
+function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
+['height','weight'].forEach(id=>document.getElementById(id).addEventListener('input',calcBMI));
+window.addEventListener('load',calcBMI);
 </script>
 </body>
 </html>

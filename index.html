@@ -3,233 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n="home_title">Free Online Tools | Useful Utilities</title>
-<meta data-i18n="home_desc" name="description" content="Free online tools — QR Code Generator, BMI Calculator, and more. No registration required.">
+<title>Free Online Tools — Premium Utility Toolkit</title>
+<meta name="description" content="Free online tools — QR Code Generator, BMI Calculator, Percentage Calculator, Age Calculator, Date Calculator, Discount Calculator, Password Generator.">
 <link rel="canonical" href="https://tools-site.pages.dev/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Free Online Tools","description":"Collection of free online utility tools.","url":"https://tools-site.pages.dev/"}</script>
-<link rel="stylesheet" href="/common/ads.css">
+<link rel="stylesheet" href="/common/premium.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Free Online Tools","description":"Collection of premium free online utility tools."}</script>
 <style>
-:root {
-  --primary: #6366f1;
-  --bg: #f8fafc;
-  --card: #ffffff;
-  --text: #1e293b;
-  --text-light: #64748b;
-  --border: #e2e8f0;
-  --radius: 12px;
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:32px 0}
+.tool-card{padding:20px;border:1px solid var(--border);border-radius:var(--radius-md);transition:all .2s;background:var(--bg-card);display:flex;flex-direction:column;gap:8px}
+.tool-card:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-subtle);transform:translateY(-2px)}
+.tool-card:active{transform:translateY(0)}
+.tool-card .icon{font-size:1.8rem;line-height:1}
+.tool-card h3{font-size:.95rem;font-weight:600;letter-spacing:-.02em}
+.tool-card p{font-size:.8rem;color:var(--text-secondary);line-height:1.5}
+.tool-card .tag{display:inline-block;padding:2px 8px;font-size:.65rem;font-weight:500;border-radius:4px;background:var(--accent-subtle);color:var(--accent-text);align-self:flex-start}
+.hero-large{text-align:center;padding:64px 0 40px}
+.hero-large h1{font-size:2.5rem;font-weight:700;letter-spacing:-.04em;line-height:1.1;margin-bottom:12px}
+.hero-large p{font-size:1.1rem;color:var(--text-secondary);max-width:500px;margin:0 auto}
+@media(max-width:640px){
+  .tool-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .tool-card{padding:16px}
+  .hero-large h1{font-size:1.8rem}
+  .hero-large{padding:40px 0 24px}
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  min-height: 100vh;
-}
-.container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
-
-header {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
-  color: #fff;
-  padding: 60px 20px 48px;
-}
-header h1 { font-size: 2.2rem; margin-bottom: 10px; letter-spacing: -0.5px; }
-header p { font-size: 1.1rem; opacity: 0.9; }
-
-/* Nav */
-.top-nav {
-  background: #fff;
-  border-bottom: 1px solid var(--border);
-  padding: 12px 0;
-}
-.top-nav .container {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  justify-content: space-between;
-}
-.top-nav .links { display: flex; gap: 20px; flex-wrap: wrap; }
-.top-nav a {
-  color: var(--text-light);
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: color .2s;
-}
-.top-nav a:hover, .top-nav a.active { color: var(--primary); }
-
-/* Lang Toggle */
-#langToggle {
-  background: var(--bg);
-  border: 2px solid var(--border);
-  border-radius: 20px;
-  padding: 4px 14px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--text);
-  transition: all .2s;
-  white-space: nowrap;
-}
-#langToggle:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-.tool-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  margin: 40px 0;
-}
-.tool-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: 0 1px 3px rgba(0,0,0,.08);
-  padding: 28px;
-  text-decoration: none;
-  color: var(--text);
-  transition: all .2s;
-  border: 2px solid transparent;
-}
-.tool-card:hover {
-  border-color: var(--primary);
-  box-shadow: 0 4px 12px rgba(99,102,241,.15);
-  transform: translateY(-2px);
-}
-.tool-card .icon { font-size: 2.5rem; margin-bottom: 12px; }
-.tool-card h2 { font-size: 1.2rem; margin-bottom: 6px; }
-.tool-card p { font-size: 0.9rem; color: var(--text-light); }
-.tool-card .tag {
-  display: inline-block;
-  background: #eef2ff;
-  color: var(--primary);
-  font-size: 0.75rem;
-  padding: 3px 10px;
-  border-radius: 20px;
-  margin-top: 12px;
-  font-weight: 600;
-}
-footer {
-  text-align: center;
-  padding: 32px 20px;
-  color: var(--text-light);
-  font-size: 0.85rem;
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
-}
-footer a { color: var(--primary); text-decoration: none; }
 </style>
 </head>
 <body>
-<nav class="top-nav">
-  <div class="container">
-    <div class="links">
-      <a href="/" style="font-weight:700;color:var(--primary)" data-i18n="nav_home">Home</a>
-      <a href="/qr-code-generator/" data-i18n="nav_qr">QR Code Generator</a>
-      <a href="/bmi-calculator/" data-i18n="nav_bmi">BMI Calculator</a>
-      <a href="/discount-calculator/" data-i18n="nav_discount">Discount Calculator</a>
-      <a href="/password-generator/">Password Generator</a>
-      <a href="/percentage-calculator/">Percentage Calculator</a>
-      <a href="/age-calculator/">Age Calculator</a>
-      <a href="/date-calculator/">Date Calculator</a>
-    </div>
-    <button id="langToggle" onclick="i18n.toggle()">中文</button>
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/" style="color:var(--accent);font-weight:700">Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/">BMI</a>
+    <a href="/percentage-calculator/">Percentage</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/discount-calculator/">Discount</a>
+    <a href="/password-generator/">Password</a>
   </div>
-</nav>
+</div></nav>
 
-<header>
-  <h1 data-i18n="home_heading">🛠 Free Online Tools</h1>
-  <p data-i18n="home_sub">Handy utilities, totally free, no sign-up needed</p>
-</header>
-
-<!-- Ad Slot: Top Banner -->
-<div class="ad-slot">
-  <div class="ad-label">Advertisement</div>
-  <!-- Google AdSense code goes here -->
-  <div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div>
+<div class="hero-large">
+  <h1>🛠 Premium Free Tools</h1>
+  <p>Utility tools that respect your privacy — no sign-up, no tracking, just results</p>
 </div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:.85rem">Ad Space</div></div>
 
 <main class="container">
   <div class="tool-grid">
-    <a href="/qr-code-generator/" class="tool-card">
+    <a href="/qr-code-generator/" class="tool-card" style="--accent:#6366f1;--accent-subtle:rgba(99,102,241,.1);--accent-text:#4f46e5">
       <div class="icon">📱</div>
-      <h2 data-i18n="home_card_qr_title">QR Code Generator</h2>
-      <p data-i18n="home_card_qr_desc">Turn text or URLs into QR codes instantly. Download as PNG. Adjustable size and color.</p>
-      <span class="tag" data-i18n="home_card_qr_tag">Generator</span>
+      <h3>QR Code Generator</h3>
+      <p>Create QR codes from text or URLs. Download as PNG with custom size and color.</p>
+      <span class="tag">Generator</span>
     </a>
-    <a href="/bmi-calculator/" class="tool-card">
+    <a href="/bmi-calculator/" class="tool-card" style="--accent:#0891b2;--accent-subtle:rgba(8,145,178,.1);--accent-text:#0e7490">
       <div class="icon">⚖️</div>
-      <h2 data-i18n="home_card_bmi_title">BMI Calculator</h2>
-      <p data-i18n="home_card_bmi_desc">Calculate your Body Mass Index from height and weight. See the weight category and BMI chart.</p>
-      <span class="tag" data-i18n="home_card_bmi_tag">Health</span>
+      <h3>BMI Calculator</h3>
+      <p>Calculate Body Mass Index with visual gauge and health category chart.</p>
+      <span class="tag">Health</span>
     </a>
-    <a href="/discount-calculator/" class="tool-card">
-      <div class="icon">🏷️</div>
-      <h2>Discount Calculator</h2>
-      <p>Calculate the final price after any discount. Supports both percentage off and fixed amount off.</p>
-      <span class="tag">Finance</span>
-    </a>
-    <a href="/password-generator/" class="tool-card">
-      <div class="icon">🔐</div>
-      <h2>Password Generator</h2>
-      <p>Create strong, random passwords with customizable length and character types. Copy with one click.</p>
-      <span class="tag">Security</span>
-    </a>
-    <a href="/percentage-calculator/" class="tool-card">
+    <a href="/percentage-calculator/" class="tool-card" style="--accent:#d946ef;--accent-subtle:rgba(217,70,239,.1);--accent-text:#c026d3">
       <div class="icon">📊</div>
-      <h2>Percentage Calculator</h2>
-      <p>Calculate percentages — find X% of Y, express ratios, and compute percentage change.</p>
+      <h3>Percentage Calculator</h3>
+      <p>Find percentages, ratios, and changes with live visual bars.</p>
       <span class="tag">Math</span>
     </a>
-    <a href="/age-calculator/" class="tool-card">
+    <a href="/age-calculator/" class="tool-card" style="--accent:#f59e0b;--accent-subtle:rgba(245,158,11,.1);--accent-text:#d97706">
       <div class="icon">🎂</div>
-      <h2>Age Calculator</h2>
-      <p>Calculate your exact age in years, months, and days. See total days and next birthday countdown.</p>
+      <h3>Age Calculator</h3>
+      <p>Exact age in years, months, days. With birthday countdown.</p>
       <span class="tag">Utility</span>
     </a>
-    <a href="/date-calculator/" class="tool-card">
+    <a href="/date-calculator/" class="tool-card" style="--accent:#0ea5e9;--accent-subtle:rgba(14,165,233,.1);--accent-text:#0284c7">
       <div class="icon">📅</div>
-      <h2>Date Calculator</h2>
-      <p>Find days between any two dates, or add/subtract days and weeks from a date.</p>
+      <h3>Date Calculator</h3>
+      <p>Days between dates, or add/subtract days and weeks.</p>
       <span class="tag">Utility</span>
     </a>
-  </div>
-
-  <div style="text-align:center;padding:20px;color:var(--text-light)">
-    <p data-i18n="more_coming">More tools coming soon...</p>
+    <a href="/discount-calculator/" class="tool-card" style="--accent:#059669;--accent-subtle:rgba(5,150,105,.1);--accent-text:#047857">
+      <div class="icon">🏷️</div>
+      <h3>Discount Calculator</h3>
+      <p>% Off or $ Off. Visual price comparison with savings.</p>
+      <span class="tag">Finance</span>
+    </a>
+    <a href="/password-generator/" class="tool-card" style="--accent:#7c3aed;--accent-subtle:rgba(124,58,237,.1);--accent-text:#6d28d9">
+      <div class="icon">🔐</div>
+      <h3>Password Generator</h3>
+      <p>Strong random passwords with strength meter. Copy with one click.</p>
+      <span class="tag">Security</span>
+    </a>
   </div>
 </main>
 
-<!-- Ad Slot: Bottom Banner -->
-<div class="ad-slot">
-  <div class="ad-label">Advertisement</div>
-  <!-- Google AdSense code goes here -->
-  <div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div>
-</div>
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:.85rem">Ad Space</div></div>
 
-<footer>
-  <div class="container">
-    <p><span data-i18n="footer_pages">Home · Privacy Policy · Terms · About</span></p>
-    <p style="margin-top:8px" data-i18n="footer_cr">© 2026 Free Online Tools</p>
-  </div>
-</footer>
-
-<script src="/common/i18n.js"></script>
-<script>
-i18n.register({
-  home_title:     { en: 'Free Online Tools | Useful Utilities',        zh: '免費線上工具集 | 實用工具站' },
-  home_desc:      { en: 'Free online tools — QR Code Generator, BMI Calculator, and more. No registration required.', zh: '免費線上工具集，提供 QR Code 產生器、BMI 計算機等多種實用工具。無須註冊，完全免費。' },
-  home_heading:   { en: '🛠 Free Online Tools',                         zh: '🛠 免費線上工具集' },
-  home_sub:       { en: 'Handy utilities, totally free, no sign-up needed', zh: '實用線上工具，免費使用，無須註冊' },
-  home_card_qr_title: { en: 'QR Code Generator',                       zh: 'QR Code 產生器' },
-  home_card_qr_desc:  { en: 'Turn text or URLs into QR codes instantly. Download as PNG. Adjustable size and color.', zh: '輸入文字或網址，快速生成 QR Code，支援 PNG 下載，多種尺寸與顏色可選。' },
-  home_card_qr_tag:   { en: 'Generator',                                zh: '產生器' },
-  home_card_bmi_title:{ en: 'BMI Calculator',                          zh: 'BMI 計算機' },
-  home_card_bmi_desc: { en: 'Calculate your Body Mass Index from height and weight. See the weight category and BMI chart.', zh: '輸入身高體重立即計算身體質量指數，附標準對照表與健康分類。' },
-  home_card_bmi_tag:  { en: 'Health',                                   zh: '健康' },
-});
-i18n.init();
-</script>
+<footer><div class="container"><p><a href="/">Home</a> · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/about">About</a></p><p style="margin-top:6px">© 2026 Free Online Tools</p></div></footer>
 </body>
 </html>
