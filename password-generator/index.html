@@ -9,26 +9,28 @@
 <link rel="stylesheet" href="/common/premium.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Password Generator","applicationCategory":"SecurityApplication"}</script>
 <style>
-body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.1);--accent-text:#6d28d9}
-.pw-display{display:flex;gap:8px;margin-bottom:20px}
-.pw-display input{flex:1;padding:14px 16px;font-size:1.1rem;font-family:var(--font-mono);border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-subtle);color:var(--text-primary);letter-spacing:1px;outline:none;transition:border-color .15s}
-.pw-display input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-subtle)}
-.pw-display .copy-btn{padding:14px 20px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);cursor:pointer;font-size:1.2rem;transition:all .15s}
-.pw-display .copy-btn:hover{border-color:var(--accent)}
-.strength-row{display:flex;gap:6px;margin-bottom:20px}
-.s-bar{flex:1;height:6px;border-radius:3px;background:var(--border);transition:all .3s}
-.s-bar.on.weak{background:#ef4444}.s-bar.on.medium{background:#f59e0b}.s-bar.on.strong{background:#10b981}.s-bar.on.vstrong{background:#059669}
-.s-label{font-size:.75rem;font-weight:500;text-align:center;margin-bottom:16px}
-.length-row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-.length-row input[type=range]{flex:1;accent-color:var(--accent);height:4px}
-.length-row .val{font-size:1.5rem;font-weight:700;color:var(--accent);min-width:36px;text-align:center}
-.toolbar{display:flex;gap:10px}
-.toolbar .btn{flex:1}
+body {
+  --accent: #7c3aed;
+  --accent-subtle: rgba(124,58,237,0.12);
+  --accent-text: #6d28d9;
+  --accent-hover: #5b21b6;
+  --accent-glow: rgba(124,58,237,0.15);
+}
+.ad-slot { max-width: 840px; }
+.length-row { display:flex; align-items:center; gap:var(--space-4); margin-bottom:var(--space-4) }
+.length-row input[type=range] { flex:1 }
+.length-row .val { font-size:1.5rem; font-weight:700; color:var(--accent-text); min-width:48px; text-align:center; font-variant-numeric:tabular-nums }
+.s-label { font-size:0.8rem; font-weight:600; text-align:center; margin-bottom:var(--space-4); transition: color var(--duration-fast) var(--ease-out) }
+.toolbar { display:flex; gap:var(--space-3); margin-top:var(--space-5) }
+.toolbar .btn { flex:1 }
 </style>
 </head>
 <body>
+<div class="page-wrap">
+<div class="page-content">
+
 <nav class="top-nav"><div class="container">
-  <div class="brand"><a href="/">Free Tools</a></div>
+  <div class="brand"><a href="/"><span class="logo-dot"></span> Free Tools</a></div>
   <div class="links">
     <a href="/qr-code-generator/">QR Code</a>
     <a href="/bmi-calculator/">BMI</a>
@@ -39,90 +41,270 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.1);--accent-text:#6d28d9
     <a href="/password-generator/" class="active">Password</a>
   </div>
 </div></nav>
-<div class="hero"><h1>🔐 Password Generator</h1><p>Create strong, random passwords to secure your accounts</p></div>
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:.85rem">Ad Space</div></div>
-<main class="container">
-<div class="card">
-<div class="pw-display">
-<input type="text" id="pwOutput" value="aB3$kL9#xQ7@mN2" readonly onclick="this.select()">
-<button class="copy-btn" onclick="copyPW()" title="Copy">📋</button>
-</div>
-<div class="strength-row" id="sBars"><div class="s-bar" data-i="0"></div><div class="s-bar" data-i="1"></div><div class="s-bar" data-i="2"></div><div class="s-bar" data-i="3"></div></div>
-<div class="s-label" id="sLabel">Very Strong</div>
-<div class="length-row">
-<input type="range" id="pwLen" min="4" max="64" value="16">
-<span class="val" id="lenVal">16</span>
-</div>
-<div class="checkbox-chips">
-<div class="chip checked" onclick="toggleChip(this)"><input type="checkbox" checked><span class="check">✓</span><span>Uppercase (A-Z)</span></div>
-<div class="chip checked" onclick="toggleChip(this)"><input type="checkbox" checked><span class="check">✓</span><span>Lowercase (a-z)</span></div>
-<div class="chip checked" onclick="toggleChip(this)"><input type="checkbox" checked><span class="check">✓</span><span>Numbers (0-9)</span></div>
-<div class="chip checked" onclick="toggleChip(this)"><input type="checkbox" checked><span class="check">✓</span><span>Symbols (!@#$%)</span></div>
-</div>
-<div class="toolbar" style="margin-top:16px">
-<button class="btn btn-primary" onclick="genPW()">Generate</button>
-<button class="btn btn-secondary" onclick="copyPW()">Copy</button>
-</div>
-</div>
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:.85rem">Ad Space</div></div>
-<div class="section"><h2>How to Use</h2><ol><li>Set password length with the slider</li><li>Toggle character types on/off</li><li>Click Generate for a new random password</li><li>Copy with one click</li></ol></div>
-<div class="section"><h2>FAQ</h2>
-<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Are these passwords truly random?</div><div class="faq-answer"><p>Yes. Generated using crypto.getRandomValues() — the same cryptographically secure randomness your browser uses for TLS. Not Math.random().</p></div></div>
-<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Are passwords saved anywhere?</div><div class="faq-answer"><p>No. Everything happens in your browser. Passwords are never sent to any server or stored in any database. Once you leave the page, the password is gone.</p></div></div>
-<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How long should my password be?</div><div class="faq-answer"><p>12-16 characters with all character types is sufficient for most accounts. For sensitive accounts (email, banking), aim for 20+ characters.</p></div></div>
-</div>
-</main>
-<footer><div class="container"><p><a href="/">Home</a> · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a></p><p style="margin-top:6px">© 2026 Free Online Tools</p></div></footer>
-<script>
-const CS={uppercase:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',lowercase:'abcdefghijklmnopqrstuvwxyz',numbers:'0123456789',symbols:'!@#$%^&*()_+-=[]{}|;:,.<>?'};
-const st={uppercase:true,lowercase:true,numbers:true,symbols:true};
-const labels=['Weak','Medium','Strong','Very Strong'];
-const colors=['#ef4444','#f59e0b','#10b981','#059669'];
-const cls=['weak','medium','strong','vstrong'];
 
-function toggleChip(el){
-  const cb=el.querySelector('input[type=checkbox]');
-  cb.checked=!cb.checked;
+<div class="hero">
+  <h1><span class="gradient-text">🔐 Password Generator</span></h1>
+  <p>Create strong, random passwords to secure your accounts — cryptographically secure, zero-server, copy with one click.</p>
+</div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+<main class="container">
+
+<div class="card">
+  <div class="pw-display">
+    <input type="text" id="pwOutput" value="aB3$kL9#xQ7@mN2" readonly onclick="this.select()">
+    <button class="copy-btn" onclick="copyPW()" title="Copy to clipboard" id="copyBtn">📋</button>
+  </div>
+
+  <div class="entropy-display">
+    <span>Estimated entropy: <span class="bits" id="entropyBits">--</span> bits</span>
+  </div>
+
+  <div class="strength-segments" id="sBars">
+    <div class="seg" data-i="0"></div>
+    <div class="seg" data-i="1"></div>
+    <div class="seg" data-i="2"></div>
+    <div class="seg" data-i="3"></div>
+  </div>
+  <div class="s-label" id="sLabel">Very Strong</div>
+
+  <div class="length-presets">
+    <div class="preset" data-len="8">8</div>
+    <div class="preset" data-len="12">12</div>
+    <div class="preset active" data-len="16">16</div>
+    <div class="preset" data-len="24">24</div>
+    <div class="preset" data-len="32">32</div>
+  </div>
+
+  <div class="length-row">
+    <input type="range" id="pwLen" min="4" max="64" value="16">
+    <span class="val" id="lenVal">16</span>
+  </div>
+
+  <div class="checkbox-chips">
+    <div class="chip checked" onclick="toggleChip(this)" data-type="uppercase"><input type="checkbox" checked><span class="check">✓</span><span>Uppercase (A-Z)</span></div>
+    <div class="chip checked" onclick="toggleChip(this)" data-type="lowercase"><input type="checkbox" checked><span class="check">✓</span><span>Lowercase (a-z)</span></div>
+    <div class="chip checked" onclick="toggleChip(this)" data-type="numbers"><input type="checkbox" checked><span class="check">✓</span><span>Numbers (0-9)</span></div>
+    <div class="chip checked" onclick="toggleChip(this)" data-type="symbols"><input type="checkbox" checked><span class="check">✓</span><span>Symbols (!@#$%)</span></div>
+    <div class="chip" onclick="toggleChip(this)" data-type="excludeAmbiguous" style="grid-column:1/-1"><input type="checkbox"><span class="check">✓</span><span>Exclude Ambiguous <span style="font-family:var(--font-mono);font-size:0.8rem;color:var(--text-tertiary)">(Il1O0)</span></span></div>
+  </div>
+
+  <div class="toolbar">
+    <button class="btn btn-primary" onclick="genPW()">🔄 Generate</button>
+    <button class="btn btn-secondary" onclick="copyPW()">📋 Copy</button>
+  </div>
+</div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+<div class="section">
+  <h2>How to Use</h2>
+  <ol>
+    <li>Set password length with the slider or tap a preset (8–32)</li>
+    <li>Toggle character types on/off — at least one must be selected</li>
+    <li>Check <strong>Exclude Ambiguous</strong> to avoid similar-looking characters (I, l, 1, O, 0)</li>
+    <li>Click <strong>Generate</strong> for a new random password</li>
+    <li>Click <strong>Copy</strong> to copy to your clipboard</li>
+  </ol>
+</div>
+
+<div class="section">
+  <h2>FAQ</h2>
+  <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Are these passwords truly random?</div><div class="faq-answer"><p>Yes. Generated using <code>crypto.getRandomValues()</code> — the same cryptographically secure randomness your browser uses for TLS. Not <code>Math.random()</code>.</p></div></div>
+  <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Are passwords saved anywhere?</div><div class="faq-answer"><p>No. Everything happens in your browser. Passwords are never sent to any server or stored in any database. Once you leave the page, the password is gone.</p></div></div>
+  <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How long should my password be?</div><div class="faq-answer"><p>12–16 characters with all character types is sufficient for most accounts. For sensitive accounts (email, banking), aim for 20+ characters. The entropy estimate shown above helps quantify your password's strength.</p></div></div>
+  <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What does the entropy number mean?</div><div class="faq-answer"><p>Entropy measures uncertainty in bits. Each bit doubles the number of possible passwords. 30+ bits is medium, 50+ is strong, and 70+ is very strong — practically uncrackable with current technology.</p></div></div>
+</div>
+
+</main>
+
+</div><!-- /.page-content -->
+
+<footer><div class="container">
+  <div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div>
+  <p>© 2026 Free Online Tools</p>
+</div></footer>
+
+</div><!-- /.page-wrap -->
+
+<div class="toast" id="toast">Copied to clipboard ✓</div>
+
+<script>
+const CS = {
+  uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  lowercase: 'abcdefghijklmnopqrstuvwxyz',
+  numbers: '0123456789',
+  symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?'
+};
+
+const AMBIGUOUS = {
+  uppercase: 'IO',
+  lowercase: 'l',
+  numbers: '01',
+  symbols: ''
+};
+
+const st = { uppercase: true, lowercase: true, numbers: true, symbols: true, excludeAmbiguous: false };
+const labels = ['Weak', 'Medium', 'Strong', 'Very Strong'];
+const colors = ['#ef4444', '#f59e0b', '#10b981', '#059669'];
+const cls = ['weak', 'fair', 'good', 'strong'];
+
+function getPoolSize() {
+  let size = 0;
+  for (let k of ['uppercase', 'lowercase', 'numbers', 'symbols']) {
+    if (st[k]) {
+      let pool = CS[k];
+      if (st.excludeAmbiguous && AMBIGUOUS[k]) {
+        pool = [...pool].filter(c => !AMBIGUOUS[k].includes(c)).join('');
+      }
+      size += pool.length;
+    }
+  }
+  return size;
+}
+
+function getActivePools() {
+  const pools = {};
+  for (let k of ['uppercase', 'lowercase', 'numbers', 'symbols']) {
+    if (st[k]) {
+      let pool = CS[k];
+      if (st.excludeAmbiguous && AMBIGUOUS[k]) {
+        pool = [...pool].filter(c => !AMBIGUOUS[k].includes(c)).join('');
+      }
+      pools[k] = pool;
+    }
+  }
+  return pools;
+}
+
+function toggleChip(el) {
+  const cb = el.querySelector('input[type=checkbox]');
+  cb.checked = !cb.checked;
   el.classList.toggle('checked');
-  const types=['uppercase','lowercase','numbers','symbols'];
-  st[types[Array.from(el.parentNode.children).indexOf(el)]]=cb.checked;
+  st[el.dataset.type] = cb.checked;
   genPW();
 }
 
-function genPW(){
-  const len=parseInt(document.getElementById('pwLen').value);
-  const active=Object.keys(CS).filter(k=>st[k]);
-  if(!active.length){document.getElementById('pwOutput').value='Select at least one type';return}
-  let pool=active.map(k=>CS[k]).join('');
-  let pw=active.map(k=>CS[k][Math.floor(cryptoRand(CS[k].length))]);
-  for(let i=pw.length;i<len;i++)pw.push(pool[Math.floor(cryptoRand(pool.length))]);
-  for(let i=pw.length-1;i>0;i--){const j=Math.floor(cryptoRand(i+1));[pw[i],pw[j]]=[pw[j],pw[i]]}
-  document.getElementById('pwOutput').value=pw.join('');
-  updateStrength(len,active.length);
+function cryptoRand(n) {
+  // Rejection sampling to eliminate modulo bias
+  const max = Math.floor(0xFFFFFFFF / n) * n;
+  const a = new Uint32Array(1);
+  do {
+    crypto.getRandomValues(a);
+  } while (a[0] >= max);
+  return a[0] % n;
 }
 
-function cryptoRand(n){const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%n}
+function genPW() {
+  const len = parseInt(document.getElementById('pwLen').value);
+  const pools = getActivePools();
+  const types = Object.keys(pools);
 
-function updateStrength(l,t){
-  let level=l>=16&&t>=4?3:l>=12&&t>=3?2:l>=8&&t>=2?1:0;
-  document.getElementById('sLabel').textContent=labels[level];
-  document.getElementById('sLabel').style.color=colors[level];
-  document.querySelectorAll('.s-bar').forEach((b,i)=>{
-    b.className='s-bar'+(i<=level?' on '+cls[level]:'');
+  if (!types.length) {
+    document.getElementById('pwOutput').value = 'Select at least one type';
+    return;
+  }
+
+  let pool = types.map(k => pools[k]).join('');
+  if (!pool.length) {
+    document.getElementById('pwOutput').value = 'Select at least one type';
+    return;
+  }
+
+  // Guarantee at least one character from each selected type
+  let pw = types.map(k => pools[k][Math.floor(cryptoRand(pools[k].length))]);
+  for (let i = pw.length; i < len; i++) {
+    pw.push(pool[Math.floor(cryptoRand(pool.length))]);
+  }
+  // Fisher-Yates shuffle
+  for (let i = pw.length - 1; i > 0; i--) {
+    const j = Math.floor(cryptoRand(i + 1));
+    [pw[i], pw[j]] = [pw[j], pw[i]];
+  }
+  document.getElementById('pwOutput').value = pw.join('');
+  updateStrength(len, getPoolSize());
+  updateEntropy(len, getPoolSize());
+}
+
+function updateStrength(len, poolSize) {
+  const bits = len * Math.log2(poolSize || 1);
+  let level;
+  if (bits >= 70) level = 3;
+  else if (bits >= 50) level = 2;
+  else if (bits >= 30) level = 1;
+  else level = 0;
+
+  document.getElementById('sLabel').textContent = labels[level];
+  document.getElementById('sLabel').style.color = colors[level];
+
+  const segs = document.querySelectorAll('.strength-segments .seg');
+  segs.forEach((seg, i) => {
+    seg.className = 'seg' + (i <= level ? ' on ' + cls[level] : '');
   });
 }
 
-function copyPW(){
-  const v=document.getElementById('pwOutput').value;
-  navigator.clipboard.writeText(v).then(()=>{
-    const b=document.querySelector('.copy-btn');b.textContent='✅';
-    setTimeout(()=>b.textContent='📋',1200);
+function updateEntropy(len, poolSize) {
+  const bits = len * Math.log2(poolSize || 1);
+  document.getElementById('entropyBits').textContent = bits.toFixed(1);
+}
+
+function updatePreset(len) {
+  document.querySelectorAll('.length-presets .preset').forEach(p => {
+    p.classList.toggle('active', parseInt(p.dataset.len) === len);
   });
 }
 
-function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
-document.getElementById('pwLen').addEventListener('input',()=>{document.getElementById('lenVal').textContent=document.getElementById('pwLen').value;genPW()});
-window.addEventListener('load',genPW);
+function setLength(val) {
+  document.getElementById('pwLen').value = val;
+  document.getElementById('lenVal').textContent = val;
+  updatePreset(val);
+  genPW();
+}
+
+function copyPW() {
+  const v = document.getElementById('pwOutput').value;
+  if (!v || v === 'Select at least one type') return;
+
+  navigator.clipboard.writeText(v).then(() => {
+    const btn = document.getElementById('copyBtn');
+    const orig = btn.textContent;
+    btn.textContent = '✓';
+    btn.classList.add('copied', 'animate-copy');
+
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.classList.remove('copied', 'animate-copy');
+      toast.classList.remove('show');
+    }, 1600);
+  });
+}
+
+function toggleFAQ(el) {
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+// Length slider
+document.getElementById('pwLen').addEventListener('input', function () {
+  const v = parseInt(this.value);
+  document.getElementById('lenVal').textContent = v;
+  updatePreset(v);
+  genPW();
+});
+
+// Length preset clicks
+document.querySelectorAll('.length-presets .preset').forEach(p => {
+  p.addEventListener('click', function () {
+    setLength(parseInt(this.dataset.len));
+  });
+});
+
+window.addEventListener('load', genPW);
 </script>
+
 </body>
 </html>

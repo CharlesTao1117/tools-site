@@ -9,14 +9,15 @@
 <link rel="stylesheet" href="/common/premium.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Date Calculator","applicationCategory":"UtilityApplication"}</script>
 <style>
-body{--accent:#0ea5e9;--accent-subtle:rgba(14,165,233,0.1);--accent-text:#0284c7}
-.result-detail{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-.result-detail .pill{padding:6px 14px;border-radius:20px;background:var(--accent-subtle);color:var(--accent-text);font-size:.8rem;font-weight:500}
+body{--accent:#0ea5e9;--accent-subtle:rgba(14,165,233,0.12);--accent-text:#0284c7;--accent-hover:#0284c7;--accent-glow:rgba(14,165,233,0.18)}
 </style>
 </head>
 <body>
+<div class="page-wrap">
+<div class="page-content">
+
 <nav class="top-nav"><div class="container">
-  <div class="brand"><a href="/">Free Tools</a></div>
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
     <a href="/qr-code-generator/">QR Code</a>
     <a href="/bmi-calculator/">BMI</a>
@@ -27,63 +28,193 @@ body{--accent:#0ea5e9;--accent-subtle:rgba(14,165,233,0.1);--accent-text:#0284c7
     <a href="/password-generator/">Password</a>
   </div>
 </div></nav>
-<div class="hero"><h1>📅 Date Calculator</h1><p>Days between dates, or add/subtract from any date</p></div>
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:.85rem">Ad Space</div></div>
+
+<div class="hero">
+  <h1><span class="gradient-text">📅 Date Calculator</span></h1>
+  <p>Days between dates, or add and subtract days and weeks from any date</p>
+</div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
 <main class="container">
 <div class="card">
+
 <div class="tab-bar">
 <button class="active" onclick="switchTab(0)">Days Between</button>
 <button onclick="switchTab(1)">Add / Subtract</button>
 </div>
+
+<!-- ── Tab 0: Days Between ── -->
 <div class="tab-pane active" id="dt0">
-<div class="form-row"><div class="form-group"><label>Start</label><div class="input-wrap"><input type="date" id="d1"></div></div><div class="form-group"><label>End</label><div class="input-wrap"><input type="date" id="d2"></div></div></div>
-<div class="result-box animate-in"><div class="big-number" id="dbDays">90</div><div class="desc" id="dbLabel">days between dates</div><div class="result-detail" id="dbDetail"><span class="pill">12 weeks 6 days</span><span class="pill">~3 months</span></div></div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Start Date</label>
+      <div class="input-wrap"><input type="date" id="d1"></div>
+    </div>
+    <div class="form-group">
+      <label>End Date</label>
+      <div class="input-wrap"><input type="date" id="d2"></div>
+    </div>
+  </div>
+
+  <div class="pill-group" style="margin-top:var(--space-3)">
+    <button class="pill-btn" data-days="7" onclick="setPreset(7)">7 days</button>
+    <button class="pill-btn" data-days="30" onclick="setPreset(30)">30 days</button>
+    <button class="pill-btn" data-days="365" onclick="setPreset(365)">1 year</button>
+  </div>
+
+  <div class="result-box">
+    <div class="big-number" id="dbDays">90</div>
+    <div class="desc" id="dbLabel">days between selected dates</div>
+    <div class="sub-results" id="dbDetail">
+      <span class="pill">12 weeks 6 days</span>
+      <span class="pill">~3 months</span>
+    </div>
+  </div>
 </div>
+
+<!-- ── Tab 1: Add / Subtract ── -->
 <div class="tab-pane" id="dt1">
-<div class="form-row"><div class="form-group"><label>Date</label><div class="input-wrap"><input type="date" id="baseD"></div></div><div class="form-group"><label>Operation</label><div class="input-wrap"><select id="op"><option value="add">Add</option><option value="sub">Subtract</option></select></div></div></div>
-<div class="form-row"><div class="form-group"><label>Days</label><div class="input-wrap"><input type="number" id="daysN" value="30" min="1"></div></div><div class="form-group"><label>Weeks</label><div class="input-wrap"><input type="number" id="weeksN" value="0" min="0"></div></div></div>
-<div class="result-box animate-in"><div class="big-number" id="asResult">Jun 17, 2026</div><div class="desc" id="asLabel">Resulting date</div></div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Base Date</label>
+      <div class="input-wrap"><input type="date" id="baseD"></div>
+    </div>
+    <div class="form-group">
+      <label>Operation</label>
+      <div class="input-wrap">
+        <select id="op">
+          <option value="add">Add</option>
+          <option value="sub">Subtract</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Days</label>
+      <div class="input-wrap"><input type="number" id="daysN" value="30" min="1"></div>
+    </div>
+    <div class="form-group">
+      <label>Weeks</label>
+      <div class="input-wrap"><input type="number" id="weeksN" value="0" min="0"></div>
+    </div>
+  </div>
+
+  <div class="result-box">
+    <div class="big-number" id="asResult">Jun 17, 2026</div>
+    <div class="desc" id="asLabel">resulting date</div>
+  </div>
 </div>
+
 </div>
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:.85rem">Ad Space</div></div>
-<div class="section"><h2>How to Use</h2><ol><li><strong>Days Between:</strong> Pick two dates to see the exact count in days, weeks, and months</li><li><strong>Add/Subtract:</strong> Choose a date, set days/weeks, and get the resulting date</li></ol></div>
-<div class="section"><h2>FAQ</h2>
-<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Does it count weekends?</div><div class="faq-answer"><p>This counts all calendar days. For business days only, you'd need to manually exclude weekends from the result.</p></div></div>
-<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Does it handle leap years?</div><div class="faq-answer"><p>Yes. The JavaScript Date object handles February 29 and varying month lengths correctly for all dates from year 1 to 9999.</p></div></div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+<div class="section">
+  <h2>How to Use</h2>
+  <ol>
+    <li><strong>Days Between:</strong> Pick two dates to see the exact count in days, weeks, and months. Use the quick presets to jump ahead 7 days, 30 days, or 1 year.</li>
+    <li><strong>Add/Subtract:</strong> Choose a starting date, pick add or subtract, set the number of days and weeks, and get the resulting date instantly.</li>
+  </ol>
 </div>
+
+<div class="section">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">Does it count weekends?</div>
+    <div class="faq-answer"><p>This counts all calendar days, including weekends and holidays. For business days only (excluding weekends), you would need to manually filter those from the result.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">Does it handle leap years?</div>
+    <div class="faq-answer"><p>Yes. The JavaScript Date object correctly handles February 29 and varying month lengths for all dates from year 1 to 9999, so leap years are fully accounted for.</p></div>
+  </div>
+</div>
+
 </main>
-<footer><div class="container"><p><a href="/">Home</a> · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a></p><p style="margin-top:6px">© 2026 Free Online Tools</p></div></footer>
+
+</div>
+
+<footer>
+<div class="container">
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/privacy-policy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </div>
+  <p>&copy; 2026 Free Online Tools</p>
+</div>
+</footer>
+
+</div>
+
 <script>
-function switchTab(i){document.querySelectorAll('.tab-bar button').forEach((b,idx)=>b.classList.toggle('active',idx===i));document.querySelectorAll('.tab-pane').forEach((p,idx)=>p.classList.toggle('active',idx===i))}
-function calcBetween(){
-  const s=new Date(document.getElementById('d1').value),e=new Date(document.getElementById('d2').value);
-  if(!s||!e)return;
-  const d=Math.abs(e-s),days=Math.round(d/864e5);
-  document.getElementById('dbDays').textContent=days.toLocaleString();
-  document.getElementById('dbLabel').textContent=`days between ${document.getElementById('d1').value} and ${document.getElementById('d2').value}`;
-  document.getElementById('dbDetail').innerHTML=`<span class="pill">${Math.floor(days/7)} weeks ${days%7} days</span><span class="pill">~${Math.round(days/30.44)} months</span>`;
+function switchTab(i) {
+  document.querySelectorAll('.tab-bar button').forEach((b, idx) => b.classList.toggle('active', idx === i));
+  document.querySelectorAll('.tab-pane').forEach((p, idx) => p.classList.toggle('active', idx === i));
 }
-function calcAddSub(){
-  const base=document.getElementById('baseD').value,op=document.getElementById('op').value;
-  const d=parseInt(document.getElementById('daysN').value)||0,w=parseInt(document.getElementById('weeksN').value)||0;
-  if(!base)return;
-  const t=document.getElementById('asResult');
-  const dt=new Date(base);dt.setDate(dt.getDate()+(op==='add'?1:-1)*(d+w*7));
-  const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  t.textContent=`${mo[dt.getMonth()]} ${dt.getDate()}, ${dt.getFullYear()}`;
-  document.getElementById('asLabel').textContent=dt.toISOString().split('T')[0];
+
+function setPreset(days) {
+  const today = new Date(document.getElementById('d1').value);
+  if (!isNaN(today.getTime())) {
+    const end = new Date(today);
+    end.setDate(end.getDate() + days);
+    document.getElementById('d2').value = end.toISOString().split('T')[0];
+    calcBetween();
+  }
 }
-function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
-document.getElementById('d1').addEventListener('change',calcBetween);
-document.getElementById('d2').addEventListener('change',calcBetween);
-document.getElementById('baseD').addEventListener('change',calcAddSub);
-document.getElementById('op').addEventListener('change',calcAddSub);
-['daysN','weeksN'].forEach(id=>document.getElementById(id).addEventListener('input',calcAddSub));
-window.addEventListener('load',()=>{
-  const t=new Date();document.getElementById('d1').value=t.toISOString().split('T')[0];
-  const f=new Date(Date.now()+90*864e5);document.getElementById('d2').value=f.toISOString().split('T')[0];
-  document.getElementById('baseD').value=t.toISOString().split('T')[0];calcBetween();calcAddSub();
+
+function calcBetween() {
+  const s = new Date(document.getElementById('d1').value);
+  const e = new Date(document.getElementById('d2').value);
+  if (!s.getTime() || !e.getTime()) return;
+  const diff = Math.abs(e - s);
+  const days = Math.round(diff / 864e5);
+  document.getElementById('dbDays').textContent = days.toLocaleString();
+  document.getElementById('dbLabel').textContent = 'days between selected dates';
+  const weeks = Math.floor(days / 7);
+  const rem = days % 7;
+  const months = Math.round(days / 30.44);
+  document.getElementById('dbDetail').innerHTML =
+    '<span class="pill">' + weeks + ' weeks ' + rem + ' days</span>' +
+    '<span class="pill">~' + months + ' months</span>';
+}
+
+function calcAddSub() {
+  const base = document.getElementById('baseD').value;
+  const op = document.getElementById('op').value;
+  const d = parseInt(document.getElementById('daysN').value) || 0;
+  const w = parseInt(document.getElementById('weeksN').value) || 0;
+  if (!base) return;
+  const dt = new Date(base);
+  const total = d + w * 7;
+  dt.setDate(dt.getDate() + (op === 'add' ? 1 : -1) * total);
+  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('asResult').textContent = mo[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear();
+  document.getElementById('asLabel').textContent = dt.toISOString().split('T')[0];
+}
+
+function toggleFAQ(el) {
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+document.getElementById('d1').addEventListener('change', calcBetween);
+document.getElementById('d2').addEventListener('change', calcBetween);
+document.getElementById('baseD').addEventListener('change', calcAddSub);
+document.getElementById('op').addEventListener('change', calcAddSub);
+['daysN','weeksN'].forEach(id => document.getElementById(id).addEventListener('input', calcAddSub));
+
+window.addEventListener('load', function() {
+  const t = new Date();
+  document.getElementById('d1').value = t.toISOString().split('T')[0];
+  const f = new Date(Date.now() + 90 * 864e5);
+  document.getElementById('d2').value = f.toISOString().split('T')[0];
+  document.getElementById('baseD').value = t.toISOString().split('T')[0];
+  calcBetween();
+  calcAddSub();
 });
 </script>
+
 </body>
 </html>

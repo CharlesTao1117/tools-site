@@ -4,28 +4,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Discount Calculator — Calculate Savings & Final Price</title>
-<meta name="description" content="Free Discount Calculator. Find the final price after percentage or fixed-amount discounts. Visual price breakdown. No sign-up.">
+<meta name="description" content="Free Discount Calculator. Find the final price after percentage or fixed-amount discounts. Visual price breakdown with currency support. No sign-up.">
 <link rel="canonical" href="https://tools-site.pages.dev/discount-calculator/">
 <link rel="stylesheet" href="/common/premium.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Discount Calculator","applicationCategory":"BusinessApplication"}</script>
 <style>
-body{--accent:#059669;--accent-subtle:rgba(5,150,105,0.1);--accent-text:#047857}
-.price-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
-.pc-item{text-align:center;padding:16px;border-radius:var(--radius-sm)}
-.pc-item.original{background:var(--bg-subtle)}
-.pc-item.saved{background:var(--accent-subtle)}
-.pc-item .amt{font-size:1.8rem;font-weight:700;line-height:1}
-.pc-item .original .amt{color:var(--text-tertiary);text-decoration:line-through}
-.pc-item .saved .amt{color:var(--accent-text)}
-.pc-item .lbl{font-size:.7rem;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.04em;margin-top:4px}
-.pc-item.final{grid-column:1/-1;background:var(--accent);color:#fff;border-radius:var(--radius-sm)}
-.pc-item.final .amt{font-size:2.2rem;color:#fff}
-.pc-item.final .lbl{color:rgba(255,255,255,.7)}
+body {
+  --accent: #059669;
+  --accent-subtle: rgba(5,150,105,0.12);
+  --accent-text: #047857;
+  --accent-hover: #047857;
+  --accent-glow: rgba(5,150,105,0.15);
+}
+
+/* Currency selector compact */
+.currency-select {
+  min-width: 80px;
+  max-width: 110px;
+  flex: 0 0 auto;
+}
+
+/* Save badge above final price */
+.save-badge {
+  display: inline-block;
+  margin-top: var(--space-2);
+  padding: 4px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+}
+
+/* Currency input prefix styling */
+.input-currency {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.input-wrap input.has-currency {
+  padding-left: 36px;
+}
+
+/* Animate discount field swap */
+.fade-swap {
+  animation: fadeUp 0.2s var(--ease-out);
+}
 </style>
 </head>
 <body>
+<div class="page-wrap">
+<div class="page-content">
+
 <nav class="top-nav"><div class="container">
-  <div class="brand"><a href="/">Free Tools</a></div>
+  <div class="brand"><a href="/"><span class="logo-dot"></span> Free Tools</a></div>
   <div class="links">
     <a href="/qr-code-generator/">QR Code</a>
     <a href="/bmi-calculator/">BMI</a>
@@ -36,57 +74,182 @@ body{--accent:#059669;--accent-subtle:rgba(5,150,105,0.1);--accent-text:#047857}
     <a href="/password-generator/">Password</a>
   </div>
 </div></nav>
-<div class="hero"><h1>🏷️ Discount Calculator</h1><p>See how much you save — percentage off or fixed amount</p></div>
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:.85rem">Ad Space</div></div>
+
+<div class="hero">
+  <h1><span class="gradient-text">🏷️ Discount Calculator</span></h1>
+  <p>See how much you save — percentage off or fixed amount, in any currency</p>
+</div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
 <main class="container">
-<div class="card">
-<div class="toggle-mode">
-<button class="active" onclick="setMode('percent')">% Off</button>
-<button onclick="setMode('fixed')">$ Off</button>
-</div>
-<div class="form-row">
-<div class="form-group"><label>Original Price</label><div class="input-wrap"><input type="number" id="origP" value="100" min="0" step=".01"></div></div>
-<div class="form-group" id="pctGroup"><label>Discount %</label><div class="input-wrap"><input type="number" id="discPct" value="20" min="0" max="100" step=".1"></div></div>
-<div class="form-group" id="fixedGroup" style="display:none"><label>Discount Amount</label><div class="input-wrap"><input type="number" id="discAmt" value="15" min="0" step=".01"></div></div>
-</div>
-<div class="price-compare animate-in" id="priceCompare">
-<div class="pc-item original"><div class="amt" id="pcOrig">$100.00</div><div class="lbl">Original</div></div>
-<div class="pc-item saved"><div class="amt" id="pcSave">$20.00</div><div class="lbl">You Save</div></div>
-<div class="pc-item final"><div class="amt" id="pcFinal">$80.00</div><div class="lbl">Final Price</div></div>
-</div>
-</div>
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:.85rem">Ad Space</div></div>
-<div class="section"><h2>How to Use</h2><ol><li>Enter the original price</li><li>Choose % Off or $ Off discount type</li><li>Enter the discount value — the price comparison updates instantly</li></ol></div>
-<div class="section"><h2>FAQ</h2>
-<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate a 20% discount?</div><div class="faq-answer"><p>Multiply the original price by 0.20 to get the discount amount, then subtract from the original. $100 × 0.20 = $20 off → $80 final price.</p></div></div>
-<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I stack discounts?</div><div class="faq-answer"><p>This calculator handles single discounts. For stacked discounts, apply them sequentially — order matters.</p></div></div>
-</div>
+  <div class="card card-glow">
+    <!-- Mode toggle -->
+    <div class="toggle-mode" role="tablist">
+      <button class="active" onclick="setMode('percent')">% Off</button>
+      <button onclick="setMode('fixed')">$ Off</button>
+    </div>
+
+    <!-- Inputs -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="origP">Original Price</label>
+        <div class="input-wrap">
+          <span class="input-currency" id="currencyPrefix">$</span>
+          <input type="number" id="origP" value="100" min="0" step="0.01" class="has-currency" inputmode="decimal">
+        </div>
+      </div>
+      <div class="form-group" id="pctGroup">
+        <label for="discPct">Discount %</label>
+        <div class="input-wrap">
+          <input type="number" id="discPct" value="20" min="0" max="100" step="0.1" inputmode="decimal">
+          <span class="suffix">%</span>
+        </div>
+      </div>
+      <div class="form-group" id="fixedGroup" style="display:none">
+        <label for="discAmt">Discount Amount</label>
+        <div class="input-wrap">
+          <span class="input-currency" id="fixedCurrencyPrefix">$</span>
+          <input type="number" id="discAmt" value="15" min="0" step="0.01" class="has-currency" inputmode="decimal">
+        </div>
+      </div>
+      <div class="form-group currency-select">
+        <label for="currencySelect">Currency</label>
+        <div class="input-wrap">
+          <select id="currencySelect">
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+            <option value="¥">¥ JPY</option>
+            <option value="A$">A$ AUD</option>
+            <option value="C$">C$ CAD</option>
+            <option value="HK$">HK$ HKD</option>
+            <option value="S$">S$ SGD</option>
+            <option value="NT$">NT$ TWD</option>
+            <option value="₩">₩ KRW</option>
+            <option value="₹">₹ INR</option>
+            <option value="R$">R$ BRL</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Price comparison -->
+    <div class="price-compare animate-in" id="priceCompare">
+      <div class="pc-item original">
+        <div class="amt" id="pcOrig">$100.00</div>
+        <div class="lbl">Original</div>
+      </div>
+      <div class="pc-item saved">
+        <div class="amt" id="pcSave">$20.00</div>
+        <div class="lbl">You Save</div>
+      </div>
+      <div class="pc-item final">
+        <div class="amt" id="pcFinal">$80.00</div>
+        <div class="lbl">Final Price</div>
+        <div class="save-badge" id="saveBadge">Save 20%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+  <div class="section">
+    <h2>How to Use</h2>
+    <ol>
+      <li>Enter the original price</li>
+      <li>Choose % Off or $ Off discount type using the toggle</li>
+      <li>Enter the discount value — the price comparison updates instantly</li>
+      <li>Select your preferred currency from the dropdown</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>FAQ</h2>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate a 20% discount?</div><div class="faq-answer"><p>Multiply the original price by 0.20 to get the discount amount, then subtract from the original. For example: $100 × 0.20 = $20 off → $80 final price.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I stack discounts?</div><div class="faq-answer"><p>This calculator handles single discounts. For stacked discounts, apply them sequentially — the order matters and the total discount percentage will differ from simply adding them.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the difference between % Off and $ Off?</div><div class="faq-answer"><p><strong>% Off</strong> applies a percentage-based discount (e.g., 20% off $100 = $80). <strong>$ Off</strong> subtracts a fixed amount (e.g., $15 off $100 = $85). Use % Off for percentage sales and $ Off for coupon codes with a fixed value.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate the discount percentage from a sale price?</div><div class="faq-answer"><p>Divide the discount amount by the original price, then multiply by 100. For example: if an item is marked down from $50 to $40, the discount is ($50 − $40) ÷ $50 × 100 = 20% off.</p></div></div>
+  </div>
 </main>
-<footer><div class="container"><p><a href="/">Home</a> · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a></p><p style="margin-top:6px">© 2026 Free Online Tools</p></div></footer>
+
+</div><!-- /.page-content -->
+
+<footer><div class="container">
+  <div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div>
+  <p>© 2026 Free Online Tools</p>
+</div></footer>
+
+</div><!-- /.page-wrap -->
+
 <script>
-let mode='percent';
-function setMode(m){
-  mode=m;
-  document.querySelectorAll('.toggle-mode button').forEach((b,i)=>b.classList.toggle('active',(i===0&&m==='percent')||(i===1&&m==='fixed')));
-  document.getElementById('pctGroup').style.display=m==='percent'?'':'none';
-  document.getElementById('fixedGroup').style.display=m==='fixed'?'':'none';
+let mode = 'percent';
+
+function getCurrency() {
+  return document.getElementById('currencySelect').value;
+}
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.toggle-mode button').forEach((b, i) => {
+    b.classList.toggle('active', (i === 0 && m === 'percent') || (i === 1 && m === 'fixed'));
+  });
+  const pctGroup = document.getElementById('pctGroup');
+  const fixedGroup = document.getElementById('fixedGroup');
+  if (m === 'percent') {
+    pctGroup.style.display = '';
+    fixedGroup.style.display = 'none';
+  } else {
+    pctGroup.style.display = 'none';
+    fixedGroup.style.display = '';
+  }
   calcDiscount();
 }
-function calcDiscount(){
-  const o=parseFloat(document.getElementById('origP').value)||0;
-  let s,p;
-  if(mode==='percent'){p=Math.min(parseFloat(document.getElementById('discPct').value)||0,100);s=o*p/100}
-  else{s=parseFloat(document.getElementById('discAmt').value)||0;p=o?(s/o)*100:0}
-  if(s>o)s=o;
-  const f=o-s;
-  const fm=(n)=>'$'+n.toFixed(2);
-  document.getElementById('pcOrig').textContent=fm(o);
-  document.getElementById('pcSave').textContent=fm(s);
-  document.getElementById('pcFinal').textContent=fm(f);
+
+function calcDiscount() {
+  const o = Math.max(0, parseFloat(document.getElementById('origP').value) || 0);
+  const sym = getCurrency();
+  let s = 0, p = 0;
+
+  if (mode === 'percent') {
+    p = Math.min(Math.max(0, parseFloat(document.getElementById('discPct').value) || 0), 100);
+    s = o * p / 100;
+  } else {
+    s = Math.max(0, parseFloat(document.getElementById('discAmt').value) || 0);
+    p = o > 0 ? (s / o) * 100 : 0;
+  }
+
+  if (s > o) s = o;
+  if (p > 100) p = 100;
+
+  const f = o - s;
+  const fmt = (n) => sym + n.toFixed(2);
+
+  document.getElementById('pcOrig').textContent = fmt(o);
+  document.getElementById('pcSave').textContent = fmt(s);
+  document.getElementById('pcFinal').textContent = fmt(f);
+  // Format percentage without trailing ".0" for round numbers
+  const pctStr = p % 1 === 0 ? p.toFixed(0) : p.toFixed(1);
+  document.getElementById('saveBadge').textContent = 'Save ' + pctStr + '%';
+
+  // Update currency prefixes
+  document.getElementById('currencyPrefix').textContent = sym;
+  document.getElementById('fixedCurrencyPrefix').textContent = sym;
 }
-function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
-['origP','discPct','discAmt'].forEach(id=>document.getElementById(id).addEventListener('input',calcDiscount));
-window.addEventListener('load',calcDiscount);
+
+function toggleFAQ(el) {
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+// Listeners
+['origP', 'discPct', 'discAmt'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calcDiscount);
+});
+document.getElementById('currencySelect').addEventListener('change', calcDiscount);
+
+window.addEventListener('load', calcDiscount);
 </script>
+
 </body>
 </html>

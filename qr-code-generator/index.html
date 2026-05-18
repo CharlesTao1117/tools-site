@@ -10,65 +10,20 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"QR Code Generator","applicationCategory":"UtilityApplication"}</script>
 <style>
-body { --accent: #6366f1; --accent-subtle: rgba(99,102,241,0.1); --accent-text: #4f46e5; }
-.qr-frame {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 220px;
-  padding: 24px;
-  background: #fff;
-  border-radius: var(--radius-md);
-  border: 2px dashed var(--border);
-  margin: 20px 0;
-}
-.qr-frame #qrcode {
-  padding: 16px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: var(--shadow-md);
-}
-.qr-frame .placeholder {
-  color: var(--text-tertiary);
-  font-size: 0.9rem;
-}
-.color-swatch {
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  padding: 0;
-  background: none;
-}
-.color-swatch::-webkit-color-swatch-wrapper { padding: 0; }
-.color-swatch::-webkit-color-swatch { border: 2px solid var(--border); border-radius: 50%; }
-.size-chips {
-  display: flex;
-  gap: 6px;
-}
-.size-chip {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  text-align: center;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  transition: all 0.15s;
-  background: var(--bg);
-}
-.size-chip:hover { border-color: var(--accent); }
-.size-chip.active { border-color: var(--accent); background: var(--accent-subtle); color: var(--accent-text); }
-.toolbar { display: flex; gap: 10px; margin-top: 16px; }
-.toolbar .btn { flex: 1; }
+body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e5}
+.filename-row{display:flex;gap:10px;align-items:end;margin-bottom:16px}
+.filename-row .form-group{margin-bottom:0;flex:1}
+.toolbar{display:flex;gap:10px;margin-top:16px}
+.toolbar .btn{flex:1}
+.qr-preview #qrcode{transition:opacity .2s}
+.color-picker-row{display:flex;gap:16px;align-items:end;flex-wrap:wrap}
+.color-picker-row .form-group{margin-bottom:0}
 </style>
 </head>
 <body>
+<div class="page-wrap">
 <nav class="top-nav"><div class="container">
-  <div class="brand"><a href="/">Free Tools</a></div>
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
     <a href="/qr-code-generator/" class="active">QR Code</a>
     <a href="/bmi-calculator/">BMI</a>
@@ -80,6 +35,7 @@ body { --accent: #6366f1; --accent-subtle: rgba(99,102,241,0.1); --accent-text: 
   </div>
 </div></nav>
 
+<div class="page-content">
 <div class="hero">
   <h1>📱 QR Code Generator</h1>
   <p>Enter text or a URL to create a QR code. Free PNG download.</p>
@@ -96,22 +52,45 @@ body { --accent: #6366f1; --accent-subtle: rgba(99,102,241,0.1); --accent-text: 
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label>Size</label>
-        <div class="size-chips" id="sizeChips">
-          <div class="size-chip" data-size="160">Small</div>
-          <div class="size-chip active" data-size="256">Medium</div>
-          <div class="size-chip" data-size="400">Large</div>
-        </div>
-      </div>
-      <div class="form-group" style="flex:0 0 auto">
-        <label>Color</label>
-        <input type="color" id="qrColor" class="color-swatch" value="#000000">
+    <div class="form-group">
+      <label>Size</label>
+      <div class="pill-group" id="sizePills">
+        <div class="pill-btn" data-size="160">Small</div>
+        <div class="pill-btn active" data-size="256">Medium</div>
+        <div class="pill-btn" data-size="400">Large</div>
       </div>
     </div>
 
-    <div class="qr-frame" id="qrFrame"><div id="qrcode"></div></div>
+    <div class="color-picker-row">
+      <div class="form-group">
+        <label>Color</label>
+        <input type="color" id="qrColor" class="color-swatch" value="#000000">
+      </div>
+      <div class="form-group">
+        <label>Presets</label>
+        <div class="color-swatches" id="colorPresets">
+          <div class="color-swatch-preset active" data-color="#000000" style="background:#000000"></div>
+          <div class="color-swatch-preset" data-color="#6366f1" style="background:#6366f1"></div>
+          <div class="color-swatch-preset" data-color="#ef4444" style="background:#ef4444"></div>
+          <div class="color-swatch-preset" data-color="#f59e0b" style="background:#f59e0b"></div>
+          <div class="color-swatch-preset" data-color="#10b981" style="background:#10b981"></div>
+          <div class="color-swatch-preset" data-color="#8b5cf6" style="background:#8b5cf6"></div>
+          <div class="color-swatch-preset" data-color="#ec4899" style="background:#ec4899"></div>
+          <div class="color-swatch-preset" data-color="#06b6d4" style="background:#06b6d4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filename-row">
+      <div class="form-group">
+        <label>Filename (optional)</label>
+        <div class="input-wrap">
+          <input type="text" id="qrFilename" placeholder="qrcode" value="qrcode">
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-preview active" id="qrFrame"><div id="qrcode"></div></div>
 
     <div class="toolbar">
       <button class="btn btn-primary" onclick="generateQR()">Generate</button>
@@ -126,8 +105,8 @@ body { --accent: #6366f1; --accent-subtle: rgba(99,102,241,0.1); --accent-text: 
     <ol>
       <li>Type or paste your text or URL in the input box</li>
       <li>Choose a size — Small, Medium, or Large</li>
-      <li>Pick a foreground color (optional)</li>
-      <li>Click Generate — the QR code appears instantly</li>
+      <li>Pick a foreground color or choose from presets</li>
+      <li>The QR code renders instantly as you type</li>
       <li>Download as PNG to use anywhere</li>
     </ol>
   </div>
@@ -139,47 +118,73 @@ body { --accent: #6366f1; --accent-subtle: rgba(99,102,241,0.1); --accent-text: 
     <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Do QR codes expire?</div><div class="faq-answer"><p>No — the code itself is a static image. It will work forever as long as the encoded content (e.g., the website it links to) still exists.</p></div></div>
   </div>
 </main>
+</div>
 
 <footer><div class="container"><p><a href="/">Home</a> · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a></p><p style="margin-top:6px">© 2026 Free Online Tools</p></div></footer>
+</div>
 
 <script>
-let qrSize=256, qrInstance=null;
+let qrSize = 256, qrInstance = null;
 
-document.querySelectorAll('.size-chip').forEach(chip=>{
-  chip.addEventListener('click',()=>{
-    document.querySelectorAll('.size-chip').forEach(c=>c.classList.remove('active'));
-    chip.classList.add('active');
-    qrSize=parseInt(chip.dataset.size);
+// Size pills
+document.querySelectorAll('#sizePills .pill-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#sizePills .pill-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    qrSize = parseInt(btn.dataset.size);
     generateQR();
   });
 });
 
-function generateQR(){
-  const text=document.getElementById('qrText').value.trim();
-  if(!text)return;
-  const container=document.getElementById('qrcode');
-  container.innerHTML='';
-  qrInstance=new QRCode(container,{
-    text,width:qrSize,height:qrSize,
-    colorDark:document.getElementById('qrColor').value,
-    colorLight:'#ffffff',
-    correctLevel:QRCode.CorrectLevel.H
+// Color presets
+document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(swatch => {
+  swatch.addEventListener('click', () => {
+    document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(s => s.classList.remove('active'));
+    swatch.classList.add('active');
+    document.getElementById('qrColor').value = swatch.dataset.color;
+    generateQR();
+  });
+});
+
+// Sync color picker with presets
+document.getElementById('qrColor').addEventListener('input', () => {
+  document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(s => s.classList.remove('active'));
+  generateQR();
+});
+
+function generateQR() {
+  const text = document.getElementById('qrText').value.trim();
+  if (!text) return;
+  const container = document.getElementById('qrcode');
+  container.innerHTML = '';
+  qrInstance = new QRCode(container, {
+    text,
+    width: qrSize,
+    height: qrSize,
+    colorDark: document.getElementById('qrColor').value,
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
   });
 }
 
-function downloadQR(){
-  const c=document.querySelector('#qrcode canvas');
-  if(!c)return;
-  const link=document.createElement('a');
-  link.download='qrcode.png';
-  link.href=c.toDataURL('image/png');
+function downloadQR() {
+  const c = document.querySelector('#qrcode canvas');
+  if (!c) return;
+  const name = document.getElementById('qrFilename').value.trim() || 'qrcode';
+  const link = document.createElement('a');
+  link.download = name + '.png';
+  link.href = c.toDataURL('image/png');
   link.click();
 }
 
-function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
-document.getElementById('qrText').addEventListener('input',generateQR);
-document.getElementById('qrColor').addEventListener('input',generateQR);
-window.addEventListener('load',generateQR);
+function toggleFAQ(e) {
+  e.classList.toggle('open');
+  e.nextElementSibling.classList.toggle('open');
+}
+
+// Instant rendering on input
+document.getElementById('qrText').addEventListener('input', generateQR);
+window.addEventListener('load', generateQR);
 </script>
 </body>
 </html>

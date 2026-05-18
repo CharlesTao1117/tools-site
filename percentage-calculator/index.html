@@ -9,16 +9,16 @@
 <link rel="stylesheet" href="/common/premium.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Percentage Calculator","applicationCategory":"BusinessApplication"}</script>
 <style>
-body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.1);--accent-text:#c026d3}
-.vis-bar{height:16px;border-radius:8px;background:var(--bg);overflow:hidden;margin:12px 0;position:relative}
+body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.12);--accent-text:#c026d3}
+.vis-bar{height:16px;border-radius:8px;background:var(--bg);overflow:hidden;margin:12px 0;position:relative;border:1px solid var(--border-subtle)}
 .vis-bar .fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--accent),#e879f9);transition:width .4s cubic-bezier(.34,1.56,.64,1)}
 .vis-bar .label{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.7rem;font-weight:600;color:var(--text-secondary)}
-.tab-bar button{font-size:.75rem}
 </style>
 </head>
 <body>
+<div class="page-wrap">
 <nav class="top-nav"><div class="container">
-  <div class="brand"><a href="/">Free Tools</a></div>
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
     <a href="/qr-code-generator/">QR Code</a>
     <a href="/bmi-calculator/">BMI</a>
@@ -29,8 +29,9 @@ body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.1);--accent-text:#c026d3
     <a href="/password-generator/">Password</a>
   </div>
 </div></nav>
-<div class="hero"><h1>📊 Percentage Calculator</h1><p>Quick calculations for percentages, ratios, and changes</p></div>
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:.85rem">Ad Space</div></div>
+<div class="page-content">
+<div class="hero"><h1>📊 <span class="gradient-text">Percentage Calculator</span></h1><p>Quick calculations for percentages, ratios, and changes</p></div>
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 <main class="container">
 <div class="card">
 <div class="tab-bar">
@@ -39,34 +40,56 @@ body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.1);--accent-text:#c026d3
 <button onclick="switchTab(2)">% Change</button>
 </div>
 <div class="tab-pane active" id="t0">
-<div class="form-row"><div class="form-group"><label>Percentage (%)</label><div class="input-wrap"><input type="number" id="p1" value="20" step="any"></div></div><div class="form-group"><label>Of Value</label><div class="input-wrap"><input type="number" id="v1" value="200" step="any"></div></div></div>
-<div class="result-box animate-in"><div class="big-number" id="r0">40</div><div class="desc">20% of 200 = 40</div></div>
+<div class="form-row">
+  <div class="form-group"><label>Percentage (%)</label><div class="input-wrap"><input type="number" id="p1" value="20" step="any"></div></div>
+  <div class="form-group"><label>Of Value</label><div class="input-wrap"><input type="number" id="v1" value="200" step="any"></div></div>
+</div>
+<div class="result-box animate-in">
+  <div class="big-number" id="r0">40</div>
+  <div class="desc">20% of 200 = 40</div>
+</div>
 <div class="vis-bar"><div class="fill" id="bar0" style="width:20%"></div><div class="label">20%</div></div>
 </div>
 <div class="tab-pane" id="t1">
-<div class="form-row"><div class="form-group"><label>Part (X)</label><div class="input-wrap"><input type="number" id="part" value="50" step="any"></div></div><div class="form-group"><label>Total (Y)</label><div class="input-wrap"><input type="number" id="total" value="200" step="any"></div></div></div>
-<div class="result-box animate-in"><div class="big-number" id="r1">25%</div><div class="desc">50 is 25% of 200</div></div>
+<div class="form-row">
+  <div class="form-group"><label>Part (X)</label><div class="input-wrap"><input type="number" id="part" value="50" step="any"></div></div>
+  <div class="form-group"><label>Total (Y)</label><div class="input-wrap"><input type="number" id="total" value="200" step="any"></div></div>
+</div>
+<div class="result-box animate-in">
+  <div class="big-number" id="r1">25%</div>
+  <div class="desc">50 is 25% of 200</div>
+</div>
 <div class="vis-bar"><div class="fill" id="bar1" style="width:25%"></div><div class="label">25%</div></div>
 </div>
 <div class="tab-pane" id="t2">
-<div class="form-row"><div class="form-group"><label>Original</label><div class="input-wrap"><input type="number" id="oldV" value="100" step="any"></div></div><div class="form-group"><label>New</label><div class="input-wrap"><input type="number" id="newV" value="150" step="any"></div></div></div>
-<div class="result-box animate-in"><div class="big-number" id="r2">+50%</div><div class="desc">Increase from 100 to 150</div></div>
+<div class="form-row">
+  <div class="form-group"><label>Original</label><div class="input-wrap"><input type="number" id="oldV" value="100" step="any"></div></div>
+  <div class="form-group"><label>New</label><div class="input-wrap"><input type="number" id="newV" value="150" step="any"></div></div>
+</div>
+<div class="result-box animate-in">
+  <div class="big-number" id="r2">+50%</div>
+  <div class="desc">Increase from 100 to 150</div>
 </div>
 </div>
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="color:var(--text-tertiary);font-size:.85rem">Ad Space</div></div>
+</div>
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 <div class="section"><h2>How to Use</h2><ol><li>Choose a calculation type from the tabs above</li><li>Enter your numbers — results update instantly</li><li>Visual bars show proportions at a glance</li></ol></div>
 <div class="section"><h2>FAQ</h2>
 <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate 20% of a number?</div><div class="faq-answer"><p>Multiply the number by 0.20. Use the "X% of Y" tab for instant results.</p></div></div>
 <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate percentage increase?</div><div class="faq-answer"><p>Subtract original from new, divide by original, multiply by 100. Use the "% Change" tab above.</p></div></div>
 </div>
 </main>
+</div>
 <footer><div class="container"><p><a href="/">Home</a> · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a></p><p style="margin-top:6px">© 2026 Free Online Tools</p></div></footer>
+</div>
 <script>
 let ct=0;const panes=['t0','t1','t2'];
 function switchTab(i){ct=i;document.querySelectorAll('.tab-bar button').forEach((b,idx)=>b.classList.toggle('active',idx===i));document.querySelectorAll('.tab-pane').forEach((p,idx)=>p.classList.toggle('active',idx===i))}
-function calc0(){const p=parseFloat(document.getElementById('p1').value)||0,v=parseFloat(document.getElementById('v1').value)||0,r=v*p/100;document.getElementById('r0').textContent=r.toFixed(2);document.querySelector('#t0 .desc').textContent=`${p}% of ${v} = ${r.toFixed(2)}`;document.getElementById('bar0').style.width=Math.min(p,100)+'%'}
-function calc1(){const p=parseFloat(document.getElementById('part').value)||0,t=parseFloat(document.getElementById('total').value)||1,r=(p/t)*100;document.getElementById('r1').textContent=r.toFixed(1)+'%';document.querySelector('#t1 .desc').textContent=`${p} is ${r.toFixed(1)}% of ${t}`;document.getElementById('bar1').style.width=Math.min(r,100)+'%'}
-function calc2(){const o=parseFloat(document.getElementById('oldV').value)||0,n=parseFloat(document.getElementById('newV').value)||0,r=o?((n-o)/o)*100:0;document.getElementById('r2').textContent=(r>=0?'+':'')+r.toFixed(1)+'%';document.querySelector('#t2 .desc').textContent=(r>=0?'Increase':'Decrease')+` from ${o} to ${n}`}
+function fmt(n){return Number(n).toLocaleString('en-US',{maximumFractionDigits:2,minimumFractionDigits:0})}
+function barClamp(v){return Math.max(0,Math.min(v,100))}
+function calc0(){const p=parseFloat(document.getElementById('p1').value)||0,v=parseFloat(document.getElementById('v1').value)||0,r=v*p/100;document.getElementById('r0').textContent=fmt(r);document.querySelector('#t0 .desc').textContent=`${fmt(p)}% of ${fmt(v)} = ${fmt(r)}`;const w=barClamp(p);document.getElementById('bar0').style.width=w+'%';document.querySelector('#t0 .vis-bar .label').textContent=w+'%'}
+function calc1(){const p=parseFloat(document.getElementById('part').value)||0,t=parseFloat(document.getElementById('total').value)||0;if(t===0){document.getElementById('r1').textContent='—';document.querySelector('#t1 .desc').textContent='Total cannot be zero';document.getElementById('bar1').style.width='0%';document.querySelector('#t1 .vis-bar .label').textContent='0%';return}const r=(p/t)*100;document.getElementById('r1').textContent=r.toFixed(1)+'%';document.querySelector('#t1 .desc').textContent=`${fmt(p)} is ${r.toFixed(1)}% of ${fmt(t)}`;const w=barClamp(r);document.getElementById('bar1').style.width=w+'%';document.querySelector('#t1 .vis-bar .label').textContent=w.toFixed(1)+'%'}
+function calc2(){const o=parseFloat(document.getElementById('oldV').value)||0,n=parseFloat(document.getElementById('newV').value)||0;if(o===0){document.getElementById('r2').textContent='—';document.querySelector('#t2 .desc').textContent='Original value cannot be zero';return}const r=((n-o)/o)*100;document.getElementById('r2').textContent=(r>=0?'+':'')+r.toFixed(1)+'%';const label=r===0?'No change':(r>0?'Increase':'Decrease');document.querySelector('#t2 .desc').textContent=label+` from ${fmt(o)} to ${fmt(n)}`}
 function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
 ['p1','v1'].forEach(id=>document.getElementById(id).addEventListener('input',calc0));
 ['part','total'].forEach(id=>document.getElementById(id).addEventListener('input',calc1));
