@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Age Calculator | Exact Age in Years, Months, Days</title>
+<meta name="description" content="Free online Age Calculator. Calculate your exact age in years, months, and days from your date of birth. Find days until next birthday.">
+<link rel="canonical" href="https://tools-site.pages.dev/age-calculator/">
+<link rel="stylesheet" href="/common/ads.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Age Calculator","url":"https://tools-site.pages.dev/age-calculator/","description":"Calculate exact age in years, months, days from a birth date.","applicationCategory":"HealthApplication","operatingSystem":"Any","browserRequirements":"JavaScript"}</script>
+<style>
+:root{--primary:#f59e0b;--primary-hover:#d97706;--bg:#f8fafc;--card:#fff;--text:#1e293b;--text-light:#64748b;--border:#e2e8f0;--radius:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:720px;margin:0 auto;padding:0 20px}
+header{background:linear-gradient(135deg,var(--primary),#fbbf24);color:#fff;padding:48px 20px 40px;text-align:center}
+header h1{font-size:2rem;margin-bottom:8px}
+header p{font-size:1.05rem;opacity:.9}
+.top-nav{background:#fff;border-bottom:1px solid var(--border);padding:12px 0}
+.top-nav .container{display:flex;gap:20px;align-items:center;justify-content:space-between}
+.top-nav .links{display:flex;gap:20px;flex-wrap:wrap}
+.top-nav a{color:var(--text-light);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+.top-nav a:hover,.top-nav a.active{color:var(--primary)}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:0 1px 3px rgba(0,0,0,.08);padding:32px;margin:-24px auto 24px;position:relative}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--text)}
+.input-wrap{position:relative}
+.input-wrap input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:8px;font-size:1rem;transition:border-color .2s;font-family:inherit}
+.input-wrap input:focus{outline:0;border-color:var(--primary)}
+.form-row{display:flex;gap:16px;flex-wrap:wrap}
+.form-row .form-group{flex:1;min-width:140px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;width:100%;margin-top:8px}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-hover)}
+
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.result-item{text-align:center;padding:20px;background:var(--bg);border-radius:12px}
+.result-item .num{font-size:2.5rem;font-weight:800;color:var(--primary);line-height:1}
+.result-item .lbl{font-size:.85rem;color:var(--text-light);margin-top:6px}
+
+.secondary-result{text-align:center;padding:16px;background:var(--bg);border-radius:12px;margin-top:12px}
+.secondary-result .big{font-size:1.5rem;font-weight:700;color:var(--primary)}
+.secondary-result .lbl{font-size:.85rem;color:var(--text-light)}
+
+.section{margin:32px 0}
+.section h2{font-size:1.3rem;margin-bottom:12px}
+.section p,.section li{color:var(--text-light)}
+.section ul{padding-left:20px}.section li{margin-bottom:6px}
+.faq-item{border:1px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden}
+.faq-question{padding:14px 18px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#fff}
+.faq-question:hover{background:#f1f5f9}
+.faq-question::after{content:"+";font-size:1.2rem;color:var(--primary)}
+.faq-question.open::after{content:"−"}
+.faq-answer{padding:0 18px;max-height:0;overflow:hidden;transition:all .3s;color:var(--text-light)}
+.faq-answer.open{padding:14px 18px;max-height:300px}
+footer{text-align:center;padding:32px 20px;color:var(--text-light);font-size:.85rem;border-top:1px solid var(--border);margin-top:40px}
+footer a{color:var(--primary);text-decoration:none}
+@media(max-width:480px){
+  header{padding:36px 16px 32px}
+  header h1{font-size:1.5rem}
+  .card{padding:20px;margin-top:-16px}
+  .result-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .result-item .num{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+<nav class="top-nav"><div class="container"><div class="links">
+<a href="/" style="font-weight:700;color:var(--primary)">Home</a>
+<a href="/qr-code-generator/">QR Code Generator</a>
+<a href="/bmi-calculator/">BMI Calculator</a>
+<a href="/percentage-calculator/">Percentage Calculator</a>
+<a href="/age-calculator/" class="active">Age Calculator</a>
+<a href="/date-calculator/">Date Calculator</a>
+<a href="/password-generator/">Password Generator</a>
+<a href="/discount-calculator/">Discount Calculator</a>
+</div></div></nav>
+
+<header><h1>🎂 Age Calculator</h1><p>Calculate your exact age in years, months, and days</p></header>
+
+<!-- Ad Slot: Top Banner -->
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div></div>
+
+<main class="container">
+<div class="card">
+<div class="form-group">
+<label>Date of Birth</label>
+<div class="input-wrap"><input type="date" id="dob" value="1995-06-15"></div>
+</div>
+<div class="form-group">
+<label>As of Date</label>
+<div class="input-wrap"><input type="date" id="asof"></div>
+</div>
+<button class="btn btn-primary" onclick="calcAge()">📅 Calculate Age</button>
+
+<div class="result-grid">
+<div class="result-item"><div class="num" id="ageYears">30</div><div class="lbl">Years</div></div>
+<div class="result-item"><div class="num" id="ageMonths">11</div><div class="lbl">Months</div></div>
+<div class="result-item"><div class="num" id="ageDays">3</div><div class="lbl">Days</div></div>
+</div>
+
+<div class="secondary-result">
+<div class="big" id="totalDays">11,307 days old</div>
+<div class="lbl">Total days since birth</div>
+</div>
+<div class="secondary-result">
+<div class="big" id="nextBirthday">328 days until next birthday 🎉</div>
+<div class="lbl">Countdown to your birthday</div>
+</div>
+</div>
+
+<!-- Ad Slot: In-Content -->
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="text-align:center">📢 Ad Space (300×250)</div></div>
+
+<div class="section">
+<h2>📖 How to Use</h2>
+<ol>
+<li>Enter your date of birth (or any starting date)</li>
+<li>Choose the "as of" date (defaults to today)</li>
+<li>Click "Calculate Age" to see your exact age</li>
+<li>View your age in years, months, days, and total days since birth</li>
+</ol>
+</div>
+
+<div class="section">
+<h2>❓ FAQ</h2>
+<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How is my exact age calculated?</div><div class="faq-answer"><p>Your age is calculated by comparing your birth date to today's date. The calculator accounts for leap years and varying month lengths to give you the most precise result possible.</p></div></div>
+<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Why does age matter for health?</div><div class="faq-answer"><p>Age is a key factor in medical screening recommendations, medication dosing, BMI interpretation for children, and many health guidelines. Always provide your accurate age when consulting healthcare providers.</p></div></div>
+<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Does this calculator work for past dates?</div><div class="faq-answer"><p>Yes! Change the "As of Date" to any date in the past or future to calculate age at that specific point in time. This is useful for historical research or planning future milestones.</p></div></div>
+</div>
+
+<div class="section"><h2>🔗 Related Tools</h2><ul>
+<li><a href="/date-calculator/" style="color:var(--primary)">Date Calculator</a> — Days between dates and date arithmetic</li>
+<li><a href="/bmi-calculator/" style="color:var(--primary)">BMI Calculator</a> — Calculate your Body Mass Index</li>
+</ul></div>
+</main>
+
+<!-- Ad Slot: Bottom Banner -->
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div></div>
+
+<footer><div class="container"><p>Home · Privacy Policy · Terms · About</p><p style="margin-top:8px">© 2026 Free Online Tools</p></div></footer>
+
+<script>
+function calcAge() {
+  const dobStr = document.getElementById('dob').value;
+  const asofStr = document.getElementById('asof').value || new Date().toISOString().split('T')[0];
+  if (!dobStr) return;
+
+  const dob = new Date(dobStr);
+  const asof = new Date(asofStr);
+
+  let years = asof.getFullYear() - dob.getFullYear();
+  let months = asof.getMonth() - dob.getMonth();
+  let days = asof.getDate() - dob.getDate();
+
+  if (days < 0) {
+    const prevMonth = new Date(asof.getFullYear(), asof.getMonth(), 0);
+    days += prevMonth.getDate();
+    months--;
+  }
+  if (months < 0) {
+    months += 12;
+    years--;
+  }
+
+  document.getElementById('ageYears').textContent = years;
+  document.getElementById('ageMonths').textContent = months;
+  document.getElementById('ageDays').textContent = days;
+
+  // Total days
+  const diffMs = asof - dob;
+  const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  document.getElementById('totalDays').textContent = totalDays.toLocaleString() + ' days old';
+
+  // Next birthday
+  const nextBday = new Date(asof.getFullYear(), dob.getMonth(), dob.getDate());
+  if (nextBday <= asof) nextBday.setFullYear(asof.getFullYear() + 1);
+  const daysUntil = Math.ceil((nextBday - asof) / (1000 * 60 * 60 * 24));
+  document.getElementById('nextBirthday').textContent = daysUntil + ' days until next birthday 🎉';
+}
+
+function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
+['dob','asof'].forEach(id=>document.getElementById(id)?.addEventListener('change',calcAge));
+window.addEventListener('load',()=>{
+  document.getElementById('asof').value=new Date().toISOString().split('T')[0];
+  calcAge();
+});
+</script>
+</body>
+</html>

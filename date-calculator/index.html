@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Date Calculator | Days Between Dates &amp; Date Arithmetic</title>
+<meta name="description" content="Free online Date Calculator. Calculate the number of days between two dates, or add/subtract days from any date. Simple, fast, and accurate.">
+<link rel="canonical" href="https://tools-site.pages.dev/date-calculator/">
+<link rel="stylesheet" href="/common/ads.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Date Calculator","url":"https://tools-site.pages.dev/date-calculator/","description":"Calculate days between dates or add/subtract days from a date.","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"JavaScript"}</script>
+<style>
+:root{--primary:#0ea5e9;--primary-hover:#0284c7;--bg:#f8fafc;--card:#fff;--text:#1e293b;--text-light:#64748b;--border:#e2e8f0;--radius:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:720px;margin:0 auto;padding:0 20px}
+header{background:linear-gradient(135deg,var(--primary),#38bdf8);color:#fff;padding:48px 20px 40px;text-align:center}
+header h1{font-size:2rem;margin-bottom:8px}
+header p{font-size:1.05rem;opacity:.9}
+.top-nav{background:#fff;border-bottom:1px solid var(--border);padding:12px 0}
+.top-nav .container{display:flex;gap:20px;align-items:center;justify-content:space-between}
+.top-nav .links{display:flex;gap:20px;flex-wrap:wrap}
+.top-nav a{color:var(--text-light);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+.top-nav a:hover,.top-nav a.active{color:var(--primary)}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:0 1px 3px rgba(0,0,0,.08);padding:32px;margin:-24px auto 24px;position:relative}
+.tab-bar{display:flex;gap:0;margin-bottom:20px;border:2px solid var(--border);border-radius:8px;overflow:hidden}
+.tab-bar button{flex:1;padding:12px;border:none;background:var(--bg);font-size:.85rem;font-weight:600;cursor:pointer;color:var(--text-light);transition:all .2s}
+.tab-bar button.active{background:var(--primary);color:#fff}
+.tab-pane{display:none}.tab-pane.active{display:block}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--text)}
+.input-wrap{position:relative}
+.input-wrap input,.input-wrap select{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:8px;font-size:1rem;transition:border-color .2s;font-family:inherit}
+.input-wrap input:focus{outline:0;border-color:var(--primary)}
+.form-row{display:flex;gap:16px;flex-wrap:wrap}
+.form-row .form-group{flex:1;min-width:140px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;width:100%;margin-top:8px}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-hover)}
+.result-box{text-align:center;padding:20px;margin:16px 0 0;background:var(--bg);border-radius:12px}
+.result-box .big{font-size:2.8rem;font-weight:800;color:var(--primary);line-height:1.2}
+.result-box .desc{font-size:.95rem;color:var(--text-light);margin-top:4px}
+.result-box .sub{font-size:.85rem;color:var(--text-light);margin-top:2px}
+.section{margin:32px 0}
+.section h2{font-size:1.3rem;margin-bottom:12px}
+.section p,.section li{color:var(--text-light)}
+.section ul{padding-left:20px}.section li{margin-bottom:6px}
+.faq-item{border:1px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden}
+.faq-question{padding:14px 18px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#fff}
+.faq-question:hover{background:#f1f5f9}
+.faq-question::after{content:"+";font-size:1.2rem;color:var(--primary)}
+.faq-question.open::after{content:"−"}
+.faq-answer{padding:0 18px;max-height:0;overflow:hidden;transition:all .3s;color:var(--text-light)}
+.faq-answer.open{padding:14px 18px;max-height:300px}
+footer{text-align:center;padding:32px 20px;color:var(--text-light);font-size:.85rem;border-top:1px solid var(--border);margin-top:40px}
+footer a{color:var(--primary);text-decoration:none}
+@media(max-width:480px){
+  header{padding:36px 16px 32px}
+  header h1{font-size:1.5rem}
+  .card{padding:20px;margin-top:-16px}
+}
+</style>
+</head>
+<body>
+<nav class="top-nav"><div class="container"><div class="links">
+<a href="/" style="font-weight:700;color:var(--primary)">Home</a>
+<a href="/qr-code-generator/">QR Code Generator</a>
+<a href="/bmi-calculator/">BMI Calculator</a>
+<a href="/percentage-calculator/">Percentage Calculator</a>
+<a href="/age-calculator/">Age Calculator</a>
+<a href="/date-calculator/" class="active">Date Calculator</a>
+<a href="/password-generator/">Password Generator</a>
+<a href="/discount-calculator/">Discount Calculator</a>
+</div></div></nav>
+
+<header><h1>📅 Date Calculator</h1><p>Find days between dates or add/subtract days from any date</p></header>
+
+<!-- Ad Slot: Top Banner -->
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div></div>
+
+<main class="container">
+<div class="card">
+<div class="tab-bar" id="tabBar">
+<button class="active" onclick="switchTab(0)">Days Between Dates</button>
+<button onclick="switchTab(1)">Add / Subtract Days</button>
+</div>
+
+<!-- Tab 1: Days Between -->
+<div class="tab-pane active" id="tab0">
+<div class="form-row">
+<div class="form-group"><label>Start Date</label><div class="input-wrap"><input type="date" id="startDate"></div></div>
+<div class="form-group"><label>End Date</label><div class="input-wrap"><input type="date" id="endDate"></div></div>
+</div>
+<button class="btn btn-primary" onclick="calcDaysBetween()">📆 Calculate</button>
+<div class="result-box"><div class="big" id="dbResult">0</div><div class="desc" id="dbLabel">days between dates</div><div class="sub" id="dbDetail"></div></div>
+</div>
+
+<!-- Tab 2: Add / Subtract -->
+<div class="tab-pane" id="tab1">
+<div class="form-row">
+<div class="form-group"><label>Date</label><div class="input-wrap"><input type="date" id="baseDate"></div></div>
+<div class="form-group">
+<label>Operation</label>
+<div class="input-wrap">
+<select id="opType">
+<option value="add">Add</option>
+<option value="sub">Subtract</option>
+</select>
+</div>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Days</label><div class="input-wrap"><input type="number" id="daysNum" value="30" min="1" step="1"></div></div>
+<div class="form-group"><label>Weeks</label><div class="input-wrap"><input type="number" id="weeksNum" value="0" min="0" step="1"></div></div>
+</div>
+<button class="btn btn-primary" onclick="calcAddSub()">📆 Calculate</button>
+<div class="result-box"><div class="big" id="asResult">—</div><div class="desc" id="asLabel">resulting date</div></div>
+</div>
+</div>
+
+<!-- Ad Slot: In-Content -->
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="text-align:center">📢 Ad Space (300×250)</div></div>
+
+<div class="section">
+<h2>📖 How to Use</h2>
+<ol>
+<li><strong>Days Between Dates:</strong> Pick a start and end date to calculate the exact number of days, weeks, and months between them</li>
+<li><strong>Add / Subtract:</strong> Set a starting date, choose add or subtract, enter days and weeks, and get the resulting date</li>
+</ol>
+</div>
+
+<div class="section">
+<h2>❓ FAQ</h2>
+<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Does the date calculator count weekends?</div><div class="faq-answer"><p>This calculator counts all calendar days (including weekends and holidays). For business days only (Mon-Fri), you can manually exclude weekends from the result.</p></div></div>
+<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Does it account for leap years?</div><div class="faq-answer"><p>Yes! The JavaScript Date object automatically handles leap years (February 29) and varying month lengths correctly for all dates from year 1 to 9999.</p></div></div>
+<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What can I use this date calculator for?</div><div class="faq-answer"><p>Planning events, calculating project deadlines, counting days until a vacation or birthday, determining how many days since a historical event, pregnancy due dates, and more.</p></div></div>
+</div>
+
+<div class="section"><h2>🔗 Related Tools</h2><ul>
+<li><a href="/age-calculator/" style="color:var(--primary)">Age Calculator</a> — Calculate exact age from date of birth</li>
+<li><a href="/percentage-calculator/" style="color:var(--primary)">Percentage Calculator</a> — Quick percentage math</li>
+</ul></div>
+</main>
+
+<!-- Ad Slot: Bottom Banner -->
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div></div>
+
+<footer><div class="container"><p>Home · Privacy Policy · Terms · About</p><p style="margin-top:8px">© 2026 Free Online Tools</p></div></footer>
+
+<script>
+let currentTab=0;
+function switchTab(i){
+  currentTab=i;
+  document.querySelectorAll('.tab-bar button').forEach((b,idx)=>b.classList.toggle('active',idx===i));
+  document.querySelectorAll('.tab-pane').forEach((p,idx)=>p.classList.toggle('active',idx===i));
+}
+
+function calcDaysBetween(){
+  const s=document.getElementById('startDate').value;
+  const e=document.getElementById('endDate').value;
+  if(!s||!e)return;
+  const d1=new Date(s),d2=new Date(e);
+  const diff=Math.abs(d2-d1);
+  const days=Math.round(diff/(1000*60*60*24));
+  const weeks=Math.floor(days/7);
+  const remDays=days%7;
+  const months=Math.round(days/30.44);
+
+  document.getElementById('dbResult').textContent=days.toLocaleString();
+  let label=`days between ${s} and ${e}`;
+  if(d2<d1)label=`days between ${e} and ${s}`;
+  document.getElementById('dbLabel').textContent=label;
+  document.getElementById('dbDetail').textContent=`${weeks} weeks ${remDays} days · approx ${months} months`;
+}
+
+function calcAddSub(){
+  const base=document.getElementById('baseDate').value;
+  const op=document.getElementById('opType').value;
+  const days=parseInt(document.getElementById('daysNum').value)||0;
+  const weeks=parseInt(document.getElementById('weeksNum').value)||0;
+  if(!base)return;
+  const totalDays = (op==='add'?1:-1)*(days+weeks*7);
+  const d=new Date(base);
+  d.setDate(d.getDate()+totalDays);
+  const fmt=d.toISOString().split('T')[0];
+  const parts=fmt.split('-');
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const display=`${months[parseInt(parts[1])-1]} ${parseInt(parts[2])}, ${parts[0]}`;
+  document.getElementById('asResult').textContent=display;
+  document.getElementById('asLabel').textContent=fmt;
+}
+function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
+
+window.addEventListener('load',()=>{
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('startDate').value=today;
+  const future=new Date(Date.now()+90*24*60*60*1000).toISOString().split('T')[0];
+  document.getElementById('endDate').value=future;
+  document.getElementById('baseDate').value=today;
+  calcDaysBetween();
+});
+</script>
+</body>
+</html>

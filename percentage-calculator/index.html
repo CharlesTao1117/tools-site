@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Percentage Calculator | Calculate Percentages Online</title>
+<meta name="description" content="Free online Percentage Calculator. Calculate what is X% of Y, X is what percent of Y, and percentage increase/decrease. Fast, accurate, no registration needed.">
+<link rel="canonical" href="https://tools-site.pages.dev/percentage-calculator/">
+<link rel="stylesheet" href="/common/ads.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Percentage Calculator","url":"https://tools-site.pages.dev/percentage-calculator/","description":"Calculate percentages: what is X% of Y, X is what % of Y, and percentage change.","applicationCategory":"BusinessApplication","operatingSystem":"Any","browserRequirements":"JavaScript"}</script>
+<style>
+:root{--primary:#d946ef;--primary-hover:#c026d3;--bg:#f8fafc;--card:#fff;--text:#1e293b;--text-light:#64748b;--border:#e2e8f0;--radius:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:720px;margin:0 auto;padding:0 20px}
+header{background:linear-gradient(135deg,var(--primary),#e879f9);color:#fff;padding:48px 20px 40px;text-align:center}
+header h1{font-size:2rem;margin-bottom:8px}
+header p{font-size:1.05rem;opacity:.9}
+.top-nav{background:#fff;border-bottom:1px solid var(--border);padding:12px 0}
+.top-nav .container{display:flex;gap:20px;align-items:center;justify-content:space-between}
+.top-nav .links{display:flex;gap:20px;flex-wrap:wrap}
+.top-nav a{color:var(--text-light);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+.top-nav a:hover,.top-nav a.active{color:var(--primary)}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:0 1px 3px rgba(0,0,0,.08);padding:32px;margin:-24px auto 24px;position:relative}
+.tab-bar{display:flex;gap:0;margin-bottom:20px;border:2px solid var(--border);border-radius:8px;overflow:hidden}
+.tab-bar button{flex:1;padding:12px;border:none;background:var(--bg);font-size:.85rem;font-weight:600;cursor:pointer;color:var(--text-light);transition:all .2s}
+.tab-bar button.active{background:var(--primary);color:#fff}
+.tab-pane{display:none}.tab-pane.active{display:block}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--text)}
+.input-wrap{position:relative}
+.input-wrap input,.input-wrap select{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:8px;font-size:1rem;transition:border-color .2s;font-family:inherit}
+.input-wrap input:focus{outline:0;border-color:var(--primary)}
+.form-row{display:flex;gap:16px;flex-wrap:wrap}
+.form-row .form-group{flex:1;min-width:140px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;width:100%;margin-top:8px}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-hover)}
+.result-box{text-align:center;padding:20px;margin:16px 0 0;background:var(--bg);border-radius:12px}
+.result-box .big{font-size:2.8rem;font-weight:800;color:var(--primary);line-height:1.2}
+.result-box .desc{font-size:.95rem;color:var(--text-light);margin-top:4px}
+.section{margin:32px 0}
+.section h2{font-size:1.3rem;margin-bottom:12px}
+.section p,.section li{color:var(--text-light)}
+.section ul{padding-left:20px}.section li{margin-bottom:6px}
+.faq-item{border:1px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden}
+.faq-question{padding:14px 18px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#fff}
+.faq-question:hover{background:#f1f5f9}
+.faq-question::after{content:"+";font-size:1.2rem;color:var(--primary)}
+.faq-question.open::after{content:"−"}
+.faq-answer{padding:0 18px;max-height:0;overflow:hidden;transition:all .3s;color:var(--text-light)}
+.faq-answer.open{padding:14px 18px;max-height:300px}
+footer{text-align:center;padding:32px 20px;color:var(--text-light);font-size:.85rem;border-top:1px solid var(--border);margin-top:40px}
+footer a{color:var(--primary);text-decoration:none}
+@media(max-width:480px){
+  header{padding:36px 16px 32px}
+  header h1{font-size:1.5rem}
+  .card{padding:20px;margin-top:-16px}
+}
+</style>
+</head>
+<body>
+<nav class="top-nav"><div class="container"><div class="links">
+<a href="/" style="font-weight:700;color:var(--primary)">Home</a>
+<a href="/qr-code-generator/">QR Code Generator</a>
+<a href="/bmi-calculator/">BMI Calculator</a>
+<a href="/percentage-calculator/" class="active">Percentage Calculator</a>
+<a href="/age-calculator/">Age Calculator</a>
+<a href="/date-calculator/">Date Calculator</a>
+<a href="/password-generator/">Password Generator</a>
+<a href="/discount-calculator/">Discount Calculator</a>
+</div></div></nav>
+
+<header><h1>📊 Percentage Calculator</h1><p>Quick percentage calculations — find percentages, ratios, and changes</p></header>
+
+<!-- Ad Slot: Top Banner -->
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div></div>
+
+<main class="container">
+<div class="card">
+<div class="tab-bar" id="tabBar">
+<button class="active" onclick="switchTab(0)">What is X% of Y?</button>
+<button onclick="switchTab(1)">X is what % of Y?</button>
+<button onclick="switchTab(2)">% Change</button>
+</div>
+
+<!-- Tab 1: What is X% of Y -->
+<div class="tab-pane active" id="tab0">
+<div class="form-row">
+<div class="form-group"><label>Percentage (%)</label><div class="input-wrap"><input type="number" id="pct1" value="20" min="0" max="100" step="any"></div></div>
+<div class="form-group"><label>Of Value</label><div class="input-wrap"><input type="number" id="val1" value="200" min="0" step="any"></div></div>
+</div>
+<button class="btn btn-primary" onclick="calcTab0()">Calculate</button>
+<div class="result-box"><div class="big" id="r0">40</div><div class="desc">20% of 200 is 40</div></div>
+</div>
+
+<!-- Tab 2: X is what % of Y -->
+<div class="tab-pane" id="tab1">
+<div class="form-row">
+<div class="form-group"><label>X (Part)</label><div class="input-wrap"><input type="number" id="part" value="50" min="0" step="any"></div></div>
+<div class="form-group"><label>Y (Total)</label><div class="input-wrap"><input type="number" id="total" value="200" min="0" step="any"></div></div>
+</div>
+<button class="btn btn-primary" onclick="calcTab1()">Calculate</button>
+<div class="result-box"><div class="big" id="r1">25%</div><div class="desc">50 is 25% of 200</div></div>
+</div>
+
+<!-- Tab 3: % Change -->
+<div class="tab-pane" id="tab2">
+<div class="form-row">
+<div class="form-group"><label>Original Value</label><div class="input-wrap"><input type="number" id="oldVal" value="100" min="0" step="any"></div></div>
+<div class="form-group"><label>New Value</label><div class="input-wrap"><input type="number" id="newVal" value="150" min="0" step="any"></div></div>
+</div>
+<button class="btn btn-primary" onclick="calcTab2()">Calculate</button>
+<div class="result-box"><div class="big" id="r2">+50%</div><div class="desc">Increase from 100 to 150</div></div>
+</div>
+</div>
+
+<!-- Ad Slot: In-Content -->
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="text-align:center">📢 Ad Space (300×250)</div></div>
+
+<div class="section">
+<h2>📖 How to Use</h2>
+<ol>
+<li>Choose the type of percentage calculation you need from the tabs above</li>
+<li>Enter your numbers in the input fields</li>
+<li>Click "Calculate" or use the auto-calculating feature</li>
+<li>View your result instantly with a clear explanation</li>
+</ol>
+</div>
+
+<div class="section">
+<h2>📋 Common Percentage Scenarios</h2>
+<table style="width:100%;border-collapse:collapse;font-size:.9rem">
+<thead><tr><th style="padding:10px 14px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border);font-weight:600">Scenario</th><th style="padding:10px 14px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border);font-weight:600">Calculation</th></tr></thead>
+<tbody>
+<tr><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Find a percentage of a number</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">(Percentage ÷ 100) × Number</td></tr>
+<tr><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Express one number as % of another</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">(Part ÷ Total) × 100</td></tr>
+<tr><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Calculate percentage change</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">((New − Old) ÷ Old) × 100</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="section">
+<h2>❓ FAQ</h2>
+<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate 20% of a number?</div><div class="faq-answer"><p>Multiply the number by 0.20. For example, 20% of $80 = $80 × 0.20 = $16. Use Tab 1 above for quick results.</p></div></div>
+<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate percentage increase?</div><div class="faq-answer"><p>Subtract the original value from the new value, divide by the original value, and multiply by 100. Example: (150-100)/100 × 100 = 50% increase. Use Tab 3 above.</p></div></div>
+<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What does "percent" mean?</div><div class="faq-answer"><p>"Percent" means "per hundred" or "out of 100." So 25% means 25 out of every 100, or 0.25 as a decimal.</p></div></div>
+</div>
+
+<div class="section"><h2>🔗 Related Tools</h2><ul>
+<li><a href="/age-calculator/" style="color:var(--primary)">Age Calculator</a> — Calculate exact age in years, months, days</li>
+<li><a href="/date-calculator/" style="color:var(--primary)">Date Calculator</a> — Find days between dates or add/subtract days</li>
+<li><a href="/discount-calculator/" style="color:var(--primary)">Discount Calculator</a> — Calculate savings and final prices</li>
+</ul></div>
+</main>
+
+<!-- Ad Slot: Bottom Banner -->
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div></div>
+
+<footer><div class="container"><p>Home · Privacy Policy · Terms · About</p><p style="margin-top:8px">© 2026 Free Online Tools</p></div></footer>
+
+<script>
+let currentTab = 0;
+function switchTab(i) {
+  currentTab = i;
+  document.querySelectorAll('.tab-bar button').forEach((b,idx)=>b.classList.toggle('active',idx===i));
+  document.querySelectorAll('.tab-pane').forEach((p,idx)=>p.classList.toggle('active',idx===i));
+}
+function calcTab0() {
+  const p=parseFloat(document.getElementById('pct1').value)||0;
+  const v=parseFloat(document.getElementById('val1').value)||0;
+  const r=v*p/100;
+  document.getElementById('r0').textContent=r.toFixed(2);
+  document.querySelector('#tab0 .desc').textContent=`${p}% of ${v} is ${r.toFixed(2)}`;
+}
+function calcTab1() {
+  const p=parseFloat(document.getElementById('part').value)||0;
+  const t=parseFloat(document.getElementById('total').value)||1;
+  const r=(p/t)*100;
+  document.getElementById('r1').textContent=r.toFixed(1)+'%';
+  document.querySelector('#tab1 .desc').textContent=`${p} is ${r.toFixed(1)}% of ${t}`;
+}
+function calcTab2() {
+  const o=parseFloat(document.getElementById('oldVal').value)||0;
+  const n=parseFloat(document.getElementById('newVal').value)||0;
+  const chg=o?((n-o)/o)*100:0;
+  const sign=chg>=0?'+':'';
+  document.getElementById('r2').textContent=`${sign}${chg.toFixed(1)}%`;
+  const dir=chg>=0?'Increase':'Decrease';
+  document.querySelector('#tab2 .desc').textContent=`${dir} from ${o} to ${n}`;
+}
+function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
+['pct1','val1'].forEach(id=>document.getElementById(id)?.addEventListener('input',calcTab0));
+['part','total'].forEach(id=>document.getElementById(id)?.addEventListener('input',calcTab1));
+['oldVal','newVal'].forEach(id=>document.getElementById(id)?.addEventListener('input',calcTab2));
+window.addEventListener('load',calcTab0);
+</script>
+</body>
+</html>
