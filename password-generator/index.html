@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Password Generator | Create Strong Secure Passwords</title>
+<meta name="description" content="Free online Password Generator. Create strong, random passwords with customizable length, uppercase, lowercase, numbers, and symbols. Copy to clipboard with one click.">
+<link rel="canonical" href="https://tools-site.pages.dev/password-generator/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Password Generator","url":"https://tools-site.pages.dev/password-generator/","description":"Create strong, random passwords with customizable options.","applicationCategory":"SecurityApplication","operatingSystem":"Any","browserRequirements":"JavaScript"}
+</script>
+<style>
+:root {
+  --primary: #7c3aed;
+  --primary-hover: #6d28d9;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+header {
+  background: linear-gradient(135deg, var(--primary), #a855f7);
+  color: #fff;
+  text-align: center;
+  padding: 48px 20px 40px;
+}
+header h1 { font-size: 2rem; margin-bottom: 8px; letter-spacing: -0.5px; }
+header p { font-size: 1.05rem; opacity: 0.9; }
+
+.top-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+}
+.top-nav .container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.top-nav .links { display: flex; gap: 20px; flex-wrap: wrap; }
+.top-nav a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .2s;
+}
+.top-nav a:hover, .top-nav a.active { color: var(--primary); }
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  padding: 32px;
+  margin: -24px auto 24px;
+  position: relative;
+}
+
+/* Password Display */
+.password-display {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+.password-display input {
+  flex: 1;
+  padding: 16px 18px;
+  font-size: 1.3rem;
+  font-family: "SF Mono", "Consolas", "Courier New", monospace;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  letter-spacing: 1px;
+  transition: border-color .2s;
+}
+.password-display input:focus { outline: none; border-color: var(--primary); }
+.password-display .copy-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  transition: all .2s;
+}
+.password-display .copy-btn:hover { border-color: var(--primary); }
+
+/* Strength Meter */
+.strength-meter {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.strength-bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--border);
+  transition: all .3s;
+}
+.strength-bar.active.weak { background: #ef4444; }
+.strength-bar.active.medium { background: #f59e0b; }
+.strength-bar.active.strong { background: #10b981; }
+.strength-bar.active.very-strong { background: #059669; }
+.strength-label {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 4px;
+  color: var(--text-light);
+}
+
+/* Options */
+.option-group { margin-bottom: 20px; }
+.option-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--text); }
+
+.length-control {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.length-control input[type="range"] {
+  flex: 1;
+  accent-color: var(--primary);
+  height: 6px;
+}
+.length-control .length-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  min-width: 40px;
+  text-align: center;
+}
+
+.checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .2s;
+  user-select: none;
+}
+.checkbox-item:hover { border-color: var(--primary); }
+.checkbox-item.checked { border-color: var(--primary); background: #f5f3ff; }
+.checkbox-item input { display: none; }
+.checkbox-item .check {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.checkbox-item.checked .check {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 28px; border: none; border-radius: 8px; font-size: 1rem;
+  font-weight: 600; cursor: pointer; transition: all .2s; width: 100%; margin-top: 8px;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-secondary { background: var(--bg); color: var(--text); border: 2px solid var(--border); }
+.btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+
+.section { margin: 32px 0; }
+.section h2 { font-size: 1.3rem; margin-bottom: 12px; color: var(--text); }
+.section p, .section li { color: var(--text-light); }
+.section ul { padding-left: 20px; }
+.section li { margin-bottom: 6px; }
+
+.faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+.faq-question {
+  padding: 14px 18px; font-weight: 600; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #fff; transition: background .2s;
+}
+.faq-question:hover { background: #f1f5f9; }
+.faq-question::after { content: "+"; font-size: 1.2rem; color: var(--primary); }
+.faq-question.open::after { content: "−"; }
+.faq-answer { padding: 0 18px; max-height: 0; overflow: hidden; transition: all .3s; color: var(--text-light); }
+.faq-answer.open { padding: 14px 18px; max-height: 300px; }
+.faq-answer p { margin-bottom: 8px; }
+
+.toolbar { display: flex; gap: 12px; }
+.toolbar .btn { flex: 1; }
+
+footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 40px; }
+footer a { color: var(--primary); text-decoration: none; }
+
+@media (max-width: 480px) {
+  header { padding: 36px 16px 32px; }
+  header h1 { font-size: 1.5rem; }
+  .card { padding: 20px; margin-top: -16px; }
+  .checkboxes { grid-template-columns: 1fr; }
+  .password-display { flex-direction: column; }
+  .password-display input { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="container">
+    <div class="links">
+      <a href="/" style="font-weight:700;color:var(--primary)">Home</a>
+      <a href="/qr-code-generator/">QR Code Generator</a>
+      <a href="/bmi-calculator/">BMI Calculator</a>
+      <a href="/discount-calculator/">Discount Calculator</a>
+      <a href="/password-generator/" class="active">Password Generator</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <h1>🔐 Password Generator</h1>
+  <p>Create strong, random passwords to keep your accounts secure</p>
+</header>
+
+<main class="container">
+  <div class="card">
+    <!-- Password Display -->
+    <div class="password-display">
+      <input type="text" id="passwordOutput" value="aB3$kL9#xQ7@mN2" readonly onclick="this.select()">
+      <button class="copy-btn" onclick="copyPassword()" title="Copy to clipboard">📋</button>
+    </div>
+
+    <!-- Strength Meter -->
+    <div class="strength-meter" id="strengthMeter">
+      <div class="strength-bar" data-level="0"></div>
+      <div class="strength-bar" data-level="1"></div>
+      <div class="strength-bar" data-level="2"></div>
+      <div class="strength-bar" data-level="3"></div>
+    </div>
+    <div class="strength-label" id="strengthLabel">Very Strong</div>
+
+    <!-- Length -->
+    <div class="option-group">
+      <label>Password Length</label>
+      <div class="length-control">
+        <input type="range" id="lengthSlider" min="4" max="64" value="16">
+        <span class="length-value" id="lengthDisplay">16</span>
+      </div>
+    </div>
+
+    <!-- Character Sets -->
+    <div class="option-group">
+      <label>Character Sets</label>
+      <div class="checkboxes">
+        <div class="checkbox-item checked" onclick="toggleChar(this, 'uppercase')">
+          <span class="check">✓</span>
+          <span>Uppercase (A-Z)</span>
+        </div>
+        <div class="checkbox-item checked" onclick="toggleChar(this, 'lowercase')">
+          <span class="check">✓</span>
+          <span>Lowercase (a-z)</span>
+        </div>
+        <div class="checkbox-item checked" onclick="toggleChar(this, 'numbers')">
+          <span class="check">✓</span>
+          <span>Numbers (0-9)</span>
+        </div>
+        <div class="checkbox-item checked" onclick="toggleChar(this, 'symbols')">
+          <span class="check">✓</span>
+          <span>Symbols (!@#$%)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn btn-primary" onclick="generatePassword()">🔃 Generate</button>
+      <button class="btn btn-secondary" onclick="copyPassword()">📋 Copy</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📖 How to Use</h2>
+    <ol>
+      <li>Set the desired password length with the slider (8-64 characters recommended)</li>
+      <li>Select which character types to include: uppercase, lowercase, numbers, symbols</li>
+      <li>Click "Generate" to create a new random password</li>
+      <li>Click "Copy" to copy the password to your clipboard</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>🛡️ Password Strength Guide</h2>
+    <table class="ref-table" style="width:100%;border-collapse:collapse;font-size:0.9rem">
+      <thead><tr><th style="padding:10px 14px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border);font-weight:600">Strength</th><th style="padding:10px 14px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border);font-weight:600">Length</th><th style="padding:10px 14px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border);font-weight:600">Character Types</th><th style="padding:10px 14px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border);font-weight:600">Crack Time</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Weak</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">&lt; 8</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">1 type</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Seconds</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Medium</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">8-10</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">2 types</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Hours</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Strong</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">12-14</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">3 types</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Years</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Very Strong</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">16+</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">All 4 types</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Centuries</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>❓ Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">How long should my password be?</div>
+      <div class="faq-answer"><p>For most accounts, 12-16 characters with a mix of all character types is sufficient. For sensitive accounts (email, banking), aim for 20+ characters. Every additional character exponentially increases the time required to crack it.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">Are these passwords truly random?</div>
+      <div class="faq-answer"><p>Yes. The passwords are generated using your browser's built-in crypto.getRandomValues() API, which provides cryptographically secure random numbers. They are not based on predictable algorithms like Math.random().</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">Are the passwords stored or saved anywhere?</div>
+      <div class="faq-answer"><p>No. All generation happens entirely in your browser. Passwords are never sent to any server, saved to any database, or logged. Once you leave the page, the generated password is gone unless you've saved it elsewhere.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">Should I use a password manager?</div>
+      <div class="faq-answer"><p>Absolutely. A password manager (like Bitwarden, 1Password, or Apple Keychain) securely stores your unique passwords for each site so you don't need to remember them. This lets you use long, random passwords everywhere without reusing passwords.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">What makes a password strong?</div>
+      <div class="faq-answer"><p>Three factors: length (longer is better), complexity (mix of uppercase, lowercase, numbers, and symbols), and uniqueness (never reuse passwords across different sites). A 16-character password with all four character types has 10^30+ possible combinations.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🔗 Related Tools</h2>
+    <ul>
+      <li><a href="/discount-calculator/" style="color:var(--primary)">Discount Calculator</a> — Calculate savings and final prices</li>
+      <li><a href="/qr-code-generator/" style="color:var(--primary)">QR Code Generator</a> — Generate QR codes for free</li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Home · Privacy Policy · Terms · About</p>
+    <p style="margin-top:8px">© 2026 Free Online Tools</p>
+  </div>
+</footer>
+
+<script>
+const CHARS = {
+  uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  lowercase: 'abcdefghijklmnopqrstuvwxyz',
+  numbers: '0123456789',
+  symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?',
+};
+const charState = { uppercase: true, lowercase: true, numbers: true, symbols: true };
+
+function toggleChar(el, type) {
+  charState[type] = !charState[type];
+  el.classList.toggle('checked');
+  generatePassword();
+}
+
+function generatePassword() {
+  const length = parseInt(document.getElementById('lengthSlider').value);
+  const active = Object.keys(CHARS).filter(k => charState[k]);
+  if (active.length === 0) {
+    document.getElementById('passwordOutput').value = 'Select at least one type';
+    updateStrength(0, '');
+    return;
+  }
+
+  // Build pool
+  let pool = active.map(k => CHARS[k]).join('');
+  // Ensure at least one char from each active set
+  let password = active.map(k => CHARS[k][cryptoRand(CHARS[k].length)]);
+
+  // Fill remaining
+  for (let i = password.length; i < length; i++) {
+    password.push(pool[cryptoRand(pool.length)]);
+  }
+
+  // Shuffle (Fisher-Yates)
+  for (let i = password.length - 1; i > 0; i--) {
+    const j = cryptoRand(i + 1);
+    [password[i], password[j]] = [password[j], password[i]];
+  }
+
+  document.getElementById('passwordOutput').value = password.join('');
+  updateStrength(length, active.length);
+}
+
+function cryptoRand(max) {
+  const arr = new Uint32Array(1);
+  crypto.getRandomValues(arr);
+  return arr[0] % max;
+}
+
+function updateStrength(length, types) {
+  let level, label;
+  if (length >= 16 && types >= 4) { level = 4; label = 'Very Strong'; }
+  else if (length >= 12 && types >= 3) { level = 3; label = 'Strong'; }
+  else if (length >= 8 && types >= 2) { level = 2; label = 'Medium'; }
+  else { level = 1; label = 'Weak'; }
+
+  const bars = document.querySelectorAll('.strength-bar');
+  const labels = ['weak', 'medium', 'strong', 'very-strong'];
+  bars.forEach((bar, i) => {
+    bar.className = 'strength-bar';
+    if (i < level) bar.classList.add('active', labels[i]);
+  });
+  document.getElementById('strengthLabel').textContent = label;
+  document.getElementById('strengthLabel').style.color = level >= 3 ? '#059669' : level === 2 ? '#f59e0b' : '#ef4444';
+}
+
+function copyPassword() {
+  const input = document.getElementById('passwordOutput');
+  input.select();
+  navigator.clipboard.writeText(input.value).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = '✅';
+    setTimeout(() => { btn.textContent = '📋'; }, 1500);
+  });
+}
+
+function toggleFAQ(el) { el.classList.toggle('open'); el.nextElementSibling.classList.toggle('open'); }
+
+window.addEventListener('load', () => {
+  const slider = document.getElementById('lengthSlider');
+  slider.addEventListener('input', () => {
+    document.getElementById('lengthDisplay').textContent = slider.value;
+    generatePassword();
+  });
+  generatePassword();
+});
+</script>
+</body>
+</html>

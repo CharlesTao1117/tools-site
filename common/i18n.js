@@ -2,10 +2,9 @@
  * i18n — Language detection + translation engine
  *
  * Priority order:
- *   1. localStorage('lang')
- *   2. navigator.language (browser setting)
- *   3. Timezone (Asia/Taipei)
- *   4. IP geolocation (async fallback, only on first visit)
+ *   1. localStorage('lang') — user toggle
+ *   2. IP geolocation (async) — Taiwan IP → zh
+ *   3. Default: English
  *
  * Usage:
  *   In HTML: <h1 data-i18n="page_title">Fallback English text</h1>
@@ -21,21 +20,10 @@ const i18n = (() => {
   function detectLang() {
     const saved = localStorage.getItem('lang');
     if (saved && (saved === 'en' || saved === 'zh')) return saved;
-
-    // Browser language
-    const blang = (navigator.language || '').toLowerCase();
-    if (blang.startsWith('zh')) return 'zh';
-
-    // Timezone — Taiwan
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      if (tz === 'Asia/Taipei') return 'zh';
-    } catch (_) { /* ignore */ }
-
-    return 'en'; // default
+    return 'en'; // always default English
   }
 
-  /* ── IP geolocation (async, one-time) ── */
+  /* ── IP geolocation (async, one-time) — only for new visitors ── */
   function detectByIP() {
     if (localStorage.getItem('ip_checked')) return;
     localStorage.setItem('ip_checked', '1');
@@ -139,6 +127,8 @@ const i18n = (() => {
 i18n.set('nav_home',     'Home',               '首頁');
 i18n.set('nav_qr',       'QR Code Generator',  'QR Code 產生器');
 i18n.set('nav_bmi',      'BMI Calculator',     'BMI 計算機');
+i18n.set('nav_discount', 'Discount Calculator', '折扣計算機');
+i18n.set('nav_password', 'Password Generator',  '密碼產生器');
 i18n.set('footer_pages', 'Home · Privacy Policy · Terms · About', '首頁 · 隱私政策 · 服務條款 · 關於我們');
 i18n.set('footer_cr',    '© 2026 Free Online Tools', '© 2026 免費線上工具集');
 i18n.set('more_coming',  'More tools coming soon...', '更多工具持續新增中...');

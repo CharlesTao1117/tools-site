@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Discount Calculator | Calculate Savings &amp; Final Price</title>
+<meta name="description" content="Free online Discount Calculator. Calculate the final price after a percentage off or fixed amount discount. See how much you save instantly.">
+<link rel="canonical" href="https://tools-site.pages.dev/discount-calculator/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Discount Calculator","url":"https://tools-site.pages.dev/discount-calculator/","description":"Calculate the final price after percentage or fixed-amount discounts.","applicationCategory":"BusinessApplication","operatingSystem":"Any","browserRequirements":"JavaScript"}
+</script>
+<style>
+:root {
+  --primary: #059669;
+  --primary-hover: #047857;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+header {
+  background: linear-gradient(135deg, var(--primary), #10b981);
+  color: #fff;
+  text-align: center;
+  padding: 48px 20px 40px;
+}
+header h1 { font-size: 2rem; margin-bottom: 8px; letter-spacing: -0.5px; }
+header p { font-size: 1.05rem; opacity: 0.9; }
+
+.top-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+}
+.top-nav .container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.top-nav .links { display: flex; gap: 20px; flex-wrap: wrap; }
+.top-nav a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color .2s;
+}
+.top-nav a:hover, .top-nav a.active { color: var(--primary); }
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  padding: 32px;
+  margin: -24px auto 24px;
+  position: relative;
+}
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; color: var(--text); }
+.input-wrap { position: relative; }
+.input-wrap .currency {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  font-weight: 600; color: var(--text-light); font-size: 1rem;
+  pointer-events: none;
+}
+.input-wrap input, .input-wrap select {
+  width: 100%; padding: 12px 14px; border: 2px solid var(--border);
+  border-radius: 8px; font-size: 1rem; transition: border-color .2s; font-family: inherit;
+}
+.input-wrap input:focus { outline: none; border-color: var(--primary); }
+.input-wrap input.with-symbol { padding-left: 32px; }
+
+.form-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.form-row .form-group { flex: 1; min-width: 160px; }
+
+.toggle-mode {
+  display: flex;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.toggle-mode button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-light);
+  transition: all .2s;
+}
+.toggle-mode button.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 28px; border: none; border-radius: 8px; font-size: 1rem;
+  font-weight: 600; cursor: pointer; transition: all .2s; width: 100%; margin-top: 8px;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-hover); }
+
+.result-box {
+  text-align: center; padding: 24px; margin: 20px 0 0;
+  background: var(--bg); border-radius: 12px;
+}
+.result-box .final-price { font-size: 3rem; font-weight: 800; line-height: 1.2; color: var(--primary); }
+.result-box .saved-amount { font-size: 1.1rem; margin-top: 4px; }
+.result-box .orig-price { font-size: 0.9rem; color: var(--text-light); margin-top: 4px; }
+.result-box .orig-price s { color: #94a3b8; }
+
+.breakdown {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0 0;
+}
+.breakdown-item {
+  background: var(--card); padding: 16px; border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.breakdown-item .label { font-size: 0.8rem; color: var(--text-light); }
+.breakdown-item .value { font-size: 1.3rem; font-weight: 700; margin-top: 4px; }
+.breakdown-item .value.save { color: var(--primary); }
+.breakdown-item .value.orig { color: var(--text-light); }
+
+.section { margin: 32px 0; }
+.section h2 { font-size: 1.3rem; margin-bottom: 12px; color: var(--text); }
+.section p, .section li { color: var(--text-light); }
+.section ul { padding-left: 20px; }
+.section li { margin-bottom: 6px; }
+
+.faq-item { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+.faq-question {
+  padding: 14px 18px; font-weight: 600; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #fff; transition: background .2s;
+}
+.faq-question:hover { background: #f1f5f9; }
+.faq-question::after { content: "+"; font-size: 1.2rem; color: var(--primary); }
+.faq-question.open::after { content: "−"; }
+.faq-answer { padding: 0 18px; max-height: 0; overflow: hidden; transition: all .3s; color: var(--text-light); }
+.faq-answer.open { padding: 14px 18px; max-height: 300px; }
+.faq-answer p { margin-bottom: 8px; }
+
+footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 40px; }
+footer a { color: var(--primary); text-decoration: none; }
+
+@media (max-width: 480px) {
+  header { padding: 36px 16px 32px; }
+  header h1 { font-size: 1.5rem; }
+  .card { padding: 20px; margin-top: -16px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="container">
+    <div class="links">
+      <a href="/" style="font-weight:700;color:var(--primary)">Home</a>
+      <a href="/qr-code-generator/">QR Code Generator</a>
+      <a href="/bmi-calculator/">BMI Calculator</a>
+      <a href="/discount-calculator/" class="active">Discount Calculator</a>
+      <a href="/password-generator/">Password Generator</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <h1>🏷️ Discount Calculator</h1>
+  <p>Calculate the final price after any discount — percentage off or fixed amount</p>
+</header>
+
+<main class="container">
+  <div class="card">
+    <div class="toggle-mode" id="modeToggle">
+      <button class="active" onclick="setMode('percent')">% Off</button>
+      <button onclick="setMode('fixed')">$ Off</button>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="origPrice">Original Price</label>
+        <div class="input-wrap">
+          <span class="currency">$</span>
+          <input type="number" id="origPrice" class="with-symbol" value="100" min="0" step="0.01">
+        </div>
+      </div>
+      <div class="form-group" id="discountPercentGroup">
+        <label for="discountPercent">Discount %</label>
+        <div class="input-wrap">
+          <input type="number" id="discountPercent" value="20" min="0" max="100" step="0.1">
+          <span class="currency" style="left:auto;right:14px">%</span>
+        </div>
+      </div>
+      <div class="form-group" id="discountFixedGroup" style="display:none">
+        <label for="discountFixed">Discount Amount</label>
+        <div class="input-wrap">
+          <span class="currency">$</span>
+          <input type="number" id="discountFixed" class="with-symbol" value="15" min="0" step="0.01">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="calcDiscount()">🧮 Calculate</button>
+
+    <div class="result-box">
+      <div class="final-price" id="finalPrice">$80.00</div>
+      <div class="saved-amount" id="savedAmount">You save <strong>$20.00</strong></div>
+      <div class="orig-price">Original price: <s id="origDisplay">$100.00</s></div>
+      <div class="breakdown">
+        <div class="breakdown-item">
+          <div class="label">Original</div>
+          <div class="value orig" id="breakdownOrig">$100.00</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="label">You Save</div>
+          <div class="value save" id="breakdownSave">$20.00</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="label">Discount</div>
+          <div class="value" id="breakdownPct">20%</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="label">Final Price</div>
+          <div class="value" style="color:var(--primary)" id="breakdownFinal">$80.00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📖 How to Use</h2>
+    <ol>
+      <li>Enter the original price of the item</li>
+      <li>Choose discount type: <strong>% Off</strong> or <strong>$ Off</strong></li>
+      <li>Enter the discount value (percentage or fixed amount)</li>
+      <li>Click "Calculate" to see your savings and final price</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>📋 Discount Formulas</h2>
+    <table class="ref-table" style="width:100%;border-collapse:collapse;font-size:0.9rem">
+      <thead><tr><th style="padding:10px 14px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border);font-weight:600">Type</th><th style="padding:10px 14px;text-align:left;background:var(--bg);border-bottom:1px solid var(--border);font-weight:600">Formula</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Percentage Off</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Final Price = Original × (1 − Discount% ÷ 100)</td></tr>
+        <tr><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Fixed Amount Off</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">Final Price = Original − Discount Amount</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>❓ Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">How do I calculate a 20% discount?</div>
+      <div class="faq-answer"><p>Multiply the original price by 0.20 to get the discount amount, then subtract from the original. For example, $100 × 0.20 = $20 off → final price is $80.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">What's the difference between % off and $ off?</div>
+      <div class="faq-answer"><p>Percent off (%) scales with the price — a higher-priced item saves more. Fixed amount off ($) is the same dollar discount regardless of price. Use % off for percentage-based sales, $ off for coupons with a fixed value.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">Can I stack multiple discounts?</div>
+      <div class="faq-answer"><p>This calculator handles a single discount. For stacked discounts, calculate sequentially: apply the first discount, then apply the second discount to the resulting price. Note that the order matters.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">Is this calculator free to use?</div>
+      <div class="faq-answer"><p>Yes, completely free. No registration, no limits, no hidden fees. All calculations happen in your browser — nothing is sent to a server.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🔗 Related Tools</h2>
+    <ul>
+      <li><a href="/password-generator/" style="color:var(--primary)">Password Generator</a> — Create strong, secure passwords</li>
+      <li><a href="/qr-code-generator/" style="color:var(--primary)">QR Code Generator</a> — Generate QR codes for free</li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>Home · Privacy Policy · Terms · About</p>
+    <p style="margin-top:8px">© 2026 Free Online Tools</p>
+  </div>
+</footer>
+
+<script>
+let mode = 'percent';
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('#modeToggle button').forEach(b => b.classList.remove('active'));
+  document.querySelector('#modeToggle button:nth-child(' + (m === 'percent' ? 1 : 2) + ')').classList.add('active');
+  document.getElementById('discountPercentGroup').style.display = m === 'percent' ? '' : 'none';
+  document.getElementById('discountFixedGroup').style.display = m === 'fixed' ? '' : 'none';
+  calcDiscount();
+}
+
+function calcDiscount() {
+  const orig = parseFloat(document.getElementById('origPrice').value);
+  if (!orig || orig < 0) { resetDisplay(); return; }
+
+  let saved, pct;
+  if (mode === 'percent') {
+    pct = parseFloat(document.getElementById('discountPercent').value) || 0;
+    if (pct > 100) pct = 100;
+    saved = orig * pct / 100;
+  } else {
+    saved = parseFloat(document.getElementById('discountFixed').value) || 0;
+    pct = orig > 0 ? (saved / orig) * 100 : 0;
+  }
+  if (saved > orig) saved = orig;
+
+  const finalPrice = orig - saved;
+  const fmt = (n) => '$' + n.toFixed(2);
+  const fmtPct = (n) => n.toFixed(1) + '%';
+
+  document.getElementById('finalPrice').textContent = fmt(finalPrice);
+  document.getElementById('savedAmount').innerHTML = 'You save <strong>' + fmt(saved) + '</strong>';
+  document.getElementById('origDisplay').textContent = fmt(orig);
+  document.getElementById('breakdownOrig').textContent = fmt(orig);
+  document.getElementById('breakdownSave').textContent = fmt(saved);
+  document.getElementById('breakdownPct').textContent = fmtPct(pct);
+  document.getElementById('breakdownFinal').textContent = fmt(finalPrice);
+}
+
+function resetDisplay() {
+  document.getElementById('finalPrice').textContent = '$0.00';
+  document.getElementById('savedAmount').innerHTML = 'You save <strong>$0.00</strong>';
+  document.getElementById('origDisplay').textContent = '$0.00';
+}
+
+function toggleFAQ(el) { el.classList.toggle('open'); el.nextElementSibling.classList.toggle('open'); }
+
+window.addEventListener('load', calcDiscount);
+document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', calcDiscount));
+</script>
+</body>
+</html>
