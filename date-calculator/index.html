@@ -4,18 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Date Calculator — Days Between Dates & Date Arithmetic</title>
-<meta name="description" content="Free Date Calculator. Count days between any two dates, or add/subtract days and weeks. Fast, accurate, no registration.">
+<meta name="description" content="Free Date Calculator. Count days between any two dates, or add/subtract days from a date. Fast, no registration.">
 <link rel="canonical" href="https://tools-site.pages.dev/date-calculator/">
 <link rel="stylesheet" href="/common/premium.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Date Calculator","applicationCategory":"UtilityApplication"}</script>
 <style>
 body{--accent:#0ea5e9;--accent-subtle:rgba(14,165,233,0.12);--accent-text:#0284c7;--accent-hover:#0284c7;--accent-glow:rgba(14,165,233,0.18)}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
+@media(max-width:480px){.result-grid{grid-template-columns:1fr}}
+.date-result{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-5);text-align:center;border:1px solid var(--border-subtle)}
+.date-result .big{font-size:2.4rem;font-weight:700;color:var(--accent-text);font-feature-settings:"tnum";line-height:1.2}
+.date-result .lbl{font-size:.8rem;color:var(--text-tertiary);margin-top:6px}
+.date-result .sub{font-size:.75rem;color:var(--text-tertiary);margin-top:4px;font-feature-settings:"tnum"}
+.pill-group{margin-top:var(--space-3);display:flex;gap:var(--space-2);flex-wrap:wrap}
+.pill-group .pill-btn{font-size:.75rem}
+.toggle-row{display:flex;align-items:center;gap:var(--space-3);margin-top:var(--space-3)}
+.toggle-row .add-sub-toggle{display:inline-flex;background:var(--bg);border-radius:8px;overflow:hidden;border:1px solid var(--border-subtle)}
+.toggle-row .add-sub-toggle button{padding:6px 14px;border:none;background:transparent;font-size:.85rem;font-weight:500;cursor:pointer;color:var(--text-tertiary);transition:all .15s}
+.toggle-row .add-sub-toggle button.active{background:var(--accent);color:#fff}
+.toggle-row .add-sub-toggle button:not(.active):hover{color:var(--text)}
 </style>
 </head>
 <body>
 <div class="page-wrap">
-<div class="page-content">
-
 <nav class="top-nav"><div class="container">
   <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
@@ -28,10 +39,11 @@ body{--accent:#0ea5e9;--accent-subtle:rgba(14,165,233,0.12);--accent-text:#0284c
     <a href="/password-generator/">Password</a>
   </div>
 </div></nav>
+<div class="page-content">
 
 <div class="hero">
-  <h1><span class="gradient-text">📅 Date Calculator</span></h1>
-  <p>Days between dates, or add and subtract days and weeks from any date</p>
+  <h1>📅 <span class="gradient-text">Date Calculator</span></h1>
+  <p>Count days between dates, or add and subtract days from any date</p>
 </div>
 
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
@@ -39,71 +51,45 @@ body{--accent:#0ea5e9;--accent-subtle:rgba(14,165,233,0.12);--accent-text:#0284c
 <main class="container">
 <div class="card">
 
-<div class="tab-bar">
-<button class="active" onclick="switchTab(0)">Days Between</button>
-<button onclick="switchTab(1)">Add / Subtract</button>
-</div>
-
-<!-- ── Tab 0: Days Between ── -->
-<div class="tab-pane active" id="dt0">
-  <div class="form-row">
-    <div class="form-group">
-      <label>Start Date</label>
-      <div class="input-wrap"><input type="date" id="d1"></div>
-    </div>
-    <div class="form-group">
-      <label>End Date</label>
-      <div class="input-wrap"><input type="date" id="d2"></div>
-    </div>
+<div class="form-row">
+  <div class="form-group">
+    <label>Start Date</label>
+    <div class="input-wrap"><input type="date" id="d1"></div>
   </div>
-
-  <div class="pill-group" style="margin-top:var(--space-3)">
-    <button class="pill-btn" data-days="7" onclick="setPreset(7)">7 days</button>
-    <button class="pill-btn" data-days="30" onclick="setPreset(30)">30 days</button>
-    <button class="pill-btn" data-days="365" onclick="setPreset(365)">1 year</button>
-  </div>
-
-  <div class="result-box">
-    <div class="big-number" id="dbDays">90</div>
-    <div class="desc" id="dbLabel">days between selected dates</div>
-    <div class="sub-results" id="dbDetail">
-      <span class="pill">12 weeks 6 days</span>
-      <span class="pill">~3 months</span>
-    </div>
+  <div class="form-group">
+    <label>End Date</label>
+    <div class="input-wrap"><input type="date" id="d2"></div>
   </div>
 </div>
 
-<!-- ── Tab 1: Add / Subtract ── -->
-<div class="tab-pane" id="dt1">
-  <div class="form-row">
-    <div class="form-group">
-      <label>Base Date</label>
-      <div class="input-wrap"><input type="date" id="baseD"></div>
-    </div>
-    <div class="form-group">
-      <label>Operation</label>
-      <div class="input-wrap">
-        <select id="op">
-          <option value="add">Add</option>
-          <option value="sub">Subtract</option>
-        </select>
-      </div>
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group">
-      <label>Days</label>
-      <div class="input-wrap"><input type="number" id="daysN" value="30" min="1"></div>
-    </div>
-    <div class="form-group">
-      <label>Weeks</label>
-      <div class="input-wrap"><input type="number" id="weeksN" value="0" min="0"></div>
-    </div>
-  </div>
+<div class="pill-group">
+  <button class="pill-btn" onclick="setPreset(7)">+7 days</button>
+  <button class="pill-btn" onclick="setPreset(30)">+30 days</button>
+  <button class="pill-btn" onclick="setPreset(365)">+1 year</button>
+  <button class="pill-btn" onclick="setPreset(90)">+90 days</button>
+</div>
 
-  <div class="result-box">
-    <div class="big-number" id="asResult">Jun 17, 2026</div>
-    <div class="desc" id="asLabel">resulting date</div>
+<div class="toggle-row">
+  <div class="add-sub-toggle">
+    <button class="active" onclick="setOp('add')" id="btn-add">+ Add</button>
+    <button onclick="setOp('sub')" id="btn-sub">− Subtract</button>
+  </div>
+  <div class="form-group" style="margin:0;flex:1;max-width:160px">
+    <div class="input-wrap"><input type="number" id="daysN" value="30" min="1" step="1"></div>
+  </div>
+  <span style="font-size:.85rem;color:var(--text-tertiary);white-space:nowrap">days</span>
+</div>
+
+<div class="result-grid">
+  <div class="date-result" style="border-color:var(--accent);background:linear-gradient(135deg,var(--accent-subtle),transparent)">
+    <div class="lbl">Days Between</div>
+    <div class="big" id="dbDays">90</div>
+    <div class="sub" id="dbDetail">12 weeks 6 days · ~3 months</div>
+  </div>
+  <div class="date-result">
+    <div class="lbl">After ± Days</div>
+    <div class="big" id="asResult">Jun 17, 2026</div>
+    <div class="sub" id="asLabel">Tuesday</div>
   </div>
 </div>
 
@@ -114,107 +100,68 @@ body{--accent:#0ea5e9;--accent-subtle:rgba(14,165,233,0.12);--accent-text:#0284c
 <div class="section">
   <h2>How to Use</h2>
   <ol>
-    <li><strong>Days Between:</strong> Pick two dates to see the exact count in days, weeks, and months. Use the quick presets to jump ahead 7 days, 30 days, or 1 year.</li>
-    <li><strong>Add/Subtract:</strong> Choose a starting date, pick add or subtract, set the number of days and weeks, and get the resulting date instantly.</li>
+    <li>Pick a <strong>Start Date</strong> and <strong>End Date</strong> — see exact days between instantly</li>
+    <li>Use <strong>+ Add</strong> / <strong>− Subtract</strong> and enter days to calculate a future or past date</li>
+    <li>Quick presets jump your end date forward by 7, 30, 90, or 365 days</li>
   </ol>
 </div>
 
 <div class="section">
-  <h2>Frequently Asked Questions</h2>
+  <h2>FAQ</h2>
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFAQ(this)">Does it count weekends?</div>
-    <div class="faq-answer"><p>This counts all calendar days, including weekends and holidays. For business days only (excluding weekends), you would need to manually filter those from the result.</p></div>
+    <div class="faq-answer"><p>This counts all calendar days, including weekends and holidays. For business days only, you'd need to filter manually.</p></div>
   </div>
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFAQ(this)">Does it handle leap years?</div>
-    <div class="faq-answer"><p>Yes. The JavaScript Date object correctly handles February 29 and varying month lengths for all dates from year 1 to 9999, so leap years are fully accounted for.</p></div>
+    <div class="faq-answer"><p>Yes. February 29 and varying month lengths are handled correctly for all dates.</p></div>
   </div>
 </div>
-
 </main>
-
 </div>
 
-<footer>
-<div class="container">
-  <div class="footer-links">
-    <a href="/">Home</a>
-    <a href="/privacy-policy">Privacy</a>
-    <a href="/terms">Terms</a>
-  </div>
+<footer><div class="container">
+  <div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div>
   <p>&copy; 2026 Free Online Tools</p>
-</div>
-</footer>
-
+</div></footer>
 </div>
 
 <script>
-function switchTab(i) {
-  document.querySelectorAll('.tab-bar button').forEach((b, idx) => b.classList.toggle('active', idx === i));
-  document.querySelectorAll('.tab-pane').forEach((p, idx) => p.classList.toggle('active', idx === i));
-}
+const DAY=864e5;
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+let op='add';
 
-function setPreset(days) {
-  const today = new Date(document.getElementById('d1').value);
-  if (!isNaN(today.getTime())) {
-    const end = new Date(today);
-    end.setDate(end.getDate() + days);
-    document.getElementById('d2').value = end.toISOString().split('T')[0];
-    calcBetween();
+function setOp(v){op=v;document.querySelectorAll('.add-sub-toggle button').forEach(b=>b.classList.toggle('active',b.id==='btn-'+v));calc()}
+function setPreset(d){const s=new Date(document.getElementById('d1').value);if(!isNaN(s.getTime())){const e=new Date(s.getTime()+d*DAY);document.getElementById('d2').value=e.toISOString().split('T')[0];calc()}}
+
+function calc(){
+  const s=new Date(document.getElementById('d1').value);
+  const e=new Date(document.getElementById('d2').value);
+
+  if(s.getTime()&&e.getTime()){
+    const diff=Math.round(Math.abs(e-s)/DAY);
+    const w=Math.floor(diff/7),r=diff%7,m=Math.round(diff/30.44);
+    document.getElementById('dbDays').textContent=diff.toLocaleString();
+    document.getElementById('dbDetail').textContent=w+' weeks '+r+' days · ~'+m+' months';
+  }
+
+  if(s.getTime()){
+    const n=parseInt(document.getElementById('daysN').value)||0;
+    const d=new Date(s.getTime()+(op==='add'?1:-1)*n*DAY);
+    document.getElementById('asResult').textContent=MONTHS[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
+    document.getElementById('asLabel').textContent=DAYS[d.getDay()];
   }
 }
 
-function calcBetween() {
-  const s = new Date(document.getElementById('d1').value);
-  const e = new Date(document.getElementById('d2').value);
-  if (!s.getTime() || !e.getTime()) return;
-  const diff = Math.abs(e - s);
-  const days = Math.round(diff / 864e5);
-  document.getElementById('dbDays').textContent = days.toLocaleString();
-  document.getElementById('dbLabel').textContent = 'days between selected dates';
-  const weeks = Math.floor(days / 7);
-  const rem = days % 7;
-  const months = Math.round(days / 30.44);
-  document.getElementById('dbDetail').innerHTML =
-    '<span class="pill">' + weeks + ' weeks ' + rem + ' days</span>' +
-    '<span class="pill">~' + months + ' months</span>';
-}
+function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
 
-function calcAddSub() {
-  const base = document.getElementById('baseD').value;
-  const op = document.getElementById('op').value;
-  const d = parseInt(document.getElementById('daysN').value) || 0;
-  const w = parseInt(document.getElementById('weeksN').value) || 0;
-  if (!base) return;
-  const dt = new Date(base);
-  const total = d + w * 7;
-  dt.setDate(dt.getDate() + (op === 'add' ? 1 : -1) * total);
-  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  document.getElementById('asResult').textContent = mo[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear();
-  document.getElementById('asLabel').textContent = dt.toISOString().split('T')[0];
-}
-
-function toggleFAQ(el) {
-  el.classList.toggle('open');
-  el.nextElementSibling.classList.toggle('open');
-}
-
-document.getElementById('d1').addEventListener('change', calcBetween);
-document.getElementById('d2').addEventListener('change', calcBetween);
-document.getElementById('baseD').addEventListener('change', calcAddSub);
-document.getElementById('op').addEventListener('change', calcAddSub);
-['daysN','weeksN'].forEach(id => document.getElementById(id).addEventListener('input', calcAddSub));
-
-window.addEventListener('load', function() {
-  const t = new Date();
-  document.getElementById('d1').value = t.toISOString().split('T')[0];
-  const f = new Date(Date.now() + 90 * 864e5);
-  document.getElementById('d2').value = f.toISOString().split('T')[0];
-  document.getElementById('baseD').value = t.toISOString().split('T')[0];
-  calcBetween();
-  calcAddSub();
-});
+['d1','d2'].forEach(id=>document.getElementById(id).addEventListener('change',calc));
+document.getElementById('daysN').addEventListener('input',calc);
+window.addEventListener('load',function(){
+  const t=new Date();document.getElementById('d1').value=t.toISOString().split('T')[0];
+  document.getElementById('d2').value=new Date(t.getTime()+90*DAY).toISOString().split('T')[0];
+  calc()});
 </script>
-
 </body>
 </html>
