@@ -1,0 +1,7 @@
+# Free Online Tools — robots.txt
+# Allow all crawlers, point to sitemap
+
+User-agent: *
+Allow: /
+
+Sitemap: https://tools-site.pages.dev/sitemap.xml
