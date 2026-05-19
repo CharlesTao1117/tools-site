@@ -9,10 +9,16 @@
 <link rel="stylesheet" href="/common/premium.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Percentage Calculator","applicationCategory":"BusinessApplication"}</script>
 <style>
-body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.12);--accent-text:#c026d3}
-.vis-bar{height:16px;border-radius:8px;background:var(--bg);overflow:hidden;margin:12px 0;position:relative;border:1px solid var(--border-subtle)}
+body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.12);--accent-text:#c026d3;--accent-hover:#a21caf;--accent-glow:rgba(217,70,239,0.15)}
+.vis-bar{height:16px;border-radius:8px;background:var(--bg);overflow:hidden;margin:16px 0 0;position:relative;border:1px solid var(--border-subtle)}
 .vis-bar .fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--accent),#e879f9);transition:width .4s cubic-bezier(.34,1.56,.64,1)}
-.vis-bar .label{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.7rem;font-weight:600;color:var(--text-secondary)}
+.vis-bar .label{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:.7rem;font-weight:700;color:var(--text-secondary);font-feature-settings:"tnum"}
+.vis-bar .lbl-left{left:10px;right:auto;color:var(--text-tertiary);font-weight:500}
+.result-desc{font-size:.9rem;color:var(--text-secondary);margin-top:8px;line-height:1.5}
+.result-desc strong{color:var(--accent-text);font-weight:600}
+.tab-content{padding:4px 0}
+.tip-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:.7rem;font-weight:500;color:var(--text-tertiary);background:var(--bg-subtle);margin-bottom:16px}
+.tip-badge span{color:var(--accent-text)}
 </style>
 </head>
 <body>
@@ -30,67 +36,195 @@ body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.12);--accent-text:#c026d
   </div>
 </div></nav>
 <div class="page-content">
-<div class="hero"><h1>📊 <span class="gradient-text">Percentage Calculator</span></h1><p>Quick calculations for percentages, ratios, and changes</p></div>
+
+<div class="hero">
+  <h1>📊 <span class="gradient-text">Percentage Calculator</span></h1>
+  <p>Quick calculations for tip, tax, discounts, and growth — no math required</p>
+</div>
+
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
 <main class="container">
-<div class="card">
-<div class="tab-bar">
-<button class="active" onclick="switchTab(0)">X% of Y</button>
-<button onclick="switchTab(1)">X is ?% of Y</button>
-<button onclick="switchTab(2)">% Change</button>
+<div class="card card-glow">
+
+<div class="tab-bar" role="tablist">
+  <button class="active" onclick="switchTab(0)" role="tab">🍽️ Tip &amp; Discount</button>
+  <button onclick="switchTab(1)" role="tab">📝 Score &amp; Grade</button>
+  <button onclick="switchTab(2)" role="tab">📈 Price Change</button>
 </div>
+
+<!-- Tab 0: Tip & Discount -->
 <div class="tab-pane active" id="t0">
-<div class="form-row">
-  <div class="form-group"><label>Percentage (%)</label><div class="input-wrap"><input type="number" id="p1" value="20" step="any"></div></div>
-  <div class="form-group"><label>Of Value</label><div class="input-wrap"><input type="number" id="v1" value="200" step="any"></div></div>
+  <div class="tip-badge">💡 Use for: <span>restaurant tip · sale discount · sales tax · commission</span></div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Percentage (%)</label>
+      <div class="input-wrap"><input type="number" id="p1" value="15" step="any"></div>
+    </div>
+    <div class="form-group">
+      <label>Original Amount ($)</label>
+      <div class="input-wrap"><input type="number" id="v1" value="85" step="any"></div>
+    </div>
+  </div>
+  <div class="result-box animate-in" style="margin-top:var(--space-4)">
+    <div class="big-number" id="r0">12.75</div>
+    <div class="result-desc" id="d0"><strong>15%</strong> of $85 = <strong>$12.75</strong></div>
+  </div>
+  <div class="vis-bar"><div class="fill" id="bar0" style="width:15%"></div><div class="label lbl-left">$0</div><div class="label" id="lbl0">$12.75</div></div>
 </div>
-<div class="result-box animate-in">
-  <div class="big-number" id="r0">40</div>
-  <div class="desc">20% of 200 = 40</div>
-</div>
-<div class="vis-bar"><div class="fill" id="bar0" style="width:20%"></div><div class="label">20%</div></div>
-</div>
+
+<!-- Tab 1: Score & Grade -->
 <div class="tab-pane" id="t1">
-<div class="form-row">
-  <div class="form-group"><label>Part (X)</label><div class="input-wrap"><input type="number" id="part" value="50" step="any"></div></div>
-  <div class="form-group"><label>Total (Y)</label><div class="input-wrap"><input type="number" id="total" value="200" step="any"></div></div>
+  <div class="tip-badge">💡 Use for: <span>test score · completion rate · survey results · accuracy</span></div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Your Score</label>
+      <div class="input-wrap"><input type="number" id="part" value="28" step="any"></div>
+    </div>
+    <div class="form-group">
+      <label>Total Possible</label>
+      <div class="input-wrap"><input type="number" id="total" value="35" step="any"></div>
+    </div>
+  </div>
+  <div class="result-box animate-in" style="margin-top:var(--space-4)">
+    <div class="big-number" id="r1">80%</div>
+    <div class="result-desc" id="d1">You scored <strong>80%</strong> (28 of 35)</div>
+  </div>
+  <div class="vis-bar"><div class="fill" id="bar1" style="width:80%"></div><div class="label lbl-left">0%</div><div class="label" id="lbl1">80%</div></div>
 </div>
-<div class="result-box animate-in">
-  <div class="big-number" id="r1">25%</div>
-  <div class="desc">50 is 25% of 200</div>
-</div>
-<div class="vis-bar"><div class="fill" id="bar1" style="width:25%"></div><div class="label">25%</div></div>
-</div>
+
+<!-- Tab 2: Price Change -->
 <div class="tab-pane" id="t2">
-<div class="form-row">
-  <div class="form-group"><label>Original</label><div class="input-wrap"><input type="number" id="oldV" value="100" step="any"></div></div>
-  <div class="form-group"><label>New</label><div class="input-wrap"><input type="number" id="newV" value="150" step="any"></div></div>
+  <div class="tip-badge">💡 Use for: <span>price increase · salary raise · year-over-year growth · investment return</span></div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Before ($)</label>
+      <div class="input-wrap"><input type="number" id="oldV" value="1000" step="any"></div>
+    </div>
+    <div class="form-group">
+      <label>After ($)</label>
+      <div class="input-wrap"><input type="number" id="newV" value="1200" step="any"></div>
+    </div>
+  </div>
+  <div class="result-box animate-in" style="margin-top:var(--space-4)">
+    <div class="big-number" id="r2" style="color:var(--accent-text)">+20%</div>
+    <div class="result-desc" id="d2">Increase from $1,000 to $1,200</div>
+  </div>
+  <div style="display:flex;gap:var(--space-4);margin-top:var(--space-4);flex-wrap:wrap">
+    <div class="stat-card" style="flex:1;min-width:100px"><div class="num" id="delta">+200</div><div class="lbl">Difference</div></div>
+    <div class="stat-card" style="flex:1;min-width:100px"><div class="num" id="multiplier">1.20×</div><div class="lbl">Multiplier</div></div>
+  </div>
 </div>
-<div class="result-box animate-in">
-  <div class="big-number" id="r2">+50%</div>
-  <div class="desc">Increase from 100 to 150</div>
+
 </div>
-</div>
-</div>
+
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
-<div class="section"><h2>How to Use</h2><ol><li>Choose a calculation type from the tabs above</li><li>Enter your numbers — results update instantly</li><li>Visual bars show proportions at a glance</li></ol></div>
-<div class="section"><h2>FAQ</h2>
-<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate 20% of a number?</div><div class="faq-answer"><p>Multiply the number by 0.20. Use the "X% of Y" tab for instant results.</p></div></div>
-<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate percentage increase?</div><div class="faq-answer"><p>Subtract original from new, divide by original, multiply by 100. Use the "% Change" tab above.</p></div></div>
+
+<div class="section">
+  <h2>How to Use</h2>
+  <ol>
+    <li>Pick a real-world scenario: <strong>Tip & Discount</strong>, <strong>Score & Grade</strong>, or <strong>Price Change</strong></li>
+    <li>Enter your numbers — results update instantly as you type</li>
+    <li>Visual bars show proportions; stat cards show extra info for price changes</li>
+  </ol>
+</div>
+
+<div class="section">
+  <h2>FAQ</h2>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">How do I calculate 20% of a number?</div>
+    <div class="faq-answer"><p>Multiply the number by 0.20. For example, 20% of $80 = 80 × 0.20 = $16. Use the <strong>Find % of a number</strong> tab for instant results.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">How do I calculate percentage increase?</div>
+    <div class="faq-answer"><p>Subtract the original from the new, divide by the original, multiply by 100. Example: ($150 − $100) ÷ $100 × 100 = 50% increase. Use the <strong>% Increase/Decrease</strong> tab.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">What's a good tip percentage?</div>
+    <div class="faq-answer"><p>Standard tips: 15% for good service, 18-20% for great service, 10% for large parties or casual dining. Use the <strong>Find % of a Number</strong> tab to calculate instantly.</p></div>
+  </div>
 </div>
 </main>
 </div>
-<footer><div class="container"><p><a href="/">Home</a> · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a></p><p style="margin-top:6px">© 2026 Free Online Tools</p></div></footer>
+
+<footer><div class="container">
+  <div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div>
+  <p>© 2026 Free Online Tools</p>
+</div></footer>
 </div>
+
 <script>
-let ct=0;const panes=['t0','t1','t2'];
-function switchTab(i){ct=i;document.querySelectorAll('.tab-bar button').forEach((b,idx)=>b.classList.toggle('active',idx===i));document.querySelectorAll('.tab-pane').forEach((p,idx)=>p.classList.toggle('active',idx===i))}
+let ct=0;
+const panes=['t0','t1','t2'];
+
+function switchTab(i){
+  ct=i;
+  document.querySelectorAll('.tab-bar button').forEach((b,idx)=>b.classList.toggle('active',idx===i));
+  document.querySelectorAll('.tab-pane').forEach((p,idx)=>p.classList.toggle('active',idx===i));
+}
+
 function fmt(n){return Number(n).toLocaleString('en-US',{maximumFractionDigits:2,minimumFractionDigits:0})}
 function barClamp(v){return Math.max(0,Math.min(v,100))}
-function calc0(){const p=parseFloat(document.getElementById('p1').value)||0,v=parseFloat(document.getElementById('v1').value)||0,r=v*p/100;document.getElementById('r0').textContent=fmt(r);document.querySelector('#t0 .desc').textContent=`${fmt(p)}% of ${fmt(v)} = ${fmt(r)}`;const w=barClamp(p);document.getElementById('bar0').style.width=w+'%';document.querySelector('#t0 .vis-bar .label').textContent=w+'%'}
-function calc1(){const p=parseFloat(document.getElementById('part').value)||0,t=parseFloat(document.getElementById('total').value)||0;if(t===0){document.getElementById('r1').textContent='—';document.querySelector('#t1 .desc').textContent='Total cannot be zero';document.getElementById('bar1').style.width='0%';document.querySelector('#t1 .vis-bar .label').textContent='0%';return}const r=(p/t)*100;document.getElementById('r1').textContent=r.toFixed(1)+'%';document.querySelector('#t1 .desc').textContent=`${fmt(p)} is ${r.toFixed(1)}% of ${fmt(t)}`;const w=barClamp(r);document.getElementById('bar1').style.width=w+'%';document.querySelector('#t1 .vis-bar .label').textContent=w.toFixed(1)+'%'}
-function calc2(){const o=parseFloat(document.getElementById('oldV').value)||0,n=parseFloat(document.getElementById('newV').value)||0;if(o===0){document.getElementById('r2').textContent='—';document.querySelector('#t2 .desc').textContent='Original value cannot be zero';return}const r=((n-o)/o)*100;document.getElementById('r2').textContent=(r>=0?'+':'')+r.toFixed(1)+'%';const label=r===0?'No change':(r>0?'Increase':'Decrease');document.querySelector('#t2 .desc').textContent=label+` from ${fmt(o)} to ${fmt(n)}`}
+
+// Tab 0: X% of Y
+function calc0(){
+  const p=parseFloat(document.getElementById('p1').value)||0;
+  const v=parseFloat(document.getElementById('v1').value)||0;
+  const r=v*p/100;
+  document.getElementById('r0').textContent=fmt(r);
+  document.getElementById('d0').innerHTML=`${fmt(p)}<strong>%</strong> of ${fmt(v)} = <strong>${fmt(r)}</strong>`;
+  const w=barClamp(p);
+  document.getElementById('bar0').style.width=w+'%';
+  document.getElementById('lbl0').textContent=w+'%';
+}
+
+// Tab 1: X is ?% of Y
+function calc1(){
+  const p=parseFloat(document.getElementById('part').value)||0;
+  const t=parseFloat(document.getElementById('total').value)||0;
+  if(t===0){
+    document.getElementById('r1').textContent='—';
+    document.getElementById('d1').textContent='Total cannot be zero';
+    document.getElementById('bar1').style.width='0%';
+    document.getElementById('lbl1').textContent='0%';
+    return;
+  }
+  const r=(p/t)*100;
+  document.getElementById('r1').textContent=r.toFixed(1)+'%';
+  document.getElementById('d1').innerHTML=`${fmt(p)} is <strong>${r.toFixed(1)}%</strong> of ${fmt(t)}`;
+  const w=barClamp(r);
+  document.getElementById('bar1').style.width=w+'%';
+  document.getElementById('lbl1').textContent=w.toFixed(1)+'%';
+}
+
+// Tab 2: % Change
+function calc2(){
+  const o=parseFloat(document.getElementById('oldV').value)||0;
+  const n=parseFloat(document.getElementById('newV').value)||0;
+  if(o===0){
+    document.getElementById('r2').textContent='—';
+    document.getElementById('d2').textContent='Original value cannot be zero';
+    document.getElementById('delta').textContent='—';
+    document.getElementById('multiplier').textContent='—';
+    return;
+  }
+  const r=((n-o)/o)*100;
+  const diff=n-o;
+  const mult=n/o;
+  const isPos=r>=0;
+  document.getElementById('r2').textContent=(isPos?'+':'')+r.toFixed(1)+'%';
+  document.getElementById('r2').style.color=isPos?'var(--accent-text)':'#ef4444';
+  const label=r===0?'No change':(isPos?'Increase':'Decrease');
+  document.getElementById('d2').textContent=label+` from ${fmt(o)} to ${fmt(n)}`;
+  document.getElementById('delta').textContent=(isPos?'+':'')+fmt(Math.abs(diff));
+  document.getElementById('delta').style.color=isPos?'var(--accent-text)':'#ef4444';
+  document.getElementById('multiplier').textContent=mult.toFixed(2)+'×';
+  document.getElementById('multiplier').style.color=isPos?'var(--accent-text)':'#ef4444';
+}
+
 function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
+
+// Event listeners
 ['p1','v1'].forEach(id=>document.getElementById(id).addEventListener('input',calc0));
 ['part','total'].forEach(id=>document.getElementById(id).addEventListener('input',calc1));
 ['oldV','newV'].forEach(id=>document.getElementById(id).addEventListener('input',calc2));
