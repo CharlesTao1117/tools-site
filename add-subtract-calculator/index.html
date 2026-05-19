@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add / Subtract Calculator — Free Online</title>
+<meta name="description" content="Free Add and Subtract Calculator. Enter two numbers to see sum, difference instantly. Simple arithmetic tool.">
+<link rel="canonical" href="https://tools-site.pages.dev/add-subtract-calculator/">
+<link rel="stylesheet" href="/common/premium.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Add Subtract Calculator","applicationCategory":"UtilityApplication"}</script>
+<style>
+body{--accent:#f59e0b;--accent-subtle:rgba(245,158,11,0.12);--accent-text:#d97706;--accent-hover:#b45309;--accent-glow:rgba(245,158,11,0.15)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
+@media(max-width:480px){.grid-2{grid-template-columns:1fr}}
+.result-card{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;border:1px solid var(--border-subtle);transition:all .2s}
+.result-card .op{font-size:.8rem;color:var(--text-tertiary);margin-bottom:4px}
+.result-card .num{font-size:2rem;font-weight:700;font-feature-settings:"tnum";line-height:1.2}
+.result-card .sub{font-size:.75rem;color:var(--text-tertiary);margin-top:4px;font-feature-settings:"tnum"}
+.plus .num{color:var(--accent-text)}
+.minus .num{color:#ef4444}
+.equals{border-color:var(--accent);background:linear-gradient(135deg,var(--accent-subtle),transparent)}
+.math-lines{margin-top:var(--space-4);font-size:1rem;line-height:2;text-align:center;color:var(--text-secondary);font-feature-settings:"tnum"}
+.math-lines .num{font-weight:600}
+.math-lines .plus-color{color:var(--accent-text);font-weight:700}
+.math-lines .minus-color{color:#ef4444;font-weight:700}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/">BMI</a>
+    <a href="/percentage-calculator/">Percentage</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/add-subtract-calculator/" class="active">Add/Sub</a>
+    <a href="/discount-calculator/">Discount</a>
+    <a href="/password-generator/">Password</a>
+  </div>
+</div></nav>
+<div class="page-content">
+
+<div class="hero">
+  <h1>➕ <span class="gradient-text">Add &amp; Subtract</span></h1>
+  <p>Enter two numbers — see sum and difference at the same time</p>
+</div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+<main class="container">
+<div class="card card-glow">
+
+<div class="form-row">
+  <div class="form-group">
+    <label>Number A</label>
+    <div class="input-wrap"><input type="number" id="numA" value="100" step="any"></div>
+  </div>
+  <div class="form-group">
+    <label>Number B</label>
+    <div class="input-wrap"><input type="number" id="numB" value="37" step="any"></div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="result-card plus equals">
+    <div class="op">A + B</div>
+    <div class="num" id="r-sum">137</div>
+    <div class="sub">100 + 37</div>
+  </div>
+  <div class="result-card minus">
+    <div class="op">A − B</div>
+    <div class="num" id="r-diff">63</div>
+    <div class="sub">100 − 37</div>
+  </div>
+</div>
+
+</div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+<div class="section">
+  <h2>How to Use</h2>
+  <ol>
+    <li>Enter any two numbers in the fields above</li>
+    <li>See the <strong>sum</strong> (A + B) and <strong>difference</strong> (A − B) update instantly</li>
+    <li>Negative differences show in red automatically</li>
+  </ol>
+</div>
+
+<div class="section">
+  <h2>FAQ</h2>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">Can I use decimals?</div>
+    <div class="faq-answer"><p>Yes — enter any number, including decimals. Results show with up to 2 decimal places automatically.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">What if B is larger than A?</div>
+    <div class="faq-answer"><p>The difference (A − B) will be a negative number, shown in red. The sum will still be correct.</p></div>
+  </div>
+</div>
+</main>
+</div>
+
+<footer><div class="container">
+  <div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div>
+  <p>&copy; 2026 Free Online Tools</p>
+</div></footer>
+</div>
+
+<script>
+function fmt(n){return Number(n).toLocaleString('en-US',{maximumFractionDigits:2,minimumFractionDigits:0})}
+
+function calc(){
+  const a=parseFloat(document.getElementById('numA').value)||0;
+  const b=parseFloat(document.getElementById('numB').value)||0;
+  const sum=a+b, diff=a-b;
+
+  document.getElementById('r-sum').textContent=fmt(sum);
+  document.getElementById('r-diff').textContent=(diff<0?'':'')+fmt(diff);
+
+  document.getElementById('r-diff').style.color=diff<0?'#ef4444':'#ef4444';
+  document.querySelector('.minus .num').style.color=diff<0?'#ef4444':'var(--text-secondary)';
+
+  document.querySelector('.plus .sub').textContent=fmt(a)+' + '+fmt(b);
+  document.querySelector('.minus .sub').textContent=fmt(a)+' − '+fmt(b);
+}
+
+function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
+
+document.getElementById('numA').addEventListener('input',calc);
+document.getElementById('numB').addEventListener('input',calc);
+window.addEventListener('load',calc);
+</script>
+</body>
+</html>
