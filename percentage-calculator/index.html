@@ -39,7 +39,7 @@ body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.12);--accent-text:#c026d
 
 <div class="hero">
   <h1>📊 <span class="gradient-text">Percentage Calculator</span></h1>
-  <p>Quick calculations for tip, tax, discounts, and growth — no math required</p>
+  <p>Three essential percentage operations — find X% of a value, express one number as a percentage of another, or measure change between two values</p>
 </div>
 
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
@@ -48,71 +48,71 @@ body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.12);--accent-text:#c026d
 <div class="card card-glow">
 
 <div class="tab-bar" role="tablist">
-  <button class="active" onclick="switchTab(0)" role="tab">🍽️ Tip &amp; Discount</button>
-  <button onclick="switchTab(1)" role="tab">📝 Score &amp; Grade</button>
-  <button onclick="switchTab(2)" role="tab">📈 Price Change</button>
+  <button class="active" onclick="switchTab(0)" role="tab">🧮 % of a Number</button>
+  <button onclick="switchTab(1)" role="tab">🔢 Part to Percentage</button>
+  <button onclick="switchTab(2)" role="tab">📊 Percent Change</button>
 </div>
 
-<!-- Tab 0: Tip & Discount -->
+<!-- Tab 0: % of a Number -->
 <div class="tab-pane active" id="t0">
-  <div class="tip-badge">💡 Use for: <span>restaurant tip · sale discount · sales tax · commission</span></div>
+  <div class="tip-badge">💡 Use for: <span>tips · discounts · tax · commission · probability</span></div>
   <div class="form-row">
     <div class="form-group">
       <label>Percentage (%)</label>
       <div class="input-wrap"><input type="number" id="p1" value="15" step="any"></div>
     </div>
     <div class="form-group">
-      <label>Original Amount ($)</label>
-      <div class="input-wrap"><input type="number" id="v1" value="85" step="any"></div>
+      <label>Value</label>
+      <div class="input-wrap"><input type="number" id="v1" value="200" step="any"></div>
     </div>
   </div>
   <div class="result-box animate-in" style="margin-top:var(--space-4)">
-    <div class="big-number" id="r0">12.75</div>
-    <div class="result-desc" id="d0"><strong>15%</strong> of $85 = <strong>$12.75</strong></div>
+    <div class="big-number" id="r0">30</div>
+    <div class="result-desc" id="d0"><strong>15%</strong> of 200 = <strong>30</strong></div>
   </div>
-  <div class="vis-bar"><div class="fill" id="bar0" style="width:15%"></div><div class="label lbl-left">$0</div><div class="label" id="lbl0">$12.75</div></div>
+  <div class="vis-bar"><div class="fill" id="bar0" style="width:15%"></div><div class="label lbl-left">0%</div><div class="label" id="lbl0">15%</div></div>
 </div>
 
-<!-- Tab 1: Score & Grade -->
+<!-- Tab 1: Part to Percentage -->
 <div class="tab-pane" id="t1">
-  <div class="tip-badge">💡 Use for: <span>test score · completion rate · survey results · accuracy</span></div>
+  <div class="tip-badge">💡 Use for: <span>test scores · completion rate · survey results · accuracy</span></div>
   <div class="form-row">
     <div class="form-group">
-      <label>Your Score</label>
-      <div class="input-wrap"><input type="number" id="part" value="28" step="any"></div>
+      <label>Part</label>
+      <div class="input-wrap"><input type="number" id="part" value="50" step="any"></div>
     </div>
     <div class="form-group">
-      <label>Total Possible</label>
-      <div class="input-wrap"><input type="number" id="total" value="35" step="any"></div>
+      <label>Total</label>
+      <div class="input-wrap"><input type="number" id="total" value="200" step="any"></div>
     </div>
   </div>
   <div class="result-box animate-in" style="margin-top:var(--space-4)">
-    <div class="big-number" id="r1">80%</div>
-    <div class="result-desc" id="d1">You scored <strong>80%</strong> (28 of 35)</div>
+    <div class="big-number" id="r1">25%</div>
+    <div class="result-desc" id="d1"><strong>50</strong> is <strong>25%</strong> of 200</div>
   </div>
-  <div class="vis-bar"><div class="fill" id="bar1" style="width:80%"></div><div class="label lbl-left">0%</div><div class="label" id="lbl1">80%</div></div>
+  <div class="vis-bar"><div class="fill" id="bar1" style="width:25%"></div><div class="label lbl-left">0%</div><div class="label" id="lbl1">25%</div></div>
 </div>
 
-<!-- Tab 2: Price Change -->
+<!-- Tab 2: Percent Change -->
 <div class="tab-pane" id="t2">
-  <div class="tip-badge">💡 Use for: <span>price increase · salary raise · year-over-year growth · investment return</span></div>
+  <div class="tip-badge">💡 Use for: <span>price changes · salary raises · year-over-year growth · investment returns</span></div>
   <div class="form-row">
     <div class="form-group">
-      <label>Before ($)</label>
-      <div class="input-wrap"><input type="number" id="oldV" value="1000" step="any"></div>
+      <label>Original Value</label>
+      <div class="input-wrap"><input type="number" id="oldV" value="100" step="any"></div>
     </div>
     <div class="form-group">
-      <label>After ($)</label>
-      <div class="input-wrap"><input type="number" id="newV" value="1200" step="any"></div>
+      <label>New Value</label>
+      <div class="input-wrap"><input type="number" id="newV" value="150" step="any"></div>
     </div>
   </div>
   <div class="result-box animate-in" style="margin-top:var(--space-4)">
-    <div class="big-number" id="r2" style="color:var(--accent-text)">+20%</div>
-    <div class="result-desc" id="d2">Increase from $1,000 to $1,200</div>
+    <div class="big-number" id="r2" style="color:var(--accent-text)">+50%</div>
+    <div class="result-desc" id="d2">Increase from 100 to 150</div>
   </div>
   <div style="display:flex;gap:var(--space-4);margin-top:var(--space-4);flex-wrap:wrap">
-    <div class="stat-card" style="flex:1;min-width:100px"><div class="num" id="delta">+200</div><div class="lbl">Difference</div></div>
-    <div class="stat-card" style="flex:1;min-width:100px"><div class="num" id="multiplier">1.20×</div><div class="lbl">Multiplier</div></div>
+    <div class="stat-card" style="flex:1;min-width:100px"><div class="num" id="delta">+50</div><div class="lbl">Difference</div></div>
+    <div class="stat-card" style="flex:1;min-width:100px"><div class="num" id="multiplier">1.50×</div><div class="lbl">Multiplier</div></div>
   </div>
 </div>
 
@@ -123,9 +123,9 @@ body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.12);--accent-text:#c026d
 <div class="section">
   <h2>How to Use</h2>
   <ol>
-    <li>Pick a real-world scenario: <strong>Tip & Discount</strong>, <strong>Score & Grade</strong>, or <strong>Price Change</strong></li>
+    <li>Choose your calculation: <strong>% of a Number</strong>, <strong>Part to Percentage</strong>, or <strong>Percent Change</strong></li>
     <li>Enter your numbers — results update instantly as you type</li>
-    <li>Visual bars show proportions; stat cards show extra info for price changes</li>
+    <li>Visual bars show proportions; stat cards show extra info for percent change</li>
   </ol>
 </div>
 
@@ -133,15 +133,15 @@ body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.12);--accent-text:#c026d
   <h2>FAQ</h2>
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFAQ(this)">How do I calculate 20% of a number?</div>
-    <div class="faq-answer"><p>Multiply the number by 0.20. For example, 20% of $80 = 80 × 0.20 = $16. Use the <strong>Find % of a number</strong> tab for instant results.</p></div>
+    <div class="faq-answer"><p>Multiply the number by 0.20. For example, 20% of 80 = 80 × 0.20 = 16. Use the <strong>% of a Number</strong> tab for instant results.</p></div>
   </div>
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFAQ(this)">How do I calculate percentage increase?</div>
-    <div class="faq-answer"><p>Subtract the original from the new, divide by the original, multiply by 100. Example: ($150 − $100) ÷ $100 × 100 = 50% increase. Use the <strong>% Increase/Decrease</strong> tab.</p></div>
+    <div class="faq-answer"><p>Subtract the original from the new, divide by the original, multiply by 100. Example: (150 − 100) ÷ 100 × 100 = 50% increase. Use the <strong>Percent Change</strong> tab.</p></div>
   </div>
   <div class="faq-item">
     <div class="faq-question" onclick="toggleFAQ(this)">What's a good tip percentage?</div>
-    <div class="faq-answer"><p>Standard tips: 15% for good service, 18-20% for great service, 10% for large parties or casual dining. Use the <strong>Find % of a Number</strong> tab to calculate instantly.</p></div>
+    <div class="faq-answer"><p>Standard tips: 15% for good service, 18–20% for great service, 10% for large parties or casual dining. Use the <strong>% of a Number</strong> tab to calculate instantly.</p></div>
   </div>
 </div>
 </main>
