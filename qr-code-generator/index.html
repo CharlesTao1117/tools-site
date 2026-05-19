@@ -186,7 +186,11 @@ function generateBarcodes(){
     if(!el)return;
     try{
       let fmt='CODE128',val=text;
-      if(id==='bc39')fmt='CODE39';
+      if(id==='bc39'){
+        fmt='CODE39';
+        val=text.toUpperCase().replace(/[^A-Z0-9\-\.\ \$\/\+\%]/g,'');
+        if(!val)val='CODE39';
+      }
       else if(id==='bcUpc'){fmt='UPC';val=text.replace(/[^0-9]/g,'').slice(0,11)||'01234567890';}
       else if(id==='bcEan'){fmt='EAN13';val=text.replace(/[^0-9]/g,'').slice(0,12)||'012345678901';}
       JsBarcode(el,val,{...bcConfig,format:fmt});
