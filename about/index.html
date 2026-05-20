@@ -71,5 +71,21 @@ i18n.register({
 });
 i18n.init();
 </script>
+
+<script>
+async function submitFeedback(e,f){
+  e.preventDefault();const st=f.querySelector('.feedback-status');
+  const btn=f.querySelector('.feedback-submit');
+  btn.disabled=true;st.textContent='Sending...';st.className='feedback-status';
+  const d={name:f.name.value,email:f.email.value,message:f.message.value,page:location.pathname};
+  try{
+    const r=await fetch('/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+    const j=await r.json();
+    if(j.success){st.textContent='✅ Thanks for your feedback!';st.className='feedback-status success';f.reset();}
+    else{st.textContent='❌ '+j.error;st.className='feedback-status error';}
+  }catch(e){st.textContent='❌ Network error. Please try again.';st.className='feedback-status error';}
+  btn.disabled=false;
+}
+</script>
 </body>
 </html>

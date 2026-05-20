@@ -130,6 +130,31 @@ body{--accent:#d946ef;--accent-subtle:rgba(217,70,239,0.12);--accent-text:#c026d
 </main>
 </div>
 
+
+  <!-- ═══ Feedback Form ═══ -->
+  <section class="section-feedback">
+    <h2>💬 Feedback</h2>
+    <p>Help us improve — report bugs, request tools, or share ideas</p>
+    <form class="feedback-form" onsubmit="submitFeedback(event,this)">
+      <div class="feedback-row">
+        <div class="form-group">
+          <label>Name (optional)</label>
+          <input name="name" type="text" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label>Email (optional)</label>
+          <input name="email" type="email" placeholder="your@email.com" autocomplete="email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Message *</label>
+        <textarea name="message" required placeholder="What do you think?"></textarea>
+      </div>
+      <button class="feedback-submit" type="submit">Send Feedback</button>
+      <div class="feedback-status"></div>
+    </form>
+  </section>
+
 <footer><div class="container">
   <div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div>
   <p>&copy; 2026 Free Online Tools</p>
@@ -174,6 +199,22 @@ function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.
 document.getElementById('pct').addEventListener('input',calc);
 document.getElementById('amt').addEventListener('input',calc);
 window.addEventListener('load',calc);
+</script>
+
+<script>
+async function submitFeedback(e,f){
+  e.preventDefault();const st=f.querySelector('.feedback-status');
+  const btn=f.querySelector('.feedback-submit');
+  btn.disabled=true;st.textContent='Sending...';st.className='feedback-status';
+  const d={name:f.name.value,email:f.email.value,message:f.message.value,page:location.pathname};
+  try{
+    const r=await fetch('/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+    const j=await r.json();
+    if(j.success){st.textContent='✅ Thanks for your feedback!';st.className='feedback-status success';f.reset();}
+    else{st.textContent='❌ '+j.error;st.className='feedback-status error';}
+  }catch(e){st.textContent='❌ Network error. Please try again.';st.className='feedback-status error';}
+  btn.disabled=false;
+}
 </script>
 </body>
 </html>
