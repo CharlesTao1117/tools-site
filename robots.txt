@@ -4,4 +4,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tools-site.pages.dev/sitemap.xml
+Sitemap: https://anycalculator.site/sitemap.xml
