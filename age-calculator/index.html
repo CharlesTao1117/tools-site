@@ -286,7 +286,7 @@ async function submitFeedback(e,f){
   btn.disabled=true;st.textContent='Sending...';st.className='feedback-status';
   const d={name:f.name.value,email:f.email.value,message:f.message.value,page:location.pathname};
   try{
-    const r=await fetch('https://formsubmit.co/ajax/cs@anycalculator.site',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});
+    const r=await fetch('/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
     const j=await r.json();
     if(j.success){st.textContent='✅ Thanks for your feedback!';st.className='feedback-status success';f.reset();}
     else{st.textContent='❌ '+j.error;st.className='feedback-status error';}
