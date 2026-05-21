@@ -1,187 +1,257 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-JL08H6FMN6');
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
-     crossorigin="anonymous"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add Subtract Calculator — Free Online Addition Tool</title>
-<meta name="description" content="Free Add and Subtract Calculator. Enter two numbers to see sum, difference instantly. Simple arithmetic tool.">
-<link rel="canonical" href="https://anycalculator.site/">
-<link rel="stylesheet" href="/common/premium.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Add Subtract Calculator","applicationCategory":"UtilityApplication"}</script>
-<style>
-body{--accent:#f59e0b;--accent-subtle:rgba(245,158,11,0.12);--accent-text:#d97706;--accent-hover:#b45309;--accent-glow:rgba(245,158,11,0.15)}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
-@media(max-width:480px){.grid-2{grid-template-columns:1fr}}
-.result-card{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;border:1px solid var(--border-subtle);transition:all .2s}
-.result-card .op{font-size:.8rem;color:var(--text-tertiary);margin-bottom:4px}
-.result-card .num{font-size:2rem;font-weight:700;font-feature-settings:"tnum";line-height:1.2}
-.result-card .sub{font-size:.75rem;color:var(--text-tertiary);margin-top:4px;font-feature-settings:"tnum"}
-.plus .num{color:var(--accent-text)}
-.minus .num{color:#ef4444}
-.equals{border-color:var(--accent);background:linear-gradient(135deg,var(--accent-subtle),transparent)}
-.math-lines{margin-top:var(--space-4);font-size:1rem;line-height:2;text-align:center;color:var(--text-secondary);font-feature-settings:"tnum"}
-.math-lines .num{font-weight:600}
-.math-lines .plus-color{color:var(--accent-text);font-weight:700}
-.math-lines .minus-color{color:#ef4444;font-weight:700}
-</style>
+     1|<!DOCTYPE html>
+     2|<html lang="en">
+     3|<head>
+     4|<meta charset="UTF-8">
+     5|<!-- Google tag (gtag.js) -->
+     6|<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+     7|<script>
+     8|  window.dataLayer = window.dataLayer || [];
+     9|  function gtag(){dataLayer.push(arguments);}
+    10|  gtag('js', new Date());
+    11|  gtag('config', 'G-JL08H6FMN6');
+    12|</script>
+    13|<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
+    14|     crossorigin="anonymous"></script>
+    15|<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    16|<title>Add Subtract Calculator — Free Online Addition Tool</title>
+    17|<meta name="description" content="Free Add and Subtract Calculator. Enter two numbers to see sum, difference instantly. Simple arithmetic tool.">
+    18|<link rel="canonical" href="https://anycalculator.site/">
+    19|<link rel="stylesheet" href="/common/premium.css">
+    20|<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Add Subtract Calculator","applicationCategory":"UtilityApplication"}</script>
+    21|<style>
+    22|body{--accent:#f59e0b;--accent-subtle:rgba(245,158,11,0.12);--accent-text:#d97706;--accent-hover:#b45309;--accent-glow:rgba(245,158,11,0.15)}
+    23|.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
+    24|@media(max-width:480px){.grid-2{grid-template-columns:1fr}}
+    25|.result-card{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;border:1px solid var(--border-subtle);transition:all .2s}
+    26|.result-card .op{font-size:.8rem;color:var(--text-tertiary);margin-bottom:4px}
+    27|.result-card .num{font-size:2rem;font-weight:700;font-feature-settings:"tnum";line-height:1.2}
+    28|.result-card .sub{font-size:.75rem;color:var(--text-tertiary);margin-top:4px;font-feature-settings:"tnum"}
+    29|.plus .num{color:var(--accent-text)}
+    30|.minus .num{color:#ef4444}
+    31|.equals{border-color:var(--accent);background:linear-gradient(135deg,var(--accent-subtle),transparent)}
+    32|.math-lines{margin-top:var(--space-4);font-size:1rem;line-height:2;text-align:center;color:var(--text-secondary);font-feature-settings:"tnum"}
+    33|.math-lines .num{font-weight:600}
+    34|.math-lines .plus-color{color:var(--accent-text);font-weight:700}
+    35|.math-lines .minus-color{color:#ef4444;font-weight:700}
+    36|</style>
+    37|<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I add hours and minutes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter two time values in hours and minutes format. The calculator adds them together and shows the total. For example, 2h 30min + 1h 45min = 4h 15min."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I subtract time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter a larger time value first, then a smaller one. The calculator finds the difference. Useful for calculating time intervals, work hours, or duration between events."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What can I use this calculator for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Track work hours, calculate commute time, plan cooking schedules, figure out meeting durations, compute travel time, or any situation requiring time arithmetic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it handle hours over 24?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! The calculator doesn't limit to 24-hour cycles, making it suitable for multi-day projects, shipping lead times, and extended work schedules."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I convert the result to decimal hours?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The result shows hours and minutes clearly. For example, 2h 30min equals 2.5 hours in decimal. Use this for payroll calculations and billing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this calculator mobile-friendly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The interface is fully responsive and works on phones, tablets, and desktops. All buttons are large enough for easy tapping on mobile."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this tool free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Completely free with no usage limits. No sign-up required. Just enter your times and get instant results."
+      }
+    }
+  ]
+}</script>
 </head>
-<body>
-<div class="page-wrap">
-<nav class="top-nav"><div class="container">
-  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
-  <div class="links">
-    <a href="/qr-code-generator/">QR Code</a>
-    <a href="/bmi-calculator/">BMI</a>
-    <a href="/password-generator/">Password</a>
-    <a href="/age-calculator/">Age</a>
-    <a href="/percentage-calculator/">Pct/Discount</a>
-    <a href="/date-calculator/">Date</a>
-    <a href="/add-subtract-calculator/" class="active">Add/Sub</a>
+    38|<body>
+    39|<div class="page-wrap">
+    40|<nav class="top-nav"><div class="container">
+    41|  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+    42|  <div class="links">
+    43|    <a href="/qr-code-generator/">QR Code</a>
+    44|    <a href="/bmi-calculator/">BMI</a>
+    45|    <a href="/password-generator/">Password</a>
+    46|    <a href="/age-calculator/">Age</a>
+    47|    <a href="/percentage-calculator/">Pct/Discount</a>
+    48|    <a href="/date-calculator/">Date</a>
+    49|    <a href="/add-subtract-calculator/" class="active">Add/Sub</a>
+    50|  </div>
+    51|</div></nav>
+    52|<div class="page-content">
+    53|
+    54|<div class="hero">
+    55|  <h1>➕ <span class="gradient-text">Add &amp; Subtract</span></h1>
+    56|  <p>Enter two numbers — see sum and difference at the same time</p>
+    57|</div>
+    58|
+    59|<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+    60|
+    61|<main class="container">
+    62|<div class="card card-glow">
+    63|
+    64|<div class="form-row">
+    65|  <div class="form-group">
+    66|    <label>Number A</label>
+    67|    <div class="input-wrap"><input type="number" id="numA" value="100" step="any"></div>
+    68|  </div>
+    69|  <div class="form-group">
+    70|    <label>Number B</label>
+    71|    <div class="input-wrap"><input type="number" id="numB" value="37" step="any"></div>
+    72|  </div>
+    73|</div>
+    74|
+    75|<div class="grid-2">
+    76|  <div class="result-card plus equals">
+    77|    <div class="op">A + B</div>
+    78|    <div class="num" id="r-sum">137</div>
+    79|    <div class="sub">100 + 37</div>
+    80|  </div>
+    81|  <div class="result-card minus">
+    82|    <div class="op">A − B</div>
+    83|    <div class="num" id="r-diff">63</div>
+    84|    <div class="sub">100 − 37</div>
+    85|  </div>
+    86|</div>
+    87|
+    88|</div>
+    89|
+    90|<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+    91|
+    92|<div class="section">
+    93|  <h2>How to Use</h2>
+    94|  <ol>
+    95|    <li>Enter any two numbers in the fields above</li>
+    96|    <li>See the <strong>sum</strong> (A + B) and <strong>difference</strong> (A − B) update instantly</li>
+    97|    <li>Negative differences show in red automatically</li>
+    98|  </ol>
+    99|</div>
+   100|
+   101|<div class="section">
+   102|  <h2>FAQ</h2>
+   103|  <div class="faq-item">
+   104|    <div class="faq-question" onclick="toggleFAQ(this)">Can I use decimals?</div>
+   105|    <div class="faq-answer"><p>Yes — enter any number, including decimals. Results show with up to 2 decimal places automatically.</p></div>
+   106|  </div>
+   107|  <div class="faq-item">
+   108|    <div class="faq-question" onclick="toggleFAQ(this)">What if B is larger than A?</div>
+   109|    <div class="faq-answer"><p>The difference (A − B) will be a negative number, shown in red. The sum will still be correct.</p></div>
+   110|  </div>
+   111|</div>
+   112|</main>
+   113|</div>
+   114|
+   115|
+   116|    <div class="section">
+    <h2>🔗 Related Tools</h2>
+    <div class="related-links">
+      <a href="/date-calculator/">Date Calculator</a><a href="/age-calculator/">Age Calculator</a><a href="/percentage-calculator/">Percentage Calculator</a>
+    </div>
   </div>
-</div></nav>
-<div class="page-content">
-
-<div class="hero">
-  <h1>➕ <span class="gradient-text">Add &amp; Subtract</span></h1>
-  <p>Enter two numbers — see sum and difference at the same time</p>
-</div>
-
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
-
-<main class="container">
-<div class="card card-glow">
-
-<div class="form-row">
-  <div class="form-group">
-    <label>Number A</label>
-    <div class="input-wrap"><input type="number" id="numA" value="100" step="any"></div>
-  </div>
-  <div class="form-group">
-    <label>Number B</label>
-    <div class="input-wrap"><input type="number" id="numB" value="37" step="any"></div>
-  </div>
-</div>
-
-<div class="grid-2">
-  <div class="result-card plus equals">
-    <div class="op">A + B</div>
-    <div class="num" id="r-sum">137</div>
-    <div class="sub">100 + 37</div>
-  </div>
-  <div class="result-card minus">
-    <div class="op">A − B</div>
-    <div class="num" id="r-diff">63</div>
-    <div class="sub">100 − 37</div>
-  </div>
-</div>
-
-</div>
-
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
-
-<div class="section">
-  <h2>How to Use</h2>
-  <ol>
-    <li>Enter any two numbers in the fields above</li>
-    <li>See the <strong>sum</strong> (A + B) and <strong>difference</strong> (A − B) update instantly</li>
-    <li>Negative differences show in red automatically</li>
-  </ol>
-</div>
-
-<div class="section">
-  <h2>FAQ</h2>
-  <div class="faq-item">
-    <div class="faq-question" onclick="toggleFAQ(this)">Can I use decimals?</div>
-    <div class="faq-answer"><p>Yes — enter any number, including decimals. Results show with up to 2 decimal places automatically.</p></div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-question" onclick="toggleFAQ(this)">What if B is larger than A?</div>
-    <div class="faq-answer"><p>The difference (A − B) will be a negative number, shown in red. The sum will still be correct.</p></div>
-  </div>
-</div>
-</main>
-</div>
-
 
   <!-- ═══ Feedback Form ═══ -->
-  <section class="section-feedback">
-    <h2>💬 Feedback</h2>
-    <p>Help us improve — report bugs, request tools, or share ideas</p>
-    <form class="feedback-form" onsubmit="submitFeedback(event,this)">
-      <div class="feedback-row">
-        <div class="form-group">
-          <label>Name (optional)</label>
-          <input name="name" type="text" placeholder="Your name" autocomplete="name">
-        </div>
-        <div class="form-group">
-          <label>Email (optional)</label>
-          <input name="email" type="email" placeholder="your@email.com" autocomplete="email">
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Message *</label>
-        <textarea name="message" required placeholder="What do you think?"></textarea>
-      </div>
-      <button class="feedback-submit" type="submit">Send Feedback</button>
-      <div class="feedback-status"></div>
-    </form>
-  </section>
-
-<footer><div class="container">
-  <div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div>
-  <p>&copy; 2026 Free Online Tools</p>
-</div></footer>
-</div>
-
-<script>
-function fmt(n){return Number(n).toLocaleString('en-US',{maximumFractionDigits:2,minimumFractionDigits:0})}
-
-function calc(){
-  const a=parseFloat(document.getElementById('numA').value)||0;
-  const b=parseFloat(document.getElementById('numB').value)||0;
-  const sum=a+b, diff=a-b;
-
-  document.getElementById('r-sum').textContent=fmt(sum);
-  document.getElementById('r-diff').textContent=(diff<0?'':'')+fmt(diff);
-
-  document.getElementById('r-diff').style.color=diff<0?'#ef4444':'#ef4444';
-  document.querySelector('.minus .num').style.color=diff<0?'#ef4444':'var(--text-secondary)';
-
-  document.querySelector('.plus .sub').textContent=fmt(a)+' + '+fmt(b);
-  document.querySelector('.minus .sub').textContent=fmt(a)+' − '+fmt(b);
-}
-
-function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
-
-document.getElementById('numA').addEventListener('input',calc);
-document.getElementById('numB').addEventListener('input',calc);
-window.addEventListener('load',calc);
-</script>
-
-<script>
-async function submitFeedback(e,f){
-  e.preventDefault();const st=f.querySelector('.feedback-status');
-  const btn=f.querySelector('.feedback-submit');
-  btn.disabled=true;st.textContent='Sending...';st.className='feedback-status';
-  const d={name:f.name.value,email:f.email.value,message:f.message.value,page:location.pathname};
-  try{
-    const r=await fetch('https://formsubmit.co/ajax/cs@anycalculator.site',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});
-    const j=await r.json();
-    if(j.success){st.textContent='✅ Thanks for your feedback!';st.className='feedback-status success';f.reset();}
-    else{st.textContent='❌ '+j.error;st.className='feedback-status error';}
-  }catch(e){st.textContent='❌ Network error. Please try again.';st.className='feedback-status error';}
-  btn.disabled=false;
-}
-</script>
-</body>
-</html>
+   117|  <section class="section-feedback">
+   118|    <h2>💬 Feedback</h2>
+   119|    <p>Help us improve — report bugs, request tools, or share ideas</p>
+   120|    <form class="feedback-form" onsubmit="submitFeedback(event,this)">
+   121|      <div class="feedback-row">
+   122|        <div class="form-group">
+   123|          <label>Name (optional)</label>
+   124|          <input name="name" type="text" placeholder="Your name" autocomplete="name">
+   125|        </div>
+   126|        <div class="form-group">
+   127|          <label>Email (optional)</label>
+   128|          <input name="email" type="email" placeholder="your@email.com" autocomplete="email">
+   129|        </div>
+   130|      </div>
+   131|      <div class="form-group">
+   132|        <label>Message *</label>
+   133|        <textarea name="message" required placeholder="What do you think?"></textarea>
+   134|      </div>
+   135|      <button class="feedback-submit" type="submit">Send Feedback</button>
+   136|      <div class="feedback-status"></div>
+   137|    </form>
+   138|  </section>
+   139|
+   140|<footer><div class="container">
+   141|  <div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div>
+   142|  <p>&copy; 2026 Free Online Tools</p>
+   143|</div></footer>
+   144|</div>
+   145|
+   146|<script>
+   147|function fmt(n){return Number(n).toLocaleString('en-US',{maximumFractionDigits:2,minimumFractionDigits:0})}
+   148|
+   149|function calc(){
+   150|  const a=parseFloat(document.getElementById('numA').value)||0;
+   151|  const b=parseFloat(document.getElementById('numB').value)||0;
+   152|  const sum=a+b, diff=a-b;
+   153|
+   154|  document.getElementById('r-sum').textContent=fmt(sum);
+   155|  document.getElementById('r-diff').textContent=(diff<0?'':'')+fmt(diff);
+   156|
+   157|  document.getElementById('r-diff').style.color=diff<0?'#ef4444':'#ef4444';
+   158|  document.querySelector('.minus .num').style.color=diff<0?'#ef4444':'var(--text-secondary)';
+   159|
+   160|  document.querySelector('.plus .sub').textContent=fmt(a)+' + '+fmt(b);
+   161|  document.querySelector('.minus .sub').textContent=fmt(a)+' − '+fmt(b);
+   162|}
+   163|
+   164|function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
+   165|
+   166|document.getElementById('numA').addEventListener('input',calc);
+   167|document.getElementById('numB').addEventListener('input',calc);
+   168|window.addEventListener('load',calc);
+   169|</script>
+   170|
+   171|<script>
+   172|async function submitFeedback(e,f){
+   173|  e.preventDefault();const st=f.querySelector('.feedback-status');
+   174|  const btn=f.querySelector('.feedback-submit');
+   175|  btn.disabled=true;st.textContent='Sending...';st.className='feedback-status';
+   176|  const d={name:f.name.value,email:f.email.value,message:f.message.value,page:location.pathname};
+   177|  try{
+   178|    const r=await fetch('https://formsubmit.co/ajax/cs@anycalculator.site',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});
+   179|    const j=await r.json();
+   180|    if(j.success){st.textContent='✅ Thanks for your feedback!';st.className='feedback-status success';f.reset();}
+   181|    else{st.textContent='❌ '+j.error;st.className='feedback-status error';}
+   182|  }catch(e){st.textContent='❌ Network error. Please try again.';st.className='feedback-status error';}
+   183|  btn.disabled=false;
+   184|}
+   185|</script>
+   186|</body>
+   187|</html>
+   188|

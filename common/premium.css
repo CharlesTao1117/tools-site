@@ -1888,3 +1888,8 @@ footer .footer-links {
   body { background: #fff; color: #000; }
   .card { box-shadow: none; border: 1px solid #ccc; }
 }
+
+/* SEO - Related Tools */
+.related-links{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-3)}
+.related-links a{background:var(--accent-subtle);color:var(--accent-text);padding:var(--space-2) var(--space-3);border-radius:var(--radius);font-size:.875rem;font-weight:500;text-decoration:none;transition:all .2s}
+.related-links a:hover{background:var(--accent-glow);transform:translateY(-1px)}

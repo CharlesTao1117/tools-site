@@ -1,289 +1,359 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-JL08H6FMN6');
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
-     crossorigin="anonymous"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free QR Code Generator — Create QR &amp; Barcodes Online</title>
-<meta name="description" content="Free QR Code and Barcode Generator. Enter text or URL to create QR, CODE128, CODE39, UPC-A, and EAN-13 barcodes instantly. Download as PNG.">
-<link rel="canonical" href="https://anycalculator.site/">
-<link rel="stylesheet" href="/common/premium.css">
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"QR Code & Barcode Generator","applicationCategory":"UtilityApplication"}</script>
-<style>
-body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e5}
-.color-picker-row{display:flex;gap:16px;align-items:end;flex-wrap:wrap}
-.color-picker-row .form-group{margin-bottom:0}
-.barcode-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
-@media(max-width:480px){.barcode-grid{grid-template-columns:1fr}}
-.barcode-card{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;border:1px solid var(--border-subtle)}
-.barcode-card .name{font-size:.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-2)}
-.barcode-card .barcode-wrap{background:#fff;border-radius:8px;padding:12px;overflow:hidden}
-.barcode-card .barcode-wrap svg{display:block;margin:0 auto;max-width:100%;height:auto}
-.barcode-card .barcode-wrap canvas,.barcode-card .barcode-wrap img{display:block;margin:0 auto;max-width:100%}
-.barcode-card .dl-btn{font-size:.75rem;margin-top:var(--space-2);padding:4px 16px;border-radius:6px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-tertiary);cursor:pointer}
-.barcode-card .dl-btn:hover{background:var(--bg);color:var(--text)}
-.section-divider{margin:var(--space-5) 0;height:1px;background:var(--border-subtle)}
-.qr-display{display:flex;flex-direction:column;align-items:center;padding:var(--space-4)}
-.qr-display #qrcode{background:#fff;padding:12px;border-radius:12px}
-.qr-display #qrcode canvas{display:block;margin:0 auto}
-</style>
+     1|<!DOCTYPE html>
+     2|<html lang="en">
+     3|<head>
+     4|<meta charset="UTF-8">
+     5|<!-- Google tag (gtag.js) -->
+     6|<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+     7|<script>
+     8|  window.dataLayer = window.dataLayer || [];
+     9|  function gtag(){dataLayer.push(arguments);}
+    10|  gtag('js', new Date());
+    11|  gtag('config', 'G-JL08H6FMN6');
+    12|</script>
+    13|<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
+    14|     crossorigin="anonymous"></script>
+    15|<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    16|<title>Free QR Code Generator — Create QR &amp; Barcodes Online</title>
+    17|<meta name="description" content="Free QR Code and Barcode Generator. Enter text or URL to create QR, CODE128, CODE39, UPC-A, and EAN-13 barcodes instantly. Download as PNG.">
+    18|<link rel="canonical" href="https://anycalculator.site/">
+    19|<link rel="stylesheet" href="/common/premium.css">
+    20|<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    21|<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+    22|<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"QR Code & Barcode Generator","applicationCategory":"UtilityApplication"}</script>
+    23|<style>
+    24|body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e5}
+    25|.color-picker-row{display:flex;gap:16px;align-items:end;flex-wrap:wrap}
+    26|.color-picker-row .form-group{margin-bottom:0}
+    27|.barcode-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
+    28|@media(max-width:480px){.barcode-grid{grid-template-columns:1fr}}
+    29|.barcode-card{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;border:1px solid var(--border-subtle)}
+    30|.barcode-card .name{font-size:.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-2)}
+    31|.barcode-card .barcode-wrap{background:#fff;border-radius:8px;padding:12px;overflow:hidden}
+    32|.barcode-card .barcode-wrap svg{display:block;margin:0 auto;max-width:100%;height:auto}
+    33|.barcode-card .barcode-wrap canvas,.barcode-card .barcode-wrap img{display:block;margin:0 auto;max-width:100%}
+    34|.barcode-card .dl-btn{font-size:.75rem;margin-top:var(--space-2);padding:4px 16px;border-radius:6px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-tertiary);cursor:pointer}
+    35|.barcode-card .dl-btn:hover{background:var(--bg);color:var(--text)}
+    36|.section-divider{margin:var(--space-5) 0;height:1px;background:var(--border-subtle)}
+    37|.qr-display{display:flex;flex-direction:column;align-items:center;padding:var(--space-4)}
+    38|.qr-display #qrcode{background:#fff;padding:12px;border-radius:12px}
+    39|.qr-display #qrcode canvas{display:block;margin:0 auto}
+    40|</style>
+    41|<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I generate a QR code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Type or paste your URL or text into the input field. The QR code generates instantly on the right. You can customize the size (128\u2013512 px) and color, then download as PNG. It's completely free with no sign-up required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What types of barcodes can I create?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This tool generates 5 types: QR Code (for URLs/text), CODE128 (general logistics), CODE39 (inventory), UPC-A (retail products), and EAN-13 (international retail). Each updates automatically as you type."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are these QR codes free to use commercially?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "QR codes are free to generate and use for any purpose \u2014 personal, business, or commercial. However, UPC-A and EAN-13 require a GS1 company prefix for actual retail sale."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do QR codes expire?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. QR codes are static images that never expire. The code will work as long as the content it points to (website, text, etc.) still exists."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I customize the QR code color?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Use the color picker to change the QR code from black to any color. Choose from preset color options or pick a custom color. The background remains white for reliable scanning."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the best size for a QR code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "256 px is recommended for most uses \u2014 it works well on screens and prints clearly. Use 128 px for small spaces like business cards, or 512 px for posters and large-format prints."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I download the QR code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Click the Download button below the QR code. The image saves as a PNG file with transparent background, ready to use on websites, flyers, packaging, or any marketing material."
+      }
+    }
+  ]
+}</script>
 </head>
-<body>
-<div class="page-wrap">
-<nav class="top-nav"><div class="container">
-  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
-  <div class="links">
-    <a href="/qr-code-generator/" class="active">QR Code</a>
-    <a href="/bmi-calculator/">BMI</a>
-    <a href="/password-generator/">Password</a>
-    <a href="/age-calculator/">Age</a>
-    <a href="/percentage-calculator/">Pct/Discount</a>
-    <a href="/date-calculator/">Date</a>
-    <a href="/add-subtract-calculator/">Add/Sub</a>
-  </div>
-</div></nav>
-
-<div class="page-content">
-<div class="hero">
-  <h1>📱 <span class="gradient-text">Barcode &amp; QR Generator</span></h1>
-  <p>Enter any text — see QR, CODE128, CODE39, UPC-A, and EAN-13 instantly</p>
-</div>
-
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
-
-<main class="container">
-  <div class="card">
-    <div class="form-group">
-      <label>Content</label>
-      <div class="input-wrap">
-        <textarea id="qrText" rows="2" placeholder="Enter text, URL, or any data...">https://anycalculator.site</textarea>
-      </div>
+    42|<body>
+    43|<div class="page-wrap">
+    44|<nav class="top-nav"><div class="container">
+    45|  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+    46|  <div class="links">
+    47|    <a href="/qr-code-generator/" class="active">QR Code</a>
+    48|    <a href="/bmi-calculator/">BMI</a>
+    49|    <a href="/password-generator/">Password</a>
+    50|    <a href="/age-calculator/">Age</a>
+    51|    <a href="/percentage-calculator/">Pct/Discount</a>
+    52|    <a href="/date-calculator/">Date</a>
+    53|    <a href="/add-subtract-calculator/">Add/Sub</a>
+    54|  </div>
+    55|</div></nav>
+    56|
+    57|<div class="page-content">
+    58|<div class="hero">
+    59|  <h1>📱 <span class="gradient-text">Barcode &amp; QR Generator</span></h1>
+    60|  <p>Enter any text — see QR, CODE128, CODE39, UPC-A, and EAN-13 instantly</p>
+    61|</div>
+    62|
+    63|<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+    64|
+    65|<main class="container">
+    66|  <div class="card">
+    67|    <div class="form-group">
+    68|      <label>Content</label>
+    69|      <div class="input-wrap">
+    70|        <textarea id="qrText" rows="2" placeholder="Enter text, URL, or any data...">https://anycalculator.site</textarea>
+    71|      </div>
+    72|    </div>
+    73|
+    74|    <div class="form-row">
+    75|      <div class="form-group">
+    76|        <label>QR Size</label>
+    77|        <div class="pill-group" id="sizePills">
+    78|          <div class="pill-btn" data-size="160">Small</div>
+    79|          <div class="pill-btn active" data-size="256">Medium</div>
+    80|          <div class="pill-btn" data-size="400">Large</div>
+    81|        </div>
+    82|      </div>
+    83|      <div class="form-group">
+    84|        <label>QR Color</label>
+    85|        <div class="color-picker-row" style="gap:8px">
+    86|          <input type="color" id="qrColor" class="color-swatch" value="#000000" style="width:40px;height:40px">
+    87|          <div class="color-swatches" id="colorPresets">
+    88|            <div class="color-swatch-preset active" data-color="#000000" style="background:#000000"></div>
+    89|            <div class="color-swatch-preset" data-color="#6366f1" style="background:#6366f1"></div>
+    90|            <div class="color-swatch-preset" data-color="#ef4444" style="background:#ef4444"></div>
+    91|            <div class="color-swatch-preset" data-color="#f59e0b" style="background:#f59e0b"></div>
+    92|            <div class="color-swatch-preset" data-color="#10b981" style="background:#10b981"></div>
+    93|            <div class="color-swatch-preset" data-color="#8b5cf6" style="background:#8b5cf6"></div>
+    94|            <div class="color-swatch-preset" data-color="#ec4899" style="background:#ec4899"></div>
+    95|            <div class="color-swatch-preset" data-color="#06b6d4" style="background:#06b6d4"></div>
+    96|          </div>
+    97|        </div>
+    98|      </div>
+    99|    </div>
+   100|
+   101|    <div class="qr-display">
+   102|      <div id="qrcode"></div>
+   103|      <button class="dl-btn" style="margin-top:var(--space-3)" onclick="downloadQR()">⬇ Download QR</button>
+   104|    </div>
+   105|
+   106|    <div class="section-divider"></div>
+   107|
+   108|    <div class="barcode-grid" id="bcGrid">
+   109|      <div class="barcode-card"><div class="name">CODE128</div><div class="barcode-wrap"><svg id="bc128"></svg></div><button class="dl-btn" onclick="downloadBC('bc128','CODE128')">⬇ Download</button></div>
+   110|      <div class="barcode-card"><div class="name">CODE39</div><div class="barcode-wrap"><svg id="bc39"></svg></div><button class="dl-btn" onclick="downloadBC('bc39','CODE39')">⬇ Download</button></div>
+   111|      <div class="barcode-card"><div class="name">UPC‑A</div><div class="barcode-wrap"><svg id="bcUpc"></svg></div><button class="dl-btn" onclick="downloadBC('bcUpc','UPC-A')">⬇ Download</button></div>
+   112|      <div class="barcode-card"><div class="name">EAN‑13</div><div class="barcode-wrap"><svg id="bcEan"></svg></div><button class="dl-btn" onclick="downloadBC('bcEan','EAN-13')">⬇ Download</button></div>
+   113|    </div>
+   114|  </div>
+   115|
+   116|  <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+   117|
+   118|  <div class="section">
+   119|    <h2>How to Use</h2>
+   120|    <ol>
+   121|      <li>Type or paste any text, URL, or number in the content box</li>
+   122|      <li>QR code and 4 linear barcodes (CODE128, CODE39, UPC‑A, EAN‑13) update instantly</li>
+   123|      <li>Click any <strong>Download</strong> button to save an individual barcode as PNG</li>
+   124|      <li>Change QR size and color independently</li>
+   125|    </ol>
+   126|  </div>
+   127|
+   128|  <div class="section">
+   129|    <h2>FAQ</h2>
+   130|    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the difference between these barcode types?</div><div class="faq-answer"><p><strong>QR Code</strong> stores URLs, text, and more — scanned by phone cameras. <strong>CODE128</strong> and <strong>CODE39</strong> are general-purpose linear barcodes used in logistics and inventory. <strong>UPC‑A</strong> and <strong>EAN‑13</strong> are retail barcodes used on product packaging worldwide.</p></div></div>
+   131|    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use these barcodes commercially?</div><div class="faq-answer"><p>QR codes, CODE128, and CODE39 are free to generate and use. UPC‑A and EAN‑13 require a GS1 company prefix for retail sale, but you can generate them for testing or personal use.</p></div></div>
+   132|    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Do QR codes expire?</div><div class="faq-answer"><p>No — the code is a static image. It works forever as long as the encoded content still exists.</p></div></div>
+   133|  </div>
+   134|</main>
+   135|</div>
+   136|
+   137|
+   138|    <div class="section">
+    <h2>🔗 Related Tools</h2>
+    <div class="related-links">
+      <a href="/password-generator/">Password Generator</a><a href="/bmi-calculator/">BMI Calculator</a><a href="/age-calculator/">Age Calculator</a>
     </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>QR Size</label>
-        <div class="pill-group" id="sizePills">
-          <div class="pill-btn" data-size="160">Small</div>
-          <div class="pill-btn active" data-size="256">Medium</div>
-          <div class="pill-btn" data-size="400">Large</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>QR Color</label>
-        <div class="color-picker-row" style="gap:8px">
-          <input type="color" id="qrColor" class="color-swatch" value="#000000" style="width:40px;height:40px">
-          <div class="color-swatches" id="colorPresets">
-            <div class="color-swatch-preset active" data-color="#000000" style="background:#000000"></div>
-            <div class="color-swatch-preset" data-color="#6366f1" style="background:#6366f1"></div>
-            <div class="color-swatch-preset" data-color="#ef4444" style="background:#ef4444"></div>
-            <div class="color-swatch-preset" data-color="#f59e0b" style="background:#f59e0b"></div>
-            <div class="color-swatch-preset" data-color="#10b981" style="background:#10b981"></div>
-            <div class="color-swatch-preset" data-color="#8b5cf6" style="background:#8b5cf6"></div>
-            <div class="color-swatch-preset" data-color="#ec4899" style="background:#ec4899"></div>
-            <div class="color-swatch-preset" data-color="#06b6d4" style="background:#06b6d4"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="qr-display">
-      <div id="qrcode"></div>
-      <button class="dl-btn" style="margin-top:var(--space-3)" onclick="downloadQR()">⬇ Download QR</button>
-    </div>
-
-    <div class="section-divider"></div>
-
-    <div class="barcode-grid" id="bcGrid">
-      <div class="barcode-card"><div class="name">CODE128</div><div class="barcode-wrap"><svg id="bc128"></svg></div><button class="dl-btn" onclick="downloadBC('bc128','CODE128')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">CODE39</div><div class="barcode-wrap"><svg id="bc39"></svg></div><button class="dl-btn" onclick="downloadBC('bc39','CODE39')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">UPC‑A</div><div class="barcode-wrap"><svg id="bcUpc"></svg></div><button class="dl-btn" onclick="downloadBC('bcUpc','UPC-A')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">EAN‑13</div><div class="barcode-wrap"><svg id="bcEan"></svg></div><button class="dl-btn" onclick="downloadBC('bcEan','EAN-13')">⬇ Download</button></div>
-    </div>
   </div>
-
-  <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
-
-  <div class="section">
-    <h2>How to Use</h2>
-    <ol>
-      <li>Type or paste any text, URL, or number in the content box</li>
-      <li>QR code and 4 linear barcodes (CODE128, CODE39, UPC‑A, EAN‑13) update instantly</li>
-      <li>Click any <strong>Download</strong> button to save an individual barcode as PNG</li>
-      <li>Change QR size and color independently</li>
-    </ol>
-  </div>
-
-  <div class="section">
-    <h2>FAQ</h2>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the difference between these barcode types?</div><div class="faq-answer"><p><strong>QR Code</strong> stores URLs, text, and more — scanned by phone cameras. <strong>CODE128</strong> and <strong>CODE39</strong> are general-purpose linear barcodes used in logistics and inventory. <strong>UPC‑A</strong> and <strong>EAN‑13</strong> are retail barcodes used on product packaging worldwide.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use these barcodes commercially?</div><div class="faq-answer"><p>QR codes, CODE128, and CODE39 are free to generate and use. UPC‑A and EAN‑13 require a GS1 company prefix for retail sale, but you can generate them for testing or personal use.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Do QR codes expire?</div><div class="faq-answer"><p>No — the code is a static image. It works forever as long as the encoded content still exists.</p></div></div>
-  </div>
-</main>
-</div>
-
 
   <!-- ═══ Feedback Form ═══ -->
-  <section class="section-feedback">
-    <h2>💬 Feedback</h2>
-    <p>Help us improve — report bugs, request tools, or share ideas</p>
-    <form class="feedback-form" onsubmit="submitFeedback(event,this)">
-      <div class="feedback-row">
-        <div class="form-group">
-          <label>Name (optional)</label>
-          <input name="name" type="text" placeholder="Your name" autocomplete="name">
-        </div>
-        <div class="form-group">
-          <label>Email (optional)</label>
-          <input name="email" type="email" placeholder="your@email.com" autocomplete="email">
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Message *</label>
-        <textarea name="message" required placeholder="What do you think?"></textarea>
-      </div>
-      <button class="feedback-submit" type="submit">Send Feedback</button>
-      <div class="feedback-status"></div>
-    </form>
-  </section>
-
-<footer><div class="container"><div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div><p>&copy; 2026 Free Online Tools</p></div></footer>
-</div>
-
-<script>
-let qrSize=256, qrInstance=null;
-
-// Size pills
-document.querySelectorAll('#sizePills .pill-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('#sizePills .pill-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    qrSize=parseInt(btn.dataset.size);
-    generateQR();
-  });
-});
-
-// Color presets
-document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(swatch=>{
-  swatch.addEventListener('click',()=>{
-    document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(s=>s.classList.remove('active'));
-    swatch.classList.add('active');
-    document.getElementById('qrColor').value=swatch.dataset.color;
-    generateQR();
-  });
-});
-document.getElementById('qrColor').addEventListener('input',()=>{
-  document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(s=>s.classList.remove('active'));
-  generateQR();
-});
-
-function generateQR(){
-  const text=document.getElementById('qrText').value.trim();
-  if(!text)return;
-  const container=document.getElementById('qrcode');
-  container.innerHTML='';
-  qrInstance=new QRCode(container,{
-    text,width:qrSize,height:qrSize,
-    colorDark:document.getElementById('qrColor').value,
-    colorLight:'#ffffff',
-    correctLevel:QRCode.CorrectLevel.H
-  });
-}
-
-function generateBarcodes(){
-  const text=document.getElementById('qrText').value.trim();
-  if(!text)return;
-
-  const bcConfig={
-    format:'CODE128',
-    width:2,height:50,
-    displayValue:true,
-    fontSize:14,
-    margin:8,
-    background:'#ffffff',
-    lineColor:'#000000'
-  };
-
-  ['bc128','bc39','bcUpc','bcEan'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    try{
-      let fmt='CODE128',val=text;
-      if(id==='bc39'){
-        fmt='CODE39';
-        val=text.toUpperCase().replace(/[^A-Z0-9\-\.\ \$\/\+\%]/g,'');
-        if(!val)val='CODE39';
-      }
-      else if(id==='bcUpc'){fmt='UPC';val=text.replace(/[^0-9]/g,'').slice(0,11)||'01234567890';}
-      else if(id==='bcEan'){fmt='EAN13';val=text.replace(/[^0-9]/g,'').slice(0,12)||'012345678901';}
-      JsBarcode(el,val,{...bcConfig,format:fmt});
-    }catch(e){
-      el.innerHTML='<text x="50%" y="50%" text-anchor="middle" fill="#999" font-size="12">Unsupported content</text>';
-    }
-  });
-}
-
-function downloadQR(){
-  const c=document.querySelector('#qrcode canvas');
-  if(!c)return;
-  const link=document.createElement('a');
-  link.download='qrcode.png';
-  link.href=c.toDataURL('image/png');
-  link.click();
-}
-
-function downloadBC(id,name){
-  const svg=document.getElementById(id);
-  if(!svg||!svg.innerHTML.trim())return;
-  const s=new XMLSerializer().serializeToString(svg);
-  const c=document.createElement('canvas');
-  const ctx=c.getContext('2d');
-  const img=new Image();
-  img.onload=function(){
-    c.width=img.width;c.height=img.height;
-    ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);
-    ctx.drawImage(img,0,0);
-    const link=document.createElement('a');
-    link.download=name+'.png';
-    link.href=c.toDataURL('image/png');
-    link.click();
-  };
-  img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(s)));
-}
-
-function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
-
-// Auto-render on input
-document.getElementById('qrText').addEventListener('input',()=>{generateQR();generateBarcodes();});
-window.addEventListener('load',()=>{generateQR();setTimeout(generateBarcodes,100);});
-</script>
-
-<script>
-async function submitFeedback(e,f){
-  e.preventDefault();const st=f.querySelector('.feedback-status');
-  const btn=f.querySelector('.feedback-submit');
-  btn.disabled=true;st.textContent='Sending...';st.className='feedback-status';
-  const d={name:f.name.value,email:f.email.value,message:f.message.value,page:location.pathname};
-  try{
-    const r=await fetch('https://formsubmit.co/ajax/cs@anycalculator.site',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});
-    const j=await r.json();
-    if(j.success){st.textContent='✅ Thanks for your feedback!';st.className='feedback-status success';f.reset();}
-    else{st.textContent='❌ '+j.error;st.className='feedback-status error';}
-  }catch(e){st.textContent='❌ Network error. Please try again.';st.className='feedback-status error';}
-  btn.disabled=false;
-}
-</script>
-</body>
-</html>
+   139|  <section class="section-feedback">
+   140|    <h2>💬 Feedback</h2>
+   141|    <p>Help us improve — report bugs, request tools, or share ideas</p>
+   142|    <form class="feedback-form" onsubmit="submitFeedback(event,this)">
+   143|      <div class="feedback-row">
+   144|        <div class="form-group">
+   145|          <label>Name (optional)</label>
+   146|          <input name="name" type="text" placeholder="Your name" autocomplete="name">
+   147|        </div>
+   148|        <div class="form-group">
+   149|          <label>Email (optional)</label>
+   150|          <input name="email" type="email" placeholder="your@email.com" autocomplete="email">
+   151|        </div>
+   152|      </div>
+   153|      <div class="form-group">
+   154|        <label>Message *</label>
+   155|        <textarea name="message" required placeholder="What do you think?"></textarea>
+   156|      </div>
+   157|      <button class="feedback-submit" type="submit">Send Feedback</button>
+   158|      <div class="feedback-status"></div>
+   159|    </form>
+   160|  </section>
+   161|
+   162|<footer><div class="container"><div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div><p>&copy; 2026 Free Online Tools</p></div></footer>
+   163|</div>
+   164|
+   165|<script>
+   166|let qrSize=256, qrInstance=null;
+   167|
+   168|// Size pills
+   169|document.querySelectorAll('#sizePills .pill-btn').forEach(btn=>{
+   170|  btn.addEventListener('click',()=>{
+   171|    document.querySelectorAll('#sizePills .pill-btn').forEach(b=>b.classList.remove('active'));
+   172|    btn.classList.add('active');
+   173|    qrSize=parseInt(btn.dataset.size);
+   174|    generateQR();
+   175|  });
+   176|});
+   177|
+   178|// Color presets
+   179|document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(swatch=>{
+   180|  swatch.addEventListener('click',()=>{
+   181|    document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(s=>s.classList.remove('active'));
+   182|    swatch.classList.add('active');
+   183|    document.getElementById('qrColor').value=swatch.dataset.color;
+   184|    generateQR();
+   185|  });
+   186|});
+   187|document.getElementById('qrColor').addEventListener('input',()=>{
+   188|  document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(s=>s.classList.remove('active'));
+   189|  generateQR();
+   190|});
+   191|
+   192|function generateQR(){
+   193|  const text=document.getElementById('qrText').value.trim();
+   194|  if(!text)return;
+   195|  const container=document.getElementById('qrcode');
+   196|  container.innerHTML='';
+   197|  qrInstance=new QRCode(container,{
+   198|    text,width:qrSize,height:qrSize,
+   199|    colorDark:document.getElementById('qrColor').value,
+   200|    colorLight:'#ffffff',
+   201|    correctLevel:QRCode.CorrectLevel.H
+   202|  });
+   203|}
+   204|
+   205|function generateBarcodes(){
+   206|  const text=document.getElementById('qrText').value.trim();
+   207|  if(!text)return;
+   208|
+   209|  const bcConfig={
+   210|    format:'CODE128',
+   211|    width:2,height:50,
+   212|    displayValue:true,
+   213|    fontSize:14,
+   214|    margin:8,
+   215|    background:'#ffffff',
+   216|    lineColor:'#000000'
+   217|  };
+   218|
+   219|  ['bc128','bc39','bcUpc','bcEan'].forEach(id=>{
+   220|    const el=document.getElementById(id);
+   221|    if(!el)return;
+   222|    try{
+   223|      let fmt='CODE128',val=text;
+   224|      if(id==='bc39'){
+   225|        fmt='CODE39';
+   226|        val=text.toUpperCase().replace(/[^A-Z0-9\-\.\ \$\/\+\%]/g,'');
+   227|        if(!val)val='CODE39';
+   228|      }
+   229|      else if(id==='bcUpc'){fmt='UPC';val=text.replace(/[^0-9]/g,'').slice(0,11)||'01234567890';}
+   230|      else if(id==='bcEan'){fmt='EAN13';val=text.replace(/[^0-9]/g,'').slice(0,12)||'012345678901';}
+   231|      JsBarcode(el,val,{...bcConfig,format:fmt});
+   232|    }catch(e){
+   233|      el.innerHTML='<text x="50%" y="50%" text-anchor="middle" fill="#999" font-size="12">Unsupported content</text>';
+   234|    }
+   235|  });
+   236|}
+   237|
+   238|function downloadQR(){
+   239|  const c=document.querySelector('#qrcode canvas');
+   240|  if(!c)return;
+   241|  const link=document.createElement('a');
+   242|  link.download='qrcode.png';
+   243|  link.href=c.toDataURL('image/png');
+   244|  link.click();
+   245|}
+   246|
+   247|function downloadBC(id,name){
+   248|  const svg=document.getElementById(id);
+   249|  if(!svg||!svg.innerHTML.trim())return;
+   250|  const s=new XMLSerializer().serializeToString(svg);
+   251|  const c=document.createElement('canvas');
+   252|  const ctx=c.getContext('2d');
+   253|  const img=new Image();
+   254|  img.onload=function(){
+   255|    c.width=img.width;c.height=img.height;
+   256|    ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);
+   257|    ctx.drawImage(img,0,0);
+   258|    const link=document.createElement('a');
+   259|    link.download=name+'.png';
+   260|    link.href=c.toDataURL('image/png');
+   261|    link.click();
+   262|  };
+   263|  img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(s)));
+   264|}
+   265|
+   266|function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
+   267|
+   268|// Auto-render on input
+   269|document.getElementById('qrText').addEventListener('input',()=>{generateQR();generateBarcodes();});
+   270|window.addEventListener('load',()=>{generateQR();setTimeout(generateBarcodes,100);});
+   271|</script>
+   272|
+   273|<script>
+   274|async function submitFeedback(e,f){
+   275|  e.preventDefault();const st=f.querySelector('.feedback-status');
+   276|  const btn=f.querySelector('.feedback-submit');
+   277|  btn.disabled=true;st.textContent='Sending...';st.className='feedback-status';
+   278|  const d={name:f.name.value,email:f.email.value,message:f.message.value,page:location.pathname};
+   279|  try{
+   280|    const r=await fetch('https://formsubmit.co/ajax/cs@anycalculator.site',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});
+   281|    const j=await r.json();
+   282|    if(j.success){st.textContent='✅ Thanks for your feedback!';st.className='feedback-status success';f.reset();}
+   283|    else{st.textContent='❌ '+j.error;st.className='feedback-status error';}
+   284|  }catch(e){st.textContent='❌ Network error. Please try again.';st.className='feedback-status error';}
+   285|  btn.disabled=false;
+   286|}
+   287|</script>
+   288|</body>
+   289|</html>
+   290|

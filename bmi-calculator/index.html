@@ -1,414 +1,496 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-JL08H6FMN6');
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
-     crossorigin="anonymous"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BMI Calculator — Check Your Body Mass Index Free</title>
-<meta name="description" content="Free BMI Calculator. Enter your height and weight to calculate your Body Mass Index instantly. Visual gauge, weight categories, and health chart included.">
-<link rel="canonical" href="https://anycalculator.site/">
-<link rel="stylesheet" href="/common/premium.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"BMI Calculator","applicationCategory":"HealthApplication"}</script>
-<style>
-body {
-  --accent: #0891b2;
-  --accent-subtle: rgba(8,145,178,0.12);
-  --accent-text: #0e7490;
-  --accent-hover: #0e7490;
-  --accent-glow: rgba(8,145,178,0.15);
-}
-
-/* BMI gauge — correct clinical thresholds */
-.bmi-gauge {
-  background: linear-gradient(to right,
-    #60a5fa 0%, #60a5fa 46.25%,
-    #22c55e 46.25%, #22c55e 60%,
-    #eab308 60%, #eab308 67.5%,
-    #f97316 67.5%, #f97316 75%,
-    #ef4444 75%, #ef4444 100%
-  );
-}
-
-/* Result category — larger text */
-.result-category {
-  font-size: 1.8rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-top: 4px;
-  letter-spacing: -0.03em;
-}
-
-/* BMR section divider */
-.bmr-section {
-  margin-top: var(--space-6);
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--border);
-}
-
-.bmr-section .bmr-label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--space-3);
-}
-
-.bmr-section .bmr-value {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--accent-text);
-  letter-spacing: -0.03em;
-}
-
-.bmr-section .bmr-value .unit {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-tertiary);
-  margin-left: 2px;
-}
-
-.bmr-section .bmr-detail {
-  font-size: 0.8rem;
-  color: var(--text-tertiary);
-  margin-top: 2px;
-}
-
-/* Imperial toggle — hide/show sets */
-.imperial-group {
-  display: none;
-}
-.imperial-group.active {
-  display: flex;
-  gap: var(--space-2);
-}
-.imperial-group .input-wrap {
-  flex: 1;
-}
-
-/* Ad slot centered */
-.ad-slot {
-  max-width: 840px;
-}
-</style>
+     1|<!DOCTYPE html>
+     2|<html lang="en">
+     3|<head>
+     4|<meta charset="UTF-8">
+     5|<!-- Google tag (gtag.js) -->
+     6|<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+     7|<script>
+     8|  window.dataLayer = window.dataLayer || [];
+     9|  function gtag(){dataLayer.push(arguments);}
+    10|  gtag('js', new Date());
+    11|  gtag('config', 'G-JL08H6FMN6');
+    12|</script>
+    13|<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
+    14|     crossorigin="anonymous"></script>
+    15|<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    16|<title>BMI Calculator — Check Your Body Mass Index Free</title>
+    17|<meta name="description" content="Free BMI Calculator. Enter your height and weight to calculate your Body Mass Index instantly. Visual gauge, weight categories, and health chart included.">
+    18|<link rel="canonical" href="https://anycalculator.site/">
+    19|<link rel="stylesheet" href="/common/premium.css">
+    20|<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"BMI Calculator","applicationCategory":"HealthApplication"}</script>
+    21|<style>
+    22|body {
+    23|  --accent: #0891b2;
+    24|  --accent-subtle: rgba(8,145,178,0.12);
+    25|  --accent-text: #0e7490;
+    26|  --accent-hover: #0e7490;
+    27|  --accent-glow: rgba(8,145,178,0.15);
+    28|}
+    29|
+    30|/* BMI gauge — correct clinical thresholds */
+    31|.bmi-gauge {
+    32|  background: linear-gradient(to right,
+    33|    #60a5fa 0%, #60a5fa 46.25%,
+    34|    #22c55e 46.25%, #22c55e 60%,
+    35|    #eab308 60%, #eab308 67.5%,
+    36|    #f97316 67.5%, #f97316 75%,
+    37|    #ef4444 75%, #ef4444 100%
+    38|  );
+    39|}
+    40|
+    41|/* Result category — larger text */
+    42|.result-category {
+    43|  font-size: 1.8rem;
+    44|  font-weight: 700;
+    45|  line-height: 1.2;
+    46|  margin-top: 4px;
+    47|  letter-spacing: -0.03em;
+    48|}
+    49|
+    50|/* BMR section divider */
+    51|.bmr-section {
+    52|  margin-top: var(--space-6);
+    53|  padding-top: var(--space-6);
+    54|  border-top: 1px solid var(--border);
+    55|}
+    56|
+    57|.bmr-section .bmr-label {
+    58|  font-size: 0.78rem;
+    59|  font-weight: 600;
+    60|  color: var(--text-secondary);
+    61|  text-transform: uppercase;
+    62|  letter-spacing: 0.05em;
+    63|  margin-bottom: var(--space-3);
+    64|}
+    65|
+    66|.bmr-section .bmr-value {
+    67|  font-size: 1.5rem;
+    68|  font-weight: 700;
+    69|  color: var(--accent-text);
+    70|  letter-spacing: -0.03em;
+    71|}
+    72|
+    73|.bmr-section .bmr-value .unit {
+    74|  font-size: 1rem;
+    75|  font-weight: 500;
+    76|  color: var(--text-tertiary);
+    77|  margin-left: 2px;
+    78|}
+    79|
+    80|.bmr-section .bmr-detail {
+    81|  font-size: 0.8rem;
+    82|  color: var(--text-tertiary);
+    83|  margin-top: 2px;
+    84|}
+    85|
+    86|/* Imperial toggle — hide/show sets */
+    87|.imperial-group {
+    88|  display: none;
+    89|}
+    90|.imperial-group.active {
+    91|  display: flex;
+    92|  gap: var(--space-2);
+    93|}
+    94|.imperial-group .input-wrap {
+    95|  flex: 1;
+    96|}
+    97|
+    98|/* Ad slot centered */
+    99|.ad-slot {
+   100|  max-width: 840px;
+   101|}
+   102|</style>
+   103|<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a healthy BMI range?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For Asian adults, 18.5\u201324.0 is the normal BMI range. Below 18.5 indicates underweight, 24.0\u201327.0 is overweight, 27.0\u201330.0 is mild obesity, and above 30.0 is severe obesity. These ranges follow Taiwan MOHW guidelines which are stricter than WHO standards."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is BMI calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BMI is calculated using the formula: weight in kilograms divided by height in meters squared (BMI = kg/m\u00b2). For example, a person weighing 70 kg at 175 cm tall has a BMI of 22.9, which falls in the normal range."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is BMI accurate for everyone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BMI is a useful screening tool but has limitations. It doesn't distinguish between muscle and fat, so athletes may show as 'overweight' despite low body fat. It's also less accurate for pregnant women, the elderly, and children."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is BMR and why does it matter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Basal Metabolic Rate (BMR) is the calories your body burns at complete rest. Knowing your BMR helps you plan your daily calorie intake for weight management. This calculator uses the Mifflin-St Jeor equation, the most accurate BMR formula."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I do if my BMI is high?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Consult a healthcare professional for personalized advice. General recommendations include a balanced diet rich in vegetables, regular exercise (150+ minutes per week), adequate sleep, and stress management."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this calculator in imperial units?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Toggle between Metric (cm/kg) and Imperial (feet/inches/lbs) using the unit switch. The calculator automatically converts and shows results in both systems."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between BMI for men and women?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BMI uses the same formula for both genders, but body composition differs. The calculator provides a gender-specific BMR estimate alongside your BMI for a more complete health picture."
+      }
+    }
+  ]
+}</script>
 </head>
-<body>
-<div class="page-wrap">
-<div class="page-content">
-
-<nav class="top-nav"><div class="container">
-  <div class="brand"><a href="/"><span class="logo-dot"></span> Free Tools</a></div>
-  <div class="links">
-    <a href="/qr-code-generator/">QR Code</a>
-    <a href="/bmi-calculator/" class="active">BMI</a>
-    <a href="/password-generator/">Password</a>
-    <a href="/age-calculator/">Age</a>
-    <a href="/percentage-calculator/">Pct/Discount</a>
-    <a href="/date-calculator/">Date</a>
-    <a href="/add-subtract-calculator/">Add/Sub</a>
+   104|<body>
+   105|<div class="page-wrap">
+   106|<div class="page-content">
+   107|
+   108|<nav class="top-nav"><div class="container">
+   109|  <div class="brand"><a href="/"><span class="logo-dot"></span> Free Tools</a></div>
+   110|  <div class="links">
+   111|    <a href="/qr-code-generator/">QR Code</a>
+   112|    <a href="/bmi-calculator/" class="active">BMI</a>
+   113|    <a href="/password-generator/">Password</a>
+   114|    <a href="/age-calculator/">Age</a>
+   115|    <a href="/percentage-calculator/">Pct/Discount</a>
+   116|    <a href="/date-calculator/">Date</a>
+   117|    <a href="/add-subtract-calculator/">Add/Sub</a>
+   118|  </div>
+   119|</div></nav>
+   120|
+   121|<div class="hero">
+   122|  <h1><span class="gradient-text">BMI Calculator</span></h1>
+   123|  <p>Enter your height and weight to calculate your Body Mass Index — visual gauge, BMR estimate, and full health reference included.</p>
+   124|</div>
+   125|
+   126|<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+   127|
+   128|<main class="container">
+   129|  <div class="card">
+   130|    <!-- Unit toggle -->
+   131|    <div class="toggle-mode" id="unitToggle" role="tablist">
+   132|      <button class="active" data-unit="metric" onclick="setUnit('metric')">Metric</button>
+   133|      <button data-unit="imperial" onclick="setUnit('imperial')">Imperial</button>
+   134|    </div>
+   135|
+   136|    <!-- Height + Weight inputs -->
+   137|    <div class="form-row">
+   138|      <!-- Height -->
+   139|      <div class="form-group">
+   140|        <label for="height">Height</label>
+   141|        <!-- Metric -->
+   142|        <div class="input-wrap" id="heightMetricGroup">
+   143|          <input type="number" id="height" value="170" min="50" max="250" step="0.1">
+   144|          <span class="suffix">cm</span>
+   145|        </div>
+   146|        <!-- Imperial -->
+   147|        <div class="imperial-group" id="heightImperialGroup">
+   148|          <div class="input-wrap">
+   149|            <input type="number" id="heightFeet" value="5" min="1" max="8" step="1">
+   150|            <span class="suffix">ft</span>
+   151|          </div>
+   152|          <div class="input-wrap">
+   153|            <input type="number" id="heightInches" value="7" min="0" max="11" step="0.1">
+   154|            <span class="suffix">in</span>
+   155|          </div>
+   156|        </div>
+   157|      </div>
+   158|
+   159|      <!-- Weight -->
+   160|      <div class="form-group">
+   161|        <label for="weight">Weight</label>
+   162|        <!-- Metric -->
+   163|        <div class="input-wrap" id="weightMetricGroup">
+   164|          <input type="number" id="weight" value="65" min="10" max="300" step="0.1">
+   165|          <span class="suffix">kg</span>
+   166|        </div>
+   167|        <!-- Imperial -->
+   168|        <div class="input-wrap imperial-group" id="weightImperialGroup">
+   169|          <input type="number" id="weightLbs" value="143" min="20" max="700" step="0.1">
+   170|          <span class="suffix">lbs</span>
+   171|        </div>
+   172|      </div>
+   173|    </div>
+   174|
+   175|    <!-- Result box -->
+   176|    <div class="result-box animate-in" style="margin-top:var(--space-5)">
+   177|      <div class="big-number" id="bmiValue">22.5</div>
+   178|      <div class="result-category" id="bmiCategory" style="color:var(--accent)">Normal</div>
+   179|      <div class="desc" id="bmiRange">Healthy range: 18.5 – 24.0</div>
+   180|
+   181|      <div class="bmi-gauge-wrap">
+   182|        <div class="bmi-gauge">
+   183|          <div class="bmi-marker" id="bmiMarker" style="left:56%"></div>
+   184|        </div>
+   185|        <div class="bmi-labels">
+   186|          <span>Underweight</span><span>Normal</span><span>Overweight</span><span>Mild Ob.</span><span>Severe Ob.</span>
+   187|        </div>
+   188|      </div>
+   189|
+   190|      <!-- Reference table -->
+   191|      <table class="ref-table">
+   192|        <thead><tr><th>Category</th><th>Range</th><th>Risk</th></tr></thead>
+   193|        <tbody>
+   194|          <tr><td><span class="dot" style="background:#60a5fa"></span>Underweight</td><td>&lt; 18.5</td><td>Malnutrition risk</td></tr>
+   195|          <tr><td><span class="dot" style="background:#22c55e"></span>Normal</td><td>18.5 – 24.0</td><td>Lowest risk</td></tr>
+   196|          <tr><td><span class="dot" style="background:#eab308"></span>Overweight</td><td>24.0 – 27.0</td><td>Increased metabolic risk</td></tr>
+   197|          <tr><td><span class="dot" style="background:#f97316"></span>Mild Obesity</td><td>27.0 – 30.0</td><td>Moderate risk</td></tr>
+   198|          <tr><td><span class="dot" style="background:#ef4444"></span>Severe Obesity</td><td>≥ 30.0</td><td>High risk</td></tr>
+   199|        </tbody>
+   200|      </table>
+   201|
+   202|      <!-- BMR Section -->
+   203|      <div class="bmr-section">
+   204|        <div class="bmr-label">Basal Metabolic Rate (BMR) — Mifflin-St Jeor</div>
+   205|        <div class="form-row">
+   206|          <div class="form-group" style="flex:0 0 120px">
+   207|            <label for="age">Age</label>
+   208|            <div class="input-wrap">
+   209|              <input type="number" id="age" value="30" min="10" max="120" step="1">
+   210|              <span class="suffix">yr</span>
+   211|            </div>
+   212|          </div>
+   213|          <div class="form-group" style="flex:1">
+   214|            <label>Sex</label>
+   215|            <div class="toggle-mode" id="genderToggle" style="margin-bottom:0">
+   216|              <button class="active" data-gender="male" onclick="setGender('male')">Male</button>
+   217|              <button data-gender="female" onclick="setGender('female')">Female</button>
+   218|            </div>
+   219|          </div>
+   220|        </div>
+   221|        <div style="margin-top:var(--space-3);text-align:center">
+   222|          <div class="bmr-value">1,635 <span class="unit">kcal/day</span></div>
+   223|          <div class="bmr-detail" id="bmrDetail">Maintenance calories at sedentary level: ~1,962 kcal/day</div>
+   224|        </div>
+   225|      </div>
+   226|    </div>
+   227|  </div>
+   228|
+   229|  <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+   230|
+   231|  <div class="section">
+    <h2>How to Use the BMI Calculator</h2>
+    <p><strong>Step 1:</strong> Select your preferred unit — Metric (cm/kg) or Imperial (feet/inches/lbs). Most users find Metric simpler.</p>
+    <p><strong>Step 2:</strong> Enter your height and weight. The BMI result updates instantly — no button to click.</p>
+    <p><strong>Step 3:</strong> Check your BMI category on the gauge: Underweight (blue), Normal (green), Overweight (yellow), Mild Obesity (orange), or Severe Obesity (red).</p>
+    <p><strong>Step 4:</strong> Enter your age and select your sex to see your Basal Metabolic Rate (BMR) — the calories your body needs at rest.</p>
+    <p>Use your BMR as a baseline for meal planning. If your BMI is outside the normal range, consult a healthcare professional for personalized advice.</p>
   </div>
-</div></nav>
-
-<div class="hero">
-  <h1><span class="gradient-text">BMI Calculator</span></h1>
-  <p>Enter your height and weight to calculate your Body Mass Index — visual gauge, BMR estimate, and full health reference included.</p>
-</div>
-
-<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
-
-<main class="container">
-  <div class="card">
-    <!-- Unit toggle -->
-    <div class="toggle-mode" id="unitToggle" role="tablist">
-      <button class="active" data-unit="metric" onclick="setUnit('metric')">Metric</button>
-      <button data-unit="imperial" onclick="setUnit('imperial')">Imperial</button>
-    </div>
-
-    <!-- Height + Weight inputs -->
-    <div class="form-row">
-      <!-- Height -->
-      <div class="form-group">
-        <label for="height">Height</label>
-        <!-- Metric -->
-        <div class="input-wrap" id="heightMetricGroup">
-          <input type="number" id="height" value="170" min="50" max="250" step="0.1">
-          <span class="suffix">cm</span>
-        </div>
-        <!-- Imperial -->
-        <div class="imperial-group" id="heightImperialGroup">
-          <div class="input-wrap">
-            <input type="number" id="heightFeet" value="5" min="1" max="8" step="1">
-            <span class="suffix">ft</span>
-          </div>
-          <div class="input-wrap">
-            <input type="number" id="heightInches" value="7" min="0" max="11" step="0.1">
-            <span class="suffix">in</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Weight -->
-      <div class="form-group">
-        <label for="weight">Weight</label>
-        <!-- Metric -->
-        <div class="input-wrap" id="weightMetricGroup">
-          <input type="number" id="weight" value="65" min="10" max="300" step="0.1">
-          <span class="suffix">kg</span>
-        </div>
-        <!-- Imperial -->
-        <div class="input-wrap imperial-group" id="weightImperialGroup">
-          <input type="number" id="weightLbs" value="143" min="20" max="700" step="0.1">
-          <span class="suffix">lbs</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Result box -->
-    <div class="result-box animate-in" style="margin-top:var(--space-5)">
-      <div class="big-number" id="bmiValue">22.5</div>
-      <div class="result-category" id="bmiCategory" style="color:var(--accent)">Normal</div>
-      <div class="desc" id="bmiRange">Healthy range: 18.5 – 24.0</div>
-
-      <div class="bmi-gauge-wrap">
-        <div class="bmi-gauge">
-          <div class="bmi-marker" id="bmiMarker" style="left:56%"></div>
-        </div>
-        <div class="bmi-labels">
-          <span>Underweight</span><span>Normal</span><span>Overweight</span><span>Mild Ob.</span><span>Severe Ob.</span>
-        </div>
-      </div>
-
-      <!-- Reference table -->
-      <table class="ref-table">
-        <thead><tr><th>Category</th><th>Range</th><th>Risk</th></tr></thead>
-        <tbody>
-          <tr><td><span class="dot" style="background:#60a5fa"></span>Underweight</td><td>&lt; 18.5</td><td>Malnutrition risk</td></tr>
-          <tr><td><span class="dot" style="background:#22c55e"></span>Normal</td><td>18.5 – 24.0</td><td>Lowest risk</td></tr>
-          <tr><td><span class="dot" style="background:#eab308"></span>Overweight</td><td>24.0 – 27.0</td><td>Increased metabolic risk</td></tr>
-          <tr><td><span class="dot" style="background:#f97316"></span>Mild Obesity</td><td>27.0 – 30.0</td><td>Moderate risk</td></tr>
-          <tr><td><span class="dot" style="background:#ef4444"></span>Severe Obesity</td><td>≥ 30.0</td><td>High risk</td></tr>
-        </tbody>
-      </table>
-
-      <!-- BMR Section -->
-      <div class="bmr-section">
-        <div class="bmr-label">Basal Metabolic Rate (BMR) — Mifflin-St Jeor</div>
-        <div class="form-row">
-          <div class="form-group" style="flex:0 0 120px">
-            <label for="age">Age</label>
-            <div class="input-wrap">
-              <input type="number" id="age" value="30" min="10" max="120" step="1">
-              <span class="suffix">yr</span>
-            </div>
-          </div>
-          <div class="form-group" style="flex:1">
-            <label>Sex</label>
-            <div class="toggle-mode" id="genderToggle" style="margin-bottom:0">
-              <button class="active" data-gender="male" onclick="setGender('male')">Male</button>
-              <button data-gender="female" onclick="setGender('female')">Female</button>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top:var(--space-3);text-align:center">
-          <div class="bmr-value">1,635 <span class="unit">kcal/day</span></div>
-          <div class="bmr-detail" id="bmrDetail">Maintenance calories at sedentary level: ~1,962 kcal/day</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
   <div class="section">
     <h2>What is BMI?</h2>
-    <p>BMI (Body Mass Index) is a widely-used screening tool that estimates body fat based on height and weight. While it doesn't measure body fat directly, it correlates well for most adults.</p>
-    <div class="formula-card">BMI = Weight (kg) ÷ Height² (m²)</div>
-  </div>
-
-  <div class="section">
+    <p>BMI (Body Mass Index) is a widely-used screening tool</p>
+   234|    <div class="formula-card">BMI = Weight (kg) ÷ Height² (m²)</div>
+   235|  </div>
+   236|
+   237|  <div class="section">
     <h2>FAQ</h2>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's a normal BMI?</div><div class="faq-answer"><p>For Asian adults, 18.5–24.0 is the normal range. Below 18.5 is underweight, 24.0+ is overweight, and 27.0+ is obese per Taiwan MOHW guidelines.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is BMI accurate?</div><div class="faq-answer"><p>BMI is a useful screening tool but has limits: it can't distinguish muscle from fat, isn't suitable for athletes/pregnant women/elderly, and doesn't measure fat distribution.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What should I do if my BMI is high?</div><div class="faq-answer"><p>Consult a doctor or nutritionist. General advice: control calories, eat more vegetables, reduce processed foods, and aim for 150+ minutes of exercise per week.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What is BMR?</div><div class="faq-answer"><p>Basal Metabolic Rate (BMR) is the number of calories your body needs at complete rest. The Mifflin-St Jeor equation used here is the most accurate formula for estimating BMR based on weight, height, age, and sex.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What is a healthy BMI range?</div><div class="faq-answer"><p>For Asian adults, 18.5–24.0 is the normal BMI range. Below 18.5 indicates underweight, 24.0–27.0 is overweight, 27.0–30.0 is mild obesity, and above 30.0 is severe obesity. These ranges follow Taiwan MOHW guidelines which are stricter than WHO standards.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How is BMI calculated?</div><div class="faq-answer"><p>BMI is calculated using the formula: weight in kilograms divided by height in meters squared (BMI = kg/m²). For example, a person weighing 70 kg at 175 cm tall has a BMI of 22.9, which falls in the normal range.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is BMI accurate for everyone?</div><div class="faq-answer"><p>BMI is a useful screening tool but has limitations. It doesn't distinguish between muscle and fat, so athletes may show as 'overweight' despite low body fat. It's also less accurate for pregnant women, the elderly, and children.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What is BMR and why does it matter?</div><div class="faq-answer"><p>Basal Metabolic Rate (BMR) is the calories your body burns at complete rest. Knowing your BMR helps you plan your daily calorie intake for weight management. This calculator uses the Mifflin-St Jeor equation, the most accurate BMR formula.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What should I do if my BMI is high?</div><div class="faq-answer"><p>Consult a healthcare professional for personalized advice. General recommendations include a balanced diet rich in vegetables, regular exercise (150+ minutes per week), adequate sleep, and stress management.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use this calculator in imperial units?</div><div class="faq-answer"><p>Yes! Toggle between Metric (cm/kg) and Imperial (feet/inches/lbs) using the unit switch. The calculator automatically converts and shows results in both systems.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the difference between BMI for men and women?</div><div class="faq-answer"><p>BMI uses the same formula for both genders, but body composition differs. The calculator provides a gender-specific BMR estimate alongside your BMI for a more complete health picture.</p></div></div>
   </div>
-</main>
-
-</div><!-- /.page-content -->
-
+   244|</main>
+   245|
+   246|</div><!-- /.page-content -->
+   247|
+   248|
+   249|    <div class="section">
+    <h2>🔗 Related Tools</h2>
+    <div class="related-links">
+      <a href="/age-calculator/">Age Calculator</a><a href="/percentage-calculator/">Percentage Calculator</a><a href="/date-calculator/">Date Calculator</a>
+    </div>
+  </div>
 
   <!-- ═══ Feedback Form ═══ -->
-  <section class="section-feedback">
-    <h2>💬 Feedback</h2>
-    <p>Help us improve — report bugs, request tools, or share ideas</p>
-    <form class="feedback-form" onsubmit="submitFeedback(event,this)">
-      <div class="feedback-row">
-        <div class="form-group">
-          <label>Name (optional)</label>
-          <input name="name" type="text" placeholder="Your name" autocomplete="name">
-        </div>
-        <div class="form-group">
-          <label>Email (optional)</label>
-          <input name="email" type="email" placeholder="your@email.com" autocomplete="email">
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Message *</label>
-        <textarea name="message" required placeholder="What do you think?"></textarea>
-      </div>
-      <button class="feedback-submit" type="submit">Send Feedback</button>
-      <div class="feedback-status"></div>
-    </form>
-  </section>
-
-<footer><div class="container">
-  <div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div>
-  <p>© 2026 Free Online Tools</p>
-</div></footer>
-
-</div><!-- /.page-wrap -->
-
-<script>
-let currentUnit = 'metric';
-let currentGender = 'male';
-
-function getMetricValues() {
-  if (currentUnit === 'metric') {
-    const h = parseFloat(document.getElementById('height').value);
-    const w = parseFloat(document.getElementById('weight').value);
-    return { heightCm: h, weightKg: w };
-  } else {
-    const ft = parseFloat(document.getElementById('heightFeet').value) || 0;
-    const inc = parseFloat(document.getElementById('heightInches').value) || 0;
-    const lbs = parseFloat(document.getElementById('weightLbs').value);
-    return {
-      heightCm: ft * 30.48 + inc * 2.54,
-      weightKg: lbs * 0.453592
-    };
-  }
-}
-
-function setUnit(unit) {
-  currentUnit = unit;
-  // Update toggle buttons
-  document.querySelectorAll('#unitToggle button').forEach(b => {
-    b.classList.toggle('active', b.dataset.unit === unit);
-  });
-  // Show/hide input groups
-  const showMetric = unit === 'metric';
-  document.getElementById('heightMetricGroup').style.display = showMetric ? '' : 'none';
-  document.getElementById('weightMetricGroup').style.display = showMetric ? '' : 'none';
-  document.getElementById('heightImperialGroup').classList.toggle('active', !showMetric);
-  document.getElementById('weightImperialGroup').classList.toggle('active', !showMetric);
-  // Convert values
-  if (unit === 'imperial') {
-    const h = parseFloat(document.getElementById('height').value) || 170;
-    const w = parseFloat(document.getElementById('weight').value) || 65;
-    const totalInches = h / 2.54;
-    const ft = Math.floor(totalInches / 12);
-    const inc = Math.round((totalInches - ft * 12) * 10) / 10;
-    const lbs = Math.round(w / 0.453592);
-    document.getElementById('heightFeet').value = ft;
-    document.getElementById('heightInches').value = inc;
-    document.getElementById('weightLbs').value = lbs;
-  } else {
-    const ft = parseFloat(document.getElementById('heightFeet').value) || 5;
-    const inc = parseFloat(document.getElementById('heightInches').value) || 7;
-    const lbs = parseFloat(document.getElementById('weightLbs').value) || 143;
-    document.getElementById('height').value = Math.round((ft * 30.48 + inc * 2.54) * 10) / 10;
-    document.getElementById('weight').value = Math.round(lbs * 0.453592 * 10) / 10;
-  }
-  calcBMI();
-}
-
-function setGender(g) {
-  currentGender = g;
-  document.querySelectorAll('#genderToggle button').forEach(b => {
-    b.classList.toggle('active', b.dataset.gender === g);
-  });
-  calcBMI();
-}
-
-function calcBMI() {
-  const vals = getMetricValues();
-  const h = vals.heightCm;
-  const w = vals.weightKg;
-  if (!h || !w || h < 20 || w < 1) return;
-
-  const bmi = w / ((h / 100) * (h / 100));
-  const r = Math.round(bmi * 10) / 10;
-
-  document.getElementById('bmiValue').textContent = r;
-
-  let cat, color, pct;
-  if (bmi < 18.5) { cat = 'Underweight'; color = '#60a5fa'; pct = Math.max(2, (bmi / 40) * 100); }
-  else if (bmi < 24) { cat = 'Normal'; color = '#22c55e'; pct = (bmi / 40) * 100; }
-  else if (bmi < 27) { cat = 'Overweight'; color = '#eab308'; pct = (bmi / 40) * 100; }
-  else if (bmi < 30) { cat = 'Mild Obesity'; color = '#f97316'; pct = (bmi / 40) * 100; }
-  else { cat = 'Severe Obesity'; color = '#ef4444'; pct = Math.min(98, (bmi / 40) * 100); }
-
-  document.getElementById('bmiCategory').textContent = cat;
-  document.getElementById('bmiCategory').style.color = color;
-  document.getElementById('bmiMarker').style.left = pct + '%';
-
-  // Healthy range
-  document.getElementById('bmiRange').textContent = 'Healthy range: 18.5 – 24.0';
-
-  // BMR calculation (Mifflin-St Jeor)
-  const age = parseInt(document.getElementById('age').value);
-  if (age && age > 0) {
-    let bmr;
-    if (currentGender === 'male') {
-      bmr = 10 * w + 6.25 * h - 5 * age + 5;
-    } else {
-      bmr = 10 * w + 6.25 * h - 5 * age - 161;
-    }
-    bmr = Math.round(bmr);
-    const sedentary = Math.round(bmr * 1.2);
-    // Format with commas
-    document.querySelector('.bmr-value').innerHTML = bmr.toLocaleString() + ' <span class="unit">kcal/day</span>';
-    document.getElementById('bmrDetail').textContent = 'Maintenance calories at sedentary level: ~' + sedentary.toLocaleString() + ' kcal/day';
-  }
-}
-
-function toggleFAQ(el) {
-  el.classList.toggle('open');
-  el.nextElementSibling.classList.toggle('open');
-}
-
-// Input listeners
-['height', 'weight', 'heightFeet', 'heightInches', 'weightLbs', 'age'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener('input', calcBMI);
-});
-
-window.addEventListener('load', calcBMI);
-</script>
-
-
-<script>
-async function submitFeedback(e,f){
-  e.preventDefault();const st=f.querySelector('.feedback-status');
-  const btn=f.querySelector('.feedback-submit');
-  btn.disabled=true;st.textContent='Sending...';st.className='feedback-status';
-  const d={name:f.name.value,email:f.email.value,message:f.message.value,page:location.pathname};
-  try{
-    const r=await fetch('https://formsubmit.co/ajax/cs@anycalculator.site',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});
-    const j=await r.json();
-    if(j.success){st.textContent='✅ Thanks for your feedback!';st.className='feedback-status success';f.reset();}
-    else{st.textContent='❌ '+j.error;st.className='feedback-status error';}
-  }catch(e){st.textContent='❌ Network error. Please try again.';st.className='feedback-status error';}
-  btn.disabled=false;
-}
-</script>
-</body>
-</html>
+   250|  <section class="section-feedback">
+   251|    <h2>💬 Feedback</h2>
+   252|    <p>Help us improve — report bugs, request tools, or share ideas</p>
+   253|    <form class="feedback-form" onsubmit="submitFeedback(event,this)">
+   254|      <div class="feedback-row">
+   255|        <div class="form-group">
+   256|          <label>Name (optional)</label>
+   257|          <input name="name" type="text" placeholder="Your name" autocomplete="name">
+   258|        </div>
+   259|        <div class="form-group">
+   260|          <label>Email (optional)</label>
+   261|          <input name="email" type="email" placeholder="your@email.com" autocomplete="email">
+   262|        </div>
+   263|      </div>
+   264|      <div class="form-group">
+   265|        <label>Message *</label>
+   266|        <textarea name="message" required placeholder="What do you think?"></textarea>
+   267|      </div>
+   268|      <button class="feedback-submit" type="submit">Send Feedback</button>
+   269|      <div class="feedback-status"></div>
+   270|    </form>
+   271|  </section>
+   272|
+   273|<footer><div class="container">
+   274|  <div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div>
+   275|  <p>© 2026 Free Online Tools</p>
+   276|</div></footer>
+   277|
+   278|</div><!-- /.page-wrap -->
+   279|
+   280|<script>
+   281|let currentUnit = 'metric';
+   282|let currentGender = 'male';
+   283|
+   284|function getMetricValues() {
+   285|  if (currentUnit === 'metric') {
+   286|    const h = parseFloat(document.getElementById('height').value);
+   287|    const w = parseFloat(document.getElementById('weight').value);
+   288|    return { heightCm: h, weightKg: w };
+   289|  } else {
+   290|    const ft = parseFloat(document.getElementById('heightFeet').value) || 0;
+   291|    const inc = parseFloat(document.getElementById('heightInches').value) || 0;
+   292|    const lbs = parseFloat(document.getElementById('weightLbs').value);
+   293|    return {
+   294|      heightCm: ft * 30.48 + inc * 2.54,
+   295|      weightKg: lbs * 0.453592
+   296|    };
+   297|  }
+   298|}
+   299|
+   300|function setUnit(unit) {
+   301|  currentUnit = unit;
+   302|  // Update toggle buttons
+   303|  document.querySelectorAll('#unitToggle button').forEach(b => {
+   304|    b.classList.toggle('active', b.dataset.unit === unit);
+   305|  });
+   306|  // Show/hide input groups
+   307|  const showMetric = unit === 'metric';
+   308|  document.getElementById('heightMetricGroup').style.display = showMetric ? '' : 'none';
+   309|  document.getElementById('weightMetricGroup').style.display = showMetric ? '' : 'none';
+   310|  document.getElementById('heightImperialGroup').classList.toggle('active', !showMetric);
+   311|  document.getElementById('weightImperialGroup').classList.toggle('active', !showMetric);
+   312|  // Convert values
+   313|  if (unit === 'imperial') {
+   314|    const h = parseFloat(document.getElementById('height').value) || 170;
+   315|    const w = parseFloat(document.getElementById('weight').value) || 65;
+   316|    const totalInches = h / 2.54;
+   317|    const ft = Math.floor(totalInches / 12);
+   318|    const inc = Math.round((totalInches - ft * 12) * 10) / 10;
+   319|    const lbs = Math.round(w / 0.453592);
+   320|    document.getElementById('heightFeet').value = ft;
+   321|    document.getElementById('heightInches').value = inc;
+   322|    document.getElementById('weightLbs').value = lbs;
+   323|  } else {
+   324|    const ft = parseFloat(document.getElementById('heightFeet').value) || 5;
+   325|    const inc = parseFloat(document.getElementById('heightInches').value) || 7;
+   326|    const lbs = parseFloat(document.getElementById('weightLbs').value) || 143;
+   327|    document.getElementById('height').value = Math.round((ft * 30.48 + inc * 2.54) * 10) / 10;
+   328|    document.getElementById('weight').value = Math.round(lbs * 0.453592 * 10) / 10;
+   329|  }
+   330|  calcBMI();
+   331|}
+   332|
+   333|function setGender(g) {
+   334|  currentGender = g;
+   335|  document.querySelectorAll('#genderToggle button').forEach(b => {
+   336|    b.classList.toggle('active', b.dataset.gender === g);
+   337|  });
+   338|  calcBMI();
+   339|}
+   340|
+   341|function calcBMI() {
+   342|  const vals = getMetricValues();
+   343|  const h = vals.heightCm;
+   344|  const w = vals.weightKg;
+   345|  if (!h || !w || h < 20 || w < 1) return;
+   346|
+   347|  const bmi = w / ((h / 100) * (h / 100));
+   348|  const r = Math.round(bmi * 10) / 10;
+   349|
+   350|  document.getElementById('bmiValue').textContent = r;
+   351|
+   352|  let cat, color, pct;
+   353|  if (bmi < 18.5) { cat = 'Underweight'; color = '#60a5fa'; pct = Math.max(2, (bmi / 40) * 100); }
+   354|  else if (bmi < 24) { cat = 'Normal'; color = '#22c55e'; pct = (bmi / 40) * 100; }
+   355|  else if (bmi < 27) { cat = 'Overweight'; color = '#eab308'; pct = (bmi / 40) * 100; }
+   356|  else if (bmi < 30) { cat = 'Mild Obesity'; color = '#f97316'; pct = (bmi / 40) * 100; }
+   357|  else { cat = 'Severe Obesity'; color = '#ef4444'; pct = Math.min(98, (bmi / 40) * 100); }
+   358|
+   359|  document.getElementById('bmiCategory').textContent = cat;
+   360|  document.getElementById('bmiCategory').style.color = color;
+   361|  document.getElementById('bmiMarker').style.left = pct + '%';
+   362|
+   363|  // Healthy range
+   364|  document.getElementById('bmiRange').textContent = 'Healthy range: 18.5 – 24.0';
+   365|
+   366|  // BMR calculation (Mifflin-St Jeor)
+   367|  const age = parseInt(document.getElementById('age').value);
+   368|  if (age && age > 0) {
+   369|    let bmr;
+   370|    if (currentGender === 'male') {
+   371|      bmr = 10 * w + 6.25 * h - 5 * age + 5;
+   372|    } else {
+   373|      bmr = 10 * w + 6.25 * h - 5 * age - 161;
+   374|    }
+   375|    bmr = Math.round(bmr);
+   376|    const sedentary = Math.round(bmr * 1.2);
+   377|    // Format with commas
+   378|    document.querySelector('.bmr-value').innerHTML = bmr.toLocaleString() + ' <span class="unit">kcal/day</span>';
+   379|    document.getElementById('bmrDetail').textContent = 'Maintenance calories at sedentary level: ~' + sedentary.toLocaleString() + ' kcal/day';
+   380|  }
+   381|}
+   382|
+   383|function toggleFAQ(el) {
+   384|  el.classList.toggle('open');
+   385|  el.nextElementSibling.classList.toggle('open');
+   386|}
+   387|
+   388|// Input listeners
+   389|['height', 'weight', 'heightFeet', 'heightInches', 'weightLbs', 'age'].forEach(id => {
+   390|  const el = document.getElementById(id);
+   391|  if (el) el.addEventListener('input', calcBMI);
+   392|});
+   393|
+   394|window.addEventListener('load', calcBMI);
+   395|</script>
+   396|
+   397|
+   398|<script>
+   399|async function submitFeedback(e,f){
+   400|  e.preventDefault();const st=f.querySelector('.feedback-status');
+   401|  const btn=f.querySelector('.feedback-submit');
+   402|  btn.disabled=true;st.textContent='Sending...';st.className='feedback-status';
+   403|  const d={name:f.name.value,email:f.email.value,message:f.message.value,page:location.pathname};
+   404|  try{
+   405|    const r=await fetch('https://formsubmit.co/ajax/cs@anycalculator.site',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});
+   406|    const j=await r.json();
+   407|    if(j.success){st.textContent='✅ Thanks for your feedback!';st.className='feedback-status success';f.reset();}
+   408|    else{st.textContent='❌ '+j.error;st.className='feedback-status error';}
+   409|  }catch(e){st.textContent='❌ Network error. Please try again.';st.className='feedback-status error';}
+   410|  btn.disabled=false;
+   411|}
+   412|</script>
+   413|</body>
+   414|</html>
+   415|
