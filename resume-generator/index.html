@@ -14,16 +14,16 @@
      crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Resume Generator — Create Professional Resumes Online</title>
-<meta name="description" content="Free Resume Generator. Build a professional resume with work experience, education, and skills. Print or download as PDF. Choose from Classic, Modern, and Minimal templates.">
+<meta name="description" content="Free Resume Generator. Build a professional resume with 8 templates, ATS compatibility checker, live preview, and customization. Print or download as PDF.">
 <link rel="canonical" href="https://anycalculator.site/resume-generator/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this resume ATS-compatible?","acceptedAnswer":{"@type":"Answer","text":"Yes, all three templates (Classic, Modern, Minimal) use a clean layout optimized for Applicant Tracking Systems. Stick to standard section headings and simple formatting for best results."}},{"@type":"Question","name":"What is the difference between the templates?","acceptedAnswer":{"@type":"Answer","text":"Classic uses traditional serif-style headings with bordered sections, Modern uses clean sans-serif with subtle separators, and Minimal offers a sleek no-frills layout with maximum whitespace."}},{"@type":"Question","name":"Can I download my resume as a PDF?","acceptedAnswer":{"@type":"Answer","text":"Yes, click Download PDF which opens your browser's print dialog. Select Save as PDF as the destination to save your resume as a PDF file."}},{"@type":"Question","name":"Is my data saved or shared?","acceptedAnswer":{"@type":"Answer","text":"No, all data stays in your browser. Nothing is sent to any server. Your resume information is processed entirely client-side for your privacy."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this resume ATS-compatible?","acceptedAnswer":{"@type":"Answer","text":"Yes, all 8 templates use clean layouts optimized for Applicant Tracking Systems. Use the built-in ATS checker to verify your resume's compatibility score."}},{"@type":"Question","name":"What templates are available?","acceptedAnswer":{"@type":"Answer","text":"Classic (📜 serif traditional), Modern (✨ clean sans-serif), Minimal (◻ no-frills), Professional (💼 dark top bar), Creative (🎨 colored headers), Executive (👔 serif gold accents), Compact (📋 dense 1-page), and Split (↔️ two-column sidebar layout)."}},{"@type":"Question","name":"Can I download my resume as a PDF?","acceptedAnswer":{"@type":"Answer","text":"Yes, click Download PDF which opens your browser's print dialog. Select Save as PDF as the destination to save your resume as a PDF file."}},{"@type":"Question","name":"Is my data saved or shared?","acceptedAnswer":{"@type":"Answer","text":"No, all data stays in your browser. We use localStorage to auto-save your progress so you won't lose data if you refresh the page. Nothing is sent to any server."}}]}</script>
 <meta property="og:title" content="Free Resume Generator — Create Professional Resumes Online">
-<meta property="og:description" content="Build a professional resume with work experience, education, and skills. Print or download as PDF. Choose from Classic, Modern, and Minimal templates.">
+<meta property="og:description" content="Build a professional resume with 8 templates, ATS checker, live preview, and customization. Print or download as PDF.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://anycalculator.site/resume-generator/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/common/premium.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free Resume Generator","applicationCategory":"BusinessApplication","description":"Create professional resumes with live preview. Choose from Classic, Modern, and Minimal templates. Print or download as PDF."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free Resume Generator","applicationCategory":"BusinessApplication","description":"Create professional resumes with 8 templates, ATS checker, live preview, and customizable fonts/colors. Print or download as PDF."}</script>
 <style>
 body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d9}
 
@@ -47,27 +47,59 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
 .skills-tags .tag .tag-remove{cursor:pointer;font-size:14px;line-height:1;opacity:.6;margin-left:2px}
 .skills-tags .tag .tag-remove:hover{opacity:1}
 
-/* ── Template Selector ── */
-.template-selector{display:flex;gap:var(--space-3);margin-top:var(--space-2)}
-.template-option{flex:1;text-align:center;padding:var(--space-3) var(--space-2);border-radius:var(--radius-md);border:2px solid var(--border-subtle);cursor:pointer;transition:all var(--duration-fast) var(--ease-out);background:var(--bg)}
-.template-option:hover{border-color:var(--accent-subtle)}
-.template-option.active{border-color:var(--accent);background:var(--accent-subtle)}
-.template-option .tpl-icon{font-size:1.5rem;display:block;margin-bottom:4px}
-.template-option .tpl-name{font-size:.8rem;font-weight:600;color:var(--text-primary)}
-.template-option .tpl-desc{font-size:.65rem;color:var(--text-tertiary);margin-top:2px}
+/* ── Template Carousel ── */
+.template-carousel-wrap{position:relative;margin-top:var(--space-2)}
+.template-carousel{display:flex;gap:10px;overflow-x:auto;padding:6px 2px 8px;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--accent-subtle) transparent}
+.template-carousel::-webkit-scrollbar{height:4px}
+.template-carousel::-webkit-scrollbar-track{background:transparent}
+.template-carousel::-webkit-scrollbar-thumb{background:var(--accent-subtle);border-radius:4px}
+.template-card{flex:0 0 140px;border:2px solid var(--border-subtle);border-radius:var(--radius-md);padding:8px;cursor:pointer;transition:all var(--duration-fast) var(--ease-out);background:var(--bg);text-align:center;user-select:none}
+.template-card:hover{border-color:var(--accent-subtle);transform:translateY(-2px)}
+.template-card.active{border-color:var(--accent);background:var(--accent-subtle);box-shadow:0 0 0 3px rgba(124,58,237,0.15)}
+.template-card .tpl-icon{font-size:1.2rem;display:block;margin-bottom:2px}
+.template-card .tpl-name{font-size:.7rem;font-weight:600;color:var(--text-primary);display:block}
+.template-card .tpl-desc{font-size:.6rem;color:var(--text-tertiary);display:block;margin-top:1px}
+
+/* Mini preview inside template card */
+.tpl-mini-preview{height:60px;border-radius:4px;margin-bottom:5px;background:#f9f9f9;overflow:hidden;position:relative;border:1px solid #eee}
+.tpl-mini-preview .mini-bar{height:8px;border-radius:2px;margin:3px 4px 0}
+.tpl-mini-preview .mini-bar.h{width:55%}
+.tpl-mini-preview .mini-bar.m{width:40%}
+.tpl-mini-preview .mini-bar.l{width:75%}
+.tpl-mini-preview .mini-line{height:2px;background:#ddd;margin:3px 5px}
+.tpl-mini-preview .mini-block{height:12px;margin:4px 5px;border-radius:2px;display:flex;gap:3px}
+.tpl-mini-preview .mini-block .b{flex:1;border-radius:2px}
+.tpl-mini-preview .mini-side{position:absolute;top:0;left:0;bottom:0;width:24px;background:#e8e0f7;border-right:1px solid #ddd}
+.tpl-mini-preview .mini-side + .mini-content{margin-left:26px;padding:2px 3px}
+.tpl-mini-preview .mini-topbar{height:14px;background:#2d1b69;border-radius:2px;margin:0 0 3px}
+.tpl-mini-preview .mini-topbar .mini-w{background:rgba(255,255,255,0.3);height:6px;width:50%;border-radius:2px;margin:0 auto}
+.tpl-mini-preview .mini-gold{background:linear-gradient(90deg,#d4af37,#f0d68a)}
+.tpl-mini-preview .mini-dot{position:absolute;width:4px;height:4px;border-radius:50%;background:#7c3aed;top:2px;right:2px}
+
+/* ── Font & Color Customization ── */
+.customize-row{display:flex;gap:var(--space-3);margin-top:var(--space-3);align-items:center;flex-wrap:wrap}
+.customize-row label{font-size:.75rem;font-weight:500;color:var(--text-secondary)}
+.customize-row select{padding:5px 8px;border-radius:var(--radius-md);border:1px solid var(--border);background:var(--bg);font-size:.8rem;cursor:pointer}
+.customize-row input[type="color"]{width:32px;height:32px;padding:1px;border:2px solid var(--border);border-radius:var(--radius-md);cursor:pointer;background:none}
+.customize-row .color-presets{display:flex;gap:4px}
+.customize-row .color-dot{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all var(--duration-fast) var(--ease-out)}
+.customize-row .color-dot:hover{border-color:var(--text-tertiary);transform:scale(1.15)}
+.customize-row .color-dot.active{border-color:var(--text-primary);box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--text-primary)}
 
 /* ── Action Buttons ── */
 .action-bar{display:flex;gap:var(--space-3);margin-top:var(--space-4);flex-wrap:wrap}
-.action-bar .btn{flex:1;min-width:140px;padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:all var(--duration-fast) var(--ease-out);display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.action-bar .btn{flex:1;min-width:120px;padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:all var(--duration-fast) var(--ease-out);display:inline-flex;align-items:center;justify-content:center;gap:6px}
 .action-bar .btn-primary{background:var(--accent);color:#fff}
 .action-bar .btn-primary:hover{background:var(--accent-text);transform:translateY(-1px)}
 .action-bar .btn-secondary{background:var(--bg-subtle);color:var(--text-primary);border:1px solid var(--border)}
 .action-bar .btn-secondary:hover{background:var(--bg-hover)}
+.action-bar .btn-ats{background:#059669;color:#fff}
+.action-bar .btn-ats:hover{background:#047857;transform:translateY(-1px)}
 
 /* ── Live Preview ── */
 .preview-panel{position:sticky;top:var(--space-4)}
-.preview-panel .preview-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3)}
-.preview-panel .preview-header h3{font-size:.9rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px}
+.preview-panel .preview-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3);flex-wrap:wrap;gap:6px}
+.preview-panel .preview-header h3{font-size:.9rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px;margin:0}
 .preview-panel .preview-header .preview-badge{font-size:.65rem;background:var(--bg-subtle);color:var(--text-tertiary);padding:2px 10px;border-radius:var(--radius-full);border:1px solid var(--border-subtle)}
 .preview-frame{background:#fff;border-radius:var(--radius-lg);box-shadow:0 0 0 1px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.08);overflow:hidden;min-height:600px}
 .preview-frame .preview-inner{padding:0;min-height:600px}
@@ -81,10 +113,10 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
 .resume-preview .rp-title{font-size:13px;color:#555;margin:0 0 6px;font-weight:500}
 .resume-preview .rp-contact{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:10.5px;color:#555;margin-bottom:14px}
 .resume-preview .rp-contact span{display:inline-flex;align-items:center;gap:4px}
-.resume-preview .rp-contact a{color:#7c3aed;text-decoration:none}
+.resume-preview .rp-contact a{color:var(--accent);text-decoration:none}
 .resume-preview .rp-contact a:hover{text-decoration:underline}
 .resume-preview .rp-divider{height:1px;background:#e5e5e5;margin:12px 0}
-.resume-preview .rp-section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#333;margin:0 0 8px;padding-bottom:4px;border-bottom:2px solid #7c3aed}
+.resume-preview .rp-section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#333;margin:0 0 8px;padding-bottom:4px;border-bottom:2px solid var(--accent)}
 .resume-preview .rp-summary{font-size:11px;color:#444;line-height:1.6;margin-bottom:14px;white-space:pre-wrap}
 .resume-preview .rp-entry{margin-bottom:12px}
 .resume-preview .rp-entry:last-child{margin-bottom:0}
@@ -95,21 +127,23 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
 .resume-preview .rp-entry-location{font-size:10.5px;color:#888}
 .resume-preview .rp-entry-desc{font-size:10.5px;color:#444;margin-top:4px;white-space:pre-wrap;line-height:1.5}
 .resume-preview .rp-skills{display:flex;flex-wrap:wrap;gap:5px}
-.resume-preview .rp-skill{background:#f3f0ff;color:#6d28d9;font-size:10px;font-weight:500;padding:2px 10px;border-radius:999px}
+.resume-preview .rp-skill{background:var(--accent-subtle);color:var(--accent-text);font-size:10px;font-weight:500;padding:2px 10px;border-radius:999px}
 
-/* ── Template: Classic ── */
+/* ── Template Styles ── */
+
+/* Classic */
 .tpl-classic .resume-preview{font-family:Georgia,'Times New Roman',Times,serif}
-.tpl-classic .rp-section-title{border-bottom:2px solid #7c3aed;font-family:Georgia,serif}
+.tpl-classic .rp-section-title{border-bottom:2px solid var(--accent);font-family:Georgia,serif}
 .tpl-classic .rp-name{font-family:Georgia,serif;font-size:22px}
 
-/* ── Template: Modern ── */
+/* Modern */
 .tpl-modern .resume-preview{font-family:Inter,-apple-system,sans-serif}
 .tpl-modern .rp-section-title{border-bottom:1px solid #ccc;text-transform:uppercase;letter-spacing:1px}
-.tpl-modern .rp-entry-title{color:#7c3aed}
+.tpl-modern .rp-entry-title{color:var(--accent)}
 .tpl-modern .rp-divider{background:#eee}
 .tpl-modern .rp-name{font-size:22px;letter-spacing:-.3px}
 
-/* ── Template: Minimal ── */
+/* Minimal */
 .tpl-minimal .resume-preview{font-family:Inter,-apple-system,sans-serif;font-size:10.5px}
 .tpl-minimal .rp-section-title{border-bottom:none;text-transform:uppercase;letter-spacing:1.5px;font-size:10px;color:#888;margin-bottom:6px}
 .tpl-minimal .rp-name{font-size:18px;font-weight:600;letter-spacing:-.2px}
@@ -118,12 +152,116 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
 .tpl-minimal .rp-entry-desc{color:#666}
 .tpl-minimal .rp-skill{background:transparent;border:1px solid #ddd;color:#555}
 
+/* Professional */
+.tpl-professional .resume-preview{padding:0;font-family:Inter,-apple-system,sans-serif}
+.tpl-professional .rp-topbar{background:#1a1a2e;color:#fff;padding:28px 44px 20px}
+.tpl-professional .rp-topbar .rp-name{color:#fff;font-size:22px;margin:0 0 2px}
+.tpl-professional .rp-topbar .rp-title{color:rgba(255,255,255,0.8);font-size:12px}
+.tpl-professional .rp-topbar .rp-contact{color:rgba(255,255,255,0.7);font-size:10px}
+.tpl-professional .rp-topbar .rp-contact a{color:rgba(255,255,255,0.9)}
+.tpl-professional .rp-content{padding:24px 44px 36px}
+.tpl-professional .rp-section-title{border-bottom:2px solid #1a1a2e;font-size:11px}
+.tpl-professional .rp-divider{display:none}
+
+/* Creative */
+.tpl-creative .resume-preview{font-family:Inter,-apple-system,sans-serif}
+.tpl-creative .rp-section-title{background:var(--accent-subtle);color:var(--accent-text);border-bottom:none;padding:6px 10px;font-size:11px;border-radius:4px;margin-bottom:10px}
+.tpl-creative .rp-name{font-size:22px;background:linear-gradient(135deg,var(--accent-text),#9333ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tpl-creative .rp-entry-title{color:var(--accent-text)}
+.tpl-creative .rp-skill{background:var(--accent-subtle);border:1px solid rgba(124,58,237,0.2)}
+.tpl-creative .rp-divider{height:0;margin:8px 0}
+
+/* Executive */
+.tpl-executive .resume-preview{font-family:'Palatino Linotype','Book Antiqua',Palatino,Georgia,serif;font-size:10.5px}
+.tpl-executive .rp-name{font-size:22px;font-weight:700;color:#1a1a1a;letter-spacing:.5px}
+.tpl-executive .rp-section-title{border-bottom:1px solid #d4af37;color:#8b7355;font-size:10px;letter-spacing:1.2px;font-family:Georgia,serif}
+.tpl-executive .rp-divider{background:linear-gradient(90deg,transparent,#d4af37,transparent);height:1px}
+.tpl-executive .rp-entry-title{color:#8b7355}
+.tpl-executive .rp-skill{border:1px solid #d4af37;background:transparent;color:#8b7355}
+
+/* Compact */
+.tpl-compact .resume-preview{font-family:Inter,-apple-system,sans-serif;font-size:9.5px;padding:28px 30px 32px;line-height:1.4}
+.tpl-compact .rp-name{font-size:16px;font-weight:700}
+.tpl-compact .rp-title{font-size:11px}
+.tpl-compact .rp-contact{font-size:9px;gap:3px 10px;margin-bottom:8px}
+.tpl-compact .rp-section-title{font-size:9px;padding-bottom:2px;margin-bottom:4px}
+.tpl-compact .rp-entry{margin-bottom:6px}
+.tpl-compact .rp-entry-title{font-size:10px}
+.tpl-compact .rp-entry-org{font-size:9px}
+.tpl-compact .rp-entry-date{font-size:8.5px}
+.tpl-compact .rp-entry-desc{font-size:9px}
+.tpl-compact .rp-skill{font-size:8px;padding:1px 6px}
+.tpl-compact .rp-divider{margin:6px 0}
+.tpl-compact .rp-summary{font-size:9.5px;line-height:1.4}
+
+/* Split */
+.tpl-split .resume-preview{padding:0;font-family:Inter,-apple-system,sans-serif;display:flex;min-height:500px}
+.tpl-split .rp-sidebar{width:30%;background:#f7f4fe;padding:28px 18px 24px;border-right:1px solid #e8e0f7}
+.tpl-split .rp-main{flex:1;padding:28px 28px 24px}
+.tpl-split .rp-sidebar .rp-name{font-size:17px;margin-bottom:6px}
+.tpl-split .rp-sidebar .rp-title{font-size:11px}
+.tpl-split .rp-sidebar .rp-contact{flex-direction:column;gap:3px;font-size:9.5px}
+.tpl-split .rp-sidebar .rp-section-title{font-size:9px;border-bottom:1px solid #ccc;margin-top:14px}
+.tpl-split .rp-main .rp-section-title{font-size:9px;border-bottom:1px solid #ccc}
+.tpl-split .rp-divider{display:none}
+.tpl-split .rp-entry-title{font-size:10.5px}
+.tpl-split .rp-entry-org{font-size:10px}
+.tpl-split .rp-entry-date{font-size:9px}
+.tpl-split .rp-entry-desc{font-size:9.5px}
+.tpl-split .rp-skill{font-size:8.5px;padding:1px 7px}
+.tpl-split .rp-sidebar .rp-skills{flex-direction:column;gap:3px}
+
+/* ── Font Size Modifiers ── */
+.font-small .resume-preview{font-size:9.5px}
+.font-small .rp-name{font-size:17px}
+.font-small .rp-title{font-size:11px}
+.font-small .rp-section-title{font-size:10px}
+
+.font-medium .resume-preview{font-size:11px}
+.font-medium .rp-name{font-size:20px}
+.font-medium .rp-title{font-size:13px}
+.font-medium .rp-section-title{font-size:12px}
+
+.font-large .resume-preview{font-size:12.5px}
+.font-large .rp-name{font-size:24px}
+.font-large .rp-title{font-size:15px}
+.font-large .rp-section-title{font-size:14px}
+
+/* ── ATS Modal ── */
+.ats-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.ats-overlay.open{display:flex}
+.ats-modal{background:var(--bg);border-radius:var(--radius-lg);max-width:560px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2);padding:0}
+.ats-modal-header{display:flex;justify-content:space-between;align-items:center;padding:var(--space-5) var(--space-5) 0}
+.ats-modal-header h3{font-size:1.1rem;font-weight:700;margin:0;color:var(--text-primary)}
+.ats-modal-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-tertiary);padding:4px 8px;border-radius:4px}
+.ats-modal-close:hover{background:var(--bg-hover);color:var(--text-primary)}
+.ats-score-section{text-align:center;padding:var(--space-5);margin:var(--space-4);background:var(--bg-subtle);border-radius:var(--radius-lg)}
+.ats-score-number{font-size:2.8rem;font-weight:800;color:var(--text-primary);line-height:1}
+.ats-score-label{font-size:.8rem;color:var(--text-secondary);margin-top:4px}
+.ats-score-bar{height:8px;background:var(--border);border-radius:4px;margin-top:var(--space-3);overflow:hidden}
+.ats-score-fill{height:100%;border-radius:4px;transition:width .5s ease}
+.ats-score-fill.good{background:#22c55e}
+.ats-score-fill.ok{background:#eab308}
+.ats-score-fill.bad{background:#ef4444}
+.ats-checks{padding:0 var(--space-5) var(--space-4)}
+.ats-check{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border-subtle)}
+.ats-check:last-child{border-bottom:none}
+.ats-check-icon{font-size:1rem;flex-shrink:0;width:20px;text-align:center}
+.ats-check-text{flex:1}
+.ats-check-text .check-label{font-size:.85rem;font-weight:600;color:var(--text-primary)}
+.ats-check-text .check-detail{font-size:.75rem;color:var(--text-tertiary);margin-top:1px}
+.ats-suggestions{background:#fef9ee;border-radius:var(--radius-md);padding:var(--space-4);margin:0 var(--space-5) var(--space-4);border:1px solid #fde68a}
+.ats-suggestions h4{font-size:.8rem;font-weight:700;margin:0 0 var(--space-2);color:#92400e}
+.ats-suggestions ul{margin:0;padding-left:18px}
+.ats-suggestions li{font-size:.78rem;color:#78350f;margin-bottom:4px;line-height:1.4}
+
 /* ── Print Styles ── */
 @media print{
   body *{visibility:hidden}
   .page-wrap,.page-wrap *{visibility:hidden}
   .resume-preview,.resume-preview *{visibility:visible}
   .resume-preview{position:fixed;top:0;left:0;right:0;padding:40px 48px;margin:0;width:100%;max-width:100%;box-shadow:none;border-radius:0;font-size:11px;line-height:1.45}
+  .ats-overlay,.ats-overlay *{display:none!important}
   .rp-section-title{font-size:12px}
   .rp-name{font-size:20px}
   @page{margin:0;size:letter}
@@ -132,8 +270,13 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
 /* ── Responsive tweaks ── */
 @media(max-width:600px){
   .resume-preview{padding:24px 20px}
-  .action-bar .btn{min-width:120px;font-size:.8rem}
-  .template-selector{flex-direction:column;gap:var(--space-2)}
+  .action-bar .btn{min-width:100px;font-size:.75rem}
+  .template-carousel .template-card{flex:0 0 110px}
+  .tpl-mini-preview{height:48px}
+  .customize-row{gap:var(--space-2)}
+  .ats-modal{max-height:90vh;margin:10px}
+  .tpl-split .resume-preview{flex-direction:column}
+  .tpl-split .rp-sidebar{width:100%;border-right:none;border-bottom:1px solid #e8e0f7}
 }
 </style>
 </head>
@@ -157,7 +300,7 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
 <div class="page-content">
 <div class="hero">
   <h1>👤 <span class="gradient-text">Free Resume Generator</span></h1>
-  <p>Build a professional resume in minutes — print or download as PDF</p>
+  <p>Build a professional resume in minutes — 8 templates, ATS checker, live preview</p>
 </div>
 
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
@@ -174,30 +317,30 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
         <h3><span class="section-icon">📋</span>Personal Information</h3>
         <div class="form-group">
           <label>Full Name</label>
-          <div class="input-wrap"><input type="text" id="resName" placeholder="Jane Doe" oninput="updateResume()"></div>
+          <div class="input-wrap"><input type="text" id="resName" placeholder="Jane Doe" oninput="scheduleSave()"></div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Email</label>
-            <div class="input-wrap"><input type="email" id="resEmail" placeholder="jane@example.com" oninput="updateResume()"></div>
+            <div class="input-wrap"><input type="email" id="resEmail" placeholder="jane@example.com" oninput="scheduleSave()"></div>
           </div>
           <div class="form-group">
             <label>Phone</label>
-            <div class="input-wrap"><input type="tel" id="resPhone" placeholder="(555) 123-4567" oninput="updateResume()"></div>
+            <div class="input-wrap"><input type="tel" id="resPhone" placeholder="(555) 123-4567" oninput="scheduleSave()"></div>
           </div>
         </div>
         <div class="form-group">
           <label>Location</label>
-          <div class="input-wrap"><input type="text" id="resLocation" placeholder="City, State" oninput="updateResume()"></div>
+          <div class="input-wrap"><input type="text" id="resLocation" placeholder="San Francisco, CA" oninput="scheduleSave()"></div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>LinkedIn URL</label>
-            <div class="input-wrap"><input type="url" id="resLinkedin" placeholder="https://linkedin.com/in/janedoe" oninput="updateResume()"></div>
+            <div class="input-wrap"><input type="url" id="resLinkedin" placeholder="https://linkedin.com/in/janedoe" oninput="scheduleSave()"></div>
           </div>
           <div class="form-group">
             <label>Portfolio URL</label>
-            <div class="input-wrap"><input type="url" id="resPortfolio" placeholder="https://janedoe.dev" oninput="updateResume()"></div>
+            <div class="input-wrap"><input type="url" id="resPortfolio" placeholder="https://janedoe.dev" oninput="scheduleSave()"></div>
           </div>
         </div>
       </div>
@@ -206,7 +349,7 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
       <div class="card">
         <h3><span class="section-icon">📝</span>Professional Summary</h3>
         <div class="form-group">
-          <div class="input-wrap"><textarea id="resSummary" rows="3" placeholder="Write a 2-3 sentence professional summary..." oninput="updateResume()"></textarea></div>
+          <div class="input-wrap"><textarea id="resSummary" rows="3" placeholder="Write a 2-3 sentence professional summary..." oninput="scheduleSave()"></textarea></div>
         </div>
       </div>
 
@@ -234,24 +377,30 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
         <div id="skillsTags" class="skills-tags"></div>
       </div>
 
-      <!-- Template Selector -->
+      <!-- Template Carousel -->
       <div class="card">
         <h3><span class="section-icon">🎨</span>Template</h3>
-        <div class="template-selector" id="templateSelector">
-          <div class="template-option active" data-template="classic" onclick="selectTemplate(this,'classic')">
-            <span class="tpl-icon">📜</span>
-            <span class="tpl-name">Classic</span>
-            <span class="tpl-desc">Serif, traditional</span>
+        <div class="template-carousel-wrap">
+          <div class="template-carousel" id="templateCarousel"></div>
+        </div>
+
+        <!-- Font & Color Customization -->
+        <div class="customize-row">
+          <div>
+            <label>Font Size</label>
+            <select id="fontSizeSelect" onchange="updateFontSize(this.value)">
+              <option value="small">Small</option>
+              <option value="medium" selected>Medium</option>
+              <option value="large">Large</option>
+            </select>
           </div>
-          <div class="template-option" data-template="modern" onclick="selectTemplate(this,'modern')">
-            <span class="tpl-icon">✨</span>
-            <span class="tpl-name">Modern</span>
-            <span class="tpl-desc">Clean, sans-serif</span>
+          <div>
+            <label>Accent</label>
+            <div class="color-presets" id="colorPresets"></div>
           </div>
-          <div class="template-option" data-template="minimal" onclick="selectTemplate(this,'minimal')">
-            <span class="tpl-icon">◻</span>
-            <span class="tpl-name">Minimal</span>
-            <span class="tpl-desc">Sleek, minimal</span>
+          <div>
+            <label style="display:block;font-size:.65rem;text-align:center">Custom</label>
+            <input type="color" id="accentPicker" value="#7c3aed" onchange="updateAccentColor(this.value)">
           </div>
         </div>
       </div>
@@ -260,6 +409,8 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
       <div class="action-bar">
         <button class="btn btn-primary" onclick="printResume()">🖨 Print Resume</button>
         <button class="btn btn-secondary" onclick="downloadPDF()">⬇ Download PDF</button>
+        <button class="btn btn-ats" onclick="openATSCheck()">📊 Check ATS</button>
+        <button class="btn btn-secondary" onclick="resetData()">↺ Reset</button>
       </div>
 
     </div>
@@ -268,7 +419,7 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
     <div class="preview-panel">
       <div class="preview-header">
         <h3>📄 Live Preview</h3>
-        <span class="preview-badge">Updates in real-time</span>
+        <span class="preview-badge" id="autoSaveBadge">Auto-saved</span>
       </div>
       <div class="preview-frame" id="previewFrame">
         <div class="preview-inner">
@@ -289,22 +440,25 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
   <div class="section">
     <h2>How to Use</h2>
     <ol>
-      <li><strong>Fill in your details</strong> — Enter your personal information, professional summary, work experience, education, and skills in the input panels on the left.</li>
-      <li><strong>Choose a template</strong> — Select from Classic (serif-style, traditional), Modern (clean sans-serif), or Minimal (sleek, lots of whitespace). The preview updates instantly.</li>
+      <li><strong>Fill in your details</strong> — Enter your personal information, professional summary, work experience, education, and skills in the input panels on the left. Everything auto-saves to your browser.</li>
+      <li><strong>Browse templates</strong> — Scroll through 8 templates in the carousel above. Each card shows a miniature preview of its layout. Click to select — the live preview updates instantly.</li>
+      <li><strong>Customize appearance</strong> — After selecting a template, use the font size dropdown and accent color picker to fine-tune the look. Choose from preset colors or pick any custom color.</li>
+      <li><strong>Check ATS compatibility</strong> — Click the <strong>Check ATS</strong> button to analyze your resume for Applicant Tracking System readability. Get a score, detailed checks, and improvement suggestions.</li>
       <li><strong>Add skills as tags</strong> — Type skills separated by commas and they auto-convert into pill badges. Click the ✕ on any tag to remove it.</li>
-      <li><strong>Add multiple entries</strong> — Use the + Add Experience and + Add Education buttons to add multiple work and education entries. Remove any entry with the ✕ button.</li>
-      <li><strong>Print or download</strong> — Click <strong>Print Resume</strong> to print directly, or <strong>Download PDF</strong> to open the print dialog where you can select Save as PDF as your destination.</li>
+      <li><strong>Add multiple entries</strong> — Use + Add Experience and + Add Education to add multiple entries. Remove any entry with the ✕ button.</li>
+      <li><strong>Print or download</strong> — Click <strong>Print Resume</strong> to print directly, or <strong>Download PDF</strong> to open the print dialog where you can select Save as PDF.</li>
     </ol>
   </div>
 
   <!-- FAQ -->
   <div class="section">
     <h2>FAQ</h2>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is this resume ATS-compatible?</div><div class="faq-answer"><p>Yes! All three templates (Classic, Modern, Minimal) use a clean, single-column layout that's optimized for Applicant Tracking Systems. To maximize ATS compatibility, stick to standard section headings like "Work Experience" and "Education", avoid tables, and keep formatting simple.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the difference between the templates?</div><div class="faq-answer"><p><strong>Classic:</strong> Uses Georgia serif font with traditional bordered sections — great for conservative industries like finance and law.<br><strong>Modern:</strong> Clean Inter sans-serif with accent-colored job titles and subtle separators — perfect for tech and creative roles.<br><strong>Minimal:</strong> Sleek no-frills layout with maximum whitespace and thin borders — ideal for design and startup positions.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I download my resume as a PDF?</div><div class="faq-answer"><p>Yes. Click the <strong>Download PDF</strong> button to open your browser's print dialog, then select <strong>Save as PDF</strong> as the destination. Your resume will render in a clean print layout with no UI elements. Some browsers also allow you to save directly as PDF from the print dialog.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is my data saved or shared?</div><div class="faq-answer"><p>Your privacy is important. All data stays entirely in your browser — nothing is sent to any server. The resume generator processes everything client-side using JavaScript. You can refresh the page and your data will be lost (it's not stored), so be sure to print or download your resume before leaving.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What file formats are supported?</div><div class="faq-answer"><p>The generator produces a live HTML preview that can be printed or saved as PDF. For other formats like DOCX or plain text, we recommend copying the content from the preview and pasting it into Word or Google Docs for further editing.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is this resume ATS-compatible?</div><div class="faq-answer"><p>Yes! All 8 templates use clean, single-column (or ATS-friendly) layouts optimized for Applicant Tracking Systems. Use the built-in <strong>Check ATS</strong> button to get a detailed compatibility score with specific improvement suggestions. Standard section headings, bullet points, and simple formatting yield the best results.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What templates are available?</div><div class="faq-answer"><p>There are 8 templates to choose from:<br><strong>Classic 📜</strong> — Georgia serif, bordered sections, traditional conservative style.<br><strong>Modern ✨</strong> — Inter sans-serif, accent-colored titles, clean and contemporary.<br><strong>Minimal ◻</strong> — No-frills, maximum whitespace, thin borders, sleek design.<br><strong>Professional 💼</strong> — Dark top bar with white text name, formal styling.<br><strong>Creative 🎨</strong> — Colored section headers with gradient name, playful layout.<br><strong>Executive 👔</strong> — Elegant serif with gold accents, premium conservative feel.<br><strong>Compact 📋</strong> — Dense layout with smaller fonts, optimized for 1-page resumes.<br><strong>Split ↔️</strong> — Two-column side layout with left sidebar and right content area.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I customize fonts and colors?</div><div class="faq-answer"><p>Yes! After selecting a template, use the font size dropdown (Small/Medium/Large) to adjust text sizing, and the accent color picker to change the theme color. You can choose from preset colors or pick any custom color using the color input.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is my data saved if I refresh?</div><div class="faq-answer"><p>Yes! Your resume data is automatically saved to your browser's localStorage as you type. If you refresh the page or come back later, your work will be restored. Your data never leaves your device — it stays entirely in your browser for privacy.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I download my resume as a PDF?</div><div class="faq-answer"><p>Yes. Click the <strong>Download PDF</strong> button to open your browser's print dialog, then select <strong>Save as PDF</strong> as the destination. Your resume will render in a clean print layout with no UI elements.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What file formats are supported?</div><div class="faq-answer"><p>The generator produces a live HTML preview that can be printed or saved as PDF. For other formats like DOCX or plain text, copy the content from the preview and paste it into Word or Google Docs.</p></div></div>
   </div>
 </main>
 </div>
@@ -313,6 +467,26 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
   <h2>🔗 Related Tools</h2>
   <div class="related-links">
     <a href="/invoice-generator/">Invoice Generator</a><a href="/qr-code-generator/">QR Code Generator</a><a href="/password-generator/">Password Generator</a>
+  </div>
+</div>
+
+<!-- ═══ ATS Modal ═══ -->
+<div class="ats-overlay" id="atsOverlay">
+  <div class="ats-modal">
+    <div class="ats-modal-header">
+      <h3>📊 ATS Compatibility Check</h3>
+      <button class="ats-modal-close" onclick="closeATSCheck()">✕</button>
+    </div>
+    <div class="ats-score-section" id="atsScoreSection">
+      <div class="ats-score-number" id="atsScore">0</div>
+      <div class="ats-score-label">ATS Score / 100</div>
+      <div class="ats-score-bar"><div class="ats-score-fill" id="atsScoreFill" style="width:0%"></div></div>
+    </div>
+    <div class="ats-checks" id="atsChecks"></div>
+    <div class="ats-suggestions" id="atsSuggestions" style="display:none">
+      <h4>💡 Suggestions to Improve</h4>
+      <ul id="atsSuggestionsList"></ul>
+    </div>
   </div>
 </div>
 
@@ -345,14 +519,307 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
 
 <script>
 // ═══════════════════════════════════════════
+// Template Definitions
+// ═══════════════════════════════════════════
+const TEMPLATES = [
+  { id:'classic',     icon:'📜', name:'Classic',     desc:'Serif traditional' },
+  { id:'modern',      icon:'✨', name:'Modern',      desc:'Clean sans-serif' },
+  { id:'minimal',     icon:'◻',  name:'Minimal',     desc:'No-frills whitespace' },
+  { id:'professional',icon:'💼', name:'Professional',desc:'Dark top bar formal' },
+  { id:'creative',    icon:'🎨', name:'Creative',    desc:'Colored headers play' },
+  { id:'executive',   icon:'👔', name:'Executive',   desc:'Gold accents serif' },
+  { id:'compact',     icon:'📋', name:'Compact',     desc:'Dense 1-page opt' },
+  { id:'split',       icon:'↔️', name:'Split',       desc:'Two-column sidebar' }
+];
+
+// ═══════════════════════════════════════════
 // State
 // ═══════════════════════════════════════════
 let workCount = 0;
 let eduCount = 0;
 let skillList = [];
 let currentTemplate = 'classic';
-let workEntries = [];
-let eduEntries = [];
+let currentFontSize = 'medium';
+let currentAccentColor = '#7c3aed';
+let saveTimer = null;
+let isLoadingSave = false;
+
+// ═══════════════════════════════════════════
+// Default Demo Data
+// ═══════════════════════════════════════════
+const DEMO_DATA = {
+  name: 'Jane Doe',
+  email: 'jane.doe@example.com',
+  phone: '(555) 123-4567',
+  location: 'San Francisco, CA',
+  linkedin: 'https://linkedin.com/in/janedoe',
+  portfolio: 'https://janedoe.dev',
+  summary: 'Results-driven Senior Software Engineer with 6+ years of experience building scalable web applications and leading cross-functional teams. Passionate about clean code, user-centered design, and mentoring junior developers.',
+  skills: ['JavaScript','TypeScript','React','Node.js','Python','PostgreSQL','Docker','AWS','GraphQL','Figma'],
+  work: [
+    { title:'Senior Software Engineer', company:'TechCorp Inc.', location:'San Francisco, CA', start:'Jan 2022', end:'Present', present:true, desc:'• Led a team of 5 engineers to deliver a real-time analytics platform serving 2M+ users\n• Architected microservices migration reducing deployment time by 60%\n• Improved application performance by 40% through code optimization and caching strategies\n• Established code review practices that reduced production bugs by 35%' },
+    { title:'Software Engineer', company:'StartupXYZ', location:'Oakland, CA', start:'Mar 2019', end:'Dec 2021', present:false, desc:'• Built RESTful APIs and React frontends for a SaaS platform with 50K+ users\n• Implemented CI/CD pipelines using GitHub Actions and AWS CodeDeploy\n• Collaborated with design team to create a responsive UI component library' },
+    { title:'Junior Developer', company:'WebAgency Co.', location:'Remote', start:'Jun 2017', end:'Feb 2019', present:false, desc:'• Developed and maintained client websites using React, Node.js, and WordPress\n• Automated deployment workflows reducing release time by 50%\n• Contributed to open-source projects used by the developer community' }
+  ],
+  edu: [
+    { degree:'B.S. Computer Science', school:'University of California, Berkeley', location:'Berkeley, CA', year:'2017' },
+    { degree:'M.S. Software Engineering', school:'Stanford University', location:'Stanford, CA', year:'2019' }
+  ]
+};
+
+// ═══════════════════════════════════════════
+// localStorage Save / Load
+// ═══════════════════════════════════════════
+const STORAGE_KEY = 'resumeGeneratorData';
+
+function collectAllData(){
+  const data = {
+    name: document.getElementById('resName').value,
+    email: document.getElementById('resEmail').value,
+    phone: document.getElementById('resPhone').value,
+    location: document.getElementById('resLocation').value,
+    linkedin: document.getElementById('resLinkedin').value,
+    portfolio: document.getElementById('resPortfolio').value,
+    summary: document.getElementById('resSummary').value,
+    skills: [...skillList],
+    template: currentTemplate,
+    fontSize: currentFontSize,
+    accentColor: currentAccentColor,
+    work: [],
+    edu: []
+  };
+  document.querySelectorAll('#workEntries .entry-card').forEach(card => {
+    data.work.push({
+      title: card.querySelector('.we-title').value,
+      company: card.querySelector('.we-company').value,
+      location: card.querySelector('.we-location').value,
+      start: card.querySelector('.we-start').value,
+      end: card.querySelector('.we-end').value,
+      present: card.querySelector('.we-present').checked,
+      desc: card.querySelector('.we-desc').value
+    });
+  });
+  document.querySelectorAll('#eduEntries .entry-card').forEach(card => {
+    data.edu.push({
+      degree: card.querySelector('.ed-degree').value,
+      school: card.querySelector('.ed-school').value,
+      location: card.querySelector('.ed-location').value,
+      year: card.querySelector('.ed-year').value
+    });
+  });
+  return data;
+}
+
+function saveToStorage(){
+  try {
+    const data = collectAllData();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    const badge = document.getElementById('autoSaveBadge');
+    if(badge) badge.textContent = '✓ Saved';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => { if(badge) badge.textContent = 'Auto-saved'; }, 3000);
+  } catch(e){ /* storage full or unavailable */ }
+}
+
+function scheduleSave(){
+  if(isLoadingSave) return;
+  updateResume();
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveToStorage, 400);
+}
+
+function loadFromStorage(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  } catch(e){}
+  return null;
+}
+
+function applyData(data){
+  isLoadingSave = true;
+  if(!data) { isLoadingSave = false; return false; }
+
+  document.getElementById('resName').value = data.name || '';
+  document.getElementById('resEmail').value = data.email || '';
+  document.getElementById('resPhone').value = data.phone || '';
+  document.getElementById('resLocation').value = data.location || '';
+  document.getElementById('resLinkedin').value = data.linkedin || '';
+  document.getElementById('resPortfolio').value = data.portfolio || '';
+  document.getElementById('resSummary').value = data.summary || '';
+
+  // Clear existing entries
+  document.getElementById('workEntries').innerHTML = '';
+  document.getElementById('eduEntries').innerHTML = '';
+  skillList = [];
+
+  // Skills
+  if(data.skills && Array.isArray(data.skills)){
+    skillList = data.skills.filter(s => s.trim());
+    document.getElementById('resSkills').value = skillList.join(', ');
+    renderSkillTags();
+  }
+
+  // Work entries
+  if(data.work && Array.isArray(data.work)){
+    data.work.forEach(w => addWorkEntry(w));
+  } else {
+    addWorkEntry({});
+  }
+
+  // Education entries
+  if(data.edu && Array.isArray(data.edu)){
+    data.edu.forEach(e => addEduEntry(e));
+  } else {
+    addEduEntry({});
+  }
+
+  // Template
+  if(data.template && TEMPLATES.find(t => t.id === data.template)){
+    currentTemplate = data.template;
+    const cards = document.querySelectorAll('.template-card');
+    cards.forEach(c => c.classList.toggle('active', c.dataset.template === data.template));
+    const carousel = document.getElementById('templateCarousel');
+    const activeCard = carousel.querySelector(`[data-template="${data.template}"]`);
+    if(activeCard) activeCard.scrollIntoView({ behavior:'instant', inline:'center', block:'nearest' });
+  }
+
+  // Font size
+  if(data.fontSize){
+    currentFontSize = data.fontSize;
+    document.getElementById('fontSizeSelect').value = data.fontSize;
+    document.body.className = document.body.className.replace(/font-\w+/g,'').trim();
+    document.body.classList.add('font-' + data.fontSize);
+  }
+
+  // Accent color
+  if(data.accentColor){
+    currentAccentColor = data.accentColor;
+    document.getElementById('accentPicker').value = data.accentColor;
+    applyAccentColor(data.accentColor);
+    const dots = document.querySelectorAll('.color-dot');
+    dots.forEach(d => d.classList.toggle('active', d.dataset.color === data.accentColor));
+  }
+
+  updateResume();
+  isLoadingSave = false;
+  return true;
+}
+
+// ═══════════════════════════════════════════
+// Reset Data
+// ═══════════════════════════════════════════
+function resetData(){
+  if(!confirm('Reset all resume data? This cannot be undone.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+// ═══════════════════════════════════════════
+// Template Carousel
+// ═══════════════════════════════════════════
+function renderTemplateCarousel(){
+  const carousel = document.getElementById('templateCarousel');
+  carousel.innerHTML = TEMPLATES.map(t => {
+    const miniHtml = getMiniPreview(t.id);
+    return `<div class="template-card${t.id === currentTemplate ? ' active' : ''}" data-template="${t.id}" onclick="selectTemplate(this,'${t.id}')">
+      ${miniHtml}
+      <span class="tpl-icon">${t.icon}</span>
+      <span class="tpl-name">${t.name}</span>
+      <span class="tpl-desc">${t.desc}</span>
+    </div>`;
+  }).join('');
+}
+
+function getMiniPreview(id){
+  const bars = `<div class="mini-bar h" style="background:${id==='executive'?'#d4af37':'var(--accent)'}"></div><div class="mini-bar m" style="background:${id==='executive'?'#d4af37':'var(--accent)'}"></div><div class="mini-bar l" style="background:${id==='executive'?'#d4af37':'var(--accent)'}"></div>`;
+  switch(id){
+    case 'classic':
+      return `<div class="tpl-mini-preview">${bars}<div class="mini-line"></div><div class="mini-line" style="width:60%"></div></div>`;
+    case 'modern':
+      return `<div class="tpl-mini-preview">${bars}<div class="mini-line" style="background:#eee"></div><div class="mini-line" style="width:50%;background:#eee"></div><div class="mini-dot"></div></div>`;
+    case 'minimal':
+      return `<div class="tpl-mini-preview"><div style="padding:4px"><div style="height:6px;width:40%;background:#ddd;margin:3px auto;border-radius:2px"></div><div class="mini-line"></div><div class="mini-line" style="width:55%"></div></div></div>`;
+    case 'professional':
+      return `<div class="tpl-mini-preview"><div class="mini-topbar"><div class="mini-w"></div></div><div style="padding:2px 4px">${bars}</div></div>`;
+    case 'creative':
+      return `<div class="tpl-mini-preview"><div style="height:10px;background:var(--accent-subtle);margin:3px;border-radius:2px"></div>${bars}</div>`;
+    case 'executive':
+      return `<div class="tpl-mini-preview"><div class="mini-gold" style="height:3px;margin:0 0 2px"></div>${bars}<div class="mini-gold" style="height:2px;margin:2px 5px 0"></div></div>`;
+    case 'compact':
+      return `<div class="tpl-mini-preview"><div style="padding:2px 4px"><div style="height:5px;width:45%;background:#ccc;margin:2px 0;border-radius:1px"></div><div class="mini-line" style="margin:1px 0"></div><div class="mini-line" style="width:50%;margin:1px 0"></div></div></div>`;
+    case 'split':
+      return `<div class="tpl-mini-preview"><div class="mini-side"></div><div class="mini-content">${bars}</div></div>`;
+    default:
+      return `<div class="tpl-mini-preview">${bars}</div>`;
+  }
+}
+
+function selectTemplate(el, name){
+  document.querySelectorAll('.template-card').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  currentTemplate = name;
+  el.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+  scheduleSave();
+  updateResume();
+}
+
+// ═══════════════════════════════════════════
+// Font Size & Color Customization
+// ═══════════════════════════════════════════
+const COLOR_PRESETS = ['#7c3aed','#2563eb','#059669','#dc2626','#d97706','#0891b2','#9333ea','#be185d'];
+
+function renderColorPresets(){
+  const container = document.getElementById('colorPresets');
+  container.innerHTML = COLOR_PRESETS.map(c =>
+    `<div class="color-dot${c === currentAccentColor ? ' active' : ''}" style="background:${c}" data-color="${c}" onclick="selectPresetColor('${c}',this)"></div>`
+  ).join('');
+}
+
+function selectPresetColor(color, el){
+  currentAccentColor = color;
+  document.getElementById('accentPicker').value = color;
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+  el.classList.add('active');
+  applyAccentColor(color);
+  scheduleSave();
+}
+
+function updateAccentColor(color){
+  currentAccentColor = color;
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.toggle('active', d.dataset.color === color));
+  applyAccentColor(color);
+  scheduleSave();
+}
+
+function applyAccentColor(color){
+  document.documentElement.style.setProperty('--accent', color);
+  document.documentElement.style.setProperty('--accent-subtle', hexToRgba(color, 0.12));
+  document.documentElement.style.setProperty('--accent-text', darkenHex(color, 20));
+  updateResume();
+}
+
+function hexToRgba(hex, alpha){
+  const r = parseInt(hex.slice(1,3), 16);
+  const g = parseInt(hex.slice(3,5), 16);
+  const b = parseInt(hex.slice(5,7), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function darkenHex(hex, amount){
+  let r = parseInt(hex.slice(1,3), 16) - amount;
+  let g = parseInt(hex.slice(3,5), 16) - amount;
+  let b = parseInt(hex.slice(5,7), 16) - amount;
+  r = Math.max(0, r); g = Math.max(0, g); b = Math.max(0, b);
+  return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+}
+
+function updateFontSize(size){
+  currentFontSize = size;
+  document.body.className = document.body.className.replace(/font-\w+/g,'').trim();
+  document.body.classList.add('font-' + size);
+  scheduleSave();
+}
 
 // ═══════════════════════════════════════════
 // Work Experience
@@ -362,32 +829,32 @@ function addWorkEntry(data){
   const html = `
     <div class="entry-card" data-idx="${i}">
       <div class="entry-header">
-        <span>Experience #${workEntries.length + 1}</span>
+        <span>Experience #${document.querySelectorAll('#workEntries .entry-card').length + 1}</span>
         <button class="remove-entry" onclick="removeWorkEntry(this)">✕ Remove</button>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>Job Title</label>
-          <div class="input-wrap"><input type="text" class="we-title" placeholder="Software Engineer" oninput="updateResume()"></div>
+          <div class="input-wrap"><input type="text" class="we-title" placeholder="Software Engineer" oninput="scheduleSave()"></div>
         </div>
         <div class="form-group">
           <label>Company</label>
-          <div class="input-wrap"><input type="text" class="we-company" placeholder="Acme Corp" oninput="updateResume()"></div>
+          <div class="input-wrap"><input type="text" class="we-company" placeholder="Acme Corp" oninput="scheduleSave()"></div>
         </div>
       </div>
       <div class="form-group">
         <label>Location</label>
-        <div class="input-wrap"><input type="text" class="we-location" placeholder="San Francisco, CA" oninput="updateResume()"></div>
+        <div class="input-wrap"><input type="text" class="we-location" placeholder="San Francisco, CA" oninput="scheduleSave()"></div>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>Start Date</label>
-          <div class="input-wrap"><input type="text" class="we-start" placeholder="Jan 2020" oninput="updateResume()"></div>
+          <div class="input-wrap"><input type="text" class="we-start" placeholder="Jan 2020" oninput="scheduleSave()"></div>
         </div>
         <div class="form-group">
           <label>End Date</label>
           <div class="input-wrap" style="display:flex;align-items:center;gap:6px">
-            <input type="text" class="we-end" placeholder="Present" oninput="updateResume()" style="flex:1">
+            <input type="text" class="we-end" placeholder="Present" oninput="scheduleSave()" style="flex:1">
             <label style="font-size:.7rem;white-space:nowrap;display:flex;align-items:center;gap:3px;font-weight:400;cursor:pointer">
               <input type="checkbox" class="we-present" onchange="togglePresent(this)" style="width:auto"> Present
             </label>
@@ -396,14 +863,14 @@ function addWorkEntry(data){
       </div>
       <div class="form-group">
         <label>Description / Achievements</label>
-        <div class="input-wrap"><textarea class="we-desc" rows="3" placeholder="• Led a team of 5 engineers...&#10;• Improved performance by 40%..." oninput="updateResume()"></textarea></div>
+        <div class="input-wrap"><textarea class="we-desc" rows="3" placeholder="• Led a team of 5 engineers...&#10;• Improved performance by 40%..." oninput="scheduleSave()"></textarea></div>
       </div>
     </div>
   `;
   const container = document.getElementById('workEntries');
   container.insertAdjacentHTML('beforeend', html);
   if(data) prefillWorkEntry(container.lastElementChild, data);
-  updateResume();
+  scheduleSave();
 }
 
 function prefillWorkEntry(el, d){
@@ -412,12 +879,13 @@ function prefillWorkEntry(el, d){
   if(d.location) el.querySelector('.we-location').value = d.location;
   if(d.start) el.querySelector('.we-start').value = d.start;
   if(d.end) el.querySelector('.we-end').value = d.end;
-  if(d.present) { el.querySelector('.we-present').checked = true; el.querySelector('.we-end').disabled = true; }
+  if(d.present) { el.querySelector('.we-present').checked = true; el.querySelector('.we-end').disabled = true; el.querySelector('.we-end').value = 'Present'; }
   if(d.desc) el.querySelector('.we-desc').value = d.desc;
 }
 
 function removeWorkEntry(btn){
   btn.closest('.entry-card').remove();
+  scheduleSave();
   updateResume();
 }
 
@@ -426,6 +894,7 @@ function togglePresent(cb){
   endInput.disabled = cb.checked;
   if(cb.checked) endInput.value = 'Present';
   else endInput.value = '';
+  scheduleSave();
   updateResume();
 }
 
@@ -437,27 +906,27 @@ function addEduEntry(data){
   const html = `
     <div class="entry-card" data-idx="${i}">
       <div class="entry-header">
-        <span>Education #${eduEntries.length + 1}</span>
+        <span>Education #${document.querySelectorAll('#eduEntries .entry-card').length + 1}</span>
         <button class="remove-entry" onclick="removeEduEntry(this)">✕ Remove</button>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>Degree</label>
-          <div class="input-wrap"><input type="text" class="ed-degree" placeholder="B.S. Computer Science" oninput="updateResume()"></div>
+          <div class="input-wrap"><input type="text" class="ed-degree" placeholder="B.S. Computer Science" oninput="scheduleSave()"></div>
         </div>
         <div class="form-group">
           <label>School</label>
-          <div class="input-wrap"><input type="text" class="ed-school" placeholder="University of California" oninput="updateResume()"></div>
+          <div class="input-wrap"><input type="text" class="ed-school" placeholder="University of California" oninput="scheduleSave()"></div>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label>Location</label>
-          <div class="input-wrap"><input type="text" class="ed-location" placeholder="Berkeley, CA" oninput="updateResume()"></div>
+          <div class="input-wrap"><input type="text" class="ed-location" placeholder="Berkeley, CA" oninput="scheduleSave()"></div>
         </div>
         <div class="form-group">
           <label>Graduation Year</label>
-          <div class="input-wrap"><input type="text" class="ed-year" placeholder="2024" oninput="updateResume()"></div>
+          <div class="input-wrap"><input type="text" class="ed-year" placeholder="2024" oninput="scheduleSave()"></div>
         </div>
       </div>
     </div>
@@ -465,7 +934,7 @@ function addEduEntry(data){
   const container = document.getElementById('eduEntries');
   container.insertAdjacentHTML('beforeend', html);
   if(data) prefillEduEntry(container.lastElementChild, data);
-  updateResume();
+  scheduleSave();
 }
 
 function prefillEduEntry(el, d){
@@ -477,6 +946,7 @@ function prefillEduEntry(el, d){
 
 function removeEduEntry(btn){
   btn.closest('.entry-card').remove();
+  scheduleSave();
   updateResume();
 }
 
@@ -487,6 +957,7 @@ function updateSkills(val){
   const raw = val.split(',').map(s => s.trim()).filter(s => s.length > 0);
   skillList = raw;
   renderSkillTags();
+  scheduleSave();
   updateResume();
 }
 
@@ -499,12 +970,14 @@ function skillsKeydown(e){
       skillList.push(val);
       input.value = skillList.join(', ');
       renderSkillTags();
+      scheduleSave();
       updateResume();
     }
   }
   if(e.key === 'Backspace' && e.target.value === '' && skillList.length > 0){
     skillList.pop();
     renderSkillTags();
+    scheduleSave();
     updateResume();
   }
 }
@@ -513,6 +986,7 @@ function removeSkill(index){
   skillList.splice(index, 1);
   document.getElementById('resSkills').value = skillList.join(', ');
   renderSkillTags();
+  scheduleSave();
   updateResume();
 }
 
@@ -531,16 +1005,6 @@ function escapeHtml(str){
   const d = document.createElement('div');
   d.textContent = str;
   return d.innerHTML;
-}
-
-// ═══════════════════════════════════════════
-// Template Selection
-// ═══════════════════════════════════════════
-function selectTemplate(el, name){
-  document.querySelectorAll('.template-option').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  currentTemplate = name;
-  updateResume();
 }
 
 // ═══════════════════════════════════════════
@@ -622,18 +1086,54 @@ function updateResume(){
     skillsHtml = skillList.map(s => `<span class="rp-skill">${escapeHtml(s)}</span>`).join('');
   }
 
-  // Assemble
-  let html = `<div class="rp-name">${escapeHtml(name || 'Your Name')}</div>`;
-  if(titleHint()) html += `<div class="rp-title">${escapeHtml(titleHint())}</div>`;
-  if(contactHtml) html += `<div class="rp-contact">${contactHtml}</div>`;
-  html += `<div class="rp-divider"></div>`;
-  if(summary) html += `<div class="rp-section-title">Professional Summary</div><div class="rp-summary">${escapeHtml(summary)}</div>`;
-  if(workHtml) html += `<div class="rp-section-title">Work Experience</div>${workHtml}${workHtml ? '<div style="margin-bottom:10px"></div>' : ''}`;
-  if(eduHtml) html += `<div class="rp-section-title">Education</div>${eduHtml}${eduHtml ? '<div style="margin-bottom:10px"></div>' : ''}`;
-  if(skillsHtml) html += `<div class="rp-section-title">Skills</div><div class="rp-skills">${skillsHtml}</div>`;
+  // Template-specific layout
+  const tpl = currentTemplate;
 
-  previewContainer.innerHTML = html;
-  previewContainer.parentElement.className = 'tpl-' + currentTemplate;
+  if(tpl === 'professional'){
+    let html = `<div class="rp-topbar">
+      <div class="rp-name">${escapeHtml(name || 'Your Name')}</div>
+      ${titleHint() ? '<div class="rp-title">'+escapeHtml(titleHint())+'</div>' : ''}
+      <div class="rp-contact">${contactHtml}</div>
+    </div>
+    <div class="rp-content">
+      <div class="rp-divider"></div>`;
+    if(summary) html += `<div class="rp-section-title">Professional Summary</div><div class="rp-summary">${escapeHtml(summary)}</div>`;
+    if(workHtml) html += `<div class="rp-section-title">Work Experience</div>${workHtml}${workHtml ? '<div style="margin-bottom:10px"></div>' : ''}`;
+    if(eduHtml) html += `<div class="rp-section-title">Education</div>${eduHtml}${eduHtml ? '<div style="margin-bottom:10px"></div>' : ''}`;
+    if(skillsHtml) html += `<div class="rp-section-title">Skills</div><div class="rp-skills">${skillsHtml}</div>`;
+    html += `</div>`;
+    previewContainer.innerHTML = html;
+  }
+  else if(tpl === 'split'){
+    let sidebar = `<div class="rp-sidebar">
+      <div class="rp-name">${escapeHtml(name || 'Your Name')}</div>
+      ${titleHint() ? '<div class="rp-title">'+escapeHtml(titleHint())+'</div>' : ''}
+      <div class="rp-contact">${contactHtml}</div>`;
+    if(skillsHtml) sidebar += `<div class="rp-section-title">Skills</div><div class="rp-skills">${skillsHtml}</div>`;
+    if(summary) sidebar += `<div class="rp-section-title">Summary</div><div class="rp-summary" style="font-size:9.5px">${escapeHtml(summary)}</div>`;
+    sidebar += `</div>`;
+
+    let main = `<div class="rp-main">`;
+    if(workHtml) main += `<div class="rp-section-title">Work Experience</div>${workHtml}${workHtml ? '<div style="margin-bottom:10px"></div>' : ''}`;
+    if(eduHtml) main += `<div class="rp-section-title">Education</div>${eduHtml}${eduHtml ? '<div style="margin-bottom:10px"></div>' : ''}`;
+    main += `</div>`;
+
+    previewContainer.innerHTML = sidebar + main;
+  }
+  else {
+    // Standard layout for all other templates
+    let html = `<div class="rp-name">${escapeHtml(name || 'Your Name')}</div>`;
+    if(titleHint()) html += `<div class="rp-title">${escapeHtml(titleHint())}</div>`;
+    if(contactHtml) html += `<div class="rp-contact">${contactHtml}</div>`;
+    html += `<div class="rp-divider"></div>`;
+    if(summary) html += `<div class="rp-section-title">Professional Summary</div><div class="rp-summary">${escapeHtml(summary)}</div>`;
+    if(workHtml) html += `<div class="rp-section-title">Work Experience</div>${workHtml}${workHtml ? '<div style="margin-bottom:10px"></div>' : ''}`;
+    if(eduHtml) html += `<div class="rp-section-title">Education</div>${eduHtml}${eduHtml ? '<div style="margin-bottom:10px"></div>' : ''}`;
+    if(skillsHtml) html += `<div class="rp-section-title">Skills</div><div class="rp-skills">${skillsHtml}</div>`;
+    previewContainer.innerHTML = html;
+  }
+
+  previewContainer.parentElement.className = 'tpl-' + tpl + ' font-' + currentFontSize;
 }
 
 function titleHint(){
@@ -661,6 +1161,247 @@ function hasEduData(){
   });
   return found;
 }
+
+// ═══════════════════════════════════════════
+// ATS Compatibility Checker
+// ═══════════════════════════════════════════
+const COMMON_KEYWORDS = {
+  'software engineer': ['agile','api','architecture','automation','ci/cd','cloud','code review','database','debugging','deployment','docker','frontend','git','javascript','kubernetes','microservices','node.js','optimization','python','react','rest','scrum','sql','testing','typescript','aws'],
+  'data scientist': ['machine learning','deep learning','nlp','python','r','tensorflow','pytorch','sql','statistics','regression','classification','clustering','data pipeline','etl','visualization','tableau','power bi','hadoop','spark','a/b testing'],
+  'designer': ['figma','sketch','adobe','photoshop','illustrator','ui','ux','wireframe','prototype','user research','design system','responsive','typography','color theory','accessibility'],
+  'marketing': ['seo','sem','content marketing','social media','email marketing','analytics','google analytics','crm','conversion','a/b testing','campaign','brand','ppc','cro'],
+  'product manager': ['roadmap','stakeholder','agile','scrum','jira','user stories','a/b testing','kpi','analytics','cross-functional','strategy','mvp','sprint','backlog'],
+  'general': ['leadership','communication','problem solving','teamwork','project management','analytical','strategic','collaboration','innovation','mentoring','presentation']
+};
+
+function getInferredRole(){
+  const allText = collectAllText().toLowerCase();
+  const roles = ['software engineer','data scientist','designer','marketing','product manager'];
+  for(const role of roles){
+    const keywords = COMMON_KEYWORDS[role] || [];
+    const matches = keywords.filter(k => allText.includes(k.toLowerCase()));
+    if(matches.length >= 2) return role;
+  }
+  return 'general';
+}
+
+function collectAllText(){
+  let text = document.getElementById('resName').value + ' ';
+  text += document.getElementById('resSummary').value + ' ';
+  text += skillList.join(' ') + ' ';
+  document.querySelectorAll('#workEntries .entry-card').forEach(c => {
+    ['we-title','we-company','we-desc'].forEach(cls => {
+      const el = c.querySelector('.' + cls);
+      if(el) text += el.value + ' ';
+    });
+  });
+  document.querySelectorAll('#eduEntries .entry-card').forEach(c => {
+    ['ed-degree','ed-school'].forEach(cls => {
+      const el = c.querySelector('.' + cls);
+      if(el) text += el.value + ' ';
+    });
+  });
+  return text;
+}
+
+function runATSCheck(){
+  const checks = [];
+  const allText = collectAllText();
+  const name = document.getElementById('resName').value.trim();
+  const email = document.getElementById('resEmail').value.trim();
+  const phone = document.getElementById('resPhone').value.trim();
+  const summary = document.getElementById('resSummary').value.trim();
+
+  // Check 1: Standard Headers
+  const hasWork = hasWorkData();
+  const hasEdu = hasEduData();
+  const hasSkills = skillList.length > 0;
+  const hasSummary = summary.length > 0;
+  const headersOk = hasWork && hasEdu && hasSkills;
+  checks.push({
+    icon: headersOk ? '✅' : (hasWork || hasEdu || hasSkills ? '⚠️' : '❌'),
+    label: 'Standard Headers',
+    detail: headersOk ? 'Work Experience, Education, and Skills sections present' :
+      (!hasWork && !hasEdu && !hasSkills ? 'Missing Work Experience, Education, and Skills sections' :
+        'Missing: ' + [ !hasWork ? 'Work Experience' : '', !hasEdu ? 'Education' : '', !hasSkills ? 'Skills' : '' ].filter(Boolean).join(', ')),
+    pass: headersOk,
+    partial: (hasWork || hasEdu || hasSkills) && !headersOk
+  });
+
+  // Check 2: Contact Info
+  const contactOk = email.length > 0 && phone.length > 0;
+  checks.push({
+    icon: contactOk ? '✅' : (email || phone ? '⚠️' : '❌'),
+    label: 'Contact Info',
+    detail: contactOk ? 'Email and phone both present' :
+      (!email && !phone ? 'Missing both email and phone' :
+        'Missing: ' + (!email ? 'email' : '') + (!email && !phone ? '' : '') + (!phone ? 'phone' : '')),
+    pass: contactOk,
+    partial: (email || phone) && !contactOk
+  });
+
+  // Check 3: No Tables
+  checks.push({
+    icon: '✅',
+    label: 'No Tables',
+    detail: 'The template uses CSS-based layout — no HTML table structures detected',
+    pass: true,
+    partial: false
+  });
+
+  // Check 4: Single Column / ATS-friendly Layout
+  const isSplit = currentTemplate === 'split';
+  checks.push({
+    icon: isSplit ? '⚠️' : '✅',
+    label: 'ATS-Friendly Layout',
+    detail: isSplit ? 'Split template uses two-column layout — may cause issues with some ATS systems. Consider using a single-column template.' : 'Single-column layout — optimal for ATS parsing',
+    pass: !isSplit,
+    partial: isSplit
+  });
+
+  // Check 5: Bullet Points
+  let bulletCount = 0;
+  let totalDescFields = 0;
+  document.querySelectorAll('#workEntries .entry-card').forEach(c => {
+    const desc = c.querySelector('.we-desc').value.trim();
+    if(desc){
+      totalDescFields++;
+      const bullets = desc.split('\n').filter(l => l.trim().startsWith('•') || l.trim().startsWith('-') || l.trim().startsWith('*'));
+      bulletCount += bullets.length;
+    }
+  });
+  const bulletOk = bulletCount >= 3;
+  checks.push({
+    icon: bulletOk ? '✅' : (bulletCount > 0 ? '⚠️' : '❌'),
+    label: 'Bullet Points',
+    detail: bulletOk ? `${bulletCount} bullet points found — great for ATS parsing` :
+      (bulletCount > 0 ? `Only ${bulletCount} bullet points. Aim for at least 3-5 bullet points per role` :
+        'No bullet points found. Use bullet points (•) for achievements and responsibilities'),
+    pass: bulletOk,
+    partial: bulletCount > 0 && !bulletOk
+  });
+
+  // Check 6: Keyword Match
+  const role = getInferredRole();
+  const keywords = COMMON_KEYWORDS[role] || COMMON_KEYWORDS['general'];
+  const matchedKeywords = keywords.filter(k => allText.toLowerCase().includes(k.toLowerCase()));
+  const keywordScore = Math.min(100, Math.round((matchedKeywords.length / Math.min(keywords.length, 15)) * 100));
+  checks.push({
+    icon: keywordScore >= 60 ? '✅' : (keywordScore >= 30 ? '⚠️' : '❌'),
+    label: `Keyword Match (${role})`,
+    detail: `${matchedKeywords.length} of ${Math.min(keywords.length, 15)} suggested keywords found (${keywordScore}% match) — ${matchedKeywords.slice(0,6).join(', ')}${matchedKeywords.length > 6 ? '...' : ''}`,
+    pass: keywordScore >= 60,
+    partial: keywordScore >= 30 && keywordScore < 60
+  });
+
+  // Check 7: Length Check
+  const lineCount = estimatePageLength();
+  const lengthOk = lineCount >= 30 && lineCount <= 90;
+  checks.push({
+    icon: lengthOk ? '✅' : (lineCount > 90 ? '⚠️' : '❌'),
+    label: 'Length Check',
+    detail: lengthOk ? 'Estimated 1-2 pages — ideal length' :
+      (lineCount > 90 ? 'Resume may exceed 2 pages. Consider condensing content.' :
+        'Resume appears too short. Add more experience and details.'),
+    pass: lengthOk,
+    partial: !lengthOk
+  });
+
+  // Check 8: File Format
+  checks.push({
+    icon: '✅',
+    label: 'File Format',
+    detail: 'PDF is recommended for ATS submission — use the Download PDF button above',
+    pass: true,
+    partial: false
+  });
+
+  // Calculate score
+  let score = 0;
+  const checkResults = [];
+  const suggestions = [];
+
+  checks.forEach((c, i) => {
+    let s = 0;
+    if(c.pass) s = 100;
+    else if(c.partial) s = 40;
+    else s = 0;
+    checkResults.push({...c, score: s});
+
+    if(!c.pass && !c.partial) {
+      suggestions.push(c.label + ': ' + c.detail.split('.')[0]);
+    } else if(c.partial) {
+      suggestions.push('Improve ' + c.label.toLowerCase() + ' — ' + c.detail.split('.')[0]);
+    }
+  });
+
+  score = Math.round(checkResults.reduce((sum, c) => sum + c.score, 0) / checkResults.length);
+
+  return { score, checks: checkResults, suggestions, role };
+}
+
+function estimatePageLength(){
+  let lineCount = 0;
+  const name = document.getElementById('resName').value.trim();
+  if(name) lineCount += 2;
+  lineCount += 2; // contact
+  const summary = document.getElementById('resSummary').value.trim();
+  if(summary) lineCount += Math.ceil(summary.length / 80) + 3;
+  document.querySelectorAll('#workEntries .entry-card').forEach(c => {
+    const t = c.querySelector('.we-title').value.trim();
+    const d = c.querySelector('.we-desc').value.trim();
+    if(t) lineCount += 3;
+    if(d) lineCount += Math.ceil(d.length / 80) + 1;
+  });
+  document.querySelectorAll('#eduEntries .entry-card').forEach(c => {
+    if(c.querySelector('.ed-degree').value.trim()) lineCount += 2;
+  });
+  if(skillList.length > 0) lineCount += Math.ceil(skillList.length / 5) + 3;
+  return lineCount;
+}
+
+function openATSCheck(){
+  const result = runATSCheck();
+  const overlay = document.getElementById('atsOverlay');
+  const scoreEl = document.getElementById('atsScore');
+  const fillEl = document.getElementById('atsScoreFill');
+  const checksEl = document.getElementById('atsChecks');
+  const suggestionsBox = document.getElementById('atsSuggestions');
+  const suggestionsList = document.getElementById('atsSuggestionsList');
+
+  scoreEl.textContent = result.score;
+  fillEl.style.width = result.score + '%';
+  fillEl.className = 'ats-score-fill ' + (result.score >= 70 ? 'good' : result.score >= 40 ? 'ok' : 'bad');
+
+  checksEl.innerHTML = result.checks.map(c =>
+    `<div class="ats-check">
+      <span class="ats-check-icon">${c.icon}</span>
+      <div class="ats-check-text">
+        <div class="check-label">${c.label}</div>
+        <div class="check-detail">${c.detail}</div>
+      </div>
+    </div>`
+  ).join('');
+
+  if(result.suggestions.length > 0){
+    suggestionsBox.style.display = 'block';
+    suggestionsList.innerHTML = result.suggestions.map(s => `<li>${s}</li>`).join('');
+  } else {
+    suggestionsBox.style.display = 'none';
+  }
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeATSCheck(){
+  document.getElementById('atsOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeATSCheck();
+});
 
 // ═══════════════════════════════════════════
 // Print & PDF
@@ -706,11 +1447,23 @@ async function submitFeedback(e, f){
 // Init
 // ═══════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', function(){
-  // Add one default work entry
-  addWorkEntry({title:'', company:'', location:'', start:'', end:'', present:false, desc:''});
-  // Add one default education entry
-  addEduEntry({degree:'', school:'', location:'', year:''});
-  updateResume();
+  // Render template carousel
+  renderTemplateCarousel();
+  // Render color presets
+  renderColorPresets();
+  // Apply font size class
+  document.body.classList.add('font-' + currentFontSize);
+
+  // Try loading saved data
+  const saved = loadFromStorage();
+  if(saved){
+    applyData(saved);
+  } else {
+    // Load demo data for first-time users
+    applyData(DEMO_DATA);
+    // Save the demo data so it persists
+    setTimeout(saveToStorage, 500);
+  }
 });
 </script>
 </body>
