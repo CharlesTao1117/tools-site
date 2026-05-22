@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>護理師國考藥物計算 — 考古題型整理、公式總表、免費練習</title>
+<meta name="description" content="護理師國考藥物計算完整整理：考古題分佈、必考公式(滴速/劑量/稀釋/安全範圍)、近5年出題趨勢。免費練習題 + AI 弱點診斷，加入 LINE 每日一題。">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;background:#f4f6fb;color:#1a1a2e;line-height:1.6}
+header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:40px 20px;text-align:center}
+header h1{font-size:1.8rem;margin-bottom:8px;letter-spacing:1px}
+header p{font-size:1rem;opacity:.85;max-width:600px;margin:0 auto}
+header .badge{display:inline-block;background:#e94560;color:#fff;padding:4px 14px;border-radius:20px;font-size:.75rem;margin-top:12px;font-weight:600}
+.container{max-width:800px;margin:0 auto;padding:20px}
+.card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #e8ecf4;margin-bottom:20px}
+.card h3{font-size:1.1rem;margin-bottom:16px;color:#0f3460;display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:#444;margin-bottom:4px}
+.form-group input,.form-group select{width:100%;padding:10px 14px;border:1.5px solid #dde1ec;border-radius:8px;font-size:.95rem;background:#fafbfd;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:#0f3460;background:#fff}
+.input-row{display:flex;gap:12px}
+.input-row .form-group{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 24px;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.btn-primary{background:#0f3460;color:#fff;width:100%}
+.btn-primary:hover{background:#1a1a2e;transform:translateY(-1px)}
+.btn-danger{background:#e94560;color:#fff}
+.btn-danger:hover{background:#d63851;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:#0f3460;border:1.5px solid #0f3460}
+.btn-outline:hover{background:#f0f4ff}
+.result-box{margin-top:16px;padding:16px;border-radius:10px;display:none;animation:fadeIn .3s}
+.result-box.show{display:block}
+.result-box.success{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+.result-box.info{background:#e3f2fd;border:1px solid #90caf9;color:#0d47a1}
+.result-box.warning{background:#fff3e0;border:1px solid #ffcc80;color:#e65100}
+.result-box .big-number{font-size:2rem;font-weight:700;margin:8px 0}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.content-section{background:#fff;border-radius:14px;padding:28px;margin-top:20px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.content-section h2{font-size:1.3rem;color:#0f3460;margin-bottom:12px;border-left:4px solid #e94560;padding-left:12px}
+.content-section h3{font-size:1.1rem;color:#0f3460;margin:16px 0 8px}
+.content-section p,.content-section li{font-size:.9rem;color:#444;margin-bottom:8px;line-height:1.7}
+.content-section ul{padding-left:20px}
+.faq-item{border-bottom:1px solid #e8ecf4;padding:14px 0}
+.faq-item:last-child{border:none}
+.faq-q{font-weight:600;color:#0f3460;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-a{margin-top:8px;font-size:.88rem;color:#555;display:none}
+.faq-a.open{display:block}
+footer{background:#1a1a2e;color:#fff;text-align:center;padding:24px 20px;margin-top:40px;font-size:.82rem;opacity:.8}
+@media(max-width:480px){header h1{font-size:1.4rem}}
+.hero-cta{background:linear-gradient(135deg,#e94560,#ff6b6b);color:#fff;border-radius:14px;padding:32px;text-align:center;margin:24px 0}
+.hero-cta h2{font-size:1.3rem;margin-bottom:8px}
+.hero-cta p{font-size:.9rem;opacity:.9;margin-bottom:16px}
+.hero-cta .btn-cta{display:inline-block;background:#fff;color:#e94560;padding:14px 36px;border-radius:30px;font-size:1.05rem;font-weight:700;text-decoration:none}
+.hero-cta .btn-cta:hover{transform:scale(1.05)}
+.stat-row{display:flex;gap:12px;margin:16px 0;flex-wrap:wrap}
+.stat-card{flex:1;min-width:120px;background:#f0f4ff;padding:16px;border-radius:10px;text-align:center}
+.stat-card .num{font-size:1.5rem;font-weight:700;color:#0f3460}
+.stat-card .label{font-size:.75rem;color:#666;margin-top:4px}
+.formula-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.formula-card{padding:14px;background:#f8faff;border:1px solid #dde1ec;border-radius:8px;text-align:center}
+.formula-card .name{font-size:.75rem;color:#888;margin-bottom:4px}
+.formula-card .eq{font-size:.85rem;font-weight:600;color:#0f3460}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📋 護理師國考藥物計算</h1>
+  <p>考古題型整理 · 必考公式 · 免費練習測驗</p>
+  <div class="badge">關鍵字：護理師國考 藥物計算 · 國考藥物劑量 · 護理計算題</div>
+</header>
+
+<div class="container">
+
+  <!-- Stats -->
+  <div class="stat-row">
+    <div class="stat-card"><div class="num">3-5 題</div><div class="label">每年出題數</div></div>
+    <div class="stat-card"><div class="num">85%</div><div class="label">基礎題佔比</div></div>
+    <div class="stat-card"><div class="num">5科</div><div class="label">跨科目出題</div></div>
+    <div class="stat-card"><div class="num">52%</div><div class="label">藥理學通過率</div></div>
+  </div>
+
+  <!-- Formula Reference -->
+  <div class="card">
+    <h3>📐 藥物計算四大必考公式</h3>
+    <div class="formula-grid">
+      <div class="formula-card">
+        <div class="name">💧 點滴滴速</div>
+        <div class="eq">(總量×係數)÷分鐘</div>
+        <div style="font-size:.7rem;color:#999;margin-top:2px;">gtt/min</div>
+      </div>
+      <div class="formula-card">
+        <div class="name">💊 給藥劑量</div>
+        <div class="eq">處方劑量÷濃度</div>
+        <div style="font-size:.7rem;color:#999;margin-top:2px;">應給 mL</div>
+      </div>
+      <div class="formula-card">
+        <div class="name">🧪 稀釋公式</div>
+        <div class="eq">C₁V₁ = C₂V₂</div>
+        <div style="font-size:.7rem;color:#999;margin-top:2px;">稀釋計算</div>
+      </div>
+      <div class="formula-card">
+        <div class="name">🛡️ 安全範圍</div>
+        <div class="eq">體重×mg/kg</div>
+        <div style="font-size:.7rem;color:#999;margin-top:2px;">安全區間</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Free Quiz Wedge -->
+  <div class="card">
+    <h3>✏️ 免費練習 — 藥物計算實戰題</h3>
+    <p style="font-size:.85rem;color:#555;margin-bottom:12px;">醫師開立 Cephalexin 250 mg PO q6h，藥品標示為 125 mg/5 mL。每次應給藥多少 mL？</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-outline" onclick="checkQuiz(1)">A. 5 mL</button>
+      <button class="btn btn-outline" onclick="checkQuiz(2)">B. 10 mL</button>
+      <button class="btn btn-outline" onclick="checkQuiz(3)">C. 15 mL</button>
+      <button class="btn btn-outline" onclick="checkQuiz(4)">D. 20 mL</button>
+    </div>
+    <div class="result-box" id="quizResult"></div>
+  </div>
+
+  <!-- Landing CTA -->
+  <div class="hero-cta">
+    <h2>🎯 想考過護理師國考？</h2>
+    <p>免費加入 LINE Bot，每天 1 題藥物計算 + AI 解析診斷弱點。<br>
+    超過 1,000 題考古題庫，SM-2 間隔記憶系統讓你真正記住。</p>
+    <a href="#" class="btn-cta">加入 LINE 免費開始 ➜</a>
+  </div>
+
+  <!-- Content -->
+  <div class="content-section">
+    <h2>護理師國考藥物計算：完整攻略</h2>
+
+    <h3>📊 出題分佈</h3>
+    <p>藥物計算題每年固定 3-5 題，主要分佈在：</p>
+    <ul>
+      <li><strong>基本護理學</strong>：滴速計算、給藥三查五對、輸液管理</li>
+      <li><strong>內外科護理學</strong>：藥物劑量計算、IV 輸液、兒科劑量</li>
+      <li><strong>產兒科護理學</strong>：兒科 mg/kg 計算、稀釋給藥</li>
+      <li><strong>藥理學</strong>：藥物動力學、治療濃度範圍</li>
+    </ul>
+
+    <h3>📝 常見題型</h3>
+    <ul>
+      <li><strong>給藥體積計算</strong>：已知醫囑劑量與藥品濃度，求應給 mL 數</li>
+      <li><strong>點滴滴速計算</strong>：輸液總量、時間、滴數係數，求 gtt/min</li>
+      <li><strong>安全劑量確認</strong>：醫囑劑量是否在安全範圍內</li>
+      <li><strong>稀釋計算</strong>：抗生素稀釋、C₁V₁ = C₂V₂</li>
+      <li><strong>單位換算</strong>：g / mg / mcg 互換</li>
+    </ul>
+
+    <h3>⚠️ 考生最常犯的錯誤</h3>
+    <ul>
+      <li>時間單位未統一：小時沒換成分鐘</li>
+      <li>濃度單位看錯：mg/mL vs mg/5mL</li>
+      <li>忽略體重計算：兒科劑量未乘體重</li>
+      <li>滴數係數搞混：一般輸液套 vs 微滴</li>
+    </ul>
+
+    <h3>💡 準備建議</h3>
+    <p>藥物計算屬於「有練習就會對」的題型。每天固定算 2-3 題，考前一個月加強衝刺，這 3-5 題就是你的基本分。</p>
+  </div>
+
+  <div class="hero-cta" style="background:linear-gradient(135deg,#0f3460,#1a1a2e);">
+    <h2>🤖 AI 弱點診斷 — 你的專屬國考教練</h2>
+    <p>做完練習題後，AI 自動分析你的錯題類型（知識性/邏輯性/陷阱性），產出個人化讀書計畫。</p>
+    <a href="#" class="btn-cta" style="color:#0f3460;">免費診斷開始 ➜</a>
+  </div>
+
+  <div class="content-section">
+    <h2>❓ 常見問題</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f1')">護理師國考的藥物計算會很難嗎？ <span>▼</span></div>
+      <div class="faq-a" id="f1">不會，藥物計算屬於「背公式+練習」就能掌握的題型。每年 3-5 題，只要熟練四大公式（滴速、劑量、稀釋、安全範圍），加上單位換算概念，基本上都能答對。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f2')">國考允許使用計算機嗎？ <span>▼</span></div>
+      <div class="faq-a" id="f2">目前護理師國考為電腦考試（CBT），系統內建計算機功能。但建議平時練習心算或紙筆計算，考試時才不會因為操作計算機而浪費時間。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f3')">藥物計算題大概要花多少時間準備？ <span>▼</span></div>
+      <div class="faq-a" id="f3">每天 10 分鐘、連續 2 週就能掌握所有題型。重點不是做很多題，而是確實搞懂每題的計算邏輯。加入 LINE Bot 每天自動推播一題，不知不覺就練完了。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:28px 0;">
+    <p style="font-size:.9rem;color:#888;">實用計算工具：</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="01-drip-rate.html" class="btn btn-outline">💧 點滴滴速計算</a>
+      <a href="02-drug-dosage.html" class="btn btn-outline">💊 藥物劑量計算</a>
+      <a href="03-dilution.html" class="btn btn-outline">🧪 藥物稀釋計算</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 護理藥物計算工具 | 資料來源：考選部歷年試題</p>
+</footer>
+
+<script>
+function checkQuiz(ans){
+  const r=document.getElementById('quizResult');
+  if(ans===2){
+    r.className='result-box show success';
+    r.innerHTML='<strong>✅ 正確！</strong> (250 ÷ 125) × 5 = 10 mL。每次給藥 10 mL，每日 4 次 = 40 mL/天。';
+  }else{
+    r.className='result-box show warning';
+    r.innerHTML='<strong>❌ 再想想</strong> 公式：應給體積 = 處方劑量 ÷ 濃度 × 單位體積。125 mg/5 mL 表示每 5 mL 含 125 mg。';
+  }
+}
+function toggle(id){
+  document.getElementById(id).classList.toggle('open');
+}
+</script>
+</body>
+</html>

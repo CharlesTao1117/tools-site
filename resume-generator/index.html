@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JL08H6FMN6');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
+     crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Resume Generator — Create Professional Resumes Online</title>
+<meta name="description" content="Free Resume Generator. Build a professional resume with work experience, education, and skills. Print or download as PDF. Choose from Classic, Modern, and Minimal templates.">
+<link rel="canonical" href="https://anycalculator.site/resume-generator/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this resume ATS-compatible?","acceptedAnswer":{"@type":"Answer","text":"Yes, all three templates (Classic, Modern, Minimal) use a clean layout optimized for Applicant Tracking Systems. Stick to standard section headings and simple formatting for best results."}},{"@type":"Question","name":"What is the difference between the templates?","acceptedAnswer":{"@type":"Answer","text":"Classic uses traditional serif-style headings with bordered sections, Modern uses clean sans-serif with subtle separators, and Minimal offers a sleek no-frills layout with maximum whitespace."}},{"@type":"Question","name":"Can I download my resume as a PDF?","acceptedAnswer":{"@type":"Answer","text":"Yes, click Download PDF which opens your browser's print dialog. Select Save as PDF as the destination to save your resume as a PDF file."}},{"@type":"Question","name":"Is my data saved or shared?","acceptedAnswer":{"@type":"Answer","text":"No, all data stays in your browser. Nothing is sent to any server. Your resume information is processed entirely client-side for your privacy."}}]}</script>
+<meta property="og:title" content="Free Resume Generator — Create Professional Resumes Online">
+<meta property="og:description" content="Build a professional resume with work experience, education, and skills. Print or download as PDF. Choose from Classic, Modern, and Minimal templates.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://anycalculator.site/resume-generator/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/common/premium.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free Resume Generator","applicationCategory":"BusinessApplication","description":"Create professional resumes with live preview. Choose from Classic, Modern, and Minimal templates. Print or download as PDF."}</script>
+<style>
+body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d9}
+
+/* ── Layout ── */
+.resume-layout{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);align-items:start}
+@media(max-width:900px){.resume-layout{grid-template-columns:1fr}}
+
+/* ── Input Panel ── */
+.input-panel .card{padding:var(--space-5);margin-bottom:var(--space-4)}
+.input-panel .card h3{font-size:1rem;font-weight:600;margin:0 0 var(--space-4);padding-bottom:var(--space-3);border-bottom:1px solid var(--border-subtle);color:var(--text-primary)}
+.input-panel .card h3 .section-icon{margin-right:6px}
+.section-entries{margin-bottom:var(--space-3)}
+.entry-card{background:var(--bg-subtle);border-radius:var(--radius-md);padding:var(--space-4);margin-bottom:var(--space-3);border:1px solid var(--border-subtle)}
+.entry-card .entry-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3);font-size:.8rem;font-weight:500;color:var(--text-secondary)}
+.entry-card .entry-header .remove-entry{background:none;border:none;color:var(--text-tertiary);cursor:pointer;font-size:.75rem;padding:2px 8px;border-radius:4px}
+.entry-card .entry-header .remove-entry:hover{color:#ef4444;background:rgba(239,68,68,0.1)}
+
+/* ── Skills Tags ── */
+.skills-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--space-3);min-height:32px}
+.skills-tags .tag{display:inline-flex;align-items:center;gap:4px;background:var(--accent-subtle);color:var(--accent-text);font-size:.75rem;font-weight:500;padding:3px 10px;border-radius:var(--radius-full);transition:all var(--duration-fast) var(--ease-out)}
+.skills-tags .tag .tag-remove{cursor:pointer;font-size:14px;line-height:1;opacity:.6;margin-left:2px}
+.skills-tags .tag .tag-remove:hover{opacity:1}
+
+/* ── Template Selector ── */
+.template-selector{display:flex;gap:var(--space-3);margin-top:var(--space-2)}
+.template-option{flex:1;text-align:center;padding:var(--space-3) var(--space-2);border-radius:var(--radius-md);border:2px solid var(--border-subtle);cursor:pointer;transition:all var(--duration-fast) var(--ease-out);background:var(--bg)}
+.template-option:hover{border-color:var(--accent-subtle)}
+.template-option.active{border-color:var(--accent);background:var(--accent-subtle)}
+.template-option .tpl-icon{font-size:1.5rem;display:block;margin-bottom:4px}
+.template-option .tpl-name{font-size:.8rem;font-weight:600;color:var(--text-primary)}
+.template-option .tpl-desc{font-size:.65rem;color:var(--text-tertiary);margin-top:2px}
+
+/* ── Action Buttons ── */
+.action-bar{display:flex;gap:var(--space-3);margin-top:var(--space-4);flex-wrap:wrap}
+.action-bar .btn{flex:1;min-width:140px;padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:all var(--duration-fast) var(--ease-out);display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.action-bar .btn-primary{background:var(--accent);color:#fff}
+.action-bar .btn-primary:hover{background:var(--accent-text);transform:translateY(-1px)}
+.action-bar .btn-secondary{background:var(--bg-subtle);color:var(--text-primary);border:1px solid var(--border)}
+.action-bar .btn-secondary:hover{background:var(--bg-hover)}
+
+/* ── Live Preview ── */
+.preview-panel{position:sticky;top:var(--space-4)}
+.preview-panel .preview-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3)}
+.preview-panel .preview-header h3{font-size:.9rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px}
+.preview-panel .preview-header .preview-badge{font-size:.65rem;background:var(--bg-subtle);color:var(--text-tertiary);padding:2px 10px;border-radius:var(--radius-full);border:1px solid var(--border-subtle)}
+.preview-frame{background:#fff;border-radius:var(--radius-lg);box-shadow:0 0 0 1px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.08);overflow:hidden;min-height:600px}
+.preview-frame .preview-inner{padding:0;min-height:600px}
+.preview-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;color:var(--text-tertiary);text-align:center;padding:var(--space-8)}
+.preview-empty .empty-icon{font-size:3rem;margin-bottom:var(--space-3);opacity:.5}
+.preview-empty p{font-size:.9rem;max-width:260px;line-height:1.5}
+
+/* ── Resume Preview Styles ── */
+.resume-preview{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1a1a1a;background:#fff;padding:40px 44px 44px;font-size:11px;line-height:1.5;max-width:210mm}
+.resume-preview .rp-name{font-size:20px;font-weight:700;margin:0 0 4px;color:#111}
+.resume-preview .rp-title{font-size:13px;color:#555;margin:0 0 6px;font-weight:500}
+.resume-preview .rp-contact{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:10.5px;color:#555;margin-bottom:14px}
+.resume-preview .rp-contact span{display:inline-flex;align-items:center;gap:4px}
+.resume-preview .rp-contact a{color:#7c3aed;text-decoration:none}
+.resume-preview .rp-contact a:hover{text-decoration:underline}
+.resume-preview .rp-divider{height:1px;background:#e5e5e5;margin:12px 0}
+.resume-preview .rp-section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#333;margin:0 0 8px;padding-bottom:4px;border-bottom:2px solid #7c3aed}
+.resume-preview .rp-summary{font-size:11px;color:#444;line-height:1.6;margin-bottom:14px;white-space:pre-wrap}
+.resume-preview .rp-entry{margin-bottom:12px}
+.resume-preview .rp-entry:last-child{margin-bottom:0}
+.resume-preview .rp-entry-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:2px 8px}
+.resume-preview .rp-entry-title{font-size:12px;font-weight:600;color:#1a1a1a}
+.resume-preview .rp-entry-org{font-size:11px;color:#555;font-weight:500}
+.resume-preview .rp-entry-date{font-size:10.5px;color:#888;white-space:nowrap}
+.resume-preview .rp-entry-location{font-size:10.5px;color:#888}
+.resume-preview .rp-entry-desc{font-size:10.5px;color:#444;margin-top:4px;white-space:pre-wrap;line-height:1.5}
+.resume-preview .rp-skills{display:flex;flex-wrap:wrap;gap:5px}
+.resume-preview .rp-skill{background:#f3f0ff;color:#6d28d9;font-size:10px;font-weight:500;padding:2px 10px;border-radius:999px}
+
+/* ── Template: Classic ── */
+.tpl-classic .resume-preview{font-family:Georgia,'Times New Roman',Times,serif}
+.tpl-classic .rp-section-title{border-bottom:2px solid #7c3aed;font-family:Georgia,serif}
+.tpl-classic .rp-name{font-family:Georgia,serif;font-size:22px}
+
+/* ── Template: Modern ── */
+.tpl-modern .resume-preview{font-family:Inter,-apple-system,sans-serif}
+.tpl-modern .rp-section-title{border-bottom:1px solid #ccc;text-transform:uppercase;letter-spacing:1px}
+.tpl-modern .rp-entry-title{color:#7c3aed}
+.tpl-modern .rp-divider{background:#eee}
+.tpl-modern .rp-name{font-size:22px;letter-spacing:-.3px}
+
+/* ── Template: Minimal ── */
+.tpl-minimal .resume-preview{font-family:Inter,-apple-system,sans-serif;font-size:10.5px}
+.tpl-minimal .rp-section-title{border-bottom:none;text-transform:uppercase;letter-spacing:1.5px;font-size:10px;color:#888;margin-bottom:6px}
+.tpl-minimal .rp-name{font-size:18px;font-weight:600;letter-spacing:-.2px}
+.tpl-minimal .rp-contact{font-size:10px;color:#888}
+.tpl-minimal .rp-divider{height:0;margin:8px 0}
+.tpl-minimal .rp-entry-desc{color:#666}
+.tpl-minimal .rp-skill{background:transparent;border:1px solid #ddd;color:#555}
+
+/* ── Print Styles ── */
+@media print{
+  body *{visibility:hidden}
+  .page-wrap,.page-wrap *{visibility:hidden}
+  .resume-preview,.resume-preview *{visibility:visible}
+  .resume-preview{position:fixed;top:0;left:0;right:0;padding:40px 48px;margin:0;width:100%;max-width:100%;box-shadow:none;border-radius:0;font-size:11px;line-height:1.45}
+  .rp-section-title{font-size:12px}
+  .rp-name{font-size:20px}
+  @page{margin:0;size:letter}
+}
+
+/* ── Responsive tweaks ── */
+@media(max-width:600px){
+  .resume-preview{padding:24px 20px}
+  .action-bar .btn{min-width:120px;font-size:.8rem}
+  .template-selector{flex-direction:column;gap:var(--space-2)}
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/">BMI</a>
+    <a href="/password-generator/">Password</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/percentage-calculator/">Pct/Discount</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/add-subtract-calculator/">Add/Sub</a>
+    <a href="/invoice-generator/">Invoice</a>
+    <a href="/resume-generator/" class="active">Resume</a>
+  </div>
+</div></nav>
+
+<div class="page-content">
+<div class="hero">
+  <h1>👤 <span class="gradient-text">Free Resume Generator</span></h1>
+  <p>Build a professional resume in minutes — print or download as PDF</p>
+</div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+<main class="container">
+
+  <div class="resume-layout">
+
+    <!-- ═══ Input Panel ═══ -->
+    <div class="input-panel">
+
+      <!-- Personal Info -->
+      <div class="card">
+        <h3><span class="section-icon">📋</span>Personal Information</h3>
+        <div class="form-group">
+          <label>Full Name</label>
+          <div class="input-wrap"><input type="text" id="resName" placeholder="Jane Doe" oninput="updateResume()"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email</label>
+            <div class="input-wrap"><input type="email" id="resEmail" placeholder="jane@example.com" oninput="updateResume()"></div>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <div class="input-wrap"><input type="tel" id="resPhone" placeholder="(555) 123-4567" oninput="updateResume()"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <div class="input-wrap"><input type="text" id="resLocation" placeholder="City, State" oninput="updateResume()"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>LinkedIn URL</label>
+            <div class="input-wrap"><input type="url" id="resLinkedin" placeholder="https://linkedin.com/in/janedoe" oninput="updateResume()"></div>
+          </div>
+          <div class="form-group">
+            <label>Portfolio URL</label>
+            <div class="input-wrap"><input type="url" id="resPortfolio" placeholder="https://janedoe.dev" oninput="updateResume()"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professional Summary -->
+      <div class="card">
+        <h3><span class="section-icon">📝</span>Professional Summary</h3>
+        <div class="form-group">
+          <div class="input-wrap"><textarea id="resSummary" rows="3" placeholder="Write a 2-3 sentence professional summary..." oninput="updateResume()"></textarea></div>
+        </div>
+      </div>
+
+      <!-- Work Experience -->
+      <div class="card">
+        <h3><span class="section-icon">💼</span>Work Experience</h3>
+        <div id="workEntries" class="section-entries"></div>
+        <button class="btn btn-secondary" style="width:100%;font-size:.8rem;padding:var(--space-2)" onclick="addWorkEntry()">+ Add Experience</button>
+      </div>
+
+      <!-- Education -->
+      <div class="card">
+        <h3><span class="section-icon">🎓</span>Education</h3>
+        <div id="eduEntries" class="section-entries"></div>
+        <button class="btn btn-secondary" style="width:100%;font-size:.8rem;padding:var(--space-2)" onclick="addEduEntry()">+ Add Education</button>
+      </div>
+
+      <!-- Skills -->
+      <div class="card">
+        <h3><span class="section-icon">🏅</span>Skills</h3>
+        <div class="form-group">
+          <label>Type skills separated by commas</label>
+          <div class="input-wrap"><input type="text" id="resSkills" placeholder="JavaScript, Python, React, Figma, Project Management" oninput="updateSkills(this.value)" onkeydown="skillsKeydown(event)"></div>
+        </div>
+        <div id="skillsTags" class="skills-tags"></div>
+      </div>
+
+      <!-- Template Selector -->
+      <div class="card">
+        <h3><span class="section-icon">🎨</span>Template</h3>
+        <div class="template-selector" id="templateSelector">
+          <div class="template-option active" data-template="classic" onclick="selectTemplate(this,'classic')">
+            <span class="tpl-icon">📜</span>
+            <span class="tpl-name">Classic</span>
+            <span class="tpl-desc">Serif, traditional</span>
+          </div>
+          <div class="template-option" data-template="modern" onclick="selectTemplate(this,'modern')">
+            <span class="tpl-icon">✨</span>
+            <span class="tpl-name">Modern</span>
+            <span class="tpl-desc">Clean, sans-serif</span>
+          </div>
+          <div class="template-option" data-template="minimal" onclick="selectTemplate(this,'minimal')">
+            <span class="tpl-icon">◻</span>
+            <span class="tpl-name">Minimal</span>
+            <span class="tpl-desc">Sleek, minimal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-bar">
+        <button class="btn btn-primary" onclick="printResume()">🖨 Print Resume</button>
+        <button class="btn btn-secondary" onclick="downloadPDF()">⬇ Download PDF</button>
+      </div>
+
+    </div>
+
+    <!-- ═══ Preview Panel ═══ -->
+    <div class="preview-panel">
+      <div class="preview-header">
+        <h3>📄 Live Preview</h3>
+        <span class="preview-badge">Updates in real-time</span>
+      </div>
+      <div class="preview-frame" id="previewFrame">
+        <div class="preview-inner">
+          <div class="preview-empty" id="previewEmpty">
+            <div class="empty-icon">👤</div>
+            <p>Enter your details on the left to see your resume preview here</p>
+          </div>
+          <div class="resume-preview" id="resumePreview" style="display:none"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+  <!-- How To -->
+  <div class="section">
+    <h2>How to Use</h2>
+    <ol>
+      <li><strong>Fill in your details</strong> — Enter your personal information, professional summary, work experience, education, and skills in the input panels on the left.</li>
+      <li><strong>Choose a template</strong> — Select from Classic (serif-style, traditional), Modern (clean sans-serif), or Minimal (sleek, lots of whitespace). The preview updates instantly.</li>
+      <li><strong>Add skills as tags</strong> — Type skills separated by commas and they auto-convert into pill badges. Click the ✕ on any tag to remove it.</li>
+      <li><strong>Add multiple entries</strong> — Use the + Add Experience and + Add Education buttons to add multiple work and education entries. Remove any entry with the ✕ button.</li>
+      <li><strong>Print or download</strong> — Click <strong>Print Resume</strong> to print directly, or <strong>Download PDF</strong> to open the print dialog where you can select Save as PDF as your destination.</li>
+    </ol>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <h2>FAQ</h2>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is this resume ATS-compatible?</div><div class="faq-answer"><p>Yes! All three templates (Classic, Modern, Minimal) use a clean, single-column layout that's optimized for Applicant Tracking Systems. To maximize ATS compatibility, stick to standard section headings like "Work Experience" and "Education", avoid tables, and keep formatting simple.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the difference between the templates?</div><div class="faq-answer"><p><strong>Classic:</strong> Uses Georgia serif font with traditional bordered sections — great for conservative industries like finance and law.<br><strong>Modern:</strong> Clean Inter sans-serif with accent-colored job titles and subtle separators — perfect for tech and creative roles.<br><strong>Minimal:</strong> Sleek no-frills layout with maximum whitespace and thin borders — ideal for design and startup positions.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I download my resume as a PDF?</div><div class="faq-answer"><p>Yes. Click the <strong>Download PDF</strong> button to open your browser's print dialog, then select <strong>Save as PDF</strong> as the destination. Your resume will render in a clean print layout with no UI elements. Some browsers also allow you to save directly as PDF from the print dialog.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is my data saved or shared?</div><div class="faq-answer"><p>Your privacy is important. All data stays entirely in your browser — nothing is sent to any server. The resume generator processes everything client-side using JavaScript. You can refresh the page and your data will be lost (it's not stored), so be sure to print or download your resume before leaving.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What file formats are supported?</div><div class="faq-answer"><p>The generator produces a live HTML preview that can be printed or saved as PDF. For other formats like DOCX or plain text, we recommend copying the content from the preview and pasting it into Word or Google Docs for further editing.</p></div></div>
+  </div>
+</main>
+</div>
+
+<div class="section">
+  <h2>🔗 Related Tools</h2>
+  <div class="related-links">
+    <a href="/invoice-generator/">Invoice Generator</a><a href="/qr-code-generator/">QR Code Generator</a><a href="/password-generator/">Password Generator</a>
+  </div>
+</div>
+
+<!-- ═══ Feedback Form ═══ -->
+<section class="section-feedback">
+  <h2>💬 Feedback</h2>
+  <p>Help us improve — report bugs, request tools, or share ideas</p>
+  <form class="feedback-form" onsubmit="submitFeedback(event,this)">
+    <div class="feedback-row">
+      <div class="form-group">
+        <label>Name (optional)</label>
+        <input name="name" type="text" placeholder="Your name" autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label>Email (optional)</label>
+        <input name="email" type="email" placeholder="your@email.com" autocomplete="email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Message *</label>
+      <textarea name="message" required placeholder="What do you think?"></textarea>
+    </div>
+    <button class="feedback-submit" type="submit">Send Feedback</button>
+    <div class="feedback-status"></div>
+  </form>
+</section>
+
+<footer><div class="container"><div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div><p>&copy; 2026 Free Online Tools</p></div></footer>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// State
+// ═══════════════════════════════════════════
+let workCount = 0;
+let eduCount = 0;
+let skillList = [];
+let currentTemplate = 'classic';
+let workEntries = [];
+let eduEntries = [];
+
+// ═══════════════════════════════════════════
+// Work Experience
+// ═══════════════════════════════════════════
+function addWorkEntry(data){
+  const i = workCount++;
+  const html = `
+    <div class="entry-card" data-idx="${i}">
+      <div class="entry-header">
+        <span>Experience #${workEntries.length + 1}</span>
+        <button class="remove-entry" onclick="removeWorkEntry(this)">✕ Remove</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Job Title</label>
+          <div class="input-wrap"><input type="text" class="we-title" placeholder="Software Engineer" oninput="updateResume()"></div>
+        </div>
+        <div class="form-group">
+          <label>Company</label>
+          <div class="input-wrap"><input type="text" class="we-company" placeholder="Acme Corp" oninput="updateResume()"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <div class="input-wrap"><input type="text" class="we-location" placeholder="San Francisco, CA" oninput="updateResume()"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Start Date</label>
+          <div class="input-wrap"><input type="text" class="we-start" placeholder="Jan 2020" oninput="updateResume()"></div>
+        </div>
+        <div class="form-group">
+          <label>End Date</label>
+          <div class="input-wrap" style="display:flex;align-items:center;gap:6px">
+            <input type="text" class="we-end" placeholder="Present" oninput="updateResume()" style="flex:1">
+            <label style="font-size:.7rem;white-space:nowrap;display:flex;align-items:center;gap:3px;font-weight:400;cursor:pointer">
+              <input type="checkbox" class="we-present" onchange="togglePresent(this)" style="width:auto"> Present
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description / Achievements</label>
+        <div class="input-wrap"><textarea class="we-desc" rows="3" placeholder="• Led a team of 5 engineers...&#10;• Improved performance by 40%..." oninput="updateResume()"></textarea></div>
+      </div>
+    </div>
+  `;
+  const container = document.getElementById('workEntries');
+  container.insertAdjacentHTML('beforeend', html);
+  if(data) prefillWorkEntry(container.lastElementChild, data);
+  updateResume();
+}
+
+function prefillWorkEntry(el, d){
+  if(d.title) el.querySelector('.we-title').value = d.title;
+  if(d.company) el.querySelector('.we-company').value = d.company;
+  if(d.location) el.querySelector('.we-location').value = d.location;
+  if(d.start) el.querySelector('.we-start').value = d.start;
+  if(d.end) el.querySelector('.we-end').value = d.end;
+  if(d.present) { el.querySelector('.we-present').checked = true; el.querySelector('.we-end').disabled = true; }
+  if(d.desc) el.querySelector('.we-desc').value = d.desc;
+}
+
+function removeWorkEntry(btn){
+  btn.closest('.entry-card').remove();
+  updateResume();
+}
+
+function togglePresent(cb){
+  const endInput = cb.closest('.input-wrap').querySelector('.we-end');
+  endInput.disabled = cb.checked;
+  if(cb.checked) endInput.value = 'Present';
+  else endInput.value = '';
+  updateResume();
+}
+
+// ═══════════════════════════════════════════
+// Education
+// ═══════════════════════════════════════════
+function addEduEntry(data){
+  const i = eduCount++;
+  const html = `
+    <div class="entry-card" data-idx="${i}">
+      <div class="entry-header">
+        <span>Education #${eduEntries.length + 1}</span>
+        <button class="remove-entry" onclick="removeEduEntry(this)">✕ Remove</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Degree</label>
+          <div class="input-wrap"><input type="text" class="ed-degree" placeholder="B.S. Computer Science" oninput="updateResume()"></div>
+        </div>
+        <div class="form-group">
+          <label>School</label>
+          <div class="input-wrap"><input type="text" class="ed-school" placeholder="University of California" oninput="updateResume()"></div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Location</label>
+          <div class="input-wrap"><input type="text" class="ed-location" placeholder="Berkeley, CA" oninput="updateResume()"></div>
+        </div>
+        <div class="form-group">
+          <label>Graduation Year</label>
+          <div class="input-wrap"><input type="text" class="ed-year" placeholder="2024" oninput="updateResume()"></div>
+        </div>
+      </div>
+    </div>
+  `;
+  const container = document.getElementById('eduEntries');
+  container.insertAdjacentHTML('beforeend', html);
+  if(data) prefillEduEntry(container.lastElementChild, data);
+  updateResume();
+}
+
+function prefillEduEntry(el, d){
+  if(d.degree) el.querySelector('.ed-degree').value = d.degree;
+  if(d.school) el.querySelector('.ed-school').value = d.school;
+  if(d.location) el.querySelector('.ed-location').value = d.location;
+  if(d.year) el.querySelector('.ed-year').value = d.year;
+}
+
+function removeEduEntry(btn){
+  btn.closest('.entry-card').remove();
+  updateResume();
+}
+
+// ═══════════════════════════════════════════
+// Skills
+// ═══════════════════════════════════════════
+function updateSkills(val){
+  const raw = val.split(',').map(s => s.trim()).filter(s => s.length > 0);
+  skillList = raw;
+  renderSkillTags();
+  updateResume();
+}
+
+function skillsKeydown(e){
+  if(e.key === 'Enter'){
+    e.preventDefault();
+    const input = e.target;
+    const val = input.value.trim();
+    if(val && !skillList.includes(val)){
+      skillList.push(val);
+      input.value = skillList.join(', ');
+      renderSkillTags();
+      updateResume();
+    }
+  }
+  if(e.key === 'Backspace' && e.target.value === '' && skillList.length > 0){
+    skillList.pop();
+    renderSkillTags();
+    updateResume();
+  }
+}
+
+function removeSkill(index){
+  skillList.splice(index, 1);
+  document.getElementById('resSkills').value = skillList.join(', ');
+  renderSkillTags();
+  updateResume();
+}
+
+function renderSkillTags(){
+  const container = document.getElementById('skillsTags');
+  if(skillList.length === 0){
+    container.innerHTML = '';
+    return;
+  }
+  container.innerHTML = skillList.map((s, i) =>
+    `<span class="tag">${escapeHtml(s)}<span class="tag-remove" onclick="removeSkill(${i})">✕</span></span>`
+  ).join('');
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// ═══════════════════════════════════════════
+// Template Selection
+// ═══════════════════════════════════════════
+function selectTemplate(el, name){
+  document.querySelectorAll('.template-option').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  currentTemplate = name;
+  updateResume();
+}
+
+// ═══════════════════════════════════════════
+// Resume Preview
+// ═══════════════════════════════════════════
+function updateResume(){
+  const name = document.getElementById('resName').value.trim();
+  const email = document.getElementById('resEmail').value.trim();
+  const phone = document.getElementById('resPhone').value.trim();
+  const location = document.getElementById('resLocation').value.trim();
+  const linkedin = document.getElementById('resLinkedin').value.trim();
+  const portfolio = document.getElementById('resPortfolio').value.trim();
+  const summary = document.getElementById('resSummary').value.trim();
+
+  const previewContainer = document.getElementById('resumePreview');
+  const emptyState = document.getElementById('previewEmpty');
+
+  if(!name && !email && !phone && !summary && skillList.length === 0 && !hasWorkData() && !hasEduData()){
+    emptyState.style.display = 'flex';
+    previewContainer.style.display = 'none';
+    return;
+  }
+
+  emptyState.style.display = 'none';
+  previewContainer.style.display = 'block';
+
+  // Build contact
+  let contactHtml = '';
+  if(email) contactHtml += `<span>✉ ${escapeHtml(email)}</span>`;
+  if(phone) contactHtml += `<span>📞 ${escapeHtml(phone)}</span>`;
+  if(location) contactHtml += `<span>📍 ${escapeHtml(location)}</span>`;
+  if(linkedin) contactHtml += `<span><a href="${escapeHtml(linkedin)}" target="_blank">🔗 LinkedIn</a></span>`;
+  if(portfolio) contactHtml += `<span><a href="${escapeHtml(portfolio)}" target="_blank">🌐 Portfolio</a></span>`;
+
+  // Work experience
+  let workHtml = '';
+  document.querySelectorAll('#workEntries .entry-card').forEach(card => {
+    const title = card.querySelector('.we-title').value.trim();
+    const company = card.querySelector('.we-company').value.trim();
+    const loc = card.querySelector('.we-location').value.trim();
+    const start = card.querySelector('.we-start').value.trim();
+    const end = card.querySelector('.we-end').value.trim();
+    const desc = card.querySelector('.we-desc').value.trim();
+    if(!title && !company) return;
+    const dateStr = [start, end].filter(Boolean).join(' – ');
+    workHtml += `<div class="rp-entry">
+      <div class="rp-entry-header">
+        <span><span class="rp-entry-title">${escapeHtml(title)}</span>${company ? ' — <span class="rp-entry-org">'+escapeHtml(company)+'</span>' : ''}</span>
+        <span>${dateStr ? '<span class="rp-entry-date">'+escapeHtml(dateStr)+'</span>' : ''}</span>
+      </div>
+      ${loc ? '<div class="rp-entry-location">'+escapeHtml(loc)+'</div>' : ''}
+      ${desc ? '<div class="rp-entry-desc">'+escapeHtml(desc)+'</div>' : ''}
+    </div>`;
+  });
+
+  // Education
+  let eduHtml = '';
+  document.querySelectorAll('#eduEntries .entry-card').forEach(card => {
+    const degree = card.querySelector('.ed-degree').value.trim();
+    const school = card.querySelector('.ed-school').value.trim();
+    const loc = card.querySelector('.ed-location').value.trim();
+    const year = card.querySelector('.ed-year').value.trim();
+    if(!degree && !school) return;
+    const parts = [];
+    if(degree) parts.push(`<span class="rp-entry-title">${escapeHtml(degree)}</span>`);
+    if(school) parts.push(`<span class="rp-entry-org">${escapeHtml(school)}</span>`);
+    eduHtml += `<div class="rp-entry">
+      <div class="rp-entry-header">
+        <span>${parts.join(' — ')}</span>
+        <span>${year ? '<span class="rp-entry-date">'+escapeHtml(year)+'</span>' : ''}</span>
+      </div>
+      ${loc ? '<div class="rp-entry-location">'+escapeHtml(loc)+'</div>' : ''}
+    </div>`;
+  });
+
+  // Skills
+  let skillsHtml = '';
+  if(skillList.length > 0){
+    skillsHtml = skillList.map(s => `<span class="rp-skill">${escapeHtml(s)}</span>`).join('');
+  }
+
+  // Assemble
+  let html = `<div class="rp-name">${escapeHtml(name || 'Your Name')}</div>`;
+  if(titleHint()) html += `<div class="rp-title">${escapeHtml(titleHint())}</div>`;
+  if(contactHtml) html += `<div class="rp-contact">${contactHtml}</div>`;
+  html += `<div class="rp-divider"></div>`;
+  if(summary) html += `<div class="rp-section-title">Professional Summary</div><div class="rp-summary">${escapeHtml(summary)}</div>`;
+  if(workHtml) html += `<div class="rp-section-title">Work Experience</div>${workHtml}${workHtml ? '<div style="margin-bottom:10px"></div>' : ''}`;
+  if(eduHtml) html += `<div class="rp-section-title">Education</div>${eduHtml}${eduHtml ? '<div style="margin-bottom:10px"></div>' : ''}`;
+  if(skillsHtml) html += `<div class="rp-section-title">Skills</div><div class="rp-skills">${skillsHtml}</div>`;
+
+  previewContainer.innerHTML = html;
+  previewContainer.parentElement.className = 'tpl-' + currentTemplate;
+}
+
+function titleHint(){
+  // Try to infer a title from the first work entry
+  const first = document.querySelector('#workEntries .entry-card');
+  if(first){
+    const title = first.querySelector('.we-title').value.trim();
+    if(title) return title;
+  }
+  return '';
+}
+
+function hasWorkData(){
+  let found = false;
+  document.querySelectorAll('#workEntries .entry-card').forEach(c => {
+    if(c.querySelector('.we-title').value.trim() || c.querySelector('.we-company').value.trim()) found = true;
+  });
+  return found;
+}
+
+function hasEduData(){
+  let found = false;
+  document.querySelectorAll('#eduEntries .entry-card').forEach(c => {
+    if(c.querySelector('.ed-degree').value.trim() || c.querySelector('.ed-school').value.trim()) found = true;
+  });
+  return found;
+}
+
+// ═══════════════════════════════════════════
+// Print & PDF
+// ═══════════════════════════════════════════
+function printResume(){
+  window.print();
+}
+
+function downloadPDF(){
+  window.print();
+}
+
+// ═══════════════════════════════════════════
+// FAQ Toggle
+// ═══════════════════════════════════════════
+function toggleFAQ(e){
+  e.classList.toggle('open');
+  const answer = e.nextElementSibling;
+  if(answer) answer.classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════
+// Feedback
+// ═══════════════════════════════════════════
+async function submitFeedback(e, f){
+  e.preventDefault();
+  const st = f.querySelector('.feedback-status');
+  const btn = f.querySelector('.feedback-submit');
+  btn.disabled = true;
+  st.textContent = 'Sending...';
+  st.className = 'feedback-status';
+  const d = {name: f.name.value, email: f.email.value, message: f.message.value, page: location.pathname};
+  try{
+    const r = await fetch('https://formsubmit.co/ajax/cs@anycalculator.site', {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(d)});
+    const j = await r.json();
+    if(j.success){ st.textContent = '✅ Thanks for your feedback!'; st.className = 'feedback-status success'; f.reset(); }
+    else { st.textContent = '❌ ' + j.error; st.className = 'feedback-status error'; }
+  }catch(e){ st.textContent = '❌ Network error. Please try again.'; st.className = 'feedback-status error'; }
+  btn.disabled = false;
+}
+
+// ═══════════════════════════════════════════
+// Init
+// ═══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function(){
+  // Add one default work entry
+  addWorkEntry({title:'', company:'', location:'', start:'', end:'', present:false, desc:''});
+  // Add one default education entry
+  addEduEntry({degree:'', school:'', location:'', year:''});
+  updateResume();
+});
+</script>
+</body>
+</html>

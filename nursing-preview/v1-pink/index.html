@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 護理師國考藥物計算 — 可愛粉嫩版</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',-apple-system,sans-serif;background:#fff5f7;color:#4a3f4a;line-height:1.7}
+header{background:linear-gradient(135deg,#f8a5c2,#e84393,#a29bfe);padding:48px 20px 56px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'🌸 ✿ ♡ ✿ 🌸';position:absolute;top:12px;left:50%;transform:translateX(-50%);font-size:.8rem;opacity:.3;letter-spacing:8px;white-space:nowrap}
+header::after{content:'🌸 ✿ ♡ ✿ 🌸';position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:.8rem;opacity:.3;letter-spacing:8px;white-space:nowrap}
+header h1{font-size:1.9rem;color:#fff;text-shadow:0 2px 12px rgba(232,67,147,.3);margin-bottom:6px;letter-spacing:2px}
+header p{font-size:1rem;color:rgba(255,255,255,.9);max-width:500px;margin:0 auto}
+header .badge{display:inline-block;background:rgba(255,255,255,.25);backdrop-filter:blur(4px);color:#fff;padding:4px 18px;border-radius:30px;font-size:.7rem;margin-top:12px;border:1px solid rgba(255,255,255,.2)}
+.container{max-width:800px;margin:0 auto;padding:20px}
+.stat-row{display:flex;gap:10px;margin:-36px auto 20px;max-width:800px;padding:0 20px}
+.stat-card{flex:1;background:#fff;border-radius:18px;padding:14px 10px;text-align:center;box-shadow:0 4px 20px rgba(232,67,147,.1);border:1px solid #fce4ec;min-width:0}
+.stat-card .num{font-size:1.3rem;font-weight:700;color:#e84393}
+.stat-card .label{font-size:.7rem;color:#b07ca6;margin-top:2px}
+.card{background:#fff;border-radius:20px;padding:24px;box-shadow:0 4px 24px rgba(232,67,147,.08);border:1px solid #fce4ec;margin-bottom:16px}
+.card h3{font-size:1.1rem;margin-bottom:14px;color:#e84393;display:flex;align-items:center;gap:8px}
+.formula-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.formula-card{padding:14px;background:linear-gradient(135deg,#fff5f7,#fce4ec);border:1px solid #f8b4c8;border-radius:14px;text-align:center}
+.formula-card .name{font-size:.7rem;color:#b07ca6;margin-bottom:3px}
+.formula-card .eq{font-size:.85rem;font-weight:600;color:#6c3483}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:10px 20px;border-radius:30px;font-size:.9rem;font-weight:600;cursor:pointer;border:none;transition:all .25s;text-decoration:none}
+.btn-outline{background:transparent;color:#e84393;border:2px solid #f8a5c2}
+.btn-outline:hover{background:#fce4ec;transform:translateY(-2px)}
+.btn-pink{background:linear-gradient(135deg,#f8a5c2,#e84393);color:#fff;box-shadow:0 4px 16px rgba(232,67,147,.25)}
+.btn-pink:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(232,67,147,.35)}
+.result-box{margin-top:12px;padding:14px;border-radius:14px;display:none;animation:fadeIn .3s}
+.result-box.show{display:block}
+.result-box.success{background:#f0fff4;border:1px solid #b7eb8f;color:#2d6a4f}
+.result-box.warning{background:#fffbe6;border:1px solid #ffe58f;color:#ad6800}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.hero-cta{background:linear-gradient(135deg,#f8a5c2,#a29bfe);border-radius:20px;padding:32px;text-align:center;margin:16px 0;color:#fff}
+.hero-cta h2{font-size:1.2rem;margin-bottom:8px}
+.hero-cta p{font-size:.85rem;opacity:.9;margin-bottom:16px}
+.hero-cta .btn-cta{display:inline-block;background:#fff;color:#e84393;padding:12px 32px;border-radius:30px;font-size:1rem;font-weight:700;text-decoration:none;transition:transform .2s}
+.hero-cta .btn-cta:hover{transform:scale(1.06)}
+.hero-cta.dark{background:linear-gradient(135deg,#6c3483,#a29bfe)}
+.hero-cta.dark .btn-cta{color:#6c3483}
+.content-section{background:#fff;border-radius:20px;padding:24px;margin-top:12px;box-shadow:0 2px 16px rgba(232,67,147,.06)}
+.content-section h2{font-size:1.2rem;color:#6c3483;margin-bottom:10px;border-left:4px solid #e84393;padding-left:12px}
+.content-section h3{font-size:1rem;color:#e84393;margin:14px 0 6px}
+.content-section p,.content-section li{font-size:.88rem;color:#5a4f5a;margin-bottom:6px;line-height:1.7}
+.content-section ul{padding-left:20px}
+.faq-item{border-bottom:1px solid #fce4ec;padding:12px 0}
+.faq-item:last-child{border:none}
+.faq-q{font-weight:600;color:#6c3483;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
+.faq-a{margin-top:6px;font-size:.85rem;color:#7a6f7a;display:none}
+.faq-a.open{display:block}
+footer{background:linear-gradient(135deg,#6c3483,#a29bfe);color:rgba(255,255,255,.8);text-align:center;padding:20px;margin-top:32px;font-size:.78rem}
+.tool-links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+@media(max-width:480px){header h1{font-size:1.4rem}.stat-row{flex-wrap:wrap}.stat-card{min-width:80px}.formula-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌸 護理師國考 · 藥物計算</h1>
+  <p>考古題型整理 · 必考公式 · 免費練習測驗</p>
+  <div class="badge">✨ 關鍵字：護理師國考 藥物計算 · 國考藥物劑量</div>
+</header>
+
+<div class="stat-row">
+  <div class="stat-card"><div class="num">3-5 題</div><div class="label">✨ 每年出題</div></div>
+  <div class="stat-card"><div class="num">85%</div><div class="label">🌸 基礎題佔比</div></div>
+  <div class="stat-card"><div class="num">5 科</div><div class="label">💝 跨科出題</div></div>
+  <div class="stat-card"><div class="num">52%</div><div class="label">😢 藥理通過率</div></div>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h3>📐 四大必考公式</h3>
+    <div class="formula-grid">
+      <div class="formula-card"><div class="name">💧 點滴滴速</div><div class="eq">(總量×係數)÷分鐘</div></div>
+      <div class="formula-card"><div class="name">💊 給藥劑量</div><div class="eq">處方劑量 ÷ 濃度</div></div>
+      <div class="formula-card"><div class="name">🧪 稀釋公式</div><div class="eq">C₁V₁ = C₂V₂</div></div>
+      <div class="formula-card"><div class="name">🛡️ 安全範圍</div><div class="eq">體重 × mg/kg</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>✏️ 免費練習</h3>
+    <p style="font-size:.85rem;color:#7a6f7a;margin-bottom:10px;">醫師開立 Cephalexin 250 mg PO q6h，藥品標示 125 mg/5 mL。每次應給藥多少 mL？</p>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <button class="btn btn-outline" onclick="checkQ(1)">A. 5 mL</button>
+      <button class="btn btn-outline" onclick="checkQ(2)">B. 10 mL</button>
+      <button class="btn btn-outline" onclick="checkQ(3)">C. 15 mL</button>
+      <button class="btn btn-outline" onclick="checkQ(4)">D. 20 mL</button>
+    </div>
+    <div class="result-box" id="qz"></div>
+  </div>
+
+  <div class="hero-cta">
+    <h2>🎯 想考過護理師國考？</h2>
+    <p>免費加入 LINE Bot，每天 1 題藥物計算 + AI 解析診斷弱點<br>超過 1,000 題考古題庫 ✿ SM-2 間隔記憶系統</p>
+    <a href="#" class="btn-cta">💝 加入 LINE 免費開始</a>
+  </div>
+
+  <div class="content-section">
+    <h2>📖 國考藥物計算攻略</h2>
+    <h3>📊 出題分佈</h3>
+    <ul>
+      <li><strong>基本護理學</strong> — 滴速計算、給藥三查五對</li>
+      <li><strong>內外科護理學</strong> — 藥物劑量、IV 輸液</li>
+      <li><strong>產兒科護理學</strong> — 兒科 mg/kg 計算</li>
+      <li><strong>藥理學</strong> — 藥物動力學、治療濃度</li>
+    </ul>
+    <h3>😰 考生最常犯的錯</h3>
+    <ul>
+      <li>⏰ 時間單位未統一（小時→分鐘）</li>
+      <li>🧪 濃度單位看錯（mg/mL vs mg/5mL）</li>
+      <li>⚖️ 兒科劑量忘記乘體重</li>
+      <li>💧 滴數係數搞混（一般 vs 微滴）</li>
+    </ul>
+  </div>
+
+  <div class="hero-cta dark">
+    <h2>🤖 AI 弱點診斷</h2>
+    <p>做完練習 → AI 自動分析錯題類型 → 個人化讀書計畫</p>
+    <a href="#" class="btn-cta">🌸 免費診斷開始</a>
+  </div>
+
+  <div class="content-section">
+    <h2>❓ 常見問題</h2>
+    <div class="faq-item"><div class="faq-q" onclick="tog('f1')">藥物計算會很難嗎？ <span>▼</span></div><div class="faq-a" id="f1">不會～藥物計算屬於「背公式 + 練習」就能掌握的題型，每年 3-5 題是基本分！</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tog('f2')">國考能用計算機嗎？ <span>▼</span></div><div class="faq-a" id="f2">CBT 電腦考試內建計算機，但建議平時練好心算，考試才不會手忙腳亂 ✨</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tog('f3')">要花多少時間準備？ <span>▼</span></div><div class="faq-a" id="f3">每天 10 分鐘、連續 2 週就能掌握所有題型。加入 LINE Bot 每天自動推播一題，不知不覺就練完了 ♡</div></div>
+  </div>
+
+  <div class="tool-links">
+    <a href="#" class="btn btn-outline">💧 點滴滴速計算</a>
+    <a href="#" class="btn btn-outline">💊 藥物劑量計算</a>
+    <a href="#" class="btn btn-outline">🧪 藥物稀釋計算</a>
+  </div>
+
+</div>
+
+<footer>© 2026 護理藥物計算工具 ♡ 資料來源：考選部歷年試題</footer>
+
+<script>
+function checkQ(a){const r=document.getElementById('qz');if(a===2){r.className='result-box show success';r.innerHTML='✅ 正確！ (250÷125)×5 = 10 mL'}else{r.className='result-box show warning';r.innerHTML='❌ 再想想～ 公式：應給體積 = 處方劑量 ÷ 濃度 × 單位體積'}}
+function tog(id){const e=document.getElementById(id);e.classList.toggle('open')}
+</script>
+</body>
+</html>

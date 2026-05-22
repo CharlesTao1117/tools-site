@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>點滴滴速計算 — IV 輸液每分鐘滴速 gtt/min 免費線上工具</title>
+<meta name="description" content="免費線上點滴滴速計算工具。輸入輸液總量、時間、滴數係數，自動算出 gtt/min。支援微滴(60)與一般輸液套(15-20)，附計算公式與臨床範例。">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;background:#f4f6fb;color:#1a1a2e;line-height:1.6}
+header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:40px 20px;text-align:center}
+header h1{font-size:1.8rem;margin-bottom:8px;letter-spacing:1px}
+header p{font-size:1rem;opacity:.85;max-width:600px;margin:0 auto}
+header .badge{display:inline-block;background:#e94560;color:#fff;padding:4px 14px;border-radius:20px;font-size:.75rem;margin-top:12px;font-weight:600}
+.container{max-width:800px;margin:0 auto;padding:20px}
+.card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #e8ecf4;margin-bottom:20px}
+.card h3{font-size:1.1rem;margin-bottom:16px;color:#0f3460;display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:#444;margin-bottom:4px}
+.form-group input,.form-group select{width:100%;padding:10px 14px;border:1.5px solid #dde1ec;border-radius:8px;font-size:.95rem;background:#fafbfd;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:#0f3460;background:#fff}
+.input-row{display:flex;gap:12px}
+.input-row .form-group{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 24px;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.btn-primary{background:#0f3460;color:#fff;width:100%}
+.btn-primary:hover{background:#1a1a2e;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:#0f3460;border:1.5px solid #0f3460}
+.btn-outline:hover{background:#f0f4ff}
+.result-box{margin-top:16px;padding:16px;border-radius:10px;display:none;animation:fadeIn .3s}
+.result-box.show{display:block}
+.result-box.success{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+.result-box .big-number{font-size:2rem;font-weight:700;margin:8px 0}
+.result-box .formula{font-size:.8rem;color:#666;margin-top:4px;font-family:monospace}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.formula-box{padding:16px;background:#f0f4ff;border-radius:8px;text-align:center;font-size:1.1rem;margin-bottom:12px}
+.content-section{background:#fff;border-radius:14px;padding:28px;margin-top:20px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.content-section h2{font-size:1.3rem;color:#0f3460;margin-bottom:12px}
+.content-section p,.content-section li{font-size:.9rem;color:#444;margin-bottom:8px;line-height:1.7}
+.content-section ul{padding-left:20px}
+.faq-item{border-bottom:1px solid #e8ecf4;padding:14px 0}
+.faq-item:last-child{border:none}
+.faq-q{font-weight:600;color:#0f3460;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-a{margin-top:8px;font-size:.88rem;color:#555;display:none}
+.faq-a.open{display:block}
+footer{background:#1a1a2e;color:#fff;text-align:center;padding:24px 20px;margin-top:40px;font-size:.82rem;opacity:.8}
+@media(max-width:480px){header h1{font-size:1.4rem}.input-row{flex-direction:column;gap:0}}
+.cta{border:2px solid #e94560;padding:24px;text-align:center;border-radius:14px;margin:24px 0}
+.cta h3{color:#e94560}
+.cta .btn-cta{display:inline-block;background:linear-gradient(135deg,#e94560,#ff6b6b);color:#fff;padding:12px 32px;border-radius:30px;font-size:1rem;font-weight:700;text-decoration:none;margin-top:12px}
+.cta .btn-cta:hover{transform:scale(1.05)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💧 點滴滴速計算</h1>
+  <p>計算 IV 輸液每分鐘滴速 (gtt/min) · 附公式與臨床範例</p>
+  <div class="badge">關鍵字：點滴滴速計算 · 輸液速度計算 · gtt/min</div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h3>💧 點滴滴速計算機</h3>
+    <div class="input-row">
+      <div class="form-group">
+        <label>輸液總量 (mL)</label>
+        <input type="number" id="vol" placeholder="e.g. 500" min="0" step="1">
+      </div>
+      <div class="form-group">
+        <label>輸液時間</label>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="time" placeholder="e.g. 8" min="0" step="0.5" style="flex:1;">
+          <select id="timeUnit" style="width:80px;flex:0 0 80px;">
+            <option value="h">小時</option>
+            <option value="min">分鐘</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>滴數係數 (gtt/mL)</label>
+        <select id="factor">
+          <option value="10">10 gtt/mL (一般)</option>
+          <option value="15" selected>15 gtt/mL (一般)</option>
+          <option value="20">20 gtt/mL (一般)</option>
+          <option value="60">60 gtt/mL (微滴)</option>
+        </select>
+        <div style="font-size:.7rem;color:#888;margin-top:2px;">微滴 60 · 一般輸液套 15-20</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="calcDrip()">🔄 計算滴速</button>
+    <div class="result-box" id="result"></div>
+  </div>
+
+  <div class="card">
+    <h3>📝 計算公式</h3>
+    <div class="formula-box">
+      <strong>滴速 (gtt/min) = (總量 mL × 滴數係數 gtt/mL) ÷ 時間(分鐘)</strong>
+    </div>
+    <p style="font-size:.85rem;color:#555;">舉例：NS 500 mL 使用 15 gtt/mL 輸液套，8 小時滴完 → (500 × 15) ÷ (8 × 60) = 15.6 gtt/min</p>
+  </div>
+
+  <div class="cta">
+    <h3>📋 國考藥物計算總是算錯？</h3>
+    <p>加入 LINE 免費測你的藥物計算實力，AI 診斷弱點 + 每日一題推播</p>
+    <a href="#" class="btn-cta">加入 LINE 免費測驗 ➜</a>
+  </div>
+
+  <div class="content-section">
+    <h2>❓ 點滴滴速常見問題</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f1')">gtt/min 和 mL/hr 怎麼換算？ <span>▼</span></div>
+      <div class="faq-a" id="f1">mL/hr = (gtt/min × 60) ÷ 滴數係數。反過來 gtt/min = (mL/hr × 滴數係數) ÷ 60。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f2')">什麼時候用微滴 (60 gtt/mL)？ <span>▼</span></div>
+      <div class="faq-a" id="f2">微滴適合精準控制輸液量的情況：兒科病患、ICU 重症患者、需嚴格控制輸液速度的藥物。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f3')">點滴滴速的國考題型是什麼？ <span>▼</span></div>
+      <div class="faq-a" id="f3">常見題型：給總量、輸液套係數、時間，問 gtt/min。少數考反推時間或總量。每年 2-3 題，是基本護理學的必拿分數。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:28px 0;">
+    <p style="font-size:.9rem;color:#888;">其他工具：</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="02-drug-dosage.html" class="btn btn-outline">💊 藥物劑量計算</a>
+      <a href="03-dilution.html" class="btn btn-outline">🧪 藥物稀釋計算</a>
+      <a href="04-nursing-exam-drug-calc.html" class="btn btn-outline">📋 國考藥物計算</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 護理藥物計算工具 | 本工具僅供學習參考，臨床給藥請依醫囑及藥品仿單為準</p>
+</footer>
+
+<script>
+function calcDrip(){
+  const vol=parseFloat(document.getElementById('vol').value);
+  const time=parseFloat(document.getElementById('time').value);
+  const unit=document.getElementById('timeUnit').value;
+  const factor=parseInt(document.getElementById('factor').value);
+  const r=document.getElementById('result');
+  if(!vol||!time||vol<=0||time<=0){
+    r.className='result-box show success';r.style.borderColor='#ef9a9a';
+    r.innerHTML='<strong>⚠️ 請輸入有效數值</strong>';return;
+  }
+  const min=unit==='h'?time*60:time;
+  const gtt=vol*factor/min;
+  const rounded=Math.round(gtt*10)/10;
+  r.className='result-box show success';
+  r.innerHTML=`
+    <strong>每分鐘滴速</strong>
+    <div class="big-number">${rounded} gtt/min</div>
+    <div class="formula">(${vol} × ${factor}) ÷ ${min} = ${rounded}</div>
+    <div style="font-size:.8rem;margin-top:6px;">約 ${Math.round(gtt)} 滴/分鐘 · ${(gtt/factor*60).toFixed(1)} mL/hr</div>
+  `;
+}
+function toggle(id){
+  const el=document.getElementById(id);
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>

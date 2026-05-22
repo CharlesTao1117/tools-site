@@ -66,4 +66,16 @@
     <changefreq>yearly</changefreq>
     <lastmod>2026-05-20</lastmod>
   </url>
+  <url>
+    <loc>https://anycalculator.site/invoice-generator/</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-05-22</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/resume-generator/</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-05-22</lastmod>
+  </url>
 </urlset>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>藥物稀釋計算 — 原液稀釋倍數計算機 C₁V₁=C₂V₂ 免費線上工具</title>
+<meta name="description" content="免費線上藥物稀釋計算工具。C₁V₁=C₂V₂ 公式，輸入原濃度、目標濃度、最終體積，自動計算需取原液與稀釋液量。適用抗生素稀釋給藥準備。">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;background:#f4f6fb;color:#1a1a2e;line-height:1.6}
+header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:40px 20px;text-align:center}
+header h1{font-size:1.8rem;margin-bottom:8px;letter-spacing:1px}
+header p{font-size:1rem;opacity:.85;max-width:600px;margin:0 auto}
+header .badge{display:inline-block;background:#e94560;color:#fff;padding:4px 14px;border-radius:20px;font-size:.75rem;margin-top:12px;font-weight:600}
+.container{max-width:800px;margin:0 auto;padding:20px}
+.card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #e8ecf4;margin-bottom:20px}
+.card h3{font-size:1.1rem;margin-bottom:16px;color:#0f3460;display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:#444;margin-bottom:4px}
+.form-group input,.form-group select{width:100%;padding:10px 14px;border:1.5px solid #dde1ec;border-radius:8px;font-size:.95rem;background:#fafbfd;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:#0f3460;background:#fff}
+.input-row{display:flex;gap:12px}
+.input-row .form-group{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 24px;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.btn-primary{background:#0f3460;color:#fff;width:100%}
+.btn-primary:hover{background:#1a1a2e;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:#0f3460;border:1.5px solid #0f3460}
+.btn-outline:hover{background:#f0f4ff}
+.result-box{margin-top:16px;padding:16px;border-radius:10px;display:none;animation:fadeIn .3s}
+.result-box.show{display:block}
+.result-box.success{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+.result-box .big-number{font-size:2rem;font-weight:700;margin:8px 0}
+.result-box .formula{font-size:.8rem;color:#666;margin-top:4px;font-family:monospace}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.formula-box{padding:16px;background:#f0f4ff;border-radius:8px;text-align:center;font-size:1.1rem;margin-bottom:12px}
+.content-section{background:#fff;border-radius:14px;padding:28px;margin-top:20px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.content-section h2{font-size:1.3rem;color:#0f3460;margin-bottom:12px}
+.content-section p,.content-section li{font-size:.9rem;color:#444;margin-bottom:8px;line-height:1.7}
+.content-section ul{padding-left:20px}
+.faq-item{border-bottom:1px solid #e8ecf4;padding:14px 0}
+.faq-item:last-child{border:none}
+.faq-q{font-weight:600;color:#0f3460;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-a{margin-top:8px;font-size:.88rem;color:#555;display:none}
+.faq-a.open{display:block}
+footer{background:#1a1a2e;color:#fff;text-align:center;padding:24px 20px;margin-top:40px;font-size:.82rem;opacity:.8}
+@media(max-width:480px){header h1{font-size:1.4rem}.input-row{flex-direction:column;gap:0}}
+.cta{border:2px solid #e94560;padding:24px;text-align:center;border-radius:14px;margin:24px 0}
+.cta h3{color:#e94560}
+.cta .btn-cta{display:inline-block;background:linear-gradient(135deg,#e94560,#ff6b6b);color:#fff;padding:12px 32px;border-radius:30px;font-size:1rem;font-weight:700;text-decoration:none;margin-top:12px}
+.cta .btn-cta:hover{transform:scale(1.05)}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+td{padding:8px;border:1px solid #e8ecf4;font-size:.85rem;text-align:center}
+td:first-child{font-weight:600;background:#f0f4ff}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧪 藥物稀釋計算</h1>
+  <p>計算需取原液與稀釋液體積 · C₁V₁ = C₂V₂ 公式</p>
+  <div class="badge">關鍵字：藥物稀釋計算 · 稀釋倍數計算 · 抗生素稀釋</div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h3>🧪 藥物稀釋計算機</h3>
+    <div class="form-group">
+      <label>原液濃度 (C₁)</label>
+      <input type="number" id="stock" placeholder="e.g. 50" min="0" step="any">
+    </div>
+    <div class="input-row">
+      <div class="form-group">
+        <label>目標濃度 (C₂)</label>
+        <input type="number" id="target" placeholder="e.g. 10" min="0" step="any">
+      </div>
+      <div class="form-group">
+        <label>最終體積 (V₂)</label>
+        <input type="number" id="finalVol" placeholder="e.g. 100" min="0" step="any">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>單位</label>
+      <select id="unit">
+        <option value="mg/mL">mg/mL</option>
+        <option value="mg">mg</option>
+        <option value="g">g</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="calcDil()">🔄 計算稀釋</button>
+    <div class="result-box" id="result"></div>
+  </div>
+
+  <div class="card">
+    <h3>📝 計算公式</h3>
+    <div class="formula-box">
+      <strong>C₁V₁ = C₂V₂</strong>
+      <div style="font-size:.85rem;margin-top:4px;">需取原液 = (C₂ × V₂) ÷ C₁ · 加入稀釋液 = V₂ − 原液量</div>
+    </div>
+    <p style="font-size:.85rem;color:#555;">舉例：Gentamicin 40 mg/mL 需配成 10 mg/mL 共 100 mL → V₁ = (10 × 100) ÷ 40 = 25 mL 原液 + 75 mL 稀釋液</p>
+  </div>
+
+  <div class="cta">
+    <h3>📋 國考藥物計算總是算錯？</h3>
+    <p>加入 LINE 免費測你的藥物計算實力，AI 診斷弱點 + 每日一題推播</p>
+    <a href="#" class="btn-cta">加入 LINE 免費測驗 ➜</a>
+  </div>
+
+  <div class="content-section">
+    <h2>❓ 藥物稀釋常見問題</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f1')">C₁V₁ = C₂V₂ 是什麼原理？ <span>▼</span></div>
+      <div class="faq-a" id="f1">稀釋前後，藥物總量不變。C₁V₁ 是取出的藥物總量，C₂V₂ 是稀釋後的藥物總量。公式中的濃度與體積單位需一致。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f2')">臨床上哪些藥需要稀釋？ <span>▼</span></div>
+      <div class="faq-a" id="f2">常見需稀釋的藥物：Gentamicin、Vancomycin、Amphotericin B、KCl（絕對不可直接推注）、化療藥物。稀釋方式依藥品仿單為準。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f3')">稀釋倍數怎麼算？ <span>▼</span></div>
+      <div class="faq-a" id="f3">稀釋倍數 = C₁ ÷ C₂。例如 50 mg/mL 稀釋到 10 mg/mL → 50 ÷ 10 = 5 倍稀釋。意即每 1 份原液加入 4 份稀釋液。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:28px 0;">
+    <p style="font-size:.9rem;color:#888;">其他工具：</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="01-drip-rate.html" class="btn btn-outline">💧 點滴滴速計算</a>
+      <a href="02-drug-dosage.html" class="btn btn-outline">💊 藥物劑量計算</a>
+      <a href="04-nursing-exam-drug-calc.html" class="btn btn-outline">📋 國考藥物計算</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 護理藥物計算工具 | 臨床給藥請依醫囑及藥品仿單為準</p>
+</footer>
+
+<script>
+function calcDil(){
+  const s=parseFloat(document.getElementById('stock').value);
+  const t=parseFloat(document.getElementById('target').value);
+  const v=parseFloat(document.getElementById('finalVol').value);
+  const r=document.getElementById('result');
+
+  if(!s||!t||!v||s<=0||t<=0||v<=0||t>s){
+    r.className='result-box show success';r.style.borderColor='#ef9a9a';
+    let msg='<strong>⚠️ 請輸入有效數值</strong>';
+    if(t>s)msg='<strong>⚠️ 目標濃度不可大於原液濃度</strong>';
+    r.innerHTML=msg;return;
+  }
+
+  const v1=t*v/s;
+  const dil=v-v1;
+  const ratio=s/t;
+
+  r.className='result-box show success';
+  r.innerHTML=`
+    <table style="width:100%;margin-top:0">
+      <tr><td>需取原液</td><td><strong style="font-size:1.2rem;">${v1.toFixed(2)}</strong> mL</td></tr>
+      <tr><td>需加稀釋液</td><td><strong style="font-size:1.2rem;">${dil.toFixed(2)}</strong> mL</td></tr>
+      <tr><td>稀釋倍數</td><td><strong>${ratio.toFixed(1)}x</strong> (1:${(ratio-1).toFixed(1)})</td></tr>
+      <tr><td>最終總量</td><td><strong>${v}</strong> mL</td></tr>
+    </table>
+    <div class="formula">V₁ = (${t}×${v})÷${s} = ${v1.toFixed(2)} mL</div>
+  `;
+}
+function toggle(id){
+  document.getElementById(id).classList.toggle('open');
+}
+</script>
+</body>
+</html>

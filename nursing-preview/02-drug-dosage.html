@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>藥物劑量計算 — 給藥劑量 mL/mg/kg 免費計算機 護理臨床工具</title>
+<meta name="description" content="免費線上藥物劑量計算工具。依醫囑劑量與藥物濃度，自動計算應給藥體積(mL)。支援 mg/kg、單位換算、兒科劑量計算。護理臨床與國考必備。">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;background:#f4f6fb;color:#1a1a2e;line-height:1.6}
+header{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);color:#fff;padding:40px 20px;text-align:center}
+header h1{font-size:1.8rem;margin-bottom:8px;letter-spacing:1px}
+header p{font-size:1rem;opacity:.85;max-width:600px;margin:0 auto}
+header .badge{display:inline-block;background:#e94560;color:#fff;padding:4px 14px;border-radius:20px;font-size:.75rem;margin-top:12px;font-weight:600}
+.container{max-width:800px;margin:0 auto;padding:20px}
+.card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #e8ecf4;margin-bottom:20px}
+.card h3{font-size:1.1rem;margin-bottom:16px;color:#0f3460;display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:#444;margin-bottom:4px}
+.form-group input,.form-group select{width:100%;padding:10px 14px;border:1.5px solid #dde1ec;border-radius:8px;font-size:.95rem;background:#fafbfd;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:#0f3460;background:#fff}
+.input-row{display:flex;gap:12px}
+.input-row .form-group{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 24px;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.btn-primary{background:#0f3460;color:#fff;width:100%}
+.btn-primary:hover{background:#1a1a2e;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:#0f3460;border:1.5px solid #0f3460}
+.btn-outline:hover{background:#f0f4ff}
+.result-box{margin-top:16px;padding:16px;border-radius:10px;display:none;animation:fadeIn .3s}
+.result-box.show{display:block}
+.result-box.success{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+.result-box.info{background:#e3f2fd;border:1px solid #90caf9;color:#0d47a1}
+.result-box .big-number{font-size:2rem;font-weight:700;margin:8px 0}
+.result-box .formula{font-size:.8rem;color:#666;margin-top:4px;font-family:monospace}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.formula-box{padding:16px;background:#f0f4ff;border-radius:8px;text-align:center;font-size:1.1rem;margin-bottom:12px}
+.pill-group{display:flex;gap:6px;flex-wrap:wrap}
+.pill{display:inline-block;padding:4px 12px;border-radius:16px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid #dde1ec;background:#fafbfd;color:#555;transition:all .2s}
+.pill:hover{border-color:#0f3460;color:#0f3460}
+.pill.active{background:#0f3460;color:#fff;border-color:#0f3460}
+.content-section{background:#fff;border-radius:14px;padding:28px;margin-top:20px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.content-section h2{font-size:1.3rem;color:#0f3460;margin-bottom:12px}
+.content-section p,.content-section li{font-size:.9rem;color:#444;margin-bottom:8px;line-height:1.7}
+.content-section ul{padding-left:20px}
+.faq-item{border-bottom:1px solid #e8ecf4;padding:14px 0}
+.faq-item:last-child{border:none}
+.faq-q{font-weight:600;color:#0f3460;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-a{margin-top:8px;font-size:.88rem;color:#555;display:none}
+.faq-a.open{display:block}
+footer{background:#1a1a2e;color:#fff;text-align:center;padding:24px 20px;margin-top:40px;font-size:.82rem;opacity:.8}
+@media(max-width:480px){header h1{font-size:1.4rem}.input-row{flex-direction:column;gap:0}}
+.cta{border:2px solid #e94560;padding:24px;text-align:center;border-radius:14px;margin:24px 0}
+.cta h3{color:#e94560}
+.cta .btn-cta{display:inline-block;background:linear-gradient(135deg,#e94560,#ff6b6b);color:#fff;padding:12px 32px;border-radius:30px;font-size:1rem;font-weight:700;text-decoration:none;margin-top:12px}
+.cta .btn-cta:hover{transform:scale(1.05)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💊 藥物劑量計算</h1>
+  <p>依醫囑劑量與藥物濃度計算應給藥體積 · 支援 mg/kg 體重計算</p>
+  <div class="badge">關鍵字：藥物劑量計算 · 給藥計算公式 · mg/kg 計算</div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h3>💊 藥物劑量計算機</h3>
+
+    <div class="form-group">
+      <label>計算模式</label>
+      <div class="pill-group" id="modePills">
+        <span class="pill active" data-mode="simple" onclick="setMode('simple')">📐 標準計算</span>
+        <span class="pill" data-mode="weight" onclick="setMode('weight')">⚖️ 依體重 (mg/kg)</span>
+      </div>
+    </div>
+
+    <!-- Simple mode -->
+    <div id="modeSimple">
+      <div class="form-group">
+        <label>醫囑劑量</label>
+        <input type="number" id="orderDose" placeholder="e.g. 250" min="0" step="any">
+      </div>
+      <div class="input-row">
+        <div class="form-group">
+          <label>藥物濃度</label>
+          <input type="number" id="concVal" placeholder="e.g. 125" min="0" step="any">
+        </div>
+        <div class="form-group">
+          <label>濃度單位</label>
+          <select id="concUnit">
+            <option value="mg/mL">mg/mL</option>
+            <option value="mg/5mL">mg/5mL</option>
+            <option value="mcg/mL">mcg/mL</option>
+            <option value="g/mL">g/mL</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weight mode -->
+    <div id="modeWeight" style="display:none">
+      <div class="form-group">
+        <label>病人體重 (kg)</label>
+        <input type="number" id="patientWt" placeholder="e.g. 70" min="0" step="0.5">
+      </div>
+      <div class="input-row">
+        <div class="form-group">
+          <label>建議劑量 (mg/kg)</label>
+          <input type="number" id="dosePerKg" placeholder="e.g. 5" min="0" step="any">
+        </div>
+        <div class="form-group">
+          <label>藥物濃度 (mg/mL)</label>
+          <input type="number" id="wtConc" placeholder="e.g. 50" min="0" step="any">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="calcDose()">🔄 計算劑量</button>
+    <div class="result-box" id="result"></div>
+  </div>
+
+  <div class="card">
+    <h3>📝 給藥公式</h3>
+    <div class="formula-box">
+      <strong>應給藥體積 (mL) = 處方劑量 ÷ 藥物濃度</strong>
+    </div>
+    <p style="font-size:.85rem;color:#555;">舉例：醫囑 Cephalexin 250 mg，藥品標示 125 mg/5 mL → (250 ÷ 125) × 5 = 10 mL</p>
+  </div>
+
+  <div class="cta">
+    <h3>📋 國考藥物計算總是算錯？</h3>
+    <p>加入 LINE 免費測你的藥物計算實力，AI 診斷弱點 + 每日一題推播</p>
+    <a href="#" class="btn-cta">加入 LINE 免費測驗 ➜</a>
+  </div>
+
+  <div class="content-section">
+    <h2>❓ 藥物劑量常見問題</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f1')">藥物劑量計算三步驟是什麼？ <span>▼</span></div>
+      <div class="faq-a" id="f1">① 確認醫囑劑量與單位 ② 確認藥品標示濃度 ③ 套用公式：應給體積 = 處方劑量 ÷ 濃度。若有體重基礎，先算總劑量 = 體重 × mg/kg。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f2')">兒科劑量計算要注意什麼？ <span>▼</span></div>
+      <div class="faq-a" id="f2">兒童劑量通常以 mg/kg/day 或 mg/kg/dose 表示。需注意頻率：若醫囑 q6h，每日總量 = 單次劑量 × 4。絕對不可超過成人最大劑量。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle('f3')">藥物劑量計算在國考佔比？ <span>▼</span></div>
+      <div class="faq-a" id="f3">每年約 3-5 題，分散在基本護理學與內外科護理學。題型包含：給藥體積計算、輸液速度計算、兒科劑量計算。只要公式對，屬於必拿分數。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:28px 0;">
+    <p style="font-size:.9rem;color:#888;">其他工具：</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="01-drip-rate.html" class="btn btn-outline">💧 點滴滴速計算</a>
+      <a href="03-dilution.html" class="btn btn-outline">🧪 藥物稀釋計算</a>
+      <a href="04-nursing-exam-drug-calc.html" class="btn btn-outline">📋 國考藥物計算</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 護理藥物計算工具 | 臨床給藥請依醫囑及藥品仿單為準</p>
+</footer>
+
+<script>
+function setMode(m){
+  document.querySelectorAll('#modePills .pill').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`#modePills .pill[data-mode="${m}"]`).classList.add('active');
+  document.getElementById('modeSimple').style.display=m==='simple'?'block':'none';
+  document.getElementById('modeWeight').style.display=m==='weight'?'block':'none';
+}
+function calcDose(){
+  const mode=document.querySelector('#modePills .pill.active').dataset.mode;
+  const r=document.getElementById('result');
+  let formula='',answer='';
+
+  if(mode==='simple'){
+    const dose=parseFloat(document.getElementById('orderDose').value);
+    const conc=parseFloat(document.getElementById('concVal').value);
+    const unit=document.getElementById('concUnit').value;
+    if(!dose||!conc||dose<=0||conc<=0){
+      r.className='result-box show success';r.style.borderColor='#ef9a9a';
+      r.innerHTML='<strong>⚠️ 請輸入有效數值</strong>';return;
+    }
+    let vol;
+    if(unit==='mg/5mL'){vol=(dose/conc)*5;}
+    else if(unit==='mg/mL'||unit==='mcg/mL'||unit==='g/mL'){vol=dose/conc;}
+    else{vol=dose/conc;}
+    const rounded=Math.round(vol*100)/100;
+    formula=`${dose} ÷ ${conc}${unit==='mg/5mL'?' × 5':''} = ${rounded} mL`;
+    answer=`應抽取 <strong>${rounded} mL</strong>`;
+  }
+  else{
+    const wt=parseFloat(document.getElementById('patientWt').value);
+    const perKg=parseFloat(document.getElementById('dosePerKg').value);
+    const conc=parseFloat(document.getElementById('wtConc').value);
+    if(!wt||!perKg||!conc||wt<=0||perKg<=0||conc<=0){
+      r.className='result-box show success';r.style.borderColor='#ef9a9a';
+      r.innerHTML='<strong>⚠️ 請輸入有效數值</strong>';return;
+    }
+    const totalDose=wt*perKg;
+    const vol=totalDose/conc;
+    const rounded=Math.round(vol*100)/100;
+    formula=`(${wt} × ${perKg}) ÷ ${conc} = ${rounded} mL`;
+    answer=`總劑量 ${totalDose} mg → 應抽取 <strong>${rounded} mL</strong>`;
+  }
+
+  r.className='result-box show success';
+  r.innerHTML=`
+    <strong>${answer}</strong>
+    <div class="formula">${formula}</div>
+  `;
+}
+function toggle(id){
+  document.getElementById(id).classList.toggle('open');
+}
+</script>
+</body>
+</html>
