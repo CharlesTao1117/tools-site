@@ -44,7 +44,9 @@ body {
 .hero .badge {
   display: inline-block; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px);
   padding: 4px 14px; border-radius: 20px; font-size: 0.72rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.15);
+  transition: all 0.2s;
 }
+.hero .badge:hover { background: rgba(255,255,255,0.35); transform: translateY(-1px); }
 .container { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 20px 16px 60px; }
 .section-title { text-align: center; margin: 36px 0 16px; }
 .section-title .deco { font-size: 1rem; color: #9d6b8a; }
@@ -136,15 +138,15 @@ footer a { color: #d946ef; text-decoration: none; }
   <span class="hero-icon floating">🩺</span>
   <h1>護理師小幫手 ♡</h1>
   <p>12 種臨床工具 + 2,271 題考古題測驗<br>全部免費、即開即用、可愛介面</p>
-  <div class="badge-row">
-    <span class="badge">💧 點滴滴速</span>
-    <span class="badge">🧪 藥物稀釋</span>
-    <span class="badge">🛡️ 安全劑量</span>
-    <span class="badge">👶 APGAR</span>
-    <span class="badge">🧠 GCS</span>
-    <span class="badge">🔥 燒傷面積</span>
-    <span class="badge">📝 國考測驗</span>
-  </div>
+    <div class="badge-row">
+      <a href="drip-rate.html" class="badge" style="text-decoration:none;color:white;">💧 點滴滴速</a>
+      <a href="dilution.html" class="badge" style="text-decoration:none;color:white;">🧪 藥物稀釋</a>
+      <a href="safe-dosage.html" class="badge" style="text-decoration:none;color:white;">🛡️ 安全劑量</a>
+      <a href="apgar.html" class="badge" style="text-decoration:none;color:white;">👶 APGAR</a>
+      <a href="gcs.html" class="badge" style="text-decoration:none;color:white;">🧠 GCS</a>
+      <a href="burn-area.html" class="badge" style="text-decoration:none;color:white;">🔥 燒傷面積</a>
+      <a href="quiz.html" class="badge" style="text-decoration:none;color:white;">📝 國考測驗</a>
+    </div>
 </header>
 
 <div class="container">
