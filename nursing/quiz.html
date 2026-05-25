@@ -746,8 +746,7 @@ function onAnswer(selected, question) {
   // Cluster hint
   const clusterEl = document.getElementById('cluster-hint');
   clusterEl.classList.remove('show');
-  const qid = `${question.session_code}_${question.number}`;
-  const clusterInfo = clusterMap[qid];
+  // qid and clusterInfo already declared above
   if (clusterInfo) {
     clusterEl.innerHTML = `
       <span class="ch-tag">高頻 🔥</span>
