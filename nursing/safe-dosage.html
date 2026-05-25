@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>安全劑量範圍計算 — 依體重計算給藥安全區間 免費線上工具</title>
+  <meta name="description" content="免費線上藥物安全劑量範圍計算。輸入病人體重與建議劑量範圍(mg/kg)，自動計算最小至最大安全劑量。兒科用藥、腫瘤科給藥必備。">
+  <link rel="canonical" href="https://anycalculator.site/nursing/safe-dosage.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🛡️ 安全劑量範圍計算</h1>
+  <p>依體重計算安全給藥區間 · mg/kg 自動換算</p>
+  <div class="badge">關鍵字：藥物安全劑量 · 給藥計算公式 · 兒科劑量計算</div>
+</header>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="index.html">💊 所有工具</a> &gt; 安全劑量範圍計算
+  </nav>
+
+  <div class="calc-card">
+    <h3>🛡️ 安全劑量計算機</h3>
+    <div class="input-row">
+      <div class="form-group">
+        <label>病人體重 (kg)</label>
+        <input type="number" id="safe-weight" placeholder="e.g. 70" min="0" step="0.5">
+      </div>
+      <div class="form-group">
+        <label>最小劑量 (mg/kg)</label>
+        <input type="number" id="safe-min" placeholder="e.g. 5" min="0" step="any">
+      </div>
+      <div class="form-group">
+        <label>最大劑量 (mg/kg)</label>
+        <input type="number" id="safe-max" placeholder="e.g. 10" min="0" step="any">
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="calcSafeDose()">🔄 計算安全範圍</button>
+    <div class="result-box" id="safe-result"></div>
+  </div>
+
+  <div class="calc-card">
+    <h3>📝 計算公式</h3>
+    <p style="font-size:1.1rem;text-align:center;padding:12px;background:#f0f4ff;border-radius:8px;">
+      <strong>安全範圍 = 體重(kg) × 建議劑量(mg/kg)</strong>
+    </p>
+    <p style="font-size:0.85rem;color:#555;">最低安全劑量 = 體重 × 最小值 · 最高安全劑量 = 體重 × 最大值<br>
+    若醫囑劑量在此範圍內則安全，超過則需與醫師確認。</p>
+  </div>
+
+  <div class="content-section">
+    <h2>❓ 安全劑量常見問題</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq('s1')">為什麼要算安全劑量範圍？ <span>▼</span></div>
+      <div class="faq-a" id="s1">兒童、老年人、肝腎功能不全患者的藥物代謝與一般成人不同。依體重計算安全劑量是給藥前的標準作業，也是護理國考的高頻考點。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq('s2')">醫囑劑量超過安全範圍怎麼辦？ <span>▼</span></div>
+      <div class="faq-a" id="s2">若醫囑劑量超出安全範圍，護理人員有責任向醫師確認（Double Check）。可能是特殊情況需要較高劑量，也可能是計算錯誤。切勿直接給藥。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq('s3')">常見需計算安全劑量的藥物有哪些？ <span>▼</span></div>
+      <div class="faq-a" id="s3">Acetaminophen (10-15 mg/kg/次)、Amoxicillin (20-40 mg/kg/天)、Gentamicin (5-7 mg/kg/天)、Vancomycin (15-20 mg/kg/次) 等。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:28px 0;">
+    <p style="font-size:0.9rem;color:#888;">其他工具：</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="drip-rate.html" class="btn btn-outline">💧 點滴滴速計算</a>
+      <a href="dilution.html" class="btn btn-outline">🧪 藥物稀釋計算</a>
+      <a href="unit-converter.html" class="btn btn-outline">🔄 單位換算</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:32px 0 24px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer>
+  <p>© 2026 護理藥物計算工具 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

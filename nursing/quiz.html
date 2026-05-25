@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>護理師國考免費線上測驗 — 考古題練習、答題解析</title>
+  <meta name="description" content="免費護理師國考線上測驗：內含 2,271 題歷年選擇題，涵蓋基礎醫學、基本護理、內外科、產兒科、精神社區五大考科。即開即用，無需註冊。">
+  <link rel="canonical" href="https://anycalculator.site/nursing/quiz.html">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Quiz-specific styles ── */
+
+    .quiz-container { max-width: 800px; margin: 0 auto; }
+
+    /* Subject selection */
+    .subject-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin: 20px 0;
+    }
+    @media (min-width: 500px) { .subject-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 768px) { .subject-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .subject-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid #e8ecf4;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .subject-card:hover {
+      border-color: #0f3460;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    .subject-card .icon { font-size: 2rem; margin-bottom: 6px; }
+    .subject-card h3 { font-size: 1rem; color: #0f3460; margin-bottom: 2px; }
+    .subject-card .count { font-size: 0.75rem; color: #999; }
+    .subject-card .sub-fields {
+      font-size: 0.72rem;
+      color: #666;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .quiz-all-card {
+      background: linear-gradient(135deg, #0f3460, #1a1a2e);
+      color: white;
+      border: none;
+    }
+    .quiz-all-card h3 { color: white; }
+    .quiz-all-card .count { color: rgba(255,255,255,0.7); }
+    .quiz-all-card .sub-fields { color: rgba(255,255,255,0.6); }
+
+    .quiz-all-card:hover {
+      background: linear-gradient(135deg, #16213e, #0f3460);
+      border-color: transparent;
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      margin-bottom: 20px;
+    }
+    .progress-bar {
+      height: 6px;
+      background: #e8ecf4;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0f3460, #e94560);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    .progress-text {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Question card */
+    .question-card {
+      background: white;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border: 1px solid #e8ecf4;
+      margin-bottom: 16px;
+    }
+    .question-card .meta {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .question-card .meta .tag {
+      display: inline-block;
+      background: #f0f4ff;
+      color: #0f3460;
+      padding: 3px 12px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .question-card .q-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      color: #1a1a2e;
+    }
+
+    /* Option buttons */
+    .options-list { display: flex; flex-direction: column; gap: 10px; }
+    .option-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 18px;
+      background: #fafbfd;
+      border: 2px solid #e8ecf4;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      text-align: left;
+      transition: all 0.15s;
+      line-height: 1.5;
+    }
+    .option-btn:hover:not(.disabled) {
+      background: #f0f4ff;
+      border-color: #0f3460;
+    }
+    .option-btn .o-label {
+      font-weight: 700;
+      color: #0f3460;
+      min-width: 24px;
+    }
+    .option-btn.disabled { cursor: default; }
+
+    .option-btn.correct {
+      background: #e8f5e9;
+      border-color: #66bb6a;
+      color: #1b5e20;
+    }
+    .option-btn.wrong {
+      background: #ffebee;
+      border-color: #ef5350;
+      color: #c62828;
+    }
+    .option-btn.correct .o-label { color: #2e7d32; }
+    .option-btn.wrong .o-label { color: #c62828; }
+
+    /* Feedback area */
+    .feedback {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 10px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .feedback.show { display: block; }
+    .feedback.correct-fb { background: #e8f5e9; border: 1px solid #a5d6a7; }
+    .feedback.wrong-fb { background: #ffebee; border: 1px solid #ef9a9a; }
+    .feedback .fb-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+    .feedback .fb-text { font-size: 0.88rem; line-height: 1.6; }
+
+    /* Next button */
+    .next-wrap { text-align: center; margin-top: 20px; }
+
+    /* Results */
+    .result-card {
+      background: white;
+      border-radius: 14px;
+      padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border: 1px solid #e8ecf4;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .result-card .big-score {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #0f3460;
+      margin: 12px 0;
+    }
+    .result-card .big-score.perfect { color: #2e7d32; }
+    .result-card .big-score.good { color: #f59e0b; }
+    .result-card .big-score.poor { color: #e94560; }
+    .result-card .grade-label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .result-card .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* Wrong question review */
+    .review-list { margin-top: 20px; text-align: left; }
+    .review-item {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .review-item .q { font-size: 0.9rem; margin-bottom: 8px; }
+    .review-item .your { color: #c62828; font-size: 0.85rem; }
+    .review-item .correct-ans { color: #2e7d32; font-size: 0.85rem; margin-left: 10px; }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #888;
+    }
+    .loading .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e8ecf4;
+      border-top-color: #0f3460;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .hidden { display: none !important; }
+
+    /* Back button */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.85rem;
+      color: #0f3460;
+      text-decoration: none;
+      margin-bottom: 16px;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* Info banner */
+    .info-banner {
+      background: #e3f2fd;
+      border: 1px solid #90caf9;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.82rem;
+      color: #1565c0;
+      margin-bottom: 16px;
+    }
+
+    /* Cluster hint */
+    .cluster-hint {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #fff3e0, #fff8e1);
+      border: 1px solid #ffcc80;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      color: #e65100;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .cluster-hint.show { display: block; }
+    .cluster-hint .ch-icon { font-weight: 700; }
+    .cluster-hint .ch-tag {
+      display: inline-block;
+      background: #ff8f00;
+      color: white;
+      padding: 1px 10px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📝 護理師國考免費線上測驗</h1>
+  <p>內含 2,271 題歷年考古題 · 五大考科 · 即開即用 · 無需註冊</p>
+  <div class="badge">⚕️ 基礎醫學 · 基本護理 · 內外科 · 產兒科 · 精神社區</div>
+</header>
+
+<div class="container quiz-container">
+
+  <!-- ═══ Phase 1: Subject Selection ═══ -->
+  <div id="select-phase">
+    <a href="../index.html" class="back-link">← 所有工具</a>
+    <div class="content-section">
+      <h2>📋 選擇考科開始練習</h2>
+      <p>每回合隨機出 10 題。選擇科目後立即開始作答，答完顯示成績與錯題回顧。</p>
+    </div>
+    <div class="subject-grid" id="subject-grid">
+      <!-- Dynamically filled -->
+    </div>
+  </div>
+
+  <!-- ═══ Phase 2: Quiz ═══ -->
+  <div id="quiz-phase" class="hidden">
+    <a href="index.html" class="back-link" id="quit-link">← 護理工具首頁（放棄本次作答）</a>
+
+    <div class="info-banner" id="subject-banner"></div>
+
+    <div class="progress-wrap">
+      <div class="progress-text">
+        <span id="progress-label">第 1 題 / 共 10 題</span>
+        <span id="score-label">目前得分：0</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="question-card" id="question-card">
+      <div class="meta" id="question-meta"></div>
+      <div class="q-text" id="question-text"></div>
+      <div class="options-list" id="options-list"></div>
+      <div class="feedback" id="feedback-area">
+        <div class="fb-title" id="fb-title"></div>
+        <div class="fb-text" id="fb-text"></div>
+      </div>
+      <div class="cluster-hint" id="cluster-hint"></div>
+    </div>
+
+    <div class="next-wrap hidden" id="next-wrap">
+      <button class="btn btn-primary" id="next-btn">下一題 →</button>
+    </div>
+  </div>
+
+  <!-- ═══ Phase 3: Results ═══ -->
+  <div id="result-phase" class="hidden">
+    <a href="quiz.html" class="back-link">← 重新選擇科目</a>
+
+    <div class="result-card">
+      <h2 id="result-title">測驗完成！</h2>
+      <div class="big-score" id="score-display"></div>
+      <div class="grade-label" id="grade-label"></div>
+      <div class="actions">
+        <button class="btn btn-primary" id="retry-subject">同科目再做一次</button>
+        <button class="btn btn-outline" id="change-subject">換科目</button>
+      </div>
+    </div>
+
+    <div class="review-list" id="review-list"></div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 護理師國考線上測驗 | 題庫來源：考選部歷年考古題，「AI 國考助教」技術提供</p>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   EXAM-AI Quiz Engine — Pure JS, no backend
+   ═══════════════════════════════════════════ */
+
+const Q_PER_SESSION = 10;
+
+/* ── State ── */
+let allQuestions = [];
+let subjects = [];
+let clusterMap = {};          // qid → { cluster_id, concept, repeat_count, total_in_cluster }
+let currentSubject = null;    // subject_id or 'all'
+let sessionQuestions = [];
+let currentIndex = 0;
+let score = 0;
+let answerLog = [];            // { question, selected, isCorrect }
+
+/* ── Init ── */
+(async function init() {
+  try {
+    const [qRes, sRes, cRes] = await Promise.all([
+      fetch('data/questions.json'),
+      fetch('data/subjects.json'),
+      fetch('data/concept_clusters.json')
+    ]);
+    allQuestions = await qRes.json();
+    subjects = await sRes.json();
+    const clusters = await cRes.json();
+
+    // Build qid → cluster lookup map
+    clusters.clusters.forEach(c => {
+      const total = c.questions.length;
+      c.questions.forEach(q => {
+        clusterMap[q.qid] = {
+          cluster_id: c.cluster_id,
+          concept: c.concept,
+          repeat_count: c.repeat_count,
+          total_in_cluster: total
+        };
+      });
+    });
+
+    renderSubjectCards();
+  } catch (e) {
+    document.getElementById('select-phase').innerHTML =
+      '<div class="loading"><div class="spinner"></div><p>載入題庫中，請稍候...</p></div>';
+    console.error('Load error:', e);
+  }
+})();
+
+/* ── Subject Cards ── */
+function renderSubjectCards() {
+  const grid = document.getElementById('subject-grid');
+  // Predefined icons per subject
+  const icons = {
+    basic_medical: '🧬',
+    fundamental_nursing: '🩺',
+    med_surg_nursing: '💉',
+    ob_peds_nursing: '👶',
+    psych_community_nursing: '🧠'
+  };
+
+  // Individual subjects
+  subjects.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'subject-card';
+    card.innerHTML = `
+      <div class="icon">${icons[s.id] || '📚'}</div>
+      <h3>${s.name}</h3>
+      <div class="count">${s.question_count} 題</div>
+      <div class="sub-fields">${s.sub_fields.join(' · ')}</div>
+    `;
+    card.addEventListener('click', () => startQuiz(s.id, s.name));
+    grid.appendChild(card);
+  });
+
+  // "All subjects" card
+  const totalCount = subjects.reduce((sum, s) => sum + s.question_count, 0);
+  const allCard = document.createElement('div');
+  allCard.className = 'subject-card quiz-all-card';
+  allCard.innerHTML = `
+    <div class="icon">🎯</div>
+    <h3>混合全部科目</h3>
+    <div class="count">${totalCount} 題</div>
+    <div class="sub-fields">五大科目隨機出題</div>
+  `;
+  allCard.addEventListener('click', () => startQuiz('all', '混合全部科目'));
+  grid.appendChild(allCard);
+}
+
+/* ── Start Quiz ── */
+function startQuiz(subjectId, subjectName) {
+  currentSubject = { id: subjectId, name: subjectName };
+  currentIndex = 0;
+  score = 0;
+  answerLog = [];
+
+  // Filter questions
+  let pool = subjectId === 'all'
+    ? allQuestions.slice()
+    : allQuestions.filter(q => q.subject_id === subjectId);
+
+  // Shuffle and pick Q_PER_SESSION
+  shuffle(pool);
+  sessionQuestions = pool.slice(0, Q_PER_SESSION);
+
+  // Switch UI
+  document.getElementById('select-phase').classList.add('hidden');
+  document.getElementById('quiz-phase').classList.remove('hidden');
+  document.getElementById('result-phase').classList.add('hidden');
+
+  document.getElementById('subject-banner').textContent =
+    `📌 考科：${subjectName} | 共 ${pool.length} 題可選`;
+
+  document.getElementById('score-label').textContent = '目前得分：0';
+  showQuestion();
+}
+
+/* ── Show Question ── */
+function showQuestion() {
+  const q = sessionQuestions[currentIndex];
+  const total = sessionQuestions.length;
+
+  // Progress
+  document.getElementById('progress-label').textContent =
+    `第 ${currentIndex + 1} 題 / 共 ${total} 題`;
+  document.getElementById('progress-fill').style.width =
+    `${((currentIndex) / total) * 100}%`;
+
+  // Meta
+  document.getElementById('question-meta').innerHTML = `
+    <span class="tag">${q.subject_name}</span>
+    <span class="tag">${q.year}年${q.exam_round}</span>
+  `;
+
+  // Question text
+  document.getElementById('question-text').textContent = q.text;
+
+  // Options
+  const opts = document.getElementById('options-list');
+  opts.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  letters.forEach(l => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="o-label">${l}</span><span>${q.options[l] || ''}</span>`;
+    btn.addEventListener('click', () => onAnswer(l, q));
+    opts.appendChild(btn);
+  });
+
+  // Reset feedback + next + cluster hint
+  document.getElementById('feedback-area').classList.remove('show');
+  document.getElementById('next-wrap').classList.add('hidden');
+  document.getElementById('cluster-hint').classList.remove('show');
+}
+
+/* ── Answer ── */
+function onAnswer(selected, question) {
+  const correct = question.correct_answer;
+  const isCorrect = selected === correct;
+
+  // Disable all options
+  const btns = document.querySelectorAll('#options-list .option-btn');
+  btns.forEach(b => b.classList.add('disabled'));
+
+  // Highlight
+  btns.forEach(b => {
+    const letter = b.querySelector('.o-label').textContent;
+    if (letter === correct) b.classList.add('correct');
+    if (letter === selected && !isCorrect) b.classList.add('wrong');
+  });
+
+  // Update score
+  if (isCorrect) score++;
+  document.getElementById('score-label').textContent = `目前得分：${score}`;
+  document.getElementById('progress-fill').style.width =
+    `${((currentIndex + 1) / sessionQuestions.length) * 100}%`;
+
+  // Feedback
+  const fb = document.getElementById('feedback-area');
+  const fbTitle = document.getElementById('fb-title');
+  const fbText = document.getElementById('fb-text');
+
+  if (isCorrect) {
+    fb.className = 'feedback show correct-fb';
+    fbTitle.textContent = '✅ 答對了！';
+    fbText.textContent = `正確答案就是 ${correct}。`;
+  } else {
+    fb.className = 'feedback show wrong-fb';
+    fbTitle.textContent = `❌ 答錯了`;
+    fbText.textContent = `你選了 ${selected}，正確答案是 ${correct}。`;
+  }
+
+  // Cluster hint
+  const clusterEl = document.getElementById('cluster-hint');
+  clusterEl.classList.remove('show');
+  const qid = `${question.session_code}_${question.number}`;
+  const clusterInfo = clusterMap[qid];
+  if (clusterInfo) {
+    clusterEl.innerHTML = `
+      <span class="ch-tag">高頻 🔥</span>
+      <span class="ch-icon">📌</span>
+      <strong>${clusterInfo.concept}</strong>
+      — 歷年考 <strong>${clusterInfo.repeat_count} 次</strong>（同集群 ${clusterInfo.total_in_cluster} 題）
+    `;
+    clusterEl.classList.add('show');
+  }
+
+  // Log
+  answerLog.push({ question, selected, isCorrect });
+
+  // Show next button
+  const nextWrap = document.getElementById('next-wrap');
+  const nextBtn = document.getElementById('next-btn');
+  nextWrap.classList.remove('hidden');
+
+  if (currentIndex + 1 >= sessionQuestions.length) {
+    nextBtn.textContent = '查看結果 →';
+  } else {
+    nextBtn.textContent = '下一題 →';
+  }
+}
+
+document.getElementById('next-btn').addEventListener('click', () => {
+  if (currentIndex + 1 >= sessionQuestions.length) {
+    showResults();
+  } else {
+    currentIndex++;
+    showQuestion();
+  }
+});
+
+/* ── Quit ── */
+document.getElementById('quit-link').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('quiz-phase').classList.add('hidden');
+  document.getElementById('select-phase').classList.remove('hidden');
+  document.getElementById('result-phase').classList.add('hidden');
+});
+
+/* ── Results ── */
+function showResults() {
+  document.getElementById('quiz-phase').classList.add('hidden');
+  document.getElementById('result-phase').classList.remove('hidden');
+
+  const percentage = Math.round((score / sessionQuestions.length) * 100);
+
+  // Score display
+  const scoreEl = document.getElementById('score-display');
+  scoreEl.textContent = `${score} / ${sessionQuestions.length}`;
+
+  // Color & grade
+  if (percentage >= 90) {
+    scoreEl.className = 'big-score perfect';
+    document.getElementById('grade-label').textContent = '🏆 太強了！護理師穩了！';
+  } else if (percentage >= 70) {
+    scoreEl.className = 'big-score good';
+    document.getElementById('grade-label').textContent = '👍 不錯！再加強錯題就能高分！';
+  } else if (percentage >= 50) {
+    scoreEl.className = 'big-score';
+    document.getElementById('grade-label').textContent = '📖 還有進步空間，針對錯題複習吧！';
+  } else {
+    scoreEl.className = 'big-score poor';
+    document.getElementById('grade-label').textContent = '💪 別氣餒！多做幾次就會進步！';
+  }
+
+  document.getElementById('result-title').textContent =
+    currentSubject.id === 'all'
+      ? `測驗完成 — 混合全部科目`
+      : `測驗完成 — ${currentSubject.name}`;
+
+  // Wrong question review
+  const reviewList = document.getElementById('review-list');
+  const wrongAnswers = answerLog.filter(a => !a.isCorrect);
+
+  if (wrongAnswers.length === 0) {
+    reviewList.innerHTML = `
+      <div class="content-section" style="text-align:center">
+        <h2>🎉 全部答對！</h2>
+        <p>這回合表現完美，沒有任何錯題。</p>
+      </div>`;
+  } else {
+    let html = `<div class="content-section"><h2>📋 錯題回顧（${wrongAnswers.length} 題）</h2>`;
+    wrongAnswers.forEach((a, i) => {
+      html += `
+      <div class="review-item">
+        <div class="q">${a.question.text}</div>
+        <span class="your">❌ 你選了：${a.selected}</span>
+        <span class="correct-ans">✅ 正確答案：${a.question.correct_answer}</span>
+      </div>`;
+    });
+    html += `</div>`;
+    reviewList.innerHTML = html;
+  }
+
+  // Buttons
+  document.getElementById('retry-subject').onclick = () =>
+    startQuiz(currentSubject.id, currentSubject.name);
+  document.getElementById('change-subject').onclick = () => {
+    document.getElementById('result-phase').classList.add('hidden');
+    document.getElementById('select-phase').classList.remove('hidden');
+  };
+}
+
+/* ── Shuffle (Fisher-Yates) ── */
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+</script>
+</body>
+</html>

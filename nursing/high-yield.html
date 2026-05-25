@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>護理師國考 高重複率考題分析</title>
+<style>
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --border: #334155;
+  --text: #f1f5f9;
+  --text-dim: #94a3b8;
+  --accent: #3b82f6;
+  --green: #22c55e;
+  --red: #ef4444;
+  --orange: #f59e0b;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Noto Sans TC, sans-serif; background: var(--bg); color: var(--text); padding: 20px; line-height: 1.6; }
+.container { max-width: 800px; margin: 0 auto; }
+h1 { font-size: 1.5rem; margin-bottom: 4px; }
+.subtitle { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 20px; }
+.stat-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+.stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; flex: 1; min-width: 100px; }
+.stat .num { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 0.75rem; color: var(--text-dim); }
+.subject-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.subject-tab { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--card); color: var(--text-dim); cursor: pointer; font-size: 0.8rem; transition: .2s; }
+.subject-tab:hover { border-color: var(--accent); color: var(--text); }
+.subject-tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+.topic-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+.topic-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.topic-title { font-size: 0.85rem; font-weight: 600; }
+.topic-badge { font-size: 0.7rem; background: var(--accent); color: white; padding: 2px 8px; border-radius: 10px; }
+.topic-years { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 8px; }
+.toggle-btn { background: none; border: 1px solid var(--border); color: var(--text-dim); padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
+.toggle-btn:hover { border-color: var(--accent); color: var(--text); }
+.details { display: none; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+.details.open { display: block; }
+.q-item { margin-bottom: 14px; padding: 10px; background: rgba(0,0,0,.15); border-radius: 8px; }
+.q-item .q-year { font-size: 0.7rem; color: var(--accent); margin-bottom: 4px; }
+.q-item .q-text { font-size: 0.85rem; margin-bottom: 6px; }
+.q-item .q-opts { font-size: 0.8rem; }
+.q-item .q-opts div { padding: 2px 0; }
+.q-item .q-answer { font-size: 0.8rem; margin-top: 4px; color: var(--green); font-weight: 600; }
+.filter-bar { margin-bottom: 16px; }
+.filter-bar input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 0.85rem; outline: none; }
+.filter-bar input:focus { border-color: var(--accent); }
+.empty { text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.9rem; }
+@media(prefers-color-scheme:light) {
+  :root { --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --text: #1e293b; --text-dim: #64748b; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📋 護理師國考 高重複率考題分析</h1>
+<p class="subtitle">近 4 年（112~115）考題重複趨勢，鎖定最高頻出題主題</p>
+
+<div class="stat-bar" id="stats"></div>
+<div class="filter-bar"><input type="text" id="search" placeholder="🔍 搜尋主題或關鍵字..." oninput="filter()"></div>
+<div class="subject-tabs" id="tabs"></div>
+<div id="topics"></div>
+</div>
+
+<script>
+const DATA = {"meta": {"total": 1491, "repeated_topics": 11, "years": [2023, 2024, 2025, 2026], "last_updated": "2026-05-20"}, "by_subject": {"基礎醫學": {"total": 300, "repeated_topics": 0, "topics": []}, "基本護理學": {"total": 298, "repeated_topics": 2, "topics": [{"topic": "有關護理成本控制的方法，下列敘述何者錯誤？", "subject": "基本護理學", "count": 2, "years": [2024, 2025], "appearances": [{"year": 2024, "session": "113030", "qnum": 50, "text": "有關護理成本控制的方法，下列敘述何者錯誤？", "answer": "B", "options": {"A": "護理作業資訊化", "B": "減少護理人員數", "C": "降低衛材庫存量", "D": "正確計價防漏帳"}}, {"year": 2025, "session": "114170", "qnum": 50, "text": "有關護理成本控制的方法，下列敘述何者最不適當？", "answer": "D", "options": {"A": "縮短流程使工作簡化", "B": "水電空調使用要節流", "C": "資材管理達零存貨目標", "D": "使用報廢的醫療儀器"}}]}, {"topic": "有關輸血注意事項，下列敘述何者錯誤？", "subject": "基本護理學", "count": 2, "years": [2024, 2026], "appearances": [{"year": 2024, "session": "113180", "qnum": 16, "text": "有關輸血注意事項，下列敘述何者錯誤？", "answer": "A", "options": {"A": "最初15 分，滴速宜維持60～80 gtts/min", "B": "血漿製品最好在2 小時內輸完", "C": "輸血加壓器的壓力不高於300 mmHg", "D": "輸血前後應使用0.9% N/S 溶液"}}, {"year": 2026, "session": "115030", "qnum": 17, "text": "有關輸血注意事項，下列敘述何者正確？①每單位血品最好在2小時內輸完　②可應用輸血加壓器 來協助輸血（壓力＞300 mmHg）　③使用輸血加溫器，溫度以38℃～40℃為原則　④最初15分，滴 速宜維持20～40 gtt/min", "answer": "B", "options": {"A": "①③", "B": "①④", "C": "②③", "D": "②④"}}]}]}, "內外科護理學": {"total": 295, "repeated_topics": 4, "topics": [{"topic": "有關後天免疫缺乏症候群（AIDS）病人防護措施的敘述，下列何者正確？", "subject": "內外科護理學", "count": 3, "years": [2023, 2024, 2025], "appearances": [{"year": 2023, "session": "112180", "qnum": 31, "text": "有關後天免疫缺乏症候群（AIDS）病人防護措施的敘述，下列何者正確？", "answer": "C", "options": {"A": "若工作人員是孕婦，需加強洗手、穿隔離衣", "B": "針頭必須回套，以避免刺傷", "C": "被血液、體液污染的物品，應用漂白水處理", "D": "執行技術前，皆應戴上口罩或護目鏡"}}, {"year": 2024, "session": "113180", "qnum": 14, "text": "有關後天免疫缺乏症候群（AIDS）之敘述，下列何者錯誤？", "answer": "A", "options": {"A": "輔助性T 細胞與毒殺性T 細胞的比值上升", "B": "當病人CD4＜200 cells/μL 時，易出現「伺機性感染」", "C": "病人最常出現的續發性惡性腫瘤為卡波西氏肉瘤", "D": "反轉錄酶抑制劑zidovudine（AZT）適用於預防母體垂直感染"}}, {"year": 2025, "session": "114030", "qnum": 30, "text": "有關後天免疫缺乏症候群（AIDS）臨床表徵之敘述，下列何者錯誤？", "answer": "D", "options": {"A": "急性HIV感染可能出現類感冒症狀如淋巴腺腫大、發燒、肌肉關節疼痛", "B": "臨床潛伏期可能持續10年或更長時間", "C": "卡波西氏肉瘤是愛滋病人最常見的惡性腫瘤", "D": "愛滋病人可能出現口腔紅斑症"}}]}, {"topic": "有關全身性紅斑性狼瘡（SLE）病人的診斷檢查結果，下列何者正確？", "subject": "內外科護理學", "count": 3, "years": [2023, 2024, 2026], "appearances": [{"year": 2023, "session": "112180", "qnum": 33, "text": "有關全身性紅斑性狼瘡（SLE）病人的診斷檢查結果，下列何者正確？", "answer": "C", "options": {"A": "白血球數目增加", "B": "紅血球沉降速率下降", "C": "抗核性抗體（ANA）呈現陽性反應", "D": "血清中的補體C3 和C4 高於正常值"}}, {"year": 2024, "session": "113030", "qnum": 31, "text": "有關全身性紅斑性狼瘡（SLE）臨床表徵之敘述，下列何者錯誤？", "answer": "B", "options": {"A": "皮膚症狀：蝴蝶斑為主要典型症狀", "B": "心肺症狀：肺部受侵犯以肺炎最為常見", "C": "泌尿系統：可能出現蛋白尿、血尿", "D": "神經系統：出現人格改變或精神疾病"}}, {"year": 2026, "session": "115030", "qnum": 31, "text": "有關全身性紅斑性狼瘡（SLE）之臨床表徵，下列敘述何者錯誤？", "answer": "C", "options": {"A": "關節症狀包括發炎、疼痛、腫脹、僵硬等", "B": "心肺症狀，如心包炎、肋膜炎的發生，對病人預後影響很大", "C": "中樞神經不受侵犯，不必擔心病人認知問題", "D": "腎功能下降，應限制蛋白質、水分、鹽分的攝取"}}]}, {"topic": "有關慢性阻塞性肺疾病（COPD）病人的護理照護計畫，下列何者應列為最優先處理？", "subject": "內外科護理學", "count": 2, "years": [2023, 2024], "appearances": [{"year": 2023, "session": "112180", "qnum": 37, "text": "有關慢性阻塞性肺疾病（COPD）病人的護理照護計畫，下列何者應列為最優先處理？", "answer": "B", "options": {"A": "自我照顧能力缺失", "B": "呼吸道清除功能失效", "C": "活動無耐力", "D": "調適障礙"}}, {"year": 2024, "session": "113030", "qnum": 36, "text": "有關慢性阻塞性肺疾病（COPD）病人飲食指導之敘述，下列何者較適當？①進食時可將氧氣面罩更換為氧氣 套管　②選擇易咀嚼食物　③增加碳水化合物　④減少水分的攝取", "answer": "A", "options": {"A": "①②", "B": "①③", "C": "②④", "D": "③④"}}]}, {"topic": "有關急性胰臟炎的敘述，下列何者正確？①常見的原因是膽道疾病及飲酒過量 ②血清澱粉酶及血鈣的數 值過高 ③會出現下腹巨痛或", "subject": "內外科護理學", "count": 2, "years": [2024, 2026], "appearances": [{"year": 2024, "session": "113180", "qnum": 10, "text": "有關急性胰臟炎的敘述，下列何者正確？①常見的原因是膽道疾病及飲酒過量 ②血清澱粉酶及血鈣的數 值過高 ③會出現下腹巨痛或疼痛輻射至右肩 ④急性期後，仍需採低脂飲食 代號：3101 頁次：4－2", "answer": "B", "options": {"A": "①②", "B": "①④", "C": "②③", "D": "③④"}}, {"year": 2026, "session": "115030", "qnum": 6, "text": "有關急性胰臟炎的敘述，下列何者正確？", "answer": "A", "options": {"A": "因膽道疾病導致膽汁與胰液逆流而引起", "B": "穆菲氏徵象（Murphy’s sign）是常見表徵", "C": "康復期應採高脂飲食", "D": "血清中鈣濃度通常會升高"}}]}]}, "產兒科護理學": {"total": 299, "repeated_topics": 3, "topics": [{"topic": "張女士，G1P0，懷孕40 週，下列何者是真陣痛的特徵？", "subject": "產兒科護理學", "count": 2, "years": [2023, 2026], "appearances": [{"year": 2023, "session": "112180", "qnum": 7, "text": "張女士，G1P0，懷孕40 週，下列何者是真陣痛的特徵？", "answer": "B", "options": {"A": "感覺後背痛，但走路會緩解", "B": "宮縮間隔時間逐漸變短，並有規律感", "C": "宮縮時偶肚子變硬，但強度沒有變化", "D": "陣痛一定伴隨破水發生"}}, {"year": 2026, "session": "115030", "qnum": 7, "text": "張女士，G1P0，懷孕40 週入院待產。目前子宮頸擴張4 公分，變薄50%，先露部位高度為0，羊膜完整，無特 殊異常狀況，胎心率為140 bpm。她詢問：「我可以下床走走嗎？」，護理師最適當的回答是：", "answer": "B", "options": {"A": "「不可以，只能在床上翻身減輕不舒適」", "B": "「可以，但要注意安全」", "C": "「可以，只能去上廁所」", "D": "「不可以，你下床羊膜容易破裂」"}}]}, {"topic": "王女士，初產婦，陰道生產，採純母乳哺育，產後6週重返職場的一週後，主訴發燒38℃，右側乳房情況如 圖所示，觸診溫熱且有痛", "subject": "產兒科護理學", "count": 2, "years": [2024], "appearances": [{"year": 2024, "session": "113030", "qnum": 12, "text": "王女士，初產婦，陰道生產，採純母乳哺育，產後6週重返職場的一週後，主訴發燒38℃，右側乳房情況如 圖所示，觸診溫熱且有痛感。最可能的診斷是？", "answer": "C", "options": {"A": "因為剛剛返回工作狀態，所以最可能是壓力性乳腺管阻塞（blocked ducts）", "B": "因為幾乎整個乳房大面積發紅，所以最可能是乳房腫脹（engorgement）", "C": "因為乳頭可見傷口，所以最可能是乳腺炎（mastitis）", "D": "因為乳房3、4點鐘方向有水囊狀感，所以最可能是乳房膿瘍（breast abscess）"}}, {"year": 2024, "session": "113180", "qnum": 15, "text": "王女士，初產婦，陰道生產，採純母乳哺育，產後6 週重返職場的一週後，因發燒乳房紅腫熱痛求診，診 斷為乳腺炎。下列的護理措施何者不適當？", "answer": "D", "options": {"A": "改善發紅部位的乳房引流", "B": "進行完整的哺乳史評估，並去除可能的導因", "C": "給予症狀照護，包括：餵奶前服用止痛藥，或餵奶後冰敷止痛", "D": "立即協助乳汁培養並立即進行完整抗生素治療"}}]}, {"topic": "有關嬰兒玫瑰疹（roseola）的評估，下列敘述何者錯誤？", "subject": "產兒科護理學", "count": 2, "years": [2024, 2025], "appearances": [{"year": 2024, "session": "113180", "qnum": 37, "text": "有關嬰兒玫瑰疹（roseola）的評估，下列敘述何者錯誤？", "answer": "D", "options": {"A": "會出現突然的高燒且持續3～5 天左右", "B": "枕下／耳後的淋巴結可能有腫大的情形", "C": "軀幹先出現散發性的玫瑰紅斑點", "D": "發疹期間大約會持續1 週以上才消退"}}, {"year": 2025, "session": "114170", "qnum": 36, "text": "有關嬰兒玫瑰疹（roseola infantum）在發疹期的敘述，下列何者正確？", "answer": "C", "options": {"A": "發疹通常伴隨著發燒症狀一起出現", "B": "發疹期通常會持續7 天", "C": "疹子從軀幹開始擴散至頸、臉及四肢", "D": "疹子會癢，並常見有色素沉著的現象"}}]}]}, "精神科與社區衛生護理學": {"total": 299, "repeated_topics": 2, "topics": [{"topic": "有關全民健康保險的敘述，下列何者正確？①屬強制性社會保險 ②主要收入來源為保險費 ③被保險人 所負擔的眷屬數最多計算到3", "subject": "精神科與社區衛生護理學", "count": 2, "years": [2023, 2025], "appearances": [{"year": 2023, "session": "112180", "qnum": 26, "text": "有關全民健康保險的敘述，下列何者正確？①屬強制性社會保險 ②主要收入來源為保險費 ③被保險人 所負擔的眷屬數最多計算到3 人 ④除特殊對象外，採部分負擔制", "answer": "D", "options": {"A": "僅①②③", "B": "僅①②④", "C": "僅②③④", "D": "①②③④"}}, {"year": 2025, "session": "114030", "qnum": 27, "text": "有關全民健康保險的敘述，下列何者最不適當？", "answer": "C", "options": {"A": "全民納保率已達95％以上", "B": "保險費由保險對象、雇主及政府共同分擔", "C": "屬於可自由參加的商業保險", "D": "財務來源包含菸品健康福利捐"}}]}, {"topic": "有關創傷後壓力症（posttraumatic stress disorder）的敘述，下列何者最適切？", "subject": "精神科與社區衛生護理學", "count": 2, "years": [2025], "appearances": [{"year": 2025, "session": "114030", "qnum": 15, "text": "有關創傷後壓力症（posttraumatic stress disorder）的敘述，下列何者最適切？", "answer": "A", "options": {"A": "會出現解離反應，感到創傷事件重演", "B": "不包含目擊創傷發生於他人身上的經驗", "C": "創傷事件不會產生明顯生理反應", "D": "負面情緒不包含易怒或無預兆的發怒"}}, {"year": 2025, "session": "114170", "qnum": 9, "text": "有關創傷後壓力症（posttraumatic stress disorder），下列敘述何者最不適當？", "answer": "D", "options": {"A": "親身目擊事件者可能也是受創者", "B": "會出現解離、記憶重現等反應", "C": "努力逃避與創傷事件相關的痛苦記憶", "D": "不會影響社交、職業或其他重要領域的功能"}}]}]}}, "topics": [{"topic": "有關後天免疫缺乏症候群（AIDS）病人防護措施的敘述，下列何者正確？", "subject": "內外科護理學", "count": 3, "years": [2023, 2024, 2025], "appearances": [{"year": 2023, "session": "112180", "qnum": 31, "text": "有關後天免疫缺乏症候群（AIDS）病人防護措施的敘述，下列何者正確？", "answer": "C", "options": {"A": "若工作人員是孕婦，需加強洗手、穿隔離衣", "B": "針頭必須回套，以避免刺傷", "C": "被血液、體液污染的物品，應用漂白水處理", "D": "執行技術前，皆應戴上口罩或護目鏡"}}, {"year": 2024, "session": "113180", "qnum": 14, "text": "有關後天免疫缺乏症候群（AIDS）之敘述，下列何者錯誤？", "answer": "A", "options": {"A": "輔助性T 細胞與毒殺性T 細胞的比值上升", "B": "當病人CD4＜200 cells/μL 時，易出現「伺機性感染」", "C": "病人最常出現的續發性惡性腫瘤為卡波西氏肉瘤", "D": "反轉錄酶抑制劑zidovudine（AZT）適用於預防母體垂直感染"}}, {"year": 2025, "session": "114030", "qnum": 30, "text": "有關後天免疫缺乏症候群（AIDS）臨床表徵之敘述，下列何者錯誤？", "answer": "D", "options": {"A": "急性HIV感染可能出現類感冒症狀如淋巴腺腫大、發燒、肌肉關節疼痛", "B": "臨床潛伏期可能持續10年或更長時間", "C": "卡波西氏肉瘤是愛滋病人最常見的惡性腫瘤", "D": "愛滋病人可能出現口腔紅斑症"}}]}, {"topic": "有關全身性紅斑性狼瘡（SLE）病人的診斷檢查結果，下列何者正確？", "subject": "內外科護理學", "count": 3, "years": [2023, 2024, 2026], "appearances": [{"year": 2023, "session": "112180", "qnum": 33, "text": "有關全身性紅斑性狼瘡（SLE）病人的診斷檢查結果，下列何者正確？", "answer": "C", "options": {"A": "白血球數目增加", "B": "紅血球沉降速率下降", "C": "抗核性抗體（ANA）呈現陽性反應", "D": "血清中的補體C3 和C4 高於正常值"}}, {"year": 2024, "session": "113030", "qnum": 31, "text": "有關全身性紅斑性狼瘡（SLE）臨床表徵之敘述，下列何者錯誤？", "answer": "B", "options": {"A": "皮膚症狀：蝴蝶斑為主要典型症狀", "B": "心肺症狀：肺部受侵犯以肺炎最為常見", "C": "泌尿系統：可能出現蛋白尿、血尿", "D": "神經系統：出現人格改變或精神疾病"}}, {"year": 2026, "session": "115030", "qnum": 31, "text": "有關全身性紅斑性狼瘡（SLE）之臨床表徵，下列敘述何者錯誤？", "answer": "C", "options": {"A": "關節症狀包括發炎、疼痛、腫脹、僵硬等", "B": "心肺症狀，如心包炎、肋膜炎的發生，對病人預後影響很大", "C": "中樞神經不受侵犯，不必擔心病人認知問題", "D": "腎功能下降，應限制蛋白質、水分、鹽分的攝取"}}]}, {"topic": "有關慢性阻塞性肺疾病（COPD）病人的護理照護計畫，下列何者應列為最優先處理？", "subject": "內外科護理學", "count": 2, "years": [2023, 2024], "appearances": [{"year": 2023, "session": "112180", "qnum": 37, "text": "有關慢性阻塞性肺疾病（COPD）病人的護理照護計畫，下列何者應列為最優先處理？", "answer": "B", "options": {"A": "自我照顧能力缺失", "B": "呼吸道清除功能失效", "C": "活動無耐力", "D": "調適障礙"}}, {"year": 2024, "session": "113030", "qnum": 36, "text": "有關慢性阻塞性肺疾病（COPD）病人飲食指導之敘述，下列何者較適當？①進食時可將氧氣面罩更換為氧氣 套管　②選擇易咀嚼食物　③增加碳水化合物　④減少水分的攝取", "answer": "A", "options": {"A": "①②", "B": "①③", "C": "②④", "D": "③④"}}]}, {"topic": "有關急性胰臟炎的敘述，下列何者正確？①常見的原因是膽道疾病及飲酒過量 ②血清澱粉酶及血鈣的數 值過高 ③會出現下腹巨痛或", "subject": "內外科護理學", "count": 2, "years": [2024, 2026], "appearances": [{"year": 2024, "session": "113180", "qnum": 10, "text": "有關急性胰臟炎的敘述，下列何者正確？①常見的原因是膽道疾病及飲酒過量 ②血清澱粉酶及血鈣的數 值過高 ③會出現下腹巨痛或疼痛輻射至右肩 ④急性期後，仍需採低脂飲食 代號：3101 頁次：4－2", "answer": "B", "options": {"A": "①②", "B": "①④", "C": "②③", "D": "③④"}}, {"year": 2026, "session": "115030", "qnum": 6, "text": "有關急性胰臟炎的敘述，下列何者正確？", "answer": "A", "options": {"A": "因膽道疾病導致膽汁與胰液逆流而引起", "B": "穆菲氏徵象（Murphy’s sign）是常見表徵", "C": "康復期應採高脂飲食", "D": "血清中鈣濃度通常會升高"}}]}, {"topic": "有關護理成本控制的方法，下列敘述何者錯誤？", "subject": "基本護理學", "count": 2, "years": [2024, 2025], "appearances": [{"year": 2024, "session": "113030", "qnum": 50, "text": "有關護理成本控制的方法，下列敘述何者錯誤？", "answer": "B", "options": {"A": "護理作業資訊化", "B": "減少護理人員數", "C": "降低衛材庫存量", "D": "正確計價防漏帳"}}, {"year": 2025, "session": "114170", "qnum": 50, "text": "有關護理成本控制的方法，下列敘述何者最不適當？", "answer": "D", "options": {"A": "縮短流程使工作簡化", "B": "水電空調使用要節流", "C": "資材管理達零存貨目標", "D": "使用報廢的醫療儀器"}}]}, {"topic": "有關輸血注意事項，下列敘述何者錯誤？", "subject": "基本護理學", "count": 2, "years": [2024, 2026], "appearances": [{"year": 2024, "session": "113180", "qnum": 16, "text": "有關輸血注意事項，下列敘述何者錯誤？", "answer": "A", "options": {"A": "最初15 分，滴速宜維持60～80 gtts/min", "B": "血漿製品最好在2 小時內輸完", "C": "輸血加壓器的壓力不高於300 mmHg", "D": "輸血前後應使用0.9% N/S 溶液"}}, {"year": 2026, "session": "115030", "qnum": 17, "text": "有關輸血注意事項，下列敘述何者正確？①每單位血品最好在2小時內輸完　②可應用輸血加壓器 來協助輸血（壓力＞300 mmHg）　③使用輸血加溫器，溫度以38℃～40℃為原則　④最初15分，滴 速宜維持20～40 gtt/min", "answer": "B", "options": {"A": "①③", "B": "①④", "C": "②③", "D": "②④"}}]}, {"topic": "張女士，G1P0，懷孕40 週，下列何者是真陣痛的特徵？", "subject": "產兒科護理學", "count": 2, "years": [2023, 2026], "appearances": [{"year": 2023, "session": "112180", "qnum": 7, "text": "張女士，G1P0，懷孕40 週，下列何者是真陣痛的特徵？", "answer": "B", "options": {"A": "感覺後背痛，但走路會緩解", "B": "宮縮間隔時間逐漸變短，並有規律感", "C": "宮縮時偶肚子變硬，但強度沒有變化", "D": "陣痛一定伴隨破水發生"}}, {"year": 2026, "session": "115030", "qnum": 7, "text": "張女士，G1P0，懷孕40 週入院待產。目前子宮頸擴張4 公分，變薄50%，先露部位高度為0，羊膜完整，無特 殊異常狀況，胎心率為140 bpm。她詢問：「我可以下床走走嗎？」，護理師最適當的回答是：", "answer": "B", "options": {"A": "「不可以，只能在床上翻身減輕不舒適」", "B": "「可以，但要注意安全」", "C": "「可以，只能去上廁所」", "D": "「不可以，你下床羊膜容易破裂」"}}]}, {"topic": "王女士，初產婦，陰道生產，採純母乳哺育，產後6週重返職場的一週後，主訴發燒38℃，右側乳房情況如 圖所示，觸診溫熱且有痛", "subject": "產兒科護理學", "count": 2, "years": [2024], "appearances": [{"year": 2024, "session": "113030", "qnum": 12, "text": "王女士，初產婦，陰道生產，採純母乳哺育，產後6週重返職場的一週後，主訴發燒38℃，右側乳房情況如 圖所示，觸診溫熱且有痛感。最可能的診斷是？", "answer": "C", "options": {"A": "因為剛剛返回工作狀態，所以最可能是壓力性乳腺管阻塞（blocked ducts）", "B": "因為幾乎整個乳房大面積發紅，所以最可能是乳房腫脹（engorgement）", "C": "因為乳頭可見傷口，所以最可能是乳腺炎（mastitis）", "D": "因為乳房3、4點鐘方向有水囊狀感，所以最可能是乳房膿瘍（breast abscess）"}}, {"year": 2024, "session": "113180", "qnum": 15, "text": "王女士，初產婦，陰道生產，採純母乳哺育，產後6 週重返職場的一週後，因發燒乳房紅腫熱痛求診，診 斷為乳腺炎。下列的護理措施何者不適當？", "answer": "D", "options": {"A": "改善發紅部位的乳房引流", "B": "進行完整的哺乳史評估，並去除可能的導因", "C": "給予症狀照護，包括：餵奶前服用止痛藥，或餵奶後冰敷止痛", "D": "立即協助乳汁培養並立即進行完整抗生素治療"}}]}, {"topic": "有關嬰兒玫瑰疹（roseola）的評估，下列敘述何者錯誤？", "subject": "產兒科護理學", "count": 2, "years": [2024, 2025], "appearances": [{"year": 2024, "session": "113180", "qnum": 37, "text": "有關嬰兒玫瑰疹（roseola）的評估，下列敘述何者錯誤？", "answer": "D", "options": {"A": "會出現突然的高燒且持續3～5 天左右", "B": "枕下／耳後的淋巴結可能有腫大的情形", "C": "軀幹先出現散發性的玫瑰紅斑點", "D": "發疹期間大約會持續1 週以上才消退"}}, {"year": 2025, "session": "114170", "qnum": 36, "text": "有關嬰兒玫瑰疹（roseola infantum）在發疹期的敘述，下列何者正確？", "answer": "C", "options": {"A": "發疹通常伴隨著發燒症狀一起出現", "B": "發疹期通常會持續7 天", "C": "疹子從軀幹開始擴散至頸、臉及四肢", "D": "疹子會癢，並常見有色素沉著的現象"}}]}, {"topic": "有關全民健康保險的敘述，下列何者正確？①屬強制性社會保險 ②主要收入來源為保險費 ③被保險人 所負擔的眷屬數最多計算到3", "subject": "精神科與社區衛生護理學", "count": 2, "years": [2023, 2025], "appearances": [{"year": 2023, "session": "112180", "qnum": 26, "text": "有關全民健康保險的敘述，下列何者正確？①屬強制性社會保險 ②主要收入來源為保險費 ③被保險人 所負擔的眷屬數最多計算到3 人 ④除特殊對象外，採部分負擔制", "answer": "D", "options": {"A": "僅①②③", "B": "僅①②④", "C": "僅②③④", "D": "①②③④"}}, {"year": 2025, "session": "114030", "qnum": 27, "text": "有關全民健康保險的敘述，下列何者最不適當？", "answer": "C", "options": {"A": "全民納保率已達95％以上", "B": "保險費由保險對象、雇主及政府共同分擔", "C": "屬於可自由參加的商業保險", "D": "財務來源包含菸品健康福利捐"}}]}, {"topic": "有關創傷後壓力症（posttraumatic stress disorder）的敘述，下列何者最適切？", "subject": "精神科與社區衛生護理學", "count": 2, "years": [2025], "appearances": [{"year": 2025, "session": "114030", "qnum": 15, "text": "有關創傷後壓力症（posttraumatic stress disorder）的敘述，下列何者最適切？", "answer": "A", "options": {"A": "會出現解離反應，感到創傷事件重演", "B": "不包含目擊創傷發生於他人身上的經驗", "C": "創傷事件不會產生明顯生理反應", "D": "負面情緒不包含易怒或無預兆的發怒"}}, {"year": 2025, "session": "114170", "qnum": 9, "text": "有關創傷後壓力症（posttraumatic stress disorder），下列敘述何者最不適當？", "answer": "D", "options": {"A": "親身目擊事件者可能也是受創者", "B": "會出現解離、記憶重現等反應", "C": "努力逃避與創傷事件相關的痛苦記憶", "D": "不會影響社交、職業或其他重要領域的功能"}}]}]};
+let activeSubject = 'all';
+
+function render() {
+  // Stats
+  const stats = DATA.meta;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="num">${stats.total}</div><div class="label">題庫總數</div></div>
+    <div class="stat"><div class="num">${stats.repeated_topics}</div><div class="label">高重複主題</div></div>
+    <div class="stat"><div class="num">${stats.years.length}</div><div class="label">涵蓋年份</div></div>
+  `;
+
+  // Subject tabs
+  const tabsHtml = ['<div class="subject-tab active" onclick="setSubject(\'all\')">📌 全部</div>'];
+  const subjNames = Object.keys(DATA.by_subject);
+  const icons = {'基礎醫學':'🫀','基本護理學':'💉','內外科護理學':'🏥','產兒科護理學':'👶','精神科與社區衛生護理學':'🧠'};
+  subjNames.forEach(s => {
+    const n = DATA.by_subject[s].repeated_topics;
+    const icon = icons[s] || '📖';
+    tabsHtml.push(`<div class="subject-tab" onclick="setSubject('${s}')">${icon} ${s.replace('護理學','').replace('與社區衛生','')} (${n})</div>`);
+  });
+  document.getElementById('tabs').innerHTML = tabsHtml.join('');
+
+  renderTopics();
+}
+
+function setSubject(s) {
+  activeSubject = s;
+  document.querySelectorAll('.subject-tab').forEach(el => {
+    const txt = el.textContent.includes('全部') ? 'all' : Object.keys(DATA.by_subject).find(k => el.textContent.includes(k.replace('護理學','').replace('與社區衛生',''))) || s;
+    el.classList.toggle('active', s === (txt === 'all' ? 'all' : el.textContent.includes('全部') ? 'all' : txt));
+  });
+  // Fix: simpler approach
+  document.querySelectorAll('.subject-tab').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.subject-tab')[s === 'all' ? 0 : Object.keys(DATA.by_subject).indexOf(s) + 1].classList.add('active');
+  renderTopics();
+}
+
+function filter() {
+  renderTopics();
+}
+
+function renderTopics() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  let topics = DATA.topics;
+  
+  if (activeSubject !== 'all') topics = topics.filter(t => t.subject === activeSubject);
+  if (q) topics = topics.filter(t => t.topic.toLowerCase().includes(q) || t.appearances.some(a => a.text.toLowerCase().includes(q)));
+
+  if (!topics.length) {
+    document.getElementById('topics').innerHTML = '<div class="empty">🔍 沒有符合的主題</div>';
+    return;
+  }
+
+  let html = '';
+  topics.forEach((t, i) => {
+    html += `
+      <div class="topic-card">
+        <div class="topic-header">
+          <div class="topic-title">${t.topic.substring(0, 50)}${t.topic.length > 50 ? '...' : ''}</div>
+          <span class="topic-badge">${t.count}x 重複</span>
+        </div>
+        <div class="topic-years">出現年份：${t.years.join('、')} · ${t.subject}</div>
+        <button class="toggle-btn" onclick="toggle(${i})">▶ 查看歷年題目</button>
+        <div class="details" id="detail-${i}">
+          ${t.appearances.sort((a,b)=>a.year-b.year).map(a => `
+            <div class="q-item">
+              <div class="q-year">${a.year} 年 · 第 ${a.qnum} 題</div>
+              <div class="q-text">${a.text.substring(0, 200)}${a.text.length > 200 ? '...' : ''}</div>
+              <div class="q-opts">${Object.entries(a.options || {}).map(([k,v]) => `<div>${k}. ${v.substring(0, 80)}</div>`).join('')}</div>
+              <div class="q-answer">✅ 正確答案：${a.answer}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+  });
+  document.getElementById('topics').innerHTML = html;
+}
+
+function toggle(i) {
+  const el = document.getElementById('detail-' + i);
+  el.classList.toggle('open');
+  el.previousElementSibling.textContent = el.classList.contains('open') ? '▼ 收起' : '▶ 查看歷年題目';
+}
+
+render();
+</script>
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:32px 0 24px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer>
+  <p>© 2026 護理藥物計算工具 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>點滴滴速計算 — IV 輸液每分鐘滴速 gtt/min 免費線上工具</title>
+  <meta name="description" content="免費線上點滴滴速計算工具。輸入輸液總量、時間、滴數係數，自動算出 gtt/min。支援微滴(60)與一般輸液套(15-20)，附計算公式與臨床範例。">
+  <link rel="canonical" href="https://anycalculator.site/nursing/drip-rate.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>💧 點滴滴速計算</h1>
+  <p>計算 IV 輸液每分鐘滴速 (gtt/min) · 附公式與臨床範例</p>
+  <div class="badge">關鍵字：點滴滴速計算 · 輸液速度計算 · gtt/min</div>
+</header>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="index.html">💊 所有工具</a> &gt; 點滴滴速計算
+  </nav>
+
+  <div class="calc-card">
+    <h3>💧 點滴滴速計算機</h3>
+    <div class="input-row">
+      <div class="form-group">
+        <label>輸液總量 (mL)</label>
+        <input type="number" id="drp-volume" placeholder="e.g. 500" min="0" step="1">
+      </div>
+      <div class="form-group">
+        <label>輸液時間</label>
+        <div style="display:flex;gap:6px;">
+          <input type="number" id="drp-time" placeholder="e.g. 8" min="0" step="0.5" style="flex:1;">
+          <select id="drp-time-unit" style="width:80px;flex:0 0 80px;">
+            <option value="h">小時</option>
+            <option value="min">分鐘</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>滴數係數 (gtt/mL)</label>
+        <input type="number" id="drp-factor" placeholder="e.g. 15" min="0" step="1" value="15">
+        <div style="font-size:0.7rem;color:#888;margin-top:2px;">微滴 60 · 一般輸液套 15-20</div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="calcDripRate()">🔄 計算滴速</button>
+    <div class="result-box" id="drp-result"></div>
+  </div>
+
+  <div class="calc-card">
+    <h3>📝 計算公式</h3>
+    <p style="font-size:1.1rem;text-align:center;padding:12px;background:#f0f4ff;border-radius:8px;">
+      <strong>滴速 (gtt/min) = (總量 mL × 滴數係數 gtt/mL) ÷ 時間(分鐘)</strong>
+    </p>
+    <p style="font-size:0.85rem;color:#555;">舉例：NS 500 mL 使用 15 gtt/mL 輸液套，8 小時滴完 → (500 × 15) ÷ (8 × 60) = 15.6 gtt/min，約 16 gtt/min。</p>
+  </div>
+
+  <div class="content-section">
+    <h2>❓ 點滴滴速常見問題</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq('d1')">gtt/min 和 mL/hr 怎麼換算？ <span>▼</span></div>
+      <div class="faq-a" id="d1">mL/hr = (gtt/min × 60) ÷ 滴數係數。反過來 gtt/min = (mL/hr × 滴數係數) ÷ 60。兩個公式可以互相轉換。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq('d2')">什麼時候用微滴 (60 gtt/mL)？ <span>▼</span></div>
+      <div class="faq-a" id="d2">微滴適合精準控制輸液量的情況：兒科病患、ICU 重症患者、需嚴格控制輸液速度的藥物（如 Nitroprusside、Dopamine）</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq('d3')">點滴跑太快或太慢會怎樣？ <span>▼</span></div>
+      <div class="faq-a" id="d3">太快可能造成體液過多、心臟負荷過重（心衰竭患者危險）；太慢可能導致藥物濃度不足或脫水未改善。定時巡視調整滴速是護理常規工作。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:28px 0;">
+    <p style="font-size:0.9rem;color:#888;">其他工具：</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="dilution.html" class="btn btn-outline">🧪 藥物稀釋計算</a>
+      <a href="unit-converter.html" class="btn btn-outline">🔄 單位換算</a>
+      <a href="safe-dosage.html" class="btn btn-outline">🛡️ 安全劑量範圍</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:32px 0 24px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer>
+  <p>© 2026 護理藥物計算工具 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

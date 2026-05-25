@@ -1,0 +1,96 @@
+[
+  {
+    "id": "basic_medical",
+    "code": "s0101",
+    "name": "基礎醫學",
+    "full_name": "基礎醫學（包括解剖學、生理學、病理學、藥理學、微生物學與免疫學）",
+    "sub_fields": [
+      "解剖學",
+      "生理學",
+      "病理學",
+      "藥理學",
+      "微生物學與免疫學"
+    ],
+    "question_count": 430,
+    "years_covered": [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  {
+    "id": "fundamental_nursing",
+    "code": "s0102",
+    "name": "基本護理學",
+    "full_name": "基本護理學（包括護理原理、護理技術、與護理行政）",
+    "sub_fields": [
+      "護理原理",
+      "護理技術",
+      "護理行政"
+    ],
+    "question_count": 460,
+    "years_covered": [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  {
+    "id": "med_surg_nursing",
+    "code": "s0103",
+    "name": "內外科護理學",
+    "full_name": "內外科護理學",
+    "sub_fields": [
+      "內科護理",
+      "外科護理"
+    ],
+    "question_count": 460,
+    "years_covered": [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  {
+    "id": "ob_peds_nursing",
+    "code": "s0104",
+    "name": "產兒科護理學",
+    "full_name": "產兒科護理學",
+    "sub_fields": [
+      "產科護理",
+      "兒科護理"
+    ],
+    "question_count": 460,
+    "years_covered": [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  {
+    "id": "psych_community_nursing",
+    "code": "s0105",
+    "name": "精神科與社區衛生護理學",
+    "full_name": "精神科與社區衛生護理學",
+    "sub_fields": [
+      "精神科護理",
+      "社區衛生護理"
+    ],
+    "question_count": 461,
+    "years_covered": [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  }
+]

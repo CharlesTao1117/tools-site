@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>藥物稀釋計算 — 原液稀釋倍數計算機 免費線上工具</title>
+  <meta name="description" content="免費線上藥物稀釋計算工具。C₁V₁=C₂V₂ 公式，輸入原濃度、目標濃度、最終體積，自動計算需取原液與稀釋液量。適用抗生素稀釋給藥準備。">
+  <link rel="canonical" href="https://anycalculator.site/nursing/dilution.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🧪 藥物稀釋計算</h1>
+  <p>計算需取原液與稀釋液體積 · C₁V₁ = C₂V₂</p>
+  <div class="badge">關鍵字：藥物稀釋計算 · 稀釋倍數計算 · 抗生素稀釋</div>
+</header>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="index.html">💊 所有工具</a> &gt; 藥物稀釋計算
+  </nav>
+
+  <div class="calc-card">
+    <h3>🧪 藥物稀釋計算機</h3>
+    <div class="form-group">
+      <label>原液濃度</label>
+      <input type="number" id="dil-stock" placeholder="e.g. 50" min="0" step="any">
+    </div>
+    <div class="input-row">
+      <div class="form-group">
+        <label>目標濃度</label>
+        <input type="number" id="dil-target" placeholder="e.g. 10" min="0" step="any">
+      </div>
+      <div class="form-group">
+        <label>最終體積</label>
+        <input type="number" id="dil-vol" placeholder="e.g. 100" min="0" step="any">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>單位</label>
+      <select id="dil-unit">
+        <option value="mL">mL</option>
+        <option value="mg">mg</option>
+      </select>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="calcDilution()">🔄 計算稀釋</button>
+    <div class="result-box" id="dil-result"></div>
+  </div>
+
+  <div class="calc-card">
+    <h3>📝 計算公式</h3>
+    <p style="font-size:1.1rem;text-align:center;padding:12px;background:#f0f4ff;border-radius:8px;">
+      <strong>C₁V₁ = C₂V₂</strong>
+    </p>
+    <p style="font-size:0.85rem;color:#555;">C₁ = 原液濃度 · V₁ = 需取原液體積 · C₂ = 目標濃度 · V₂ = 最終體積<br>
+    稀釋液體積 = V₂ − V₁</p>
+  </div>
+
+  <div class="content-section">
+    <h2>❓ 藥物稀釋常見問題</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq('di1')">C₁V₁ = C₂V₂ 是什麼原理？ <span>▼</span></div>
+      <div class="faq-a" id="di1">稀釋前後，藥物總量（濃度×體積）不變。C₁V₁ 是取出的藥物總量，C₂V₂ 是稀釋後的藥物總量，兩者相等。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq('di2')">臨床上哪些藥需要稀釋？ <span>▼</span></div>
+      <div class="faq-a" id="di2">常見需稀釋的藥物包括：Gentamicin、Vancomycin、Amphotericin B、Potassium Chloride（絕對不可直接推注）、某些化療藥物。稀釋方式依藥品仿單為準。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:28px 0;">
+    <p style="font-size:0.9rem;color:#888;">其他工具：</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="drip-rate.html" class="btn btn-outline">💧 點滴滴速計算</a>
+      <a href="unit-converter.html" class="btn btn-outline">🔄 單位換算</a>
+      <a href="safe-dosage.html" class="btn btn-outline">🛡️ 安全劑量範圍</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:32px 0 24px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer>
+  <p>© 2026 護理藥物計算工具 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

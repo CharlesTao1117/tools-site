@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>藥物單位換算 — g mg mcg 自動換算 免費線上工具</title>
+  <meta name="description" content="免費線上藥物單位換算工具。公克(g)、毫克(mg)、微克(mcg)、公升(L)、毫升(mL)自動換算。避免給藥劑量錯誤，確保用藥安全。">
+  <link rel="canonical" href="https://anycalculator.site/nursing/unit-converter.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🔄 藥物單位換算</h1>
+  <p>g ↔ mg ↔ mcg · L ↔ mL · 一鍵自動換算</p>
+  <div class="badge">關鍵字：藥物劑量換算 · mg mcg換算 · 單位換算</div>
+</header>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="index.html">💊 所有工具</a> &gt; 藥物單位換算
+  </nav>
+
+  <div class="calc-card">
+    <h3>🔄 單位換算機</h3>
+    <div class="input-row">
+      <div class="form-group">
+        <label>數值</label>
+        <input type="number" id="conv-val" placeholder="e.g. 500" min="0" step="any">
+      </div>
+      <div class="form-group">
+        <label>從</label>
+        <select id="conv-from">
+          <option value="g">公克 (g)</option>
+          <option value="mg" selected>毫克 (mg)</option>
+          <option value="mcg">微克 (mcg)</option>
+          <option value="L">公升 (L)</option>
+          <option value="mL">毫升 (mL)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>到</label>
+        <select id="conv-to">
+          <option value="g">公克 (g)</option>
+          <option value="mg">毫克 (mg)</option>
+          <option value="mcg" selected>微克 (mcg)</option>
+          <option value="L">公升 (L)</option>
+          <option value="mL">毫升 (mL)</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="doConvert()">🔄 換算</button>
+    <div class="result-box" id="conv-result"></div>
+  </div>
+
+  <div class="calc-card">
+    <h3>📝 換算對照表</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.9rem;">
+      <div style="padding:8px;background:#f0f4ff;border-radius:6px;text-align:center;">1 g = <strong>1000</strong> mg</div>
+      <div style="padding:8px;background:#f0f4ff;border-radius:6px;text-align:center;">1 g = <strong>1,000,000</strong> mcg</div>
+      <div style="padding:8px;background:#f0f4ff;border-radius:6px;text-align:center;">1 mg = <strong>1000</strong> mcg</div>
+      <div style="padding:8px;background:#f0f4ff;border-radius:6px;text-align:center;">1 L = <strong>1000</strong> mL</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>❓ 單位換算常見問題</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq('u1')">藥物單位換算為什麼重要？ <span>▼</span></div>
+      <div class="faq-a" id="u1">單位換算錯誤是給藥失誤的常見原因之一。例如醫囑開立 0.5 g 的藥物，但藥品標示為 500 mg/錠，若誤以為 0.5 g = 50 mg 就會造成 10 倍劑量錯誤。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq('u2')">mg 和 mcg 哪個大？ <span>▼</span></div>
+      <div class="faq-a" id="u2">mg（毫克）比 mcg（微克）大 1000 倍。1 mg = 1000 mcg。mcg 有時寫作 µg，兩者相同。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:28px 0;">
+    <p style="font-size:0.9rem;color:#888;">其他工具：</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
+      <a href="drip-rate.html" class="btn btn-outline">💧 點滴滴速計算</a>
+      <a href="dilution.html" class="btn btn-outline">🧪 藥物稀釋計算</a>
+      <a href="safe-dosage.html" class="btn btn-outline">🛡️ 安全劑量範圍</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:32px 0 24px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer>
+  <p>© 2026 護理藥物計算工具 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
