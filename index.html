@@ -143,154 +143,21 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 
 
   <!-- ═══ Feedback Form ═══ -->
+  <!-- ═══ Feedback ═══ -->
   <section class="section-feedback">
-    <h2>💬 Feedback</h2>
-    <p>Help us improve — report bugs, request tools, or share ideas</p>
-    <form class="feedback-form" onsubmit="submitFeedback(event,this)">
-      <div class="feedback-row">
-        <div class="form-group">
-          <label>Name (optional)</label>
-          <input name="name" type="text" placeholder="Your name" autocomplete="name">
-        </div>
-        <div class="form-group">
-          <label>Email (optional)</label>
-          <input name="email" type="email" placeholder="your@email.com" autocomplete="email">
-        </div>
+    <form onsubmit="submitFeedback(event,this)">
+      <div class="fb-header">
+        <span class="fb-icon">💬</span> Feedback
+        <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
       </div>
-      <div class="form-group">
-        <label>Message *</label>
-        <textarea name="message" required placeholder="What do you think?"></textarea>
+      <div class="fb-optional">
+        <input name="name" placeholder="Your name (optional)" autocomplete="name">
+        <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
       </div>
-      <button class="feedback-submit" type="submit">Send Feedback</button>
-      <div class="feedback-status"></div>
+      <div class="fb-row">
+        <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
+        <button class="fb-submit" type="submit">Send →</button>
+      </div>
+      <div class="fb-status"></div>
     </form>
   </section>
-
-<footer><div class="container"><div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div><p>&copy; 2026 Free Online Tools</p></div></footer>
-</div>
-
-<script>
-let qrSize=256, qrInstance=null;
-
-// Size pills
-document.querySelectorAll('#sizePills .pill-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('#sizePills .pill-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    qrSize=parseInt(btn.dataset.size);
-    generateQR();
-  });
-});
-
-// Color presets
-document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(swatch=>{
-  swatch.addEventListener('click',()=>{
-    document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(s=>s.classList.remove('active'));
-    swatch.classList.add('active');
-    document.getElementById('qrColor').value=swatch.dataset.color;
-    generateQR();
-  });
-});
-document.getElementById('qrColor').addEventListener('input',()=>{
-  document.querySelectorAll('#colorPresets .color-swatch-preset').forEach(s=>s.classList.remove('active'));
-  generateQR();
-});
-
-function generateQR(){
-  const text=document.getElementById('qrText').value.trim();
-  if(!text)return;
-  const container=document.getElementById('qrcode');
-  container.innerHTML='';
-  qrInstance=new QRCode(container,{
-    text,width:qrSize,height:qrSize,
-    colorDark:document.getElementById('qrColor').value,
-    colorLight:'#ffffff',
-    correctLevel:QRCode.CorrectLevel.H
-  });
-}
-
-function generateBarcodes(){
-  const text=document.getElementById('qrText').value.trim();
-  if(!text)return;
-
-  const bcConfig={
-    format:'CODE128',
-    width:2,height:50,
-    displayValue:true,
-    fontSize:14,
-    margin:8,
-    background:'#ffffff',
-    lineColor:'#000000'
-  };
-
-  ['bc128','bc39','bcUpc','bcEan'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    try{
-      let fmt='CODE128',val=text;
-      if(id==='bc39'){
-        fmt='CODE39';
-        val=text.toUpperCase().replace(/[^A-Z0-9\-\.\ \$\/\+\%]/g,'');
-        if(!val)val='CODE39';
-      }
-      else if(id==='bcUpc'){fmt='UPC';val=text.replace(/[^0-9]/g,'').slice(0,11)||'01234567890';}
-      else if(id==='bcEan'){fmt='EAN13';val=text.replace(/[^0-9]/g,'').slice(0,12)||'012345678901';}
-      JsBarcode(el,val,{...bcConfig,format:fmt});
-    }catch(e){
-      el.innerHTML='<text x="50%" y="50%" text-anchor="middle" fill="#999" font-size="12">Unsupported content</text>';
-    }
-  });
-}
-
-function downloadQR(){
-  const c=document.querySelector('#qrcode canvas');
-  if(!c)return;
-  const link=document.createElement('a');
-  link.download='qrcode.png';
-  link.href=c.toDataURL('image/png');
-  link.click();
-}
-
-function downloadBC(id,name){
-  const svg=document.getElementById(id);
-  if(!svg||!svg.innerHTML.trim())return;
-  const s=new XMLSerializer().serializeToString(svg);
-  const c=document.createElement('canvas');
-  const ctx=c.getContext('2d');
-  const img=new Image();
-  img.onload=function(){
-    c.width=img.width;c.height=img.height;
-    ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);
-    ctx.drawImage(img,0,0);
-    const link=document.createElement('a');
-    link.download=name+'.png';
-    link.href=c.toDataURL('image/png');
-    link.click();
-  };
-  img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(s)));
-}
-
-function toggleFAQ(e){e.classList.toggle('open');e.nextElementSibling.classList.toggle('open')}
-
-// Auto-render on input
-document.getElementById('qrText').addEventListener('input',()=>{generateQR();generateBarcodes();});
-window.addEventListener('load',()=>{generateQR();setTimeout(generateBarcodes,100);});
-</script>
-
-<script>
-async function submitFeedback(e,f){
-  e.preventDefault();const st=f.querySelector('.feedback-status');
-  const btn=f.querySelector('.feedback-submit');
-  btn.disabled=true;st.textContent='Sending...';st.className='feedback-status';
-  const d={name:f.name.value,email:f.email.value,message:f.message.value,page:location.pathname};
-  try{
-    const r=await fetch('https://formsubmit.co/ajax/cs@anycalculator.site',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});
-    const j=await r.json();
-    if(j.success){st.textContent='✅ Thanks for your feedback!';st.className='feedback-status success';f.reset();}
-    else{st.textContent='❌ '+j.error;st.className='feedback-status error';}
-  }catch(e){st.textContent='❌ Network error. Please try again.';st.className='feedback-status error';}
-  btn.disabled=false;
-}
-</script>
-</body>
-</html>

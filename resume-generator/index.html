@@ -490,29 +490,24 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.12);--accent-text:#6d28d
   </div>
 </div>
 
-<!-- ═══ Feedback Form ═══ -->
-<section class="section-feedback">
-  <h2>💬 Feedback</h2>
-  <p>Help us improve — report bugs, request tools, or share ideas</p>
-  <form class="feedback-form" onsubmit="submitFeedback(event,this)">
-    <div class="feedback-row">
-      <div class="form-group">
-        <label>Name (optional)</label>
-        <input name="name" type="text" placeholder="Your name" autocomplete="name">
+<!-- ═══ Feedback ═══ -->
+  <section class="section-feedback">
+    <form onsubmit="submitFeedback(event,this)">
+      <div class="fb-header">
+        <span class="fb-icon">💬</span> Feedback
+        <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
       </div>
-      <div class="form-group">
-        <label>Email (optional)</label>
-        <input name="email" type="email" placeholder="your@email.com" autocomplete="email">
+      <div class="fb-optional">
+        <input name="name" placeholder="Your name (optional)" autocomplete="name">
+        <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
       </div>
-    </div>
-    <div class="form-group">
-      <label>Message *</label>
-      <textarea name="message" required placeholder="What do you think?"></textarea>
-    </div>
-    <button class="feedback-submit" type="submit">Send Feedback</button>
-    <div class="feedback-status"></div>
-  </form>
-</section>
+      <div class="fb-row">
+        <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
+        <button class="fb-submit" type="submit">Send →</button>
+      </div>
+      <div class="fb-status"></div>
+    </form>
+  </section>
 
 <footer><div class="container"><div class="footer-links"><a href="/">Home</a><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a></div><p>&copy; 2026 Free Online Tools</p></div></footer>
 </div>
@@ -1429,18 +1424,18 @@ function toggleFAQ(e){
 async function submitFeedback(e, f){
   e.preventDefault();
   const st = f.querySelector('.feedback-status');
-  const btn = f.querySelector('.feedback-submit');
-  btn.disabled = true;
-  st.textContent = 'Sending...';
-  st.className = 'feedback-status';
-  const d = {name: f.name.value, email: f.email.value, message: f.message.value, page: location.pathname};
+async function submitFeedback(e,f){
+  e.preventDefault();const st=f.querySelector('.fb-status');
+  const btn=f.querySelector('.fb-submit');
+  btn.disabled=true;st.textContent='Sending...';st.className='fb-status';
+  const d={name:(f.name?.value||''),email:(f.email?.value||''),message:f.message.value,page:location.pathname};
   try{
-    const r = await fetch('https://formsubmit.co/ajax/cs@anycalculator.site', {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(d)});
-    const j = await r.json();
-    if(j.success){ st.textContent = '✅ Thanks for your feedback!'; st.className = 'feedback-status success'; f.reset(); }
-    else { st.textContent = '❌ ' + j.error; st.className = 'feedback-status error'; }
-  }catch(e){ st.textContent = '❌ Network error. Please try again.'; st.className = 'feedback-status error'; }
-  btn.disabled = false;
+    const r=await fetch('https://formsubmit.co/ajax/cs@anycalculator.site',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});
+    const j=await r.json();
+    if(j.success){st.textContent='✅ Sent!';st.className='fb-status success';f.reset();}
+    else{st.textContent='❌ '+j.error;st.className='fb-status error';}
+  }catch(e){st.textContent='❌ Failed. Try again.';st.className='fb-status error';}
+  btn.disabled=false;
 }
 
 // ═══════════════════════════════════════════
