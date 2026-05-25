@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JL08H6FMN6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APGAR 評分 — 新生兒 1 分鐘/5 分鐘評估 線上計算工具</title>
+<meta name="description" content="免費線上 APGAR 評分計算工具。新生兒出生後 1 分鐘與 5 分鐘評估：心跳、呼吸、肌肉張力、反射反應、膚色。附臨床意義與國考常見考題。">
+<link rel="canonical" href="https://anycalculator.site/nursing/apgar">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>👶 APGAR 評分</h1>
+  <p>新生兒出生後 1 分鐘與 5 分鐘健康評估 · 自動計算總分</p>
+  <div class="badge">關鍵字：APGAR 評分 · 新生兒評估 · 產兒科國考</div>
+</header>
+<div class="container">
+
+  <nav class="breadcrumb"><a href="index.html">💊 所有工具</a> &gt; APGAR 評分</nav>
+
+  <div class="calc-card" style="border-color:#f9a8d4;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
+      <h3 style="margin:0;">👶 APGAR 評分量表</h3>
+      <span style="display:inline-flex;align-items:center;gap:4px;background:#fdf2f8;color:#ec4899;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;">⚡ 3 步驟評分</span>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
+      <span style="font-size:0.72rem;background:#fce7f3;color:#9d6b8a;padding:2px 10px;border-radius:10px;">① 選每項分數</span>
+      <span style="font-size:0.72rem;background:#fce7f3;color:#9d6b8a;padding:2px 10px;border-radius:10px;">② 設定時間點</span>
+      <span style="font-size:0.72rem;background:#fce7f3;color:#9d6b8a;padding:2px 10px;border-radius:10px;">③ 看總分</span>
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <thead><tr style="background:#fdf2f8;">
+        <th style="padding:10px 8px;text-align:left;">評估項目</th>
+        <th style="padding:10px 8px;text-align:center;width:33%;">0 分</th>
+        <th style="padding:10px 8px;text-align:center;width:33%;">1 分</th>
+        <th style="padding:10px 8px;text-align:center;width:33%;">2 分</th>
+        <th style="padding:10px 8px;text-align:center;width:50px;">分數</th>
+      </tr></thead>
+      <tbody id="apgar-rows"></tbody>
+    </table>
+
+    <div style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <label style="font-size:0.85rem;font-weight:600;">評估時間：</label>
+      <button class="btn" style="background:#fdf2f8;border:2px solid #f9a8d4;padding:6px 18px;border-radius:20px;font-size:0.82rem;" onclick="setApgarTime(1)" id="apgar-btn-1m">1 分鐘</button>
+      <button class="btn" style="background:#f5f3ff;border:2px solid #e9d5ff;padding:6px 18px;border-radius:20px;font-size:0.82rem;" onclick="setApgarTime(5)" id="apgar-btn-5m">5 分鐘</button>
+    </div>
+
+    <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="calcApgar()">🔄 計算 APGAR 總分</button>
+    <div class="result-box" id="apgar-result"></div>
+  </div>
+
+  <div class="calc-card">
+    <h3>📊 APGAR 評分解讀</h3>
+    <div id="apgar-interpret" style="font-size:0.9rem;line-height:1.8;">
+      <p><strong>7-10 分：</strong>正常，新生兒狀況良好</p>
+      <p><strong>4-6 分：</strong>中度窘迫，需要協助呼吸</p>
+      <p><strong>0-3 分：</strong>重度窘迫，需立即急救</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>📖 APGAR 評分口訣</h2>
+    <p style="font-size:0.9rem;background:#fdf2f8;padding:12px 16px;border-radius:10px;border:1px solid #fce4ec;">
+      <strong>APGAR = 5 項指標的字首：</strong><br>
+      <strong>A</strong> — Appearance（膚色）<br>
+      <strong>P</strong> — Pulse（心跳）<br>
+      <strong>G</strong> — Grimace（反射反應）<br>
+      <strong>A</strong> — Activity（肌肉張力）<br>
+      <strong>R</strong> — Respiration（呼吸）
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>❓ 常見考題</h2>
+    <div class="faq-item">
+      <div class="faq-q">APGAR 評分何時做？</div>
+      <div class="faq-a open">出生後 1 分鐘和 5 分鐘各評估一次，若 5 分鐘分數仍低於 7 分，應繼續每 5 分鐘評估一次。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">APGAR 評分可以預測神經發展嗎？</div>
+      <div class="faq-a open">5 分鐘 APGAR 分數與新生兒存活率相關，但不能單獨用來預測長期神經發展。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:20px 0;">
+    <a href="quiz.html" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#fdf2f8,#fce7f3);color:#d946ef;padding:10px 24px;border-radius:30px;font-size:0.9rem;font-weight:600;text-decoration:none;border:1px solid #f9a8d4;">
+      📝 來測一題 APGAR 考古題 →
+    </a>
+  </div>
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:0 auto 24px;max-width:900px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer><p>© 2026 護理師小幫手 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p></footer>
+
+<script src="script.js"></script>
+<script>
+const APGAR_ITEMS = [
+  { id: 'appearance', name: 'A—膚色', desc0: '全身蒼白發紺', desc1: '身體粉紅、四肢發紺', desc2: '全身粉紅' },
+  { id: 'pulse',      name: 'P—心跳', desc0: '無心跳',        desc1: '<100 次/分',           desc2: '≥100 次/分' },
+  { id: 'grimace',    name: 'G—反射反應', desc0: '無反應',     desc1: '皺眉/輕微哭泣',        desc2: '大聲哭泣/咳嗽' },
+  { id: 'activity',   name: 'A—肌肉張力', desc0: '鬆軟無力',   desc1: '四肢稍微彎曲',         desc2: '自主活動良好' },
+  { id: 'respiration',name: 'R—呼吸',   desc0: '無呼吸',       desc1: '慢/不規則',            desc2: '哭聲宏亮' }
+];
+let apgarTime = 1;
+let apgarScores = {};
+
+function initApgar() {
+  const tbody = document.getElementById('apgar-rows');
+  APGAR_ITEMS.forEach(item => {
+    apgarScores[item.id] = 1;
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid #fce4ec';
+    tr.innerHTML = `
+      <td style="padding:10px 8px;font-weight:600;font-size:0.82rem;color:#4a1942;">${item.name}</td>
+      <td style="padding:8px;text-align:center;font-size:0.72rem;color:#9d6b8a;">${item.desc0}</td>
+      <td style="padding:8px;text-align:center;font-size:0.72rem;color:#9d6b8a;">${item.desc1}</td>
+      <td style="padding:8px;text-align:center;font-size:0.72rem;color:#9d6b8a;">${item.desc2}</td>
+      <td style="padding:8px;text-align:center;">
+        <select onchange="apgarScores['${item.id}']=parseInt(this.value)" style="padding:4px 6px;border:2px solid #f9a8d4;border-radius:8px;font-size:0.85rem;background:#fdf2f8;">
+          <option value="0">0</option><option value="1" selected>1</option><option value="2">2</option>
+        </select>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+initApgar();
+
+function setApgarTime(min) {
+  apgarTime = min;
+  document.getElementById('apgar-btn-1m').style.borderColor = min===1 ? '#f9a8d4' : '#e9d5ff';
+  document.getElementById('apgar-btn-5m').style.borderColor = min===5 ? '#f9a8d4' : '#e9d5ff';
+  document.getElementById('apgar-btn-1m').style.background = min===1 ? '#fdf2f8' : '#f5f3ff';
+  document.getElementById('apgar-btn-5m').style.background = min===5 ? '#fdf2f8' : '#f5f3ff';
+}
+setApgarTime(1);
+
+function calcApgar() {
+  const total = Object.values(apgarScores).reduce((a,b) => a+b, 0);
+  let level='', color='';
+  if(total>=7) { level='正常 😊'; color='#22c55e'; }
+  else if(total>=4) { level='中度窘迫 ⚠️'; color='#eab308'; }
+  else { level='重度窘迫 🚨'; color='#ef4444'; }
+  const el = document.getElementById('apgar-result');
+  el.className = 'result-box show';
+  el.innerHTML = `
+    <div style="font-size:0.85rem;color:#888;">${apgarTime} 分鐘 APGAR 評分</div>
+    <div class="big-number" style="color:${color};">${total} / 10</div>
+    <div style="font-size:1rem;font-weight:600;margin:4px 0;color:${color};">${level}</div>
+  `;
+}
+</script>
+</body>
+</html>

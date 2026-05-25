@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JL08H6FMN6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>兒童輸液 4-2-1 公式 — 兒童每日維持輸液量計算 免費工具</title>
+<meta name="description" content="免費線上兒童輸液 4-2-1 公式計算工具。依體重自動計算兒童每日維持輸液量，附臨床範例與國考考點。">
+<link rel="canonical" href="https://anycalculator.site/nursing/pediatric-fluid">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>🍼 兒童輸液 4-2-1 公式</h1>
+  <p>依體重計算兒童每日維持輸液量 · 臨床常用 Holliday-Segar 法</p>
+  <div class="badge">關鍵字：兒童輸液計算 · 4-2-1 公式 · 兒科維持輸液</div>
+</header>
+<div class="container">
+
+  <nav class="breadcrumb"><a href="index.html">💊 所有工具</a> &gt; 4-2-1 兒童輸液</nav>
+
+  <div class="calc-card" style="border-color:#bbf7d0;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
+      <h3 style="margin:0;">🍼 兒童每日維持輸液量</h3>
+      <span style="display:inline-flex;align-items:center;gap:4px;background:#f0fdf4;color:#22c55e;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;">⚡ 輸入體重即算</span>
+    </div>
+
+    <div class="form-group">
+      <label>體重 (kg)</label>
+      <input type="number" id="ped-weight" placeholder="e.g. 15" min="0" step="0.5" style="font-size:1.1rem;padding:12px 16px;">
+    </div>
+    <button class="btn btn-primary btn-block" onclick="calcPediatric()">🔄 計算維持輸液量</button>
+    <div class="result-box" id="ped-result"></div>
+  </div>
+
+  <div class="calc-card">
+    <h3>📝 4-2-1 公式規則</h3>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px;font-size:0.85rem;">
+      <p><strong>第一個 10 kg：</strong>4 mL/kg/h</p>
+      <p><strong>第二個 10 kg：</strong>2 mL/kg/h</p>
+      <p><strong>超過 20 kg：</strong>1 mL/kg/h</p>
+      <hr style="border:none;border-top:1px dashed #bbf7d0;margin:10px 0;">
+      <p><strong>口訣：</strong>「4-2-1 規則，先 4 後 2 再 1」</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>💡 臨床應用</h2>
+    <p style="font-size:0.85rem;">兒童脫水補充計算：</p>
+    <ul style="font-size:0.82rem;">
+      <li><strong>輕度脫水 (3-5%)：</strong>維持量 × 1.5</li>
+      <li><strong>中度脫水 (6-9%)：</strong>維持量 × 2</li>
+      <li><strong>重度脫水 (≥10%)：</strong>維持量 × 2 + 輸液推注</li>
+    </ul>
+  </div>
+
+  <div style="text-align:center;margin:20px 0;">
+    <a href="quiz.html" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);color:#16a34a;padding:10px 24px;border-radius:30px;font-size:0.9rem;font-weight:600;text-decoration:none;border:1px solid #86efac;">
+      📝 來測一題兒科輸液國考題 →
+    </a>
+  </div>
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:0 auto 24px;max-width:900px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer><p>© 2026 護理師小幫手 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p></footer>
+
+<script>
+function calcPediatric() {
+  const w = parseFloat(document.getElementById('ped-weight').value);
+  if(!w || w<=0) { alert('請輸入體重'); return; }
+  let perHour, perDay;
+  if(w<=10) { perHour = w*4; }
+  else if(w<=20) { perHour = 10*4 + (w-10)*2; }
+  else { perHour = 10*4 + 10*2 + (w-20)*1; }
+  perDay = perHour * 24;
+  const el = document.getElementById('ped-result');
+  el.className = 'result-box show info';
+  el.innerHTML = `
+    <div style="font-size:0.85rem;color:#888;">體重 ${w} kg</div>
+    <div class="big-number" style="color:#0d47a1;">${perHour} mL/hr</div>
+    <div style="font-size:0.9rem;font-weight:600;">每小時 ${perHour} mL</div>
+    <div style="font-size:0.85rem;color:#555;margin-top:6px;">每日總量：<strong>${perDay} mL</strong></div>
+    <div style="font-size:0.78rem;color:#888;margin-top:4px;">使用輸液幫浦設定 ${perHour} mL/hr</div>
+  `;
+}
+</script>
+</body>
+</html>

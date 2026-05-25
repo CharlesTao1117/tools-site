@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JL08H6FMN6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>燃燒面積計算 Rule of 9 — 燒傷體表面積評估 免費工具</title>
+<meta name="description" content="免費線上燒傷面積 Rule of 9 計算工具。依部位選擇燒傷範圍，自動計算總燒傷體表面積 TBSA。附臨床意義、派翠克公式、國考考點。">
+<link rel="canonical" href="https://anycalculator.site/nursing/burn-area">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>🔥 燒傷面積 Rule of 9</h1>
+  <p>9 的法則 — 估算燒傷體表面積 TBSA · 輔助輸液復甦</p>
+  <div class="badge">關鍵字：燒傷面積計算 · Rule of 9 · TBSA · 派翠克公式</div>
+</header>
+<div class="container">
+
+  <nav class="breadcrumb"><a href="index.html">💊 所有工具</a> &gt; 燒傷面積 Rule of 9</nav>
+
+  <div class="calc-card" style="border-color:#fecaca;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
+      <h3 style="margin:0;">🔥 燒傷面積估算表</h3>
+      <span style="display:inline-flex;align-items:center;gap:4px;background:#fef2f2;color:#ef4444;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;">⚡ 勾選部位即算</span>
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <thead><tr style="background:#fef2f2;">
+        <th style="padding:8px;text-align:left;">部位</th>
+        <th style="padding:8px;text-align:center;">成人 %</th>
+        <th style="padding:8px;text-align:center;">兒童 %</th>
+        <th style="padding:8px;text-align:center;">燒傷</th>
+      </tr></thead>
+      <tbody id="burn-rows"></tbody>
+      <tfoot><tr style="background:#fef2f2;font-weight:700;">
+        <td style="padding:10px 8px;">合計</td>
+        <td style="padding:10px 8px;text-align:center;">100%</td>
+        <td style="padding:10px 8px;text-align:center;">100%</td>
+        <td style="padding:10px 8px;text-align:center;" id="burn-total">0%</td>
+      </tr></tfoot>
+    </table>
+
+    <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <label style="font-size:0.82rem;"><input type="radio" name="burn-age" value="adult" checked onchange="updateBurnAge()"> 成人</label>
+      <label style="font-size:0.82rem;"><input type="radio" name="burn-age" value="child" onchange="updateBurnAge()"> 兒童（頭部比例較大）</label>
+    </div>
+
+    <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="calcBurn()">🔄 計算燒傷面積與輸液量</button>
+    <div class="result-box" id="burn-result"></div>
+  </div>
+
+  <div class="calc-card">
+    <h3>📝 Rule of 9 部位</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.82rem;">
+      <div>頭頸部：9%</div><div>軀幹前側：18%</div>
+      <div>軀幹後側：18%</div><div>單側上肢：9%</div>
+      <div>單側下肢：18%</div><div>會陰部：1%</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>💧 派翠克輸液公式 (Parkland Formula)</h2>
+    <p style="font-size:0.85rem;background:#fef2f2;padding:12px;border-radius:8px;">
+      <strong>前 24 小時輸液量 = 4 mL × 體重(kg) × TBSA(%)</strong><br>
+      <span style="color:#888;">— 前 8 小時給 1/2，後 16 小時給 1/2</span>
+    </p>
+  </div>
+
+  <div style="text-align:center;margin:20px 0;">
+    <a href="quiz.html" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#fef2f2,#fee2e2);color:#ef4444;padding:10px 24px;border-radius:30px;font-size:0.9rem;font-weight:600;text-decoration:none;border:1px solid #fca5a5;">
+      📝 來測一題燒傷國考題 →
+    </a>
+  </div>
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:0 auto 24px;max-width:900px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer><p>© 2026 護理師小幫手 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p></footer>
+
+<script>
+const BURN_PARTS = [
+  { id:'head', name:'頭頸部', adult:9, child:12 },
+  { id:'trunk-front', name:'軀幹前側', adult:18, child:18 },
+  { id:'trunk-back', name:'軀幹後側', adult:18, child:18 },
+  { id:'arm-r', name:'右側上肢', adult:9, child:9 },
+  { id:'arm-l', name:'左側上肢', adult:9, child:9 },
+  { id:'leg-r', name:'右側下肢', adult:18, child:15 },
+  { id:'leg-l', name:'左側下肢', adult:18, child:15 },
+  { id:'perineum', name:'會陰部', adult:1, child:1 }
+];
+let burnChecks = {};
+
+function initBurn() {
+  const tbody = document.getElementById('burn-rows');
+  BURN_PARTS.forEach(p => {
+    burnChecks[p.id] = false;
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid #fecaca';
+    tr.innerHTML = `
+      <td style="padding:8px;font-size:0.82rem;">${p.name}</td>
+      <td style="padding:8px;text-align:center;font-size:0.82rem;" class="burn-pct">${p.adult}%</td>
+      <td style="padding:8px;text-align:center;font-size:0.82rem;" class="burn-pct-child" style="display:none;">${p.child}%</td>
+      <td style="padding:8px;text-align:center;"><input type="checkbox" onchange="burnChecks['${p.id}']=this.checked;updateBurnTotal()"></td>`;
+    tbody.appendChild(tr);
+  });
+  updateBurnAge();
+}
+initBurn();
+
+function updateBurnAge() {
+  const isChild = document.querySelector('input[name="burn-age"]:checked').value === 'child';
+  document.querySelectorAll('#burn-rows tr').forEach((tr, i) => {
+    const p = BURN_PARTS[i];
+    const adultPct = tr.querySelector('.burn-pct');
+    const childPct = tr.querySelector('.burn-pct-child');
+    if(adultPct) adultPct.textContent = p.adult + '%';
+    if(childPct) childPct.textContent = p.child + '%';
+  });
+  updateBurnTotal();
+}
+
+function updateBurnTotal() {
+  const isChild = document.querySelector('input[name="burn-age"]:checked').value === 'child';
+  let total = 0;
+  BURN_PARTS.forEach((p,i) => {
+    if(burnChecks[p.id]) total += isChild ? p.child : p.adult;
+  });
+  document.getElementById('burn-total').textContent = total + '%';
+}
+
+function calcBurn() {
+  const isChild = document.querySelector('input[name="burn-age"]:checked').value === 'child';
+  let tbsa = 0;
+  BURN_PARTS.forEach((p,i) => {
+    if(burnChecks[p.id]) tbsa += isChild ? p.child : p.adult;
+  });
+  if(tbsa===0) { alert('請至少選一個燒傷部位'); return; }
+  const el = document.getElementById('burn-result');
+  el.className = 'result-box show';
+  el.innerHTML = `
+    <div style="font-size:0.85rem;color:#888;">燒傷體表面積 TBSA</div>
+    <div class="big-number" style="color:#ef4444;">${tbsa}%</div>
+    <div style="font-size:0.85rem;margin-top:8px;">輸入體重計算派翠克輸液量：</div>
+    <div style="display:flex;gap:8px;margin-top:6px;">
+      <input type="number" id="burn-weight" placeholder="體重 (kg)" style="flex:1;padding:8px;border:2px solid #fecaca;border-radius:8px;">
+      <button class="btn btn-danger" onclick="calcParkland()">計算輸液</button>
+    </div>
+    <div id="parkland-result" style="margin-top:8px;font-size:0.85rem;"></div>
+  `;
+}
+
+function calcParkland() {
+  const w = parseFloat(document.getElementById('burn-weight').value);
+  const el = document.getElementById('burn-result');
+  let tbsa = 0;
+  BURN_PARTS.forEach(p => { if(burnChecks[p.id]) tbsa += p.adult; });
+  if(!w||w<=0) { document.getElementById('parkland-result').innerHTML='請輸入體重'; return; }
+  const total24 = 4 * w * tbsa;
+  const first8 = total24 / 2;
+  const next16 = total24 / 2;
+  document.getElementById('parkland-result').innerHTML = `
+    <strong>派翠克公式：</strong><br>
+    前 24h 總量：<strong>${total24} mL</strong><br>
+    前 8 小時：<strong>${first8} mL</strong>（${Math.round(first8/8)} mL/hr）<br>
+    後 16 小時：<strong>${next16} mL</strong>（${Math.round(next16/16)} mL/hr）
+  `;
+}
+</script>
+</body>
+</html>

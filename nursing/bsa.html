@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JL08H6FMN6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>體表面積 BSA 計算 — Mosteller 公式 化療劑量評估工具</title>
+<meta name="description" content="免費線上體表面積 BSA 計算工具。使用 Mosteller 公式，輸入身高體重自動算 BSA。化療劑量計算、燒傷面積評估必用。">
+<link rel="canonical" href="https://anycalculator.site/nursing/bsa">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>📐 體表面積 BSA 計算</h1>
+  <p>Mosteller 公式 — 身高體重自動算 · 化療劑量/燒傷評估</p>
+  <div class="badge">關鍵字：體表面積 BSA · Mosteller 公式 · 化療劑量計算</div>
+</header>
+<div class="container">
+
+  <nav class="breadcrumb"><a href="index.html">💊 所有工具</a> &gt; BSA 體表面積</nav>
+
+  <div class="calc-card" style="border-color:#e9d5ff;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
+      <h3 style="margin:0;">📐 BSA 計算機</h3>
+      <span style="display:inline-flex;align-items:center;gap:4px;background:#f5f3ff;color:#a855f7;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;">⚡ 輸入身高體重</span>
+    </div>
+    <div class="input-row">
+      <div class="form-group">
+        <label>身高 (cm)</label>
+        <input type="number" id="bsa-height" placeholder="e.g. 160" min="0" step="0.1">
+      </div>
+      <div class="form-group">
+        <label>體重 (kg)</label>
+        <input type="number" id="bsa-weight" placeholder="e.g. 55" min="0" step="0.1">
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="calcBsa()">🔄 計算 BSA</button>
+    <div class="result-box" id="bsa-result"></div>
+  </div>
+
+  <div class="calc-card">
+    <h3>📝 Mosteller 公式</h3>
+    <p style="text-align:center;font-size:1rem;background:#f5f3ff;padding:12px;border-radius:8px;font-weight:600;">
+      BSA (m²) = √( 身高(cm) × 體重(kg) / 3600 )
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>💡 臨床應用</h2>
+    <ul style="font-size:0.85rem;">
+      <li><strong>化療劑量：</strong>多數抗癌藥以 mg/m² 計算</li>
+      <li><strong>燒傷評估：</strong>搭配 Rule of 9 計算輸液量</li>
+      <li><strong>腎功能校正：</strong>某些藥物劑量依 BSA 調整</li>
+    </ul>
+  </div>
+
+  <div style="text-align:center;margin:20px 0;">
+    <a href="quiz.html" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#f5f3ff,#ede9fe);color:#a855f7;padding:10px 24px;border-radius:30px;font-size:0.9rem;font-weight:600;text-decoration:none;border:1px solid #d8b4fe;">
+      📝 來測一題國考題 →
+    </a>
+  </div>
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:0 auto 24px;max-width:900px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer><p>© 2026 護理師小幫手 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p></footer>
+
+<script>
+function calcBsa() {
+  const h = parseFloat(document.getElementById('bsa-height').value);
+  const w = parseFloat(document.getElementById('bsa-weight').value);
+  if(!h||!w||h<=0||w<=0) { alert('請輸入身高與體重'); return; }
+  const bsa = Math.sqrt(h * w / 3600);
+  // BSA reference range
+  let note = '';
+  if(bsa<1) note = '⚠️ 低體表面積（常見於兒童/體型較小者）';
+  else if(bsa>2.5) note = '⚠️ 高體表面積（化療劑量需注意上限）';
+  const el = document.getElementById('bsa-result');
+  el.className = 'result-box show info';
+  el.innerHTML = `
+    <div style="font-size:0.85rem;color:#888;">身高 ${h} cm · 體重 ${w} kg</div>
+    <div class="big-number" style="color:#a855f7;">${bsa.toFixed(2)} m²</div>
+    <div style="font-size:0.85rem;color:#555;">${note}</div>
+  `;
+}
+</script>
+</body>
+</html>

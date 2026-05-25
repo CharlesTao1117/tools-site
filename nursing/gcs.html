@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JL08H6FMN6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GCS 昏迷指數 — 格拉斯哥昏迷量表 線上評估工具</title>
+<meta name="description" content="免費線上 GCS 昏迷指數計算工具。睜眼/說話/動作三項評估，總分 3-15 分。附意識程度分級、臨床意義與國考常見考題。">
+<link rel="canonical" href="https://anycalculator.site/nursing/gcs">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>🧠 GCS 昏迷指數</h1>
+  <p>格拉斯哥昏迷量表 — 睜眼/說話/動作三維評估</p>
+  <div class="badge">關鍵字：GCS 昏迷指數 · 格拉斯哥昏迷量表 · 意識評估</div>
+</header>
+<div class="container">
+
+  <nav class="breadcrumb"><a href="index.html">💊 所有工具</a> &gt; GCS 昏迷指數</nav>
+
+  <div class="calc-card" style="border-color:#e9d5ff;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
+      <h3 style="margin:0;">🧠 GCS 昏迷量表</h3>
+      <span style="display:inline-flex;align-items:center;gap:4px;background:#f5f3ff;color:#a855f7;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;">⚡ 3 步驟評估</span>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
+      <span style="font-size:0.72rem;background:#f3e8ff;color:#7c5a72;padding:2px 10px;border-radius:10px;">① 選睜眼分數</span>
+      <span style="font-size:0.72rem;background:#f3e8ff;color:#7c5a72;padding:2px 10px;border-radius:10px;">② 選說話分數</span>
+      <span style="font-size:0.72rem;background:#f3e8ff;color:#7c5a72;padding:2px 10px;border-radius:10px;">③ 選動作分數</span>
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <thead><tr style="background:#f5f3ff;">
+        <th style="padding:10px 8px;text-align:left;">項目</th>
+        <th style="padding:10px 8px;text-align:left;">反應</th>
+        <th style="padding:10px 8px;text-align:center;width:60px;">分數</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #ede9fe;">
+          <td style="padding:10px 8px;font-weight:600;color:#4a1942;">👁 睜眼 (E)</td>
+          <td style="padding:6px 8px;">
+            <select id="gcs-eye" style="width:100%;padding:6px 10px;border:2px solid #ddd6fe;border-radius:8px;font-size:0.85rem;">
+              <option value="4">自動睜眼</option>
+              <option value="3">聽到聲音睜眼</option>
+              <option value="2">壓迫刺激後睜眼</option>
+              <option value="1">完全不睜眼</option>
+            </select>
+          </td>
+          <td style="padding:8px;text-align:center;font-weight:700;color:#a855f7;" id="gcs-eye-val">4</td>
+        </tr>
+        <tr style="border-bottom:1px solid #ede9fe;">
+          <td style="padding:10px 8px;font-weight:600;color:#4a1942;">🗣 說話 (V)</td>
+          <td style="padding:6px 8px;">
+            <select id="gcs-verbal" style="width:100%;padding:6px 10px;border:2px solid #ddd6fe;border-radius:8px;font-size:0.85rem;" onchange="updateGcsLabels()">
+              <option value="5">能對答如流</option>
+              <option value="4">答非所問／混亂</option>
+              <option value="3">說出單字</option>
+              <option value="2">發出聲音</option>
+              <option value="1">完全不出聲</option>
+            </select>
+          </td>
+          <td style="padding:8px;text-align:center;font-weight:700;color:#a855f7;" id="gcs-verbal-val">5</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 8px;font-weight:600;color:#4a1942;">🦾 動作 (M)</td>
+          <td style="padding:6px 8px;">
+            <select id="gcs-motor" style="width:100%;padding:6px 10px;border:2px solid #ddd6fe;border-radius:8px;font-size:0.85rem;" onchange="updateGcsLabels()">
+              <option value="6">聽從指令動作</option>
+              <option value="5">能辨別疼痛位置</option>
+              <option value="4">對疼痛有退縮反應</option>
+              <option value="3">對疼痛異常屈曲</option>
+              <option value="2">對疼痛異常伸直</option>
+              <option value="1">完全無動作</option>
+            </select>
+          </td>
+          <td style="padding:8px;text-align:center;font-weight:700;color:#a855f7;" id="gcs-motor-val">6</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="calcGcs()">🔄 計算 GCS 總分</button>
+    <div class="result-box" id="gcs-result"></div>
+  </div>
+
+  <div class="content-section">
+    <h2>📊 GCS 分級意義</h2>
+    <p style="font-size:0.88rem;"><strong>15 分：</strong>意識清醒</p>
+    <p style="font-size:0.88rem;"><strong>13-14 分：</strong>輕度意識障礙</p>
+    <p style="font-size:0.88rem;"><strong>9-12 分：</strong>中度意識障礙</p>
+    <p style="font-size:0.88rem;"><strong>3-8 分：</strong>重度昏迷（昏迷）</p>
+    <p style="font-size:0.82rem;color:#888;margin-top:8px;">⚠️ GCS 3 分為最低分，表示完全無反應</p>
+  </div>
+
+  <div style="text-align:center;margin:20px 0;">
+    <a href="quiz.html" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#f5f3ff,#ede9fe);color:#a855f7;padding:10px 24px;border-radius:30px;font-size:0.9rem;font-weight:600;text-decoration:none;border:1px solid #d8b4fe;">
+      📝 來測一題 GCS 國考題 →
+    </a>
+  </div>
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:0 auto 24px;max-width:900px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer><p>© 2026 護理師小幫手 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p></footer>
+
+<script>
+function updateGcsLabels() {
+  const e = document.getElementById('gcs-eye');
+  const v = document.getElementById('gcs-verbal');
+  const m = document.getElementById('gcs-motor');
+  document.getElementById('gcs-eye-val').textContent = e.value;
+  document.getElementById('gcs-verbal-val').textContent = v.value;
+  document.getElementById('gcs-motor-val').textContent = m.value;
+}
+document.querySelectorAll('#gcs-eye, #gcs-verbal, #gcs-motor').forEach(el => {
+  el.addEventListener('change', updateGcsLabels);
+});
+
+function calcGcs() {
+  const e = parseInt(document.getElementById('gcs-eye').value);
+  const v = parseInt(document.getElementById('gcs-verbal').value);
+  const m = parseInt(document.getElementById('gcs-motor').value);
+  const total = e + v + m;
+  let level='', color='';
+  if(total===15) { level='意識清醒 ✅'; color='#22c55e'; }
+  else if(total>=13) { level='輕度意識障礙 ⚠️'; color='#eab308'; }
+  else if(total>=9) { level='中度意識障礙 🚨'; color='#f97316'; }
+  else { level='重度昏迷 ❗'; color='#ef4444'; }
+  const el = document.getElementById('gcs-result');
+  el.className = 'result-box show';
+  el.innerHTML = `
+    <div style="font-size:0.85rem;color:#888;">E${e}V${v}M${m}</div>
+    <div class="big-number" style="color:${color};">${total} / 15</div>
+    <div style="font-size:1rem;font-weight:600;color:${color};">${level}</div>
+  `;
+}
+</script>
+</body>
+</html>

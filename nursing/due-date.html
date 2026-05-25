@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JL08H6FMN6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>懷孕預產期計算 — Naegele 法則 免費預產期推算工具</title>
+<meta name="description" content="免費線上預產期計算工具。依末次月經第一天（LMP）自動推算預產期（EDD），使用 Naegele 法則。附懷孕週數對照表與產檢建議。">
+<link rel="canonical" href="https://anycalculator.site/nursing/due-date">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>🤰 懷孕預產期計算</h1>
+  <p>Naegele 法則 — 末次月經推算預產期 · 附懷孕週數</p>
+  <div class="badge">關鍵字：預產期計算 · Naegele 法則 · 懷孕週數</div>
+</header>
+<div class="container">
+
+  <nav class="breadcrumb"><a href="index.html">💊 所有工具</a> &gt; 懷孕預產期計算</nav>
+
+  <div class="calc-card" style="border-color:#fbcfe8;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
+      <h3 style="margin:0;">🤰 預產期計算機</h3>
+      <span style="display:inline-flex;align-items:center;gap:4px;background:#fdf2f8;color:#ec4899;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;">⚡ 選日期即算</span>
+    </div>
+
+    <div class="form-group">
+      <label>末次月經第一天 (LMP)</label>
+      <input type="date" id="lmp-date" style="font-size:1.1rem;padding:12px 16px;">
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+      <button class="btn btn-sm" style="background:#fdf2f8;border:1px solid #fbcfe8;padding:6px 16px;border-radius:20px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="quickLmp(-7)">7 天前</button>
+      <button class="btn btn-sm" style="background:#fdf2f8;border:1px solid #fbcfe8;padding:6px 16px;border-radius:20px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="quickLmp(-14)">14 天前</button>
+      <button class="btn btn-sm" style="background:#fdf2f8;border:1px solid #fbcfe8;padding:6px 16px;border-radius:20px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="quickLmp(-28)">28 天前</button>
+      <button class="btn btn-sm" style="background:#f5f3ff;border:1px solid #e9d5ff;padding:6px 16px;border-radius:20px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="quickLmp(-280)">280 天前（參考）</button>
+    </div>
+
+    <button class="btn btn-primary btn-block" onclick="calcDueDate()">🔄 計算預產期</button>
+    <div class="result-box" id="due-result"></div>
+  </div>
+
+  <div class="content-section">
+    <h2>📖 Naegele 法則</h2>
+    <p style="font-size:0.85rem;background:#fdf2f8;padding:12px 16px;border-radius:10px;">
+      <strong>預產期 = LMP + 280 天（40 週）</strong><br>
+      <span style="color:#888;">簡算法：月份 -3，日期 +7</span>
+    </p>
+    <p style="font-size:0.82rem;color:#555;margin-top:8px;">例如：LMP 5/25 → 月份 5-3=2，日期 25+7=32 → 預產期 3/4（次年的 3 月 4 日）</p>
+  </div>
+
+  <div style="text-align:center;margin:20px 0;">
+    <a href="quiz.html" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#fdf2f8,#fce7f3);color:#d946ef;padding:10px 24px;border-radius:30px;font-size:0.9rem;font-weight:600;text-decoration:none;border:1px solid #f9a8d4;">
+      📝 來測一題產科國考題 →
+    </a>
+  </div>
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:0 auto 24px;max-width:900px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer><p>© 2026 護理師小幫手 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p></footer>
+
+<script>
+function quickLmp(days) {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  document.getElementById('lmp-date').value = d.toISOString().split('T')[0];
+  calcDueDate();
+}
+
+function calcDueDate() {
+  const val = document.getElementById('lmp-date').value;
+  if(!val) { alert('請選擇或輸入末次月經日期'); return; }
+  const lmp = new Date(val);
+  if(isNaN(lmp.getTime())) { alert('請輸入有效日期'); return; }
+  const edd = new Date(lmp);
+  edd.setDate(edd.getDate() + 280);
+  const now = new Date();
+  const diff = now - lmp;
+  const currentWeeks = Math.floor(diff / (7*24*60*60*1000));
+  const currentDays = Math.floor((diff % (7*24*60*60*1000)) / (24*60*60*1000));
+  const daysLeft = Math.round((edd - now) / (24*60*60*1000));
+  const weeksLeft = Math.floor(daysLeft / 7);
+  const remDays = daysLeft % 7;
+  const el = document.getElementById('due-result');
+  el.className = 'result-box show';
+  el.innerHTML = `
+    <div style="font-size:0.85rem;color:#888;">末次月經：${lmp.toLocaleDateString('zh-TW')}</div>
+    <div class="big-number" style="color:#ec4899;">${edd.toLocaleDateString('zh-TW')}</div>
+    <div style="font-size:1rem;font-weight:600;">預產期</div>
+    <hr style="border:none;border-top:1px dashed #fbcfe8;margin:10px 0;">
+    <div style="font-size:0.85rem;">目前懷孕：<strong>${currentWeeks} 週 ${currentDays} 天</strong></div>
+    <div style="font-size:0.85rem;">距離預產期：<strong>${weeksLeft} 週 ${remDays} 天</strong></div>
+  `;
+}
+(function(){const d=new Date();d.setDate(d.getDate()-14);document.getElementById('lmp-date').value=d.toISOString().split('T')[0];})();
+</script>
+</body>
+</html>

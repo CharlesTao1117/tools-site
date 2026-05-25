@@ -11,16 +11,14 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>護理師小幫手 ♡ 點滴滴速、藥物稀釋、安全劑量、國考測驗 免費線上工具</title>
-<meta name="description" content="免費護理師線上工具，支援點滴滴速計算、藥物稀釋倍數、安全劑量範圍、單位換算，還有 2,271 題國考考古題測驗。可愛介面，即開即用 ♡">
-<meta property="og:title" content="護理師小幫手 ♡ 免費護理工具 + 國考測驗">
-<meta property="og:description" content="最可愛的護理工具站！點滴滴速 gtt/min、藥物稀釋、安全劑量、單位換算，還有考古題測驗與弱點分析。">
+<meta name="description" content="免費護理師線上工具，支援點滴滴速計算、藥物稀釋倍數、安全劑量範圍、單位換算、APGAR、GCS、燒傷面積、兒童輸液、預產期、BSA、CrCl，還有 2,271 題國考考古題測驗。可愛介面，即開即用 ♡">
+<meta property="og:title" content="護理師小幫手 ♡ 12 種免費護理工具 + 國考測驗">
+<meta property="og:description" content="最可愛的護理工具站！12 種臨床工具 + 2,271 題考古題測驗 + 弱點診斷。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://anycalculator.site/nursing/">
 <style>
-/* ══════ Reset & Base ══════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
   background: linear-gradient(180deg, #fdf2f8 0%, #fce7f3 30%, #fff1f2 70%, #fef2f2 100%);
@@ -28,377 +26,134 @@ body {
   line-height: 1.7;
   min-height: 100vh;
 }
-
-/* ══════ Decorative Elements ══════ */
 .blob {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.3;
-  z-index: 0;
-  pointer-events: none;
+  position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.3; z-index: 0; pointer-events: none;
 }
 .blob-1 { width: 400px; height: 400px; background: #fbcfe8; top: -100px; right: -100px; }
 .blob-2 { width: 500px; height: 500px; background: #ddd6fe; bottom: -200px; left: -150px; }
 .blob-3 { width: 300px; height: 300px; background: #fecdd3; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-
-/* ══════ Header ══════ */
 .hero {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 60px 20px 40px;
+  position: relative; z-index: 1; text-align: center; padding: 50px 20px 32px;
   background: linear-gradient(135deg, #ec4899 0%, #d946ef 50%, #a855f7 100%);
-  color: white;
-  border-radius: 0 0 40px 40px;
-  box-shadow: 0 8px 32px rgba(236, 72, 153, 0.25);
+  color: white; border-radius: 0 0 40px 40px; box-shadow: 0 8px 32px rgba(236,72,153,0.25);
 }
-.hero-icon { font-size: 3rem; margin-bottom: 8px; display: block; }
-.hero h1 {
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  line-height: 1.3;
-}
-.hero h1 span { display: inline-block; }
-.hero p {
-  font-size: 1rem;
-  opacity: 0.9;
-  max-width: 500px;
-  margin: 10px auto 0;
-  line-height: 1.6;
-}
-.hero .badge-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 16px;
-}
+.hero-icon { font-size: 2.8rem; margin-bottom: 6px; display: block; }
+.hero h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: 1px; }
+.hero p { font-size: 0.92rem; opacity: 0.9; max-width: 520px; margin: 8px auto 0; }
+.hero .badge-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
 .hero .badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(4px);
-  padding: 5px 16px;
-  border-radius: 20px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  border: 1px solid rgba(255,255,255,0.15);
+  display: inline-block; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px);
+  padding: 4px 14px; border-radius: 20px; font-size: 0.72rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.15);
 }
-
-/* ══════ Container ══════ */
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 24px 16px 60px;
-}
-
-/* ══════ Section Title ══════ */
-.section-title {
-  text-align: center;
-  margin: 40px 0 20px;
-}
-.section-title h2 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #4a1942;
-}
-.section-title p {
-  font-size: 0.88rem;
-  color: #9d6b8a;
-  margin-top: 4px;
-}
-.section-title .deco { font-size: 1.2rem; }
-
-/* ══════ Tool Cards Grid ══════ */
-.tool-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
+.container { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 20px 16px 60px; }
+.section-title { text-align: center; margin: 36px 0 16px; }
+.section-title .deco { font-size: 1rem; color: #9d6b8a; }
+.section-title h2 { font-size: 1.3rem; font-weight: 700; color: #4a1942; }
+.section-title p { font-size: 0.82rem; color: #9d6b8a; margin-top: 2px; }
+.tool-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 @media (min-width: 500px) { .tool-grid { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 768px) { .tool-grid { grid-template-columns: repeat(3, 1fr); } }
-
 .tool-card {
-  display: block;
-  background: white;
-  border-radius: 20px;
-  padding: 24px 20px;
-  text-decoration: none;
-  color: inherit;
-  border: 2px solid #fce4ec;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.06);
-  position: relative;
-  overflow: hidden;
+  display: block; background: white; border-radius: 18px; padding: 20px 18px; text-decoration: none;
+  color: inherit; border: 2px solid #fce4ec; transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(236,72,153,0.06); position: relative; overflow: hidden;
 }
 .tool-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #f9a8d4, #e879f9);
-  opacity: 0;
-  transition: opacity 0.25s;
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, #f9a8d4, #e879f9); opacity: 0; transition: opacity 0.25s;
 }
-.tool-card:hover {
-  transform: translateY(-4px);
-  border-color: #f9a8d4;
-  box-shadow: 0 12px 28px rgba(236, 72, 153, 0.12);
-}
+.tool-card:hover { transform: translateY(-4px); border-color: #f9a8d4; box-shadow: 0 12px 28px rgba(236,72,153,0.12); }
 .tool-card:hover::before { opacity: 1; }
-
 .tool-card .icon-wrap {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  margin-bottom: 12px;
+  width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center;
+  justify-content: center; font-size: 1.3rem; margin-bottom: 8px;
 }
 .tool-card .icon-wrap.pink { background: #fdf2f8; }
 .tool-card .icon-wrap.purple { background: #f5f3ff; }
 .tool-card .icon-wrap.peach { background: #fff1f2; }
 .tool-card .icon-wrap.mint { background: #f0fdf4; }
 .tool-card .icon-wrap.blue { background: #eff6ff; }
-
-.tool-card h3 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #4a1942;
-  margin-bottom: 4px;
-}
-.tool-card .desc {
-  font-size: 0.82rem;
-  color: #9d6b8a;
-  line-height: 1.5;
-}
+.tool-card h3 { font-size: 0.95rem; font-weight: 700; color: #4a1942; margin-bottom: 3px; }
+.tool-card .desc { font-size: 0.78rem; color: #9d6b8a; line-height: 1.5; }
 .tool-card .tag {
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 0.7rem;
-  color: #a855f7;
-  background: #f5f3ff;
-  padding: 2px 12px;
-  border-radius: 10px;
+  display: inline-block; margin-top: 6px; font-size: 0.65rem; color: #a855f7;
+  background: #f5f3ff; padding: 2px 10px; border-radius: 10px;
 }
-
-/* ══════ Quiz Card (Highlight) ══════ */
 .quiz-card {
-  display: block;
-  background: linear-gradient(135deg, #fdf2f8, #fce7f3, #f3e8ff);
-  border-radius: 24px;
-  padding: 32px 24px;
-  text-decoration: none;
-  color: inherit;
-  border: 2px solid #f9a8d4;
-  transition: all 0.25s ease;
-  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.1);
-  text-align: center;
-  margin: 24px 0;
-  position: relative;
-  overflow: hidden;
+  display: block; background: linear-gradient(135deg, #fdf2f8, #fce7f3, #f3e8ff);
+  border-radius: 24px; padding: 28px 20px; text-decoration: none; color: inherit;
+  border: 2px solid #f9a8d4; transition: all 0.25s ease; box-shadow: 0 8px 24px rgba(236,72,153,0.1);
+  text-align: center; margin: 16px 0; position: relative; overflow: hidden;
 }
-.quiz-card::after {
-  content: '🌸';
-  position: absolute;
-  bottom: -10px;
-  right: -10px;
-  font-size: 4rem;
-  opacity: 0.15;
-}
-.quiz-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(236, 72, 153, 0.18);
-  border-color: #e879f9;
-}
-.quiz-card .quiz-icon { font-size: 2.2rem; margin-bottom: 8px; }
-.quiz-card h3 { font-size: 1.3rem; font-weight: 800; color: #86198f; }
-.quiz-card .desc {
-  font-size: 0.88rem;
-  color: #9d6b8a;
-  margin: 6px 0 14px;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.quiz-card .features {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
+.quiz-card::after { content: '🌸'; position: absolute; bottom: -10px; right: -10px; font-size: 4rem; opacity: 0.15; }
+.quiz-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(236,72,153,0.18); border-color: #e879f9; }
+.quiz-card .quiz-icon { font-size: 2rem; margin-bottom: 6px; }
+.quiz-card h3 { font-size: 1.2rem; font-weight: 800; color: #86198f; }
+.quiz-card .desc { font-size: 0.82rem; color: #9d6b8a; margin: 4px auto 12px; max-width: 420px; }
+.quiz-card .features { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .quiz-card .features span {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: white;
-  padding: 5px 14px;
-  border-radius: 20px;
-  font-size: 0.78rem;
-  color: #4a1942;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  display: inline-flex; align-items: center; gap: 3px; background: white; padding: 4px 12px;
+  border-radius: 20px; font-size: 0.72rem; color: #4a1942; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
-
-/* ══════ CTA Block ══════ */
 .cta-block {
-  background: linear-gradient(135deg, #ec4899, #d946ef);
-  border-radius: 24px;
-  padding: 40px 24px;
-  text-align: center;
-  color: white;
-  margin: 32px 0;
-  box-shadow: 0 8px 32px rgba(236, 72, 153, 0.2);
+  background: linear-gradient(135deg, #ec4899, #d946ef); border-radius: 24px; padding: 36px 20px;
+  text-align: center; color: white; margin: 28px 0; box-shadow: 0 8px 32px rgba(236,72,153,0.2);
 }
-.cta-block h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-.cta-block p {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  margin-bottom: 20px;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-}
+.cta-block h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+.cta-block p { font-size: 0.85rem; opacity: 0.9; margin-bottom: 16px; max-width: 400px; margin-left: auto; margin-right: auto; }
 .cta-block .btn-line {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: white;
-  color: #d946ef;
-  padding: 14px 36px;
-  border-radius: 50px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: inline-flex; align-items: center; gap: 8px; background: white; color: #d946ef;
+  padding: 12px 32px; border-radius: 50px; font-size: 0.95rem; font-weight: 700;
+  text-decoration: none; transition: transform 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-.cta-block .btn-line:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-}
-.cta-block .note {
-  font-size: 0.75rem;
-  opacity: 0.7;
-  margin-top: 14px;
-}
-.cta-block .benefits {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.cta-block .benefits span {
-  background: rgba(255,255,255,0.15);
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.82rem;
-}
-
-/* ══════ About Section ══════ */
+.cta-block .btn-line:hover { transform: scale(1.05); }
+.cta-block .note { font-size: 0.72rem; opacity: 0.7; margin-top: 12px; }
+.cta-block .benefits { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px; }
+.cta-block .benefits span { background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 16px; font-size: 0.75rem; }
 .about-box {
-  background: white;
-  border-radius: 20px;
-  padding: 28px 24px;
-  margin: 28px 0;
-  border: 2px solid #fce4ec;
-  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.04);
+  background: white; border-radius: 20px; padding: 24px 20px; margin: 24px 0;
+  border: 2px solid #fce4ec; box-shadow: 0 4px 12px rgba(236,72,153,0.04);
 }
-.about-box h3 {
-  font-size: 1.1rem;
-  color: #4a1942;
-  margin-bottom: 10px;
-}
-.about-box p {
-  font-size: 0.88rem;
-  color: #7c5a72;
-  line-height: 1.8;
-  margin-bottom: 8px;
-}
-.about-box ul {
-  padding-left: 20px;
-  margin: 8px 0;
-}
-.about-box li {
-  font-size: 0.85rem;
-  color: #7c5a72;
-  margin-bottom: 4px;
-  line-height: 1.6;
-}
-.about-box .highlight {
-  color: #d946ef;
-  font-weight: 600;
-}
-
-/* ══════ Footer ══════ */
-footer {
-  text-align: center;
-  padding: 32px 20px;
-  font-size: 0.78rem;
-  color: #9d6b8a;
-  position: relative;
-  z-index: 1;
-}
+.about-box h3 { font-size: 1.05rem; color: #4a1942; margin-bottom: 10px; }
+.about-box p, .about-box li { font-size: 0.82rem; color: #7c5a72; line-height: 1.7; }
+footer { text-align: center; padding: 28px 20px; font-size: 0.75rem; color: #9d6b8a; position: relative; z-index: 1; }
 footer a { color: #d946ef; text-decoration: none; }
-footer a:hover { text-decoration: underline; }
-
-/* ══════ Responsive ══════ */
-@media (max-width: 480px) {
-  .hero h1 { font-size: 1.5rem; }
-  .hero { padding: 40px 16px 28px; border-radius: 0 0 28px 28px; }
-  .container { padding: 16px 12px 40px; }
-  .cta-block { padding: 28px 16px; }
-  .cta-block .btn-line { width: 100%; justify-content: center; }
-  .quiz-card { padding: 24px 16px; }
-}
-
-/* ══════ Animations ══════ */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 .floating { animation: float 3s ease-in-out infinite; }
+@media (max-width:480px) {
+  .hero h1 { font-size: 1.4rem; }
+  .hero { padding: 32px 16px 24px; border-radius: 0 0 28px 28px; }
+  .container { padding: 16px 12px 40px; }
+  .cta-block { padding: 24px 16px; }
+  .tool-card { padding: 16px; }
+}
 </style>
 </head>
 <body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
 
-<!-- Decorative blobs -->
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-<div class="blob blob-3"></div>
-
-<!-- ═══ Hero ═══ -->
 <header class="hero">
   <span class="hero-icon floating">🩺</span>
-  <h1>護理師小幫手 <span>♡</span></h1>
-  <p>最可愛的護理工具站 ♪ 點滴滴速、藥物計算、單位換算<br>還有 2,271 題國考考古題，全部免費、即開即用</p>
+  <h1>護理師小幫手 ♡</h1>
+  <p>12 種臨床工具 + 2,271 題考古題測驗<br>全部免費、即開即用、可愛介面</p>
   <div class="badge-row">
-    <span class="badge">🩺 點滴滴速</span>
+    <span class="badge">💧 點滴滴速</span>
     <span class="badge">🧪 藥物稀釋</span>
     <span class="badge">🛡️ 安全劑量</span>
-    <span class="badge">🔄 單位換算</span>
-    <span class="badge">📝 考古題測驗</span>
+    <span class="badge">👶 APGAR</span>
+    <span class="badge">🧠 GCS</span>
+    <span class="badge">🔥 燒傷面積</span>
+    <span class="badge">📝 國考測驗</span>
   </div>
 </header>
 
 <div class="container">
 
-  <!-- ═══ Tools Section ═══ -->
+  <!-- ═══ Section 1: 臨床計算 ═══ -->
   <div class="section-title">
-    <div class="deco">♡ 臨床必備計算工具 ♡</div>
-    <h2>每天都在用的護理計算機</h2>
-    <p>上班隨時開、免費無廣告、一鍵算好</p>
+    <div class="deco">♡ 臨床必備計算機 ♡</div>
+    <h2>🩺 藥物計算 · 單位換算 · 腎功能</h2>
+    <p>上班隨時開、一鍵算好</p>
   </div>
 
   <div class="tool-grid">
@@ -408,39 +163,87 @@ footer a:hover { text-decoration: underline; }
       <div class="desc">IV 輸液 gtt/min 自動算，支援微滴與一般輸液套</div>
       <span class="tag">gtt/min 公式</span>
     </a>
-
     <a href="dilution.html" class="tool-card">
       <div class="icon-wrap purple">🧪</div>
       <h3>藥物稀釋計算</h3>
-      <div class="desc">C₁V₁ = C₂V₂，稀釋倍數、取液量一鍵搞定</div>
+      <div class="desc">C₁V₁=C₂V₂，稀釋倍數、取液量一鍵搞定</div>
       <span class="tag">稀釋倍數</span>
     </a>
-
     <a href="safe-dosage.html" class="tool-card">
       <div class="icon-wrap peach">🛡️</div>
       <h3>安全劑量範圍</h3>
       <div class="desc">依體重計算安全給藥區間，兒科臨床必用</div>
       <span class="tag">mg/kg</span>
     </a>
-
     <a href="unit-converter.html" class="tool-card">
       <div class="icon-wrap mint">🔄</div>
       <h3>藥物單位換算</h3>
-      <div class="desc">g ↔ mg ↔ mcg ↔ L ↔ mL 自動換算，不再算錯</div>
+      <div class="desc">g↔mg↔mcg↔L↔mL 自動換算，不再算錯</div>
       <span class="tag">單位換算</span>
     </a>
+    <a href="bsa.html" class="tool-card">
+      <div class="icon-wrap purple">📐</div>
+      <h3>體表面積 BSA</h3>
+      <div class="desc">Mosteller 公式，化療劑量評估必用</div>
+      <span class="tag">BSA</span>
+    </a>
+    <a href="crcl.html" class="tool-card">
+      <div class="icon-wrap peach">🩸</div>
+      <h3>腎功能 CrCl</h3>
+      <div class="desc">Cockcroft-Gault 公式，藥物劑量調整</div>
+      <span class="tag">腎功能</span>
+    </a>
+  </div>
 
+  <!-- ═══ Section 2: 臨床評估 ═══ -->
+  <div class="section-title" style="margin-top:40px;">
+    <div class="deco">♡ 臨床快速評估 ♡</div>
+    <h2>📊 APGAR · GCS · 燒傷 · 兒童輸液 · 預產期</h2>
+    <p>評分計算、一鍵結果、附國考考點</p>
+  </div>
+
+  <div class="tool-grid">
+    <a href="apgar.html" class="tool-card">
+      <div class="icon-wrap pink">👶</div>
+      <h3>APGAR 評分</h3>
+      <div class="desc">新生兒 1'/5' 評估：心跳、呼吸、肌肉張力、反射、膚色</div>
+      <span class="tag">產兒科</span>
+    </a>
+    <a href="gcs.html" class="tool-card">
+      <div class="icon-wrap purple">🧠</div>
+      <h3>GCS 昏迷指數</h3>
+      <div class="desc">睜眼/說話/動作三維評估，意識程度分級</div>
+      <span class="tag">內外科</span>
+    </a>
+    <a href="burn-area.html" class="tool-card">
+      <div class="icon-wrap peach">🔥</div>
+      <h3>燒傷面積 Rule of 9</h3>
+      <div class="desc">TBSA 估算 + 派翠克輸液公式自動計算</div>
+      <span class="tag">燒傷</span>
+    </a>
+    <a href="pediatric-fluid.html" class="tool-card">
+      <div class="icon-wrap mint">🍼</div>
+      <h3>兒童輸液 4-2-1</h3>
+      <div class="desc">Holliday-Segar 法，依體重算維持輸液量</div>
+      <span class="tag">兒科</span>
+    </a>
+    <a href="due-date.html" class="tool-card">
+      <div class="icon-wrap blue">🤰</div>
+      <h3>懷孕預產期</h3>
+      <div class="desc">Naegele 法則，末次月經推算預產期 + 懷孕週數</div>
+      <span class="tag">產科</span>
+    </a>
     <a href="high-yield.html" class="tool-card">
-      <div class="icon-wrap blue">📋</div>
+      <div class="icon-wrap pink">📋</div>
       <h3>高頻考題分析</h3>
-      <div class="desc">近 5 年國考最常出的主題，鎖定方向有效率</div>
+      <div class="desc">近 5 年國考最常出的主題分析</div>
       <span class="tag">出題趨勢</span>
     </a>
   </div>
 
   <!-- ═══ Quiz Highlight ═══ -->
-  <div class="section-title" style="margin-top:48px">
-    <div class="deco">✧ 國考生专区 ✧</div>
+  <div class="section-title" style="margin-top:40px;">
+    <div class="deco">✧ 國考生專區 ✧</div>
     <h2>妳的護理師執照，我們一起拼</h2>
     <p>在職護士中近一半還沒考過執照 — 每天 10 分鐘，不知不覺就準備好了</p>
   </div>
@@ -448,17 +251,17 @@ footer a:hover { text-decoration: underline; }
   <a href="quiz.html" class="quiz-card">
     <div class="quiz-icon">📝</div>
     <h3>國考考古題測驗</h3>
-    <div class="desc">2,271 題歷年選擇題 × 5 大考科 × 智慧錯題分析<br>答完立刻知道弱點在哪裡</div>
+    <div class="desc">2,271 題歷年選擇題 × 5 大考科 × AI 錯題分析<br>答完立刻知道弱點在哪裡</div>
     <div class="features">
       <span>✅ 2,271 題考古</span>
       <span>🎯 智慧錯題分析</span>
-      <span>📊 概念集群診斷</span>
-      <span>⚡ 高頻考點標記</span>
+      <span>📊 弱點診斷</span>
+      <span>⚡ 高頻概念標記</span>
       <span>🌸 免費免註冊</span>
     </div>
   </a>
 
-  <!-- ═══ CTA — LINE 引導 ═══ -->
+  <!-- ═══ CTA LINE ═══ -->
   <div class="cta-block">
     <h3>💬 每天 1 題，不知不覺就考過了</h3>
     <p>加入 LINE Bot，每天自動推播 1 題考古題 + AI 解析<br>錯題系統自動追蹤，弱點一目瞭然</p>
@@ -474,31 +277,22 @@ footer a:hover { text-decoration: underline; }
     <div class="note">完全免費 · 每日 1 題 · 無廣告騷擾</div>
   </div>
 
-  <!-- ═══ About ═══ -->
   <div class="about-box">
     <h3>♡ 為什麼要做這個工具？</h3>
-    <p>
-      我們知道臨床護理師有多忙。白班小夜大夜輪著上，還要準備護理師國考，
-      根本沒時間翻厚厚的參考書。<span class="highlight">這套工具是為妳設計的：</span>
-    </p>
+    <p>我們知道臨床護理師有多忙。白班小夜大夜輪著上，還要準備護理師國考，根本沒時間翻厚厚的參考書。<span style="color:#d946ef;font-weight:600;">這套工具是為妳設計的：</span></p>
     <ul>
-      <li>💉 <strong>臨床工具</strong> — 點滴、稀釋、劑量，上班開網頁就能算，不用背公式</li>
-      <li>📝 <strong>考古題測驗</strong> — 2,271 題歷年選擇題，隨機出題模擬考試感</li>
-      <li>🎯 <strong>弱點診斷</strong> — 答錯自動標記所屬概念集群，知道哪裡需要加強</li>
-      <li>💬 <strong>LINE 每日一題</strong> — 通勤、休息、睡前，看一題就進步一點（即將上線）</li>
+      <li>💉 <strong>12 種臨床工具</strong> — 上班開網頁就能算，不用背公式</li>
+      <li>📝 <strong>考古題測驗</strong> — 2,271 題歷年選擇題，AI 錯題分析</li>
+      <li>🎯 <strong>弱點診斷</strong> — 每題標記高頻概念，錯題自動彙整弱點地圖</li>
+      <li>💬 <strong>LINE 每日一題</strong> — 通勤、休息、睡前，看一題就進步（即將上線）</li>
     </ul>
-    <p style="font-style:italic; color:#a855f7; margin-top:10px;">
-      「不是因為很厲害才開始，而是因為開始了才會變厲害 💪」
-    </p>
+    <p style="font-style:italic;color:#a855f7;margin-top:8px;">「不是因為很厲害才開始，而是因為開始了才會變厲害 💪」</p>
   </div>
 
-  <!-- ═══ CTA 2 — 第二次呼籲 ═══ -->
   <div class="cta-block" style="background:linear-gradient(135deg,#a855f7,#d946ef);">
     <h3>🌸 準備好開始了嗎？</h3>
     <p>先免費做 10 題考古題，馬上知道自己的弱點在哪裡</p>
-    <a href="quiz.html" class="btn-line" style="color:#a855f7;">
-      📝 開始免費測驗 →
-    </a>
+    <a href="quiz.html" class="btn-line" style="color:#a855f7;">📝 開始免費測驗 →</a>
     <div class="note">免註冊 · 免下載 · 即開即用</div>
   </div>
 
@@ -506,8 +300,7 @@ footer a:hover { text-decoration: underline; }
 
 <footer>
   <p>♡ 護理師小幫手 — 用最可愛的方式，陪妳通過國考 ♡</p>
-  <p style="margin-top:6px;">© 2026 · 工具由 <a href="https://anycalculator.site">anycalculator.site</a> 提供 · 題庫來源：考選部歷年考古題</p>
+  <p style="margin-top:6px;">© 2026 · <a href="https://anycalculator.site">anycalculator.site</a> · 題庫來源：考選部歷年考古題</p>
 </footer>
-
 </body>
 </html>

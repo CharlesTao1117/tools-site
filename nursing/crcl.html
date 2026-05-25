@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JL08H6FMN6');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>腎功能 CrCl 計算 — Cockcroft-Gault 肌酸酐廓清率工具</title>
+<meta name="description" content="免費線上腎功能計算工具。Cockcroft-Gault 公式計算肌酸酐廓清率 CrCl。腎功能不全者藥物劑量調整必用。">
+<link rel="canonical" href="https://anycalculator.site/nursing/crcl">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>🩸 腎功能 CrCl 計算</h1>
+  <p>Cockcroft-Gault 公式 · 肌酸酐廓清率 · 藥物劑量調整</p>
+  <div class="badge">關鍵字：腎功能計算 · CrCl · Cockcroft-Gault · 肌酸酐廓清率</div>
+</header>
+<div class="container">
+
+  <nav class="breadcrumb"><a href="index.html">💊 所有工具</a> &gt; 腎功能 CrCl</nav>
+
+  <div class="calc-card" style="border-color:#fecaca;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
+      <h3 style="margin:0;">🩸 肌酸酐廓清率計算</h3>
+      <span style="display:inline-flex;align-items:center;gap:4px;background:#fef2f2;color:#ef4444;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;">⚡ 3 步驟算好</span>
+    </div>
+    <div class="input-row">
+      <div class="form-group">
+        <label>年齡 (歲)</label>
+        <input type="number" id="crcl-age" placeholder="e.g. 65" min="0" step="1">
+      </div>
+      <div class="form-group">
+        <label>體重 (kg)</label>
+        <input type="number" id="crcl-weight" placeholder="e.g. 60" min="0" step="0.1">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>血清肌酸酐 Creatinine (mg/dL)</label>
+      <input type="number" id="crcl-crea" placeholder="e.g. 1.0" min="0" step="0.01" style="font-size:1.1rem;padding:12px 16px;">
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+      <label style="font-size:0.82rem;display:flex;align-items:center;gap:4px;"><input type="radio" name="crcl-gender" value="female" checked> 女性</label>
+      <label style="font-size:0.82rem;display:flex;align-items:center;gap:4px;"><input type="radio" name="crcl-gender" value="male"> 男性</label>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="calcCrcl()">🔄 計算 CrCl</button>
+    <div class="result-box" id="crcl-result"></div>
+  </div>
+
+  <div class="calc-card">
+    <h3>📝 Cockcroft-Gault 公式</h3>
+    <div style="background:#fef2f2;padding:14px;border-radius:8px;font-size:0.85rem;">
+      <p><strong>男性：</strong>CrCl = (140 - 年齡) × 體重 ÷ (72 × Cr) </p>
+      <p><strong>女性：</strong>CrCl = 男性值 × 0.85</p>
+      <p style="color:#888;margin-top:6px;">單位：mL/min</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>💊 腎功能分級與藥物調整</h2>
+    <p style="font-size:0.82rem;background:#fef2f2;padding:10px;border-radius:8px;line-height:1.8;">
+      <strong>正常：</strong>CrCl ≥ 90 mL/min → 正常劑量<br>
+      <strong>輕度：</strong>CrCl 60-89 → 部分藥物需調整<br>
+      <strong>中度：</strong>CrCl 30-59 → 多數藥物減量<br>
+      <strong>重度：</strong>CrCl 15-29 → 嚴格調整<br>
+      <strong>末期：</strong>CrCl &lt; 15 → 需腎替代療法
+    </p>
+  </div>
+
+  <div style="text-align:center;margin:20px 0;">
+    <a href="quiz.html" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#fef2f2,#fee2e2);color:#ef4444;padding:10px 24px;border-radius:30px;font-size:0.9rem;font-weight:600;text-decoration:none;border:1px solid #fca5a5;">
+      📝 來測一題腎功能國考題 →
+    </a>
+  </div>
+</div>
+
+<!-- ♡ CTA Banner ♡ -->
+<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:0 auto 24px;max-width:900px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
+  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
+  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
+  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
+  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
+</div>
+
+<footer><p>© 2026 護理師小幫手 | <a href="index.html" style="color:white;opacity:0.7;">所有工具</a></p></footer>
+
+<script>
+function calcCrcl() {
+  const age = parseInt(document.getElementById('crcl-age').value);
+  const w = parseFloat(document.getElementById('crcl-weight').value);
+  const cr = parseFloat(document.getElementById('crcl-crea').value);
+  const isMale = document.querySelector('input[name="crcl-gender"]:checked').value === 'male';
+  if(!age||!w||!cr||age<=0||w<=0||cr<=0) { alert('請填寫所有欄位'); return; }
+  let crcl = ((140 - age) * w) / (72 * cr);
+  if(!isMale) crcl *= 0.85;
+  let level='', color='';
+  if(crcl>=90) { level='正常 ✅'; color='#22c55e'; }
+  else if(crcl>=60) { level='輕度下降 ⚠️'; color='#eab308'; }
+  else if(crcl>=30) { level='中度下降 🚨'; color='#f97316'; }
+  else if(crcl>=15) { level='重度下降 ❗'; color='#ef4444'; }
+  else { level='末期腎病 🚑'; color='#dc2626'; }
+  const el = document.getElementById('crcl-result');
+  el.className = 'result-box show';
+  el.innerHTML = `
+    <div style="font-size:0.85rem;color:#888;">${isMale?'男性':'女性'} · ${age} 歲 · ${w} kg · Cr ${cr} mg/dL</div>
+    <div class="big-number" style="color:${color};">${crcl.toFixed(1)} mL/min</div>
+    <div style="font-size:1rem;font-weight:600;color:${color};">${level}</div>
+  `;
+}
+</script>
+</body>
+</html>
