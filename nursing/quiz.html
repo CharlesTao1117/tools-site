@@ -279,6 +279,160 @@
       font-weight: 700;
       margin-right: 6px;
     }
+
+    /* ── Weakness Analysis ── */
+    .weakness-box {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      margin: 20px 0;
+      border: 2px solid #fce4ec;
+      box-shadow: 0 4px 12px rgba(236,72,153,0.06);
+    }
+    .weakness-box h3 {
+      font-size: 1.1rem;
+      color: #4a1942;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .weakness-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 500px) { .weakness-grid { grid-template-columns: 1fr 1fr; } }
+
+    .weak-item {
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+    }
+    .weak-item .w-name { font-weight: 600; margin-bottom: 2px; }
+    .weak-item .w-bar-wrap {
+      height: 8px;
+      background: #fce4ec;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 4px 0;
+    }
+    .weak-item .w-bar {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    .weak-item .w-bar.green { background: linear-gradient(90deg, #4ade80, #22c55e); }
+    .weak-item .w-bar.yellow { background: linear-gradient(90deg, #facc15, #eab308); }
+    .weak-item .w-bar.red { background: linear-gradient(90deg, #fb7185, #ef4444); }
+    .weak-item .w-detail { font-size: 0.72rem; color: #9d6b8a; }
+
+    /* Consequence / psychology banner */
+    .psych-banner {
+      background: linear-gradient(135deg, #fff1f2, #fef2f2);
+      border: 1px solid #fecaca;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin: 16px 0;
+      font-size: 0.9rem;
+      color: #991b1b;
+      line-height: 1.7;
+    }
+    .psych-banner strong { color: #dc2626; }
+    .psych-banner .big-emoji { font-size: 1.6rem; display: block; margin-bottom: 6px; }
+
+    .psych-banner.success-psych {
+      background: linear-gradient(135deg, #f0fdf4, #f0fdf4);
+      border-color: #bbf7d0;
+      color: #166534;
+    }
+    .psych-banner.success-psych strong { color: #16a34a; }
+
+    /* Wrong answer with explanation */
+    .review-item {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .review-item .q-text-fix { font-size: 0.9rem; margin-bottom: 8px; color: #1a1a2e; }
+    .review-item .ans-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+    }
+    .review-item .ans-row .yours { color: #dc2626; font-weight: 600; }
+    .review-item .ans-row .correct { color: #16a34a; font-weight: 600; }
+    .review-item .ans-row .cluster-tag {
+      background: #ff8f00;
+      color: white;
+      padding: 1px 10px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .review-item .explanation {
+      font-size: 0.82rem;
+      color: #7c5a72;
+      line-height: 1.6;
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px dashed #ffe082;
+    }
+
+    /* CTA banner in result */
+    .result-cta {
+      background: linear-gradient(135deg, #ec4899, #d946ef, #a855f7);
+      border-radius: 20px;
+      padding: 28px 20px;
+      text-align: center;
+      color: white;
+      margin: 20px 0;
+      box-shadow: 0 6px 24px rgba(236,72,153,0.2);
+    }
+    .result-cta h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+    .result-cta p { font-size: 0.85rem; opacity: 0.9; margin-bottom: 16px; line-height: 1.6; }
+    .result-cta .btn-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      color: #d946ef;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .result-cta .btn-line:hover { transform: scale(1.05); }
+    .result-cta .note { font-size: 0.72rem; opacity: 0.7; margin-top: 10px; }
+    .result-cta .benefits {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .result-cta .benefits span {
+      background: rgba(255,255,255,0.15);
+      padding: 4px 14px;
+      border-radius: 16px;
+      font-size: 0.75rem;
+    }
+
+    /* New badge */
+    .new-badge {
+      display: inline-block;
+      background: #ec4899;
+      color: white;
+      padding: 1px 10px;
+      border-radius: 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
@@ -337,16 +491,41 @@
 
   <!-- ═══ Phase 3: Results ═══ -->
   <div id="result-phase" class="hidden">
-    <a href="quiz.html" class="back-link">← 重新選擇科目</a>
+    <a href="index.html" class="back-link" id="back-to-nursing">← 護理工具首頁</a>
 
     <div class="result-card">
       <h2 id="result-title">測驗完成！</h2>
       <div class="big-score" id="score-display"></div>
       <div class="grade-label" id="grade-label"></div>
-      <div class="actions">
-        <button class="btn btn-primary" id="retry-subject">同科目再做一次</button>
-        <button class="btn btn-outline" id="change-subject">換科目</button>
+      <div id="psych-banner-placeholder"></div>
+    </div>
+
+    <!-- Weakness analysis -->
+    <div class="weakness-box" id="weakness-box">
+      <h3>📊 你的弱點分析 <span class="new-badge">NEW</span></h3>
+      <div class="weakness-grid" id="weakness-grid"></div>
+      <div id="cluster-weakness" style="margin-top:12px;font-size:0.85rem;color:#7c5a72;"></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="result-cta" id="result-cta">
+      <h3 id="cta-title">💬 每天針對你的弱點推送一題</h3>
+      <p id="cta-desc">LINE Bot 會記住你錯過的題型，自動安排複習。<br>不是亂數出題，而是你真正需要加強的。</p>
+      <div class="benefits">
+        <span>📅 每日一題</span>
+        <span>🎯 針對弱點</span>
+        <span>🤖 AI 解析</span>
+        <span>📊 進度追蹤</span>
       </div>
+      <a href="#" class="btn-line" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;">
+        💬 加入 LINE 免費開始
+      </a>
+      <div class="note">完全免費 · 每日 1 題 · 針對你的弱點</div>
+    </div>
+
+    <div class="actions" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;">
+      <button class="btn btn-primary" id="retry-subject">同科目再做一次</button>
+      <button class="btn btn-outline" id="change-subject">換科目</button>
     </div>
 
     <div class="review-list" id="review-list"></div>
@@ -541,14 +720,27 @@ function onAnswer(selected, question) {
   const fbTitle = document.getElementById('fb-title');
   const fbText = document.getElementById('fb-text');
 
+  const correctOptionText = question.options[correct];
+  const qid = `${question.session_code}_${question.number}`;
+  const clusterInfo = clusterMap[qid];
+
   if (isCorrect) {
     fb.className = 'feedback show correct-fb';
-    fbTitle.textContent = '✅ 答對了！';
-    fbText.textContent = `正確答案就是 ${correct}。`;
+    const clusterLine = clusterInfo
+      ? ` · 這題屬於「${clusterInfo.concept}」高頻概念`
+      : '';
+    fbTitle.textContent = `✅ 答對了！${clusterLine}`;
+    fbText.innerHTML = `正確答案 <strong>${correct}. ${correctOptionText}</strong>`;
   } else {
     fb.className = 'feedback show wrong-fb';
     fbTitle.textContent = `❌ 答錯了`;
-    fbText.textContent = `你選了 ${selected}，正確答案是 ${correct}。`;
+    fbText.innerHTML = `
+      你選了 <strong>${selected}</strong>，正確答案是 <strong>${correct}. ${correctOptionText}</strong><br>
+      ${clusterInfo
+        ? `💡 此題屬於「<strong>${clusterInfo.concept}</strong>」高頻集群（歷年考 <strong>${clusterInfo.repeat_count} 次</strong>）`
+        : `💡 建議複習 ${question.subject_name} 相關章節`
+      }
+    `;
   }
 
   // Cluster hint
@@ -603,54 +795,52 @@ function showResults() {
   document.getElementById('quiz-phase').classList.add('hidden');
   document.getElementById('result-phase').classList.remove('hidden');
 
-  const percentage = Math.round((score / sessionQuestions.length) * 100);
+  const total = sessionQuestions.length;
+  const percentage = Math.round((score / total) * 100);
 
   // Score display
   const scoreEl = document.getElementById('score-display');
-  scoreEl.textContent = `${score} / ${sessionQuestions.length}`;
+  scoreEl.textContent = `${score} / ${total}`;
+  const wrongCount = total - score;
 
-  // Color & grade
+  // Grade with psychology
+  const gradeEl = document.getElementById('grade-label');
+  let gradeText = '', psychHTML = '';
   if (percentage >= 90) {
     scoreEl.className = 'big-score perfect';
-    document.getElementById('grade-label').textContent = '🏆 太強了！護理師穩了！';
+    gradeText = `🏆 ${score}題全對！護理師執照妳穩了！`;
+    psychHTML = `<div class="psych-banner success-psych"><div class="big-emoji">🌟</div><strong>實力已經很強了！</strong> 但國考一翻兩瞪眼——每一題都可能是關鍵。加入 LINE 每天練一題手感，考試當天零失誤。</div>`;
   } else if (percentage >= 70) {
     scoreEl.className = 'big-score good';
-    document.getElementById('grade-label').textContent = '👍 不錯！再加強錯題就能高分！';
+    gradeText = `👍 ${score}/${total} — 不錯！但妳錯的${wrongCount}題不是粗心，是有規律的。`;
+    psychHTML = `<div class="psych-banner"><div class="big-emoji">🎯</div>研究顯示：<strong>不做間隔複習，7天後忘記70%</strong>。妳現在會的，如果不持續練習，一週後可能又忘了。加入 LINE 每天 1 題，讓記憶自動鞏固。</div>`;
   } else if (percentage >= 50) {
     scoreEl.className = 'big-score';
-    document.getElementById('grade-label').textContent = '📖 還有進步空間，針對錯題複習吧！';
+    gradeText = `📖 ${score}/${total} — 答對一半，還有${wrongCount}題需要加強。`;
+    psychHTML = `<div class="psych-banner"><div class="big-emoji">🔍</div>這${wrongCount}題錯在哪裡？<strong>知識性？邏輯性？還是被選項誤導？</strong> 每一種錯誤的處理方式都不一樣。LINE Bot 會分析妳的錯誤類型，針對性推送補強題——不是亂數出題，是專攻妳的弱點。</div>`;
   } else {
     scoreEl.className = 'big-score poor';
-    document.getElementById('grade-label').textContent = '💪 別氣餒！多做幾次就會進步！';
+    gradeText = `💪 ${score}/${total} — 別氣餒！錯${wrongCount}題正好找出弱點在哪。`;
+    psychHTML = `<div class="psych-banner"><div class="big-emoji">😰</div>現在錯題還可以查答案，上考場可沒有。這${wrongCount}題是妳的<strong>弱點地圖</strong>——知道哪裡弱，才能針對性補強。LINE Bot 每天推播 1 題，專門針對妳的弱點類型，不知不覺就補齊了。</div>`;
   }
+  gradeEl.textContent = gradeText;
+  document.getElementById('psych-banner-placeholder').innerHTML = psychHTML;
 
   document.getElementById('result-title').textContent =
-    currentSubject.id === 'all'
-      ? `測驗完成 — 混合全部科目`
-      : `測驗完成 — ${currentSubject.name}`;
+    currentSubject.id === 'all' ? '混合全部科目 — 測驗完成' : `${currentSubject.name} — 測驗完成`;
 
-  // Wrong question review
-  const reviewList = document.getElementById('review-list');
-  const wrongAnswers = answerLog.filter(a => !a.isCorrect);
+  // ── Weakness Analysis ──
+  renderWeaknessAnalysis();
 
-  if (wrongAnswers.length === 0) {
-    reviewList.innerHTML = `
-      <div class="content-section" style="text-align:center">
-        <h2>🎉 全部答對！</h2>
-        <p>這回合表現完美，沒有任何錯題。</p>
-      </div>`;
-  } else {
-    let html = `<div class="content-section"><h2>📋 錯題回顧（${wrongAnswers.length} 題）</h2>`;
-    wrongAnswers.forEach((a, i) => {
-      html += `
-      <div class="review-item">
-        <div class="q">${a.question.text}</div>
-        <span class="your">❌ 你選了：${a.selected}</span>
-        <span class="correct-ans">✅ 正確答案：${a.question.correct_answer}</span>
-      </div>`;
-    });
-    html += `</div>`;
-    reviewList.innerHTML = html;
+  // ── Wrong question review with explanations ──
+  renderReviewWithExplanations();
+
+  // ── Dynamic CTA ──
+  const ctaTitle = document.getElementById('cta-title');
+  const ctaDesc = document.getElementById('cta-desc');
+  if (wrongCount > 0) {
+    ctaTitle.textContent = `💬 每天針對妳的 ${wrongCount} 個弱點推送練習題`;
+    ctaDesc.innerHTML = `LINE Bot 記住你錯過的 ${wrongCount} 題題型，自動安排複習。<br>不是亂數出題，而是你真正需要加強的 ${wrongCount} 個弱點。`;
   }
 
   // Buttons
@@ -660,6 +850,105 @@ function showResults() {
     document.getElementById('result-phase').classList.add('hidden');
     document.getElementById('select-phase').classList.remove('hidden');
   };
+}
+
+/* ── Weakness Analysis ── */
+function renderWeaknessAnalysis() {
+  const grid = document.getElementById('weakness-grid');
+  const clusterEl = document.getElementById('cluster-weakness');
+  grid.innerHTML = '';
+
+  // Group by subject_id
+  const bySubject = {};
+  answerLog.forEach(a => {
+    const sid = a.question.subject_id;
+    if (!bySubject[sid]) bySubject[sid] = { name: a.question.subject_name, total: 0, correct: 0 };
+    bySubject[sid].total++;
+    if (a.isCorrect) bySubject[sid].correct++;
+  });
+
+  // Sort by accuracy ascending (worst first)
+  const sorted = Object.values(bySubject).sort((a, b) => (a.correct / a.total) - (b.correct / b.total));
+
+  sorted.forEach(s => {
+    const pct = Math.round((s.correct / s.total) * 100);
+    const barColor = pct >= 80 ? 'green' : pct >= 50 ? 'yellow' : 'red';
+    const emoji = pct >= 80 ? '🟢' : pct >= 50 ? '🟡' : '🔴';
+    const item = document.createElement('div');
+    item.className = 'weak-item';
+    item.innerHTML = `
+      <div class="w-name">${emoji} ${s.name}</div>
+      <div class="w-bar-wrap"><div class="w-bar ${barColor}" style="width:${pct}%"></div></div>
+      <div class="w-detail">${s.correct}/${s.total} 題正確 (${pct}%)</div>
+    `;
+    grid.appendChild(item);
+  });
+
+  // Cluster weakness: map wrong answers to concept clusters
+  const clusterHits = {};
+  answerLog.forEach(a => {
+    if (a.isCorrect) return;
+    const qid = `${a.question.session_code}_${a.question.number}`;
+    const info = clusterMap[qid];
+    if (info) {
+      if (!clusterHits[info.concept]) clusterHits[info.concept] = { concept: info.concept, cluster_id: info.cluster_id, count: 0, times: info.repeat_count };
+      clusterHits[info.concept].count++;
+    }
+  });
+
+  const clusterKeys = Object.keys(clusterHits);
+  if (clusterKeys.length > 0) {
+    let html = `<div style="font-weight:600;margin-bottom:6px;">🎯 妳錯的題目涉及高頻概念：</div>`;
+    const sortedClusters = clusterKeys.map(k => clusterHits[k]).sort((a, b) => b.count - a.count);
+    sortedClusters.forEach(c => {
+      html += `<span style="display:inline-block;background:#fef3c7;border:1px solid #fcd34d;border-radius:12px;padding:3px 12px;font-size:0.78rem;margin:3px 4px;">🔥 ${c.concept}（錯${c.count}題·歷年考${c.times}次）</span>`;
+    });
+    clusterEl.innerHTML = html;
+  } else {
+    clusterEl.innerHTML = '';
+  }
+}
+
+/* ── Review with Explanations ── */
+function renderReviewWithExplanations() {
+  const reviewList = document.getElementById('review-list');
+  const wrongAnswers = answerLog.filter(a => !a.isCorrect);
+
+  if (wrongAnswers.length === 0) {
+    reviewList.innerHTML = `
+      <div class="content-section" style="text-align:center">
+        <h2>🎉 全部答對！</h2>
+        <p>這回合表現完美，沒有任何錯題。</p>
+      </div>`;
+    return;
+  }
+
+  let html = `<div class="content-section"><h2>📋 錯題解析（${wrongAnswers.length} 題）</h2>
+  <p style="font-size:0.82rem;color:#9d6b8a;margin-bottom:12px;">每個錯題都標記了所屬高頻概念，讓你了解弱點集中在哪裡。</p>`;
+
+  wrongAnswers.forEach((a, i) => {
+    const qid = `${a.question.session_code}_${a.question.number}`;
+    const clusterInfo = clusterMap[qid];
+    const clusterTag = clusterInfo
+      ? `<span class="cluster-tag">🔥 ${clusterInfo.concept}</span>`
+      : '';
+    const clusterExplain = clusterInfo
+      ? `💡 此題屬於「<strong>${clusterInfo.concept}</strong>」高頻集群，歷年考了 <strong>${clusterInfo.repeat_count} 次</strong>。這是護理師國考的重點概念，需要確實搞懂。`
+      : `💡 正確答案是 ${a.question.correct_answer}。建議複習 ${a.question.subject_name} 的相關章節。`;
+
+    html += `
+      <div class="review-item">
+        <div class="q-text-fix">${a.question.text}</div>
+        <div class="ans-row">
+          <span class="yours">❌ 你選了 ${a.selected}</span>
+          <span class="correct">✅ 正確答案 ${a.question.correct_answer}：${a.question.options[a.question.correct_answer]}</span>
+          ${clusterTag}
+        </div>
+        <div class="explanation">${clusterExplain}</div>
+      </div>`;
+  });
+  html += `</div>`;
+  reviewList.innerHTML = html;
 }
 
 /* ── Shuffle (Fisher-Yates) ── */

@@ -120,11 +120,50 @@ footer{background:#1a1a2e;color:#fff;text-align:center;padding:24px 20px;margin-
     <div class="result-box" id="quizResult"></div>
   </div>
 
+  <!-- Wrong-answer intercept (shown after quiz) -->
+  <div class="hero-cta" style="display:none;background:linear-gradient(135deg,#6b21a8,#9333ea);" id="wrongIntercept">
+    <h2>🧠 AI 弱點分析：你錯的不是這一題，是這一塊</h2>
+    <p id="wrongAnalysisText" style="font-size:.85rem;margin-bottom:12px;">
+      ⏳ 分析中...這題的計算邏輯是「給藥劑量 = 處方劑量 ÷ 濃度」，
+      <strong>但同一個概念換個包裝你還答得出來嗎？</strong>
+    </p>
+    <div style="background:rgba(255,255,255,.15);border-radius:12px;padding:16px;margin:12px 0;text-align:left;font-size:.82rem;">
+      <div style="margin-bottom:8px;">🔍 <strong>你的弱點概念區塊：藥物計算 → 給藥劑量</strong></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+        <span style="background:rgba(255,255,255,.2);padding:3px 10px;border-radius:12px;">❌ 劑量公式</span>
+        <span style="background:rgba(255,255,255,.1);padding:3px 10px;border-radius:12px;">⬜ 滴速計算</span>
+        <span style="background:rgba(255,255,255,.1);padding:3px 10px;border-radius:12px;">⬜ 稀釋計算</span>
+        <span style="background:rgba(255,255,255,.1);padding:3px 10px;border-radius:12px;">⬜ 安全範圍</span>
+      </div>
+      <p style="margin:0;font-size:.8rem;">💡 <strong>同樣的題型，換個數字你還會嗎？</strong> 接下來 3 天幫你集中 drill 這個概念區塊。</p>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;">
+      <a href="#" class="btn-cta" style="color:#6b21a8;font-size:.9rem;padding:10px 24px;">📱 加入 LINE 免費 drill ➜</a>
+      <button onclick="closeIntercept()" style="background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 20px;border-radius:30px;cursor:pointer;font-size:.85rem;">跳過</button>
+    </div>
+  </div>
+
   <!-- Landing CTA -->
   <div class="hero-cta">
     <h2>🎯 想考過護理師國考？</h2>
-    <p>免費加入 LINE Bot，每天 1 題藥物計算 + AI 解析診斷弱點。<br>
-    超過 1,000 題考古題庫，SM-2 間隔記憶系統讓你真正記住。</p>
+    <p>免費加入 LINE Bot，每天 1 題藥物計算 + AI 解析診斷弱點。</p>
+    <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:12px;margin:12px 40px;font-size:.8rem;text-align:left;">
+      <div><strong>┌── 阿摩 vs AI 國考助教 ──┐</strong></div>
+      <div style="display:flex;justify-content:space-between;margin:6px 0;">
+        <span>❌ 阿摩：同一題重複看</span>
+        <span>✅ <strong>我們：同概念變形 drill</strong></span>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin:6px 0;">
+        <span>❌ 阿摩：網友留言解析</span>
+        <span>✅ <strong>我們：AI 分層解析</strong></span>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin:6px 0;">
+        <span>❌ 阿摩：無弱點診斷</span>
+        <span>✅ <strong>我們：AI 概念集群分析</strong></span>
+      </div>
+      <div><strong>└────────────────────┘</strong></div>
+    </div>
+    <p style="font-size:.85rem;opacity:.8;">超過 1,000 題考古題庫 · 每天推送 1 題 · AI 抓你的弱點概念區塊</p>
     <a href="#" class="btn-cta">加入 LINE 免費開始 ➜</a>
   </div>
 
@@ -202,13 +241,20 @@ footer{background:#1a1a2e;color:#fff;text-align:center;padding:24px 20px;margin-
 <script>
 function checkQuiz(ans){
   const r=document.getElementById('quizResult');
+  const w=document.getElementById('wrongIntercept');
   if(ans===2){
     r.className='result-box show success';
-    r.innerHTML='<strong>✅ 正確！</strong> (250 ÷ 125) × 5 = 10 mL。每次給藥 10 mL，每日 4 次 = 40 mL/天。';
+    r.innerHTML='<strong>✅ 正確！</strong> (250 ÷ 125) × 5 = 10 mL。每次給藥 10 mL，每日 4 次 = 40 mL/天。<br><span style=\"font-size:.8rem;color:#2e7d32;\">但別開心的太早 — 同一概念換個數字你還行嗎？</span>';
+    w.style.display='none';
   }else{
     r.className='result-box show warning';
-    r.innerHTML='<strong>❌ 再想想</strong> 公式：應給體積 = 處方劑量 ÷ 濃度 × 單位體積。125 mg/5 mL 表示每 5 mL 含 125 mg。';
+    r.innerHTML='<strong>❌ 答錯了</strong> 這題是標準的「給藥劑量計算」題型。<br><span style=\"font-size:.8rem;color:#e65100;\">🧠 AI 分析：這個概念區塊是你目前的弱點</span>';
+    w.style.display='block';
+    setTimeout(() => w.scrollIntoView({behavior:'smooth',block:'center'}), 300);
   }
+}
+function closeIntercept(){
+  document.getElementById('wrongIntercept').style.display='none';
 }
 function toggle(id){
   document.getElementById(id).classList.toggle('open');

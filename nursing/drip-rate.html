@@ -22,8 +22,23 @@
     <a href="index.html">💊 所有工具</a> &gt; 點滴滴速計算
   </nav>
 
-  <div class="calc-card">
-    <h3>💧 點滴滴速計算機</h3>
+  <div class="calc-card" style="border-color:#f9a8d4;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
+      <h3 style="margin:0;">💧 點滴滴速計算機</h3>
+      <span style="display:inline-flex;align-items:center;gap:4px;background:#fdf2f8;color:#ec4899;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;">⚡ 3 步驟算好</span>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
+      <span style="font-size:0.72rem;background:#fce7f3;color:#9d6b8a;padding:2px 10px;border-radius:10px;">① 輸入總量</span>
+      <span style="font-size:0.72rem;background:#fce7f3;color:#9d6b8a;padding:2px 10px;border-radius:10px;">② 設定時間</span>
+      <span style="font-size:0.72rem;background:#fce7f3;color:#9d6b8a;padding:2px 10px;border-radius:10px;">③ 按計算</span>
+    </div>
+    <p style="font-size:0.78rem;color:#9d6b8a;margin-bottom:12px;">💡 臨床常用設定可直接點下方情境</p>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
+      <button class="btn btn-sm presets" style="background:#fdf2f8;border:1px solid #fbcfe8;padding:4px 14px;border-radius:16px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="setPreset(500,8,15)">💉 NS 500mL/8h</button>
+      <button class="btn btn-sm presets" style="background:#fdf2f8;border:1px solid #fbcfe8;padding:4px 14px;border-radius:16px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="setPreset(1000,12,15)">💉 NS 1000mL/12h</button>
+      <button class="btn btn-sm presets" style="background:#f5f3ff;border:1px solid #e9d5ff;padding:4px 14px;border-radius:16px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="setPreset(250,4,60)">🔬 ICU 250mL/4h 微滴</button>
+      <button class="btn btn-sm presets" style="background:#f5f3ff;border:1px solid #e9d5ff;padding:4px 14px;border-radius:16px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="setPreset(500,24,60)">🔬 精密輸液 500mL/24h</button>
+    </div>
     <div class="input-row">
       <div class="form-group">
         <label>輸液總量 (mL)</label>
@@ -82,6 +97,12 @@
     </div>
   </div>
 
+  <div style="text-align:center;margin:20px 0;">
+    <a href="quiz.html" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#fdf2f8,#fce7f3);color:#d946ef;padding:10px 24px;border-radius:30px;font-size:0.9rem;font-weight:600;text-decoration:none;border:1px solid #f9a8d4;">
+      📝 算完了？來測一題國考考古題 →
+    </a>
+  </div>
+
 </div>
 
 <!-- ♡ CTA Banner ♡ -->
@@ -97,5 +118,14 @@
 </footer>
 
 <script src="script.js"></script>
+<script>
+function setPreset(vol, hrs, factor) {
+  document.getElementById('drp-volume').value = vol;
+  document.getElementById('drp-time').value = hrs;
+  document.getElementById('drp-time-unit').value = 'h';
+  document.getElementById('drp-factor').value = factor;
+  calcDripRate();
+}
+</script>
 </body>
 </html>
