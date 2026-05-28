@@ -99,8 +99,8 @@
     var observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(m) {
         m.addedNodes.forEach(function(node) {
-          if (node.nodeType === 1 && (node.matches('.quiz-result, .quiz-score, .result-container') || 
-              node.querySelector('.quiz-result, .quiz-score, .result-container'))) {
+          if (node.nodeType === 1 && (node.matches('.quiz-result, .quiz-score, .result-container, .result-card') || 
+              node.querySelector('.quiz-result, .quiz-score, .result-container, .result-card'))) {
             gtag('event', 'quiz_complete', { page: 'quiz' });
             observer.disconnect();
           }
