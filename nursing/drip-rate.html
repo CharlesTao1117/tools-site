@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
-  <meta charset="UTF-8">
 <script src="analytics.js"></script>
+
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>點滴滴速計算 — IV 輸液每分鐘滴速 gtt/min 免費線上工具</title>
-  <meta name="description" content="免費線上點滴滴速計算工具。輸入輸液總量、時間、滴數係數，自動算出 gtt/min。支援微滴(60)與一般輸液套(15-20)，附計算公式與臨床範例。">
-  <link rel="canonical" href="https://anycalculator.site/nursing/drip-rate.html">
-  <link rel="stylesheet" href="nursing.css">
+  <title>點滴滴速計算機 gtt/min | 護理國考助手</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="description" content="護理師國考必考點滴滴速公式，輸入總量、滴數係數、時間，自動計算 gtt/min。附常見考題範例。">
+  <link rel="canonical" href="https://tools-nurse.tw/drip-rate.html">
+  <link rel="stylesheet" href="style.css">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="點滴滴速計算機 gtt/min | 護理國考助手">
+    <meta property="og:description" content="護理師國考必考點滴滴速公式，輸入總量、滴數係數、時間，自動計算 gtt/min。附常見考題範例。">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="護理國考助手">
 </head>
 <body>
 
@@ -23,23 +31,8 @@
     <a href="index.html">💊 所有工具</a> &gt; 點滴滴速計算
   </nav>
 
-  <div class="calc-card" style="border-color:#f9a8d4;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:6px;">
-      <h3 style="margin:0;">💧 點滴滴速計算機</h3>
-      <span style="display:inline-flex;align-items:center;gap:4px;background:#fdf2f8;color:#ec4899;padding:3px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;">⚡ 3 步驟算好</span>
-    </div>
-    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
-      <span style="font-size:0.72rem;background:#fce7f3;color:#9d6b8a;padding:2px 10px;border-radius:10px;">① 輸入總量</span>
-      <span style="font-size:0.72rem;background:#fce7f3;color:#9d6b8a;padding:2px 10px;border-radius:10px;">② 設定時間</span>
-      <span style="font-size:0.72rem;background:#fce7f3;color:#9d6b8a;padding:2px 10px;border-radius:10px;">③ 按計算</span>
-    </div>
-    <p style="font-size:0.78rem;color:#9d6b8a;margin-bottom:12px;">💡 臨床常用設定可直接點下方情境</p>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
-      <button class="btn btn-sm presets" style="background:#fdf2f8;border:1px solid #fbcfe8;padding:4px 14px;border-radius:16px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="setPreset(500,8,15)">💉 NS 500mL/8h</button>
-      <button class="btn btn-sm presets" style="background:#fdf2f8;border:1px solid #fbcfe8;padding:4px 14px;border-radius:16px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="setPreset(1000,12,15)">💉 NS 1000mL/12h</button>
-      <button class="btn btn-sm presets" style="background:#f5f3ff;border:1px solid #e9d5ff;padding:4px 14px;border-radius:16px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="setPreset(250,4,60)">🔬 ICU 250mL/4h 微滴</button>
-      <button class="btn btn-sm presets" style="background:#f5f3ff;border:1px solid #e9d5ff;padding:4px 14px;border-radius:16px;font-size:0.78rem;cursor:pointer;color:#4a1942;" onclick="setPreset(500,24,60)">🔬 精密輸液 500mL/24h</button>
-    </div>
+  <div class="calc-card">
+    <h3>💧 點滴滴速計算機</h3>
     <div class="input-row">
       <div class="form-group">
         <label>輸液總量 (mL)</label>
@@ -98,20 +91,6 @@
     </div>
   </div>
 
-  <div style="text-align:center;margin:20px 0;">
-    <a href="quiz.html" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#fdf2f8,#fce7f3);color:#d946ef;padding:10px 24px;border-radius:30px;font-size:0.9rem;font-weight:600;text-decoration:none;border:1px solid #f9a8d4;">
-      📝 算完了？免費弱點分析國考考古題 →
-    </a>
-  </div>
-
-</div>
-
-<!-- ♡ CTA Banner ♡ -->
-<div style="background:linear-gradient(135deg,#ec4899,#d946ef);border-radius:20px;padding:28px 20px;text-align:center;color:white;margin:32px 0 24px;box-shadow:0 6px 24px rgba(236,72,153,0.2);">
-  <div style="font-size:1.1rem;font-weight:700;margin-bottom:4px;">💬 每天 1 題，不知不覺就考過了</div>
-  <div style="font-size:.85rem;opacity:.9;margin-bottom:16px;">加入 LINE，每日自動推播考古題 + AI 錯題解析</div>
-  <a href="#" onclick="alert('LINE Bot 準備中 ♡ 即將上線！');return false;" style="display:inline-flex;align-items:center;gap:8px;background:white;color:#d946ef;padding:12px 32px;border-radius:50px;font-size:.95rem;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);">💬 加入 LINE 免費開始</a>
-  <div style="font-size:.72rem;opacity:.7;margin-top:10px;">完全免費 · 每日 1 題 · 無廣告騷擾</div>
 </div>
 
 <footer>
@@ -119,14 +98,5 @@
 </footer>
 
 <script src="script.js"></script>
-<script>
-function setPreset(vol, hrs, factor) {
-  document.getElementById('drp-volume').value = vol;
-  document.getElementById('drp-time').value = hrs;
-  document.getElementById('drp-time-unit').value = 'h';
-  document.getElementById('drp-factor').value = factor;
-  calcDripRate();
-}
-</script>
 </body>
 </html>
