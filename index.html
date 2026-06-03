@@ -27,25 +27,88 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"QR Code & Barcode Generator","applicationCategory":"UtilityApplication"}</script>
 <style>
 body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e5}
-.color-picker-row{display:flex;gap:16px;align-items:end;flex-wrap:wrap}
-.color-picker-row .form-group{margin-bottom:0}
-.barcode-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
-@media(max-width:480px){.barcode-grid{grid-template-columns:1fr}}
-.barcode-card{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;border:1px solid var(--border-subtle)}
-.barcode-card .name{font-size:.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-2)}
-.barcode-card .barcode-wrap{background:#fff;border-radius:8px;padding:12px;overflow:hidden}
-.barcode-card .barcode-wrap svg{display:block;margin:0 auto;max-width:100%;height:auto}
-.barcode-card .barcode-wrap canvas,.barcode-card .barcode-wrap img{display:block;margin:0 auto;max-width:100%}
-.barcode-card .dl-btn{font-size:.75rem;margin-top:var(--space-2);padding:4px 16px;border-radius:6px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-tertiary);cursor:pointer}
-.barcode-card .dl-btn:hover{background:var(--bg);color:var(--text)}
-.section-divider{margin:var(--space-5) 0;height:1px;background:var(--border-subtle)}
+/* ── 三步 Flow ── */
+.step-flow{display:flex;flex-direction:column;gap:var(--space-4)}
+.step{display:flex;align-items:flex-start;gap:var(--space-3)}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--accent-subtle);color:var(--accent-text);font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-body{flex:1;min-width:0}
+.step-label{font-size:.7rem;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+/* ── Format Tabs ── */
+.format-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--bg-subtle);border-radius:var(--radius-sm);margin-bottom:var(--space-4)}
+.format-tab{padding:10px 12px;border:none;border-radius:4px;font-size:.82rem;font-weight:500;font-family:var(--font-sans);cursor:pointer;background:transparent;color:var(--text-tertiary);transition:all .15s;min-height:42px;text-align:center}
+.format-tab:hover{color:var(--text-primary)}
+.format-tab.active{background:var(--bg-card);color:var(--text-primary);box-shadow:var(--shadow-sm);font-weight:600}
+.format-tab .tab-icon{display:block;font-size:1.2rem;margin-bottom:2px}
+.format-pane{display:none}
+.format-pane.active{display:block;animation:fadeUp .3s var(--ease-out)}
+/* ── Settings Collapse ── */
+.settings-toggle{display:flex;align-items:center;gap:var(--space-2);padding:8px 0;font-size:.78rem;font-weight:500;color:var(--text-tertiary);cursor:pointer;border:none;background:none;font-family:var(--font-sans);transition:color .15s;width:100%;-webkit-tap-highlight-color:transparent}
+.settings-toggle:hover{color:var(--text-primary)}
+.settings-toggle .toggle-icon{transition:transform .25s var(--ease-spring);font-size:.7rem}
+.settings-toggle.open .toggle-icon{transform:rotate(180deg)}
+.settings-panel{overflow:hidden;max-height:0;opacity:0;transition:max-height .35s var(--ease-smooth),opacity .25s var(--ease-out),margin .25s var(--ease-out);margin:0}
+.settings-panel.open{max-height:600px;opacity:1;margin:var(--space-2) 0 var(--space-3)}
+/* ── QR Display ── */
 .qr-display{display:flex;flex-direction:column;align-items:center;padding:var(--space-4)}
 .qr-display #qrcode{background:#fff;padding:12px;border-radius:12px}
-.qr-display #qrcode canvas{display:block;margin:0 auto}
+.qr-display #qrcode canvas{display:block;margin:0 auto;max-width:100%;height:auto}
+/* ── Barcode Grid ── */
+.barcode-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-3)}
+@media(max-width:480px){.barcode-grid{grid-template-columns:1fr}}
+.barcode-card{background:var(--bg-subtle);border-radius:var(--radius-md);padding:var(--space-3);text-align:center;border:1px solid var(--border-subtle)}
+.barcode-card .name{font-size:.72rem;font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-2)}
+.barcode-card .barcode-wrap{background:#fff;border-radius:8px;padding:10px;overflow:hidden}
+.barcode-card .barcode-wrap svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.barcode-card .barcode-wrap canvas,.barcode-card .barcode-wrap img{display:block;margin:0 auto;max-width:100%}
+.barcode-card .dl-btn{font-size:.72rem;margin-top:var(--space-2);padding:6px 14px;border-radius:6px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-tertiary);cursor:pointer;min-height:36px}
+.barcode-card .dl-btn:hover{background:var(--bg);color:var(--text)}
+/* ── Primary CTA ── */
+.btn-download{padding:12px 32px;border:none;border-radius:var(--radius-sm);font-size:.9rem;font-weight:600;font-family:var(--font-sans);cursor:pointer;background:var(--accent);color:#fff;transition:all .15s;min-height:48px;display:inline-flex;align-items:center;gap:var(--space-2);-webkit-tap-highlight-color:transparent}
+.btn-download:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--accent-glow)}
+.btn-download:active{transform:translateY(0)}
+.color-picker-row{display:flex;gap:12px;align-items:end;flex-wrap:wrap}
+.color-picker-row .form-group{margin-bottom:0}
+.color-swatches{display:flex;gap:8px;flex-wrap:wrap}
+.color-swatch-preset{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all .15s;flex-shrink:0}
+.color-swatch-preset:hover{transform:scale(1.15)}
+.color-swatch-preset.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-subtle)}
+.section-divider{margin:var(--space-4) 0;height:1px;background:var(--border-subtle)}
+/* ── Mobile responsive overrides ── */
+@media(max-width:640px){
+  .step-flow{gap:var(--space-3)}
+  .step-num{width:24px;height:24px;font-size:.65rem}
+  .step-label{font-size:.65rem}
+  .format-tabs{margin-bottom:var(--space-3)}
+  .format-tab{padding:8px 8px;font-size:.75rem;min-height:38px}
+  .format-tab .tab-icon{font-size:1rem}
+  .qr-display{padding:var(--space-3)}
+  .qr-display #qrcode{padding:8px}
+  .settings-panel.open{margin:var(--space-1) 0 var(--space-2)}
+  .color-picker-row{gap:8px}
+  .color-swatch-preset{width:24px;height:24px}
+  .barcode-card{padding:var(--space-2)}
+  .barcode-card .barcode-wrap{padding:8px}
+  .barcode-card .dl-btn{font-size:.68rem;padding:5px 12px;min-height:32px}
+  .btn-download{width:100%;justify-content:center;min-height:44px;font-size:.85rem}
+}
+@media(max-width:380px){
+  .color-swatches{gap:6px}
+  .color-swatch-preset{width:22px;height:22px}
+}
+/* ── Section spacing cleanup ── */
+.hero{padding:var(--space-8) 0 var(--space-5)}
+.hero h1{font-size:1.65rem}
+.hero p{font-size:.9rem}
+@media(min-width:641px){
+  .hero{padding:var(--space-12) 0 var(--space-8)}
+  .hero h1{font-size:2.25rem}
+  .hero p{font-size:1.1rem}
+}
 </style>
 </head>
 <body>
 <div class="page-wrap">
+
 <nav class="top-nav"><div class="container">
   <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
@@ -59,9 +122,11 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
     <a href="/invoice-generator/">Invoice</a>
     <a href="/resume-generator/">Resume</a>
     <a href="/peso-converter/">Peso</a>
-  </div></div></nav>
+  </div>
+</div></nav>
 
 <div class="page-content">
+
 <div class="hero">
   <h1>📱 <span class="gradient-text">Barcode &amp; QR Generator</span></h1>
   <p>Enter any text — see QR, CODE128, CODE39, UPC-A, and EAN-13 instantly</p>
@@ -70,54 +135,89 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
 <main class="container">
-  <div class="card">
-    <div class="form-group">
-      <label>Content</label>
-      <div class="input-wrap">
-        <textarea id="qrText" rows="2" placeholder="Enter text, URL, or any data...">https://anycalculator.site</textarea>
-      </div>
-    </div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label>QR Size</label>
-        <div class="pill-group" id="sizePills">
-          <div class="pill-btn" data-size="160">Small</div>
-          <div class="pill-btn active" data-size="256">Medium</div>
-          <div class="pill-btn" data-size="400">Large</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>QR Color</label>
-        <div class="color-picker-row" style="gap:8px">
-          <input type="color" id="qrColor" class="color-swatch" value="#000000" style="width:40px;height:40px">
-          <div class="color-swatches" id="colorPresets">
-            <div class="color-swatch-preset active" data-color="#000000" style="background:#000000"></div>
-            <div class="color-swatch-preset" data-color="#6366f1" style="background:#6366f1"></div>
-            <div class="color-swatch-preset" data-color="#ef4444" style="background:#ef4444"></div>
-            <div class="color-swatch-preset" data-color="#f59e0b" style="background:#f59e0b"></div>
-            <div class="color-swatch-preset" data-color="#10b981" style="background:#10b981"></div>
-            <div class="color-swatch-preset" data-color="#8b5cf6" style="background:#8b5cf6"></div>
-            <div class="color-swatch-preset" data-color="#ec4899" style="background:#ec4899"></div>
-            <div class="color-swatch-preset" data-color="#06b6d4" style="background:#06b6d4"></div>
+  <div class="card">
+
+    <!-- ═══ Step 1: Input ═══ -->
+    <div class="step-flow">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-label">Enter Content</div>
+          <div class="input-wrap">
+            <textarea id="qrText" rows="2" placeholder="Paste a URL, text, or any data..." spellcheck="false">https://anycalculator.site</textarea>
           </div>
         </div>
       </div>
+
+      <!-- ═══ Step 2: Choose Format ═══ -->
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-label">Choose Format</div>
+          <div class="format-tabs" id="formatTabs">
+            <button class="format-tab active" data-format="qr">
+              <span class="tab-icon">▣</span> QR Code
+            </button>
+            <button class="format-tab" data-format="barcode">
+              <span class="tab-icon">▌</span> Barcode
+            </button>
+          </div>
+
+          <!-- ── QR Pane ── -->
+          <div class="format-pane active" id="paneQr">
+            <div class="qr-display">
+              <div id="qrcode"></div>
+              <button class="btn-download" onclick="downloadQR()">⬇ Download QR</button>
+            </div>
+            <!-- Settings toggle -->
+            <button class="settings-toggle" onclick="this.classList.toggle('open');document.getElementById('qrSettings').classList.toggle('open')">
+              <span class="toggle-icon">▾</span> Customize size &amp; color
+            </button>
+            <div class="settings-panel" id="qrSettings">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Size</label>
+                  <div class="pill-group" id="sizePills">
+                    <div class="pill-btn" data-size="160">S</div>
+                    <div class="pill-btn active" data-size="256">M</div>
+                    <div class="pill-btn" data-size="400">L</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Color</label>
+                  <div class="color-picker-row">
+                    <input type="color" id="qrColor" class="color-swatch" value="#000000" style="width:36px;height:36px">
+                    <div class="color-swatches" id="colorPresets">
+                      <div class="color-swatch-preset active" data-color="#000000" style="background:#000000"></div>
+                      <div class="color-swatch-preset" data-color="#6366f1" style="background:#6366f1"></div>
+                      <div class="color-swatch-preset" data-color="#ef4444" style="background:#ef4444"></div>
+                      <div class="color-swatch-preset" data-color="#f59e0b" style="background:#f59e0b"></div>
+                      <div class="color-swatch-preset" data-color="#10b981" style="background:#10b981"></div>
+                      <div class="color-swatch-preset" data-color="#8b5cf6" style="background:#8b5cf6"></div>
+                      <div class="color-swatch-preset" data-color="#ec4899" style="background:#ec4899"></div>
+                      <div class="color-swatch-preset" data-color="#06b6d4" style="background:#06b6d4"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Barcode Pane ── -->
+          <div class="format-pane" id="paneBarcode">
+            <div class="barcode-grid" id="bcGrid">
+              <div class="barcode-card"><div class="name">CODE128</div><div class="barcode-wrap"><svg id="bc128"></svg></div><button class="dl-btn" onclick="downloadBC('bc128','CODE128')">⬇ Download</button></div>
+              <div class="barcode-card"><div class="name">CODE39</div><div class="barcode-wrap"><svg id="bc39"></svg></div><button class="dl-btn" onclick="downloadBC('bc39','CODE39')">⬇ Download</button></div>
+              <div class="barcode-card"><div class="name">UPC‑A</div><div class="barcode-wrap"><svg id="bcUpc"></svg></div><button class="dl-btn" onclick="downloadBC('bcUpc','UPC-A')">⬇ Download</button></div>
+              <div class="barcode-card"><div class="name">EAN‑13</div><div class="barcode-wrap"><svg id="bcEan"></svg></div><button class="dl-btn" onclick="downloadBC('bcEan','EAN-13')">⬇ Download</button></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
-    <div class="qr-display">
-      <div id="qrcode"></div>
-      <button class="dl-btn" style="margin-top:var(--space-3)" onclick="downloadQR()">⬇ Download QR</button>
-    </div>
-
-    <div class="section-divider"></div>
-
-    <div class="barcode-grid" id="bcGrid">
-      <div class="barcode-card"><div class="name">CODE128</div><div class="barcode-wrap"><svg id="bc128"></svg></div><button class="dl-btn" onclick="downloadBC('bc128','CODE128')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">CODE39</div><div class="barcode-wrap"><svg id="bc39"></svg></div><button class="dl-btn" onclick="downloadBC('bc39','CODE39')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">UPC‑A</div><div class="barcode-wrap"><svg id="bcUpc"></svg></div><button class="dl-btn" onclick="downloadBC('bcUpc','UPC-A')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">EAN‑13</div><div class="barcode-wrap"><svg id="bcEan"></svg></div><button class="dl-btn" onclick="downloadBC('bcEan','EAN-13')">⬇ Download</button></div>
-    </div>
   </div>
 
   <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
@@ -126,9 +226,8 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
     <h2>How to Use</h2>
     <ol>
       <li>Type or paste any text, URL, or number in the content box</li>
-      <li>QR code and 4 linear barcodes (CODE128, CODE39, UPC‑A, EAN‑13) update instantly</li>
-      <li>Click any <strong>Download</strong> button to save an individual barcode as PNG</li>
-      <li>Change QR size and color independently</li>
+      <li>Switch between <strong>QR Code</strong> and <strong>Barcode</strong> tabs</li>
+      <li>Click <strong>Download</strong> to save as PNG</li>
     </ol>
   </div>
 
@@ -138,12 +237,11 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
     <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use these barcodes commercially?</div><div class="faq-answer"><p>QR codes, CODE128, and CODE39 are free to generate and use. UPC‑A and EAN‑13 require a GS1 company prefix for retail sale, but you can generate them for testing or personal use.</p></div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Do QR codes expire?</div><div class="faq-answer"><p>No — the code is a static image. It works forever as long as the encoded content still exists.</p></div></div>
   </div>
+
 </main>
 </div>
 
-
   <!-- ═══ Feedback Form ═══ -->
-  <!-- ═══ Feedback ═══ -->
   <section class="section-feedback">
     <form onsubmit="submitFeedback(event,this)">
       <div class="fb-header">
@@ -161,3 +259,118 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
       <div class="fb-status"></div>
     </form>
   </section>
+
+<script>
+// ── Tab switching ──
+document.getElementById('formatTabs').addEventListener('click',function(e){
+  const tab=e.target.closest('.format-tab');
+  if(!tab)return;
+  this.querySelectorAll('.format-tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  const fmt=tab.dataset.format;
+  document.getElementById('paneQr').classList.toggle('active',fmt==='qr');
+  document.getElementById('paneBarcode').classList.toggle('active',fmt==='barcode');
+});
+
+// ── Init QR ──
+let qrCode=null;
+function initQR(text){
+  const size=parseInt(document.querySelector('#sizePills .active')?.dataset?.size||'256');
+  const color=document.getElementById('qrColor').value;
+  const el=document.getElementById('qrcode');
+  el.innerHTML='';
+  if(typeof QRCode!=='undefined'){
+    qrCode=new QRCode(el,{text,width:size,height:size,colorDark:color,correctLevel:QRCode.CorrectLevel.H});
+  }
+}
+function regenerateQR(){
+  const text=document.getElementById('qrText').value||' ';
+  if(qrCode){
+    const size=parseInt(document.querySelector('#sizePills .active')?.dataset?.size||'256');
+    const color=document.getElementById('qrColor').value;
+    qrCode.clear();
+    qrCode.makeCode(text);
+    const canvas=document.querySelector('#qrcode canvas');
+    if(canvas){canvas.style.maxWidth='100%';canvas.style.height='auto'}
+  }else{initQR(text)}
+}
+
+// ── Size pills ──
+document.getElementById('sizePills').addEventListener('click',function(e){
+  const btn=e.target.closest('.pill-btn');
+  if(!btn)return;
+  this.querySelectorAll('.pill-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  regenerateQR();
+});
+
+// ── Color ──
+document.getElementById('qrColor').addEventListener('input',regenerateQR);
+document.getElementById('colorPresets').addEventListener('click',function(e){
+  const swatch=e.target.closest('.color-swatch-preset');
+  if(!swatch)return;
+  this.querySelectorAll('.color-swatch-preset').forEach(s=>s.classList.remove('active'));
+  swatch.classList.add('active');
+  document.getElementById('qrColor').value=swatch.dataset.color;
+  regenerateQR();
+});
+
+// ── Text input ──
+document.getElementById('qrText').addEventListener('input',function(){
+  const text=this.value||' ';
+  regenerateQR();
+  regenerateBC(text);
+});
+
+// ── Init barcodes ──
+function regenerateBC(text){
+  ['bc128','bc39','bcUpc','bcEan'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&typeof JsBarcode!=='undefined'){
+      try{
+        el.innerHTML='';
+        JsBarcode(el,text||' ',{format:id==='bc128'?'CODE128':id==='bc39'?'CODE39':id==='bcUpc'?'UPC':id==='bcEan'?'EAN13':'CODE128',width:2,height:50,displayValue:true,fontSize:14,margin:5});
+      }catch(e){el.innerHTML='<span style="color:#999;font-size:.75rem">Invalid input</span>'}
+    }
+  });
+}
+
+// ── Download ──
+function downloadQR(){
+  const canvas=document.querySelector('#qrcode canvas');
+  if(!canvas)return;
+  const link=document.createElement('a');
+  link.download='qrcode.png';
+  link.href=canvas.toDataURL('image/png');
+  link.click();
+}
+function downloadBC(id,name){
+  const svg=document.getElementById(id);
+  if(!svg)return;
+  const svgData=new XMLSerializer().serializeToString(svg);
+  const link=document.createElement('a');
+  link.download=name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'.png';
+  const canvas=document.createElement('canvas');
+  const ctx=canvas.getContext('2d');
+  const img=new Image();
+  img.onload=function(){
+    canvas.width=img.width;canvas.height=img.height;
+    ctx.drawImage(img,0,0);
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+  };
+  img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svgData)));
+}
+function toggleFAQ(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('open')}
+function submitFeedback(e,f){e.preventDefault();const st=f.querySelector('.fb-status');st.textContent='Thanks for your feedback!';st.className='fb-status success';f.reset()}
+
+// ── Boot ──
+document.addEventListener('DOMContentLoaded',function(){
+  const text=document.getElementById('qrText').value;
+  initQR(text||' ');
+  setTimeout(()=>regenerateBC(text||' '),100);
+});
+</script>
+</div>
+</body>
+</html>
