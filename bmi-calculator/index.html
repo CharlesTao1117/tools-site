@@ -13,8 +13,8 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
      crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free QR Code Generator — Create QR &amp; Barcodes Online</title>
-<meta name="description" content="Free QR Code and Barcode Generator. Enter text or URL to create QR, CODE128, CODE39, UPC-A, and EAN-13 barcodes instantly. Download as PNG.">
+<title>BMI Calculator — Free Body Mass Index Calculator Online</title>
+<meta name="description" content="Calculate your BMI instantly with this free online BMI calculator. Supports both metric (cm/kg) and imperial (ft/lbs) units with BMR estimate. No sign-up required.">
 <link rel="canonical" href="https://anycalculator.site/bmi-calculator/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a healthy BMI range?","acceptedAnswer":{"@type":"Answer","text":"For Asian adults, 18.5-24.0 is the normal BMI range. Below 18.5 indicates underweight, 24.0-27.0 is overweight, 27.0-30.0 is mild obesity, and above 30.0 is severe obesity."}},{"@type":"Question","name":"How is BMI calculated?","acceptedAnswer":{"@type":"Answer","text":"BMI is calculated using the formula weight in kilograms divided by height in meters squared. For example a person weighing 70 kg at 175 cm tall has a BMI of 22.9."}},{"@type":"Question","name":"Is BMI accurate for everyone?","acceptedAnswer":{"@type":"Answer","text":"BMI is a useful screening tool but has limitations. It cannot distinguish between muscle and fat so athletes may show as overweight despite low body fat."}}]}</script>
 <meta property="og:title" content="BMI Calculator — Free Body Mass Index Calculator Online">
@@ -23,26 +23,34 @@
 <meta property="og:url" content="https://anycalculator.site/bmi-calculator/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/common/premium.css">
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"QR Code & Barcode Generator","applicationCategory":"UtilityApplication"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"BMI Calculator","applicationCategory":"HealthApplication"}</script>
 <style>
-body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e5}
-.color-picker-row{display:flex;gap:16px;align-items:end;flex-wrap:wrap}
-.color-picker-row .form-group{margin-bottom:0}
-.barcode-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
-@media(max-width:480px){.barcode-grid{grid-template-columns:1fr}}
-.barcode-card{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;border:1px solid var(--border-subtle)}
-.barcode-card .name{font-size:.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-2)}
-.barcode-card .barcode-wrap{background:#fff;border-radius:8px;padding:12px;overflow:hidden}
-.barcode-card .barcode-wrap svg{display:block;margin:0 auto;max-width:100%;height:auto}
-.barcode-card .barcode-wrap canvas,.barcode-card .barcode-wrap img{display:block;margin:0 auto;max-width:100%}
-.barcode-card .dl-btn{font-size:.75rem;margin-top:var(--space-2);padding:4px 16px;border-radius:6px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-tertiary);cursor:pointer}
-.barcode-card .dl-btn:hover{background:var(--bg);color:var(--text)}
-.section-divider{margin:var(--space-5) 0;height:1px;background:var(--border-subtle)}
-.qr-display{display:flex;flex-direction:column;align-items:center;padding:var(--space-4)}
-.qr-display #qrcode{background:#fff;padding:12px;border-radius:12px}
-.qr-display #qrcode canvas{display:block;margin:0 auto}
+body{--accent:#22c55e;--accent-subtle:rgba(34,197,94,0.12);--accent-text:#16a34a}
+/* BMI Gauge */
+.bmi-gauge-wrap{max-width:480px;margin-left:auto;margin-right:auto}
+.bmi-gauge{height:14px;border-radius:7px;background:linear-gradient(to right,
+  #3b82f6 0%,#3b82f6 25%,
+  #22c55e 25%,#22c55e 50%,
+  #eab308 50%,#eab308 62.5%,
+  #f97316 62.5%,#f97316 75%,
+  #ef4444 75%,#ef4444 100%
+);position:relative;overflow:visible}
+#gaugeIndicator{position:absolute;top:-5px;width:4px;height:24px;border-radius:2px;transform:translateX(-50%);left:0%;transition:left .35s cubic-bezier(.34,1.56,.64,1),background .35s ease;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.bmi-gauge-labels{display:flex;justify-content:space-between;font-size:.65rem;color:var(--text-tertiary);margin-top:6px;text-align:center}
+.bmi-gauge-labels span{flex:1;line-height:1.35}
+/* BMI Result */
+.bmi-result{padding:var(--space-4) 0 var(--space-2)}
+.bmi-result .bmi-num{font-size:3.5rem;font-weight:800;letter-spacing:-0.05em;color:var(--text-primary);line-height:1;transition:color .3s ease}
+.bmi-result .bmi-cat{font-size:1.05rem;font-weight:600;margin-top:6px;transition:color .3s ease}
+/* BMR */
+#bmrResult{text-align:center;padding:var(--space-4);background:var(--bg-subtle);border-radius:var(--radius-md);border:1px solid var(--border-subtle);transition:opacity .25s ease}
+/* Height imperial row */
+.height-imperial-row{display:flex;gap:8px;align-items:center}
+.height-imperial-row .input-wrap{flex:1}
+.height-imperial-row .unit-label{color:var(--text-tertiary);font-size:.78rem;font-weight:500;flex-shrink:0}
+@media(min-width:641px){
+  .bmi-result .bmi-num{font-size:4rem}
+}
 </style>
 </head>
 <body>
@@ -50,8 +58,8 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 <nav class="top-nav"><div class="container">
   <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
-    <a href="/qr-code-generator/" class="active">QR Code</a>
-    <a href="/bmi-calculator/">BMI</a>
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/" class="active">BMI</a>
     <a href="/password-generator/">Password</a>
     <a href="/age-calculator/">Age</a>
     <a href="/percentage-calculator/">Pct/Discount</a>
@@ -64,74 +72,101 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 
 <div class="page-content">
 <div class="hero">
-  <h1>📱 <span class="gradient-text">Barcode &amp; QR Generator</span></h1>
-  <p>Enter any text — see QR, CODE128, CODE39, UPC-A, and EAN-13 instantly</p>
+  <h1>⚖️ <span class="gradient-text">BMI Calculator — Body Mass Index</span></h1>
+  <p>Calculate your BMI and BMR instantly — track your health with Taiwan MOHW guidelines</p>
 </div>
 
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
 <main class="container">
   <div class="card">
-    <div class="form-group">
-      <label>Content</label>
-      <div class="input-wrap">
-        <textarea id="qrText" rows="2" placeholder="Enter text, URL, or any data...">https://anycalculator.site</textarea>
+    <!-- Unit Toggle -->
+    <div class="form-row" style="margin-bottom:var(--space-4)">
+      <div class="pill-group" id="unitToggle" style="width:100%">
+        <div class="pill-btn active" data-unit="metric" style="flex:1;text-align:center">📏 Metric (cm/kg)</div>
+        <div class="pill-btn" data-unit="imperial" style="flex:1;text-align:center">📐 Imperial (ft/lbs)</div>
       </div>
     </div>
 
+    <!-- Height Input -->
+    <div class="form-group" id="heightGroup">
+      <label>Height</label>
+      <div class="input-wrap" id="heightMetricWrap">
+        <input type="number" id="heightCm" placeholder="e.g. 170" min="10" max="300" step="0.1" inputmode="decimal">
+        <span class="suffix">cm</span>
+      </div>
+      <div id="heightImperialWrap" style="display:none">
+        <div class="height-imperial-row">
+          <div class="input-wrap">
+            <input type="number" id="heightFt" placeholder="5" min="0" max="8" inputmode="numeric">
+          </div>
+          <span class="unit-label">ft</span>
+          <div class="input-wrap">
+            <input type="number" id="heightIn" placeholder="6" min="0" max="11" inputmode="numeric">
+          </div>
+          <span class="unit-label">in</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weight Input -->
+    <div class="form-group">
+      <label>Weight</label>
+      <div class="input-wrap">
+        <input type="number" id="weightInput" placeholder="e.g. 65" min="10" max="700" step="0.1" inputmode="decimal">
+        <span class="suffix" id="weightUnit">kg</span>
+      </div>
+    </div>
+
+    <!-- Age + Sex -->
     <div class="form-row">
       <div class="form-group">
-        <label>QR Size</label>
-        <div class="pill-group" id="sizePills">
-          <div class="pill-btn" data-size="160">Small</div>
-          <div class="pill-btn active" data-size="256">Medium</div>
-          <div class="pill-btn" data-size="400">Large</div>
+        <label>Age <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:.7rem;color:var(--text-tertiary)">(optional)</span></label>
+        <div class="input-wrap">
+          <input type="number" id="ageInput" placeholder="e.g. 30" min="1" max="150" inputmode="numeric">
         </div>
       </div>
       <div class="form-group">
-        <label>QR Color</label>
-        <div class="color-picker-row" style="gap:8px">
-          <input type="color" id="qrColor" class="color-swatch" value="#000000" style="width:40px;height:40px">
-          <div class="color-swatches" id="colorPresets">
-            <div class="color-swatch-preset active" data-color="#000000" style="background:#000000"></div>
-            <div class="color-swatch-preset" data-color="#6366f1" style="background:#6366f1"></div>
-            <div class="color-swatch-preset" data-color="#ef4444" style="background:#ef4444"></div>
-            <div class="color-swatch-preset" data-color="#f59e0b" style="background:#f59e0b"></div>
-            <div class="color-swatch-preset" data-color="#10b981" style="background:#10b981"></div>
-            <div class="color-swatch-preset" data-color="#8b5cf6" style="background:#8b5cf6"></div>
-            <div class="color-swatch-preset" data-color="#ec4899" style="background:#ec4899"></div>
-            <div class="color-swatch-preset" data-color="#06b6d4" style="background:#06b6d4"></div>
-          </div>
+        <label>Sex <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:.7rem;color:var(--text-tertiary)">(optional)</span></label>
+        <div class="pill-group" id="sexToggle" style="width:100%">
+          <div class="pill-btn active" data-sex="male" style="flex:1;text-align:center">♂ Male</div>
+          <div class="pill-btn" data-sex="female" style="flex:1;text-align:center">♀ Female</div>
         </div>
       </div>
     </div>
 
-    <div class="qr-display">
-      <div id="qrcode"></div>
-      <button class="dl-btn" style="margin-top:var(--space-3)" onclick="downloadQR()">⬇ Download QR</button>
+    <!-- BMI Result -->
+    <div class="bmi-result" style="text-align:center">
+      <div class="bmi-num" id="bmiValue">—</div>
+      <div class="bmi-cat" id="bmiCategory" style="color:var(--text-tertiary)">Enter your height and weight</div>
     </div>
 
-    <div class="section-divider"></div>
+    <!-- BMI Gauge -->
+    <div class="bmi-gauge-wrap">
+      <div class="bmi-gauge">
+        <div id="gaugeIndicator" style="display:none"></div>
+      </div>
+      <div class="bmi-gauge-labels">
+        <span>Underweight<br>&lt;18.5</span>
+        <span>Normal<br>18.5–24</span>
+        <span>Overweight<br>24–27</span>
+        <span>Mild Obesity<br>27–30</span>
+        <span>Obesity<br>&gt;30</span>
+      </div>
+    </div>
 
-    <div class="barcode-grid" id="bcGrid">
-      <div class="barcode-card"><div class="name">CODE128</div><div class="barcode-wrap"><svg id="bc128"></svg></div><button class="dl-btn" onclick="downloadBC('bc128','CODE128')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">CODE39</div><div class="barcode-wrap"><svg id="bc39"></svg></div><button class="dl-btn" onclick="downloadBC('bc39','CODE39')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">UPC‑A</div><div class="barcode-wrap"><svg id="bcUpc"></svg></div><button class="dl-btn" onclick="downloadBC('bcUpc','UPC-A')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">EAN‑13</div><div class="barcode-wrap"><svg id="bcEan"></svg></div><button class="dl-btn" onclick="downloadBC('bcEan','EAN-13')">⬇ Download</button></div>
+    <!-- BMR Result -->
+    <div id="bmrResult" style="display:none;margin-top:var(--space-4)">
+      <div style="font-size:.72rem;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">BMR · Basal Metabolic Rate</div>
+      <div style="font-size:1.35rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em">
+        <span id="bmrValue">—</span>
+        <span style="font-size:.8rem;font-weight:400;color:var(--text-tertiary)"> kcal/day</span>
+      </div>
+      <div style="font-size:.72rem;color:var(--text-tertiary);margin-top:4px">Calories your body burns at complete rest</div>
     </div>
   </div>
 
   <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
-
-  <div class="section">
-    <h2>How to Use</h2>
-    <ol>
-      <li>Type or paste any text, URL, or number in the content box</li>
-      <li>QR code and 4 linear barcodes (CODE128, CODE39, UPC‑A, EAN‑13) update instantly</li>
-      <li>Click any <strong>Download</strong> button to save an individual barcode as PNG</li>
-      <li>Change QR size and color independently</li>
-    </ol>
-  </div>
 
   <div class="section">
     <h2>How to Use the BMI Calculator</h2>
@@ -145,38 +180,202 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
   <div class="section">
     <h2>FAQ</h2>
     <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What is a healthy BMI range?</div><div class="faq-answer"><p>For Asian adults, 18.5–24.0 is the normal BMI range. Below 18.5 indicates underweight, 24.0–27.0 is overweight, 27.0–30.0 is mild obesity, and above 30.0 is severe obesity. These ranges follow Taiwan MOHW guidelines which are stricter than WHO standards.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use these barcodes commercially?</div><div class="faq-answer"><p>QR codes, CODE128, and CODE39 are free to generate and use. UPC‑A and EAN‑13 require a GS1 company prefix for retail sale, but you can generate them for testing or personal use.</p></div></div>
-<div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use this calculator in imperial units?</div><div class="faq-answer"><p>Yes! Toggle between Metric (cm/kg) and Imperial (feet/inches/lbs) using the unit switch. The calculator automatically converts and shows results in both systems.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How is BMI calculated?</div><div class="faq-answer"><p>BMI is calculated using the formula: weight in kilograms divided by height in meters squared. For example, a person weighing 70 kg at 175 cm tall has a BMI of 22.9 (70 ÷ 1.75²).</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is BMI accurate for everyone?</div><div class="faq-answer"><p>BMI is a useful screening tool but has limitations. It cannot distinguish between muscle and fat, so athletes may show as overweight despite low body fat. Always consult a healthcare professional for a complete health assessment.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use this calculator in imperial units?</div><div class="faq-answer"><p>Yes! Toggle between Metric (cm/kg) and Imperial (feet/inches/lbs) using the unit switch at the top of the calculator. The calculator automatically converts and shows results using the correct formula.</p></div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use this calculator for weight loss tracking?</div><div class="faq-answer"><p>Yes! Track your BMI changes over time by re-entering your updated weight. Use the BMR estimate to plan your daily calorie goals for gradual, sustainable weight loss.</p></div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What is the difference between BMI for men and women?</div><div class="faq-answer"><p>BMI uses the same formula for both genders, but body composition differs. The calculator provides a gender-specific BMR estimate alongside your BMI for a more complete health picture.</p></div></div>
   </div>
 </main>
 </div>
 
-
-  <div class="section">
-    <h2>🔗 Related Tools</h2>
-    <div class="related-links">
-      <a href="/age-calculator/">Age Calculator</a><a href="/percentage-calculator/">Percentage Calculator</a><a href="/date-calculator/">Date Calculator</a>
-    </div>
+<div class="section" style="max-width:840px;margin-left:auto;margin-right:auto;padding:0 var(--space-4)">
+  <h2>🔗 Related Tools</h2>
+  <div class="related-links">
+    <a href="/age-calculator/">Age Calculator</a><a href="/percentage-calculator/">Percentage Calculator</a><a href="/date-calculator/">Date Calculator</a><a href="/password-generator/">Password Generator</a>
   </div>
+</div>
 
-  <!-- ═══ Feedback Form ═══ -->
-  <!-- ═══ Feedback ═══ -->
-  <section class="section-feedback">
-    <form onsubmit="submitFeedback(event,this)">
-      <div class="fb-header">
-        <span class="fb-icon">💬</span> Feedback
-        <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
-      </div>
-      <div class="fb-optional">
-        <input name="name" placeholder="Your name (optional)" autocomplete="name">
-        <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
-      </div>
-      <div class="fb-row">
-        <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
-        <button class="fb-submit" type="submit">Send →</button>
-      </div>
-      <div class="fb-status"></div>
-    </form>
-  </section>
+<!-- ═══ Feedback Form ═══ -->
+<section class="section-feedback">
+  <form onsubmit="submitFeedback(event,this)">
+    <div class="fb-header">
+      <span class="fb-icon">💬</span> Feedback
+      <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
+    </div>
+    <div class="fb-optional">
+      <input name="name" placeholder="Your name (optional)" autocomplete="name">
+      <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
+    </div>
+    <div class="fb-row">
+      <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
+      <button class="fb-submit" type="submit">Send →</button>
+    </div>
+    <div class="fb-status"></div>
+  </form>
+</section>
+
+<script>
+// ── Unit Toggle ──
+document.getElementById('unitToggle').addEventListener('click', function(e) {
+  const btn = e.target.closest('.pill-btn');
+  if (!btn) return;
+  this.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const isMetric = btn.dataset.unit === 'metric';
+  document.getElementById('heightMetricWrap').style.display = isMetric ? '' : 'none';
+  document.getElementById('heightImperialWrap').style.display = isMetric ? 'none' : '';
+  document.getElementById('weightUnit').textContent = isMetric ? 'kg' : 'lbs';
+  document.getElementById('weightInput').placeholder = isMetric ? 'e.g. 65' : 'e.g. 143';
+  // Clear values on unit switch
+  document.getElementById('heightCm').value = '';
+  document.getElementById('heightFt').value = '';
+  document.getElementById('heightIn').value = '';
+  document.getElementById('weightInput').value = '';
+  updateBMI();
+});
+
+// ── Sex Toggle ──
+document.getElementById('sexToggle').addEventListener('click', function(e) {
+  const btn = e.target.closest('.pill-btn');
+  if (!btn) return;
+  this.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateBMI();
+});
+
+// ── Input Listeners ──
+['heightCm', 'heightFt', 'heightIn', 'weightInput', 'ageInput'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateBMI);
+});
+
+// ── Get height in meters ──
+function getHeightM() {
+  var isMetric = document.querySelector('#unitToggle .pill-btn.active').dataset.unit === 'metric';
+  if (isMetric) {
+    var cm = parseFloat(document.getElementById('heightCm').value);
+    if (isNaN(cm) || cm <= 0) return NaN;
+    return cm / 100;
+  } else {
+    var ft = parseFloat(document.getElementById('heightFt').value) || 0;
+    var inch = parseFloat(document.getElementById('heightIn').value) || 0;
+    var totalIn = ft * 12 + inch;
+    if (totalIn <= 0) return NaN;
+    return totalIn * 0.0254;
+  }
+}
+
+// ── Get weight in kg ──
+function getWeightKg() {
+  var isMetric = document.querySelector('#unitToggle .pill-btn.active').dataset.unit === 'metric';
+  var w = parseFloat(document.getElementById('weightInput').value);
+  if (isNaN(w) || w <= 0) return NaN;
+  return isMetric ? w : w * 0.453592;
+}
+
+// ── Get height in cm ──
+function getHeightCm() {
+  var hm = getHeightM();
+  if (isNaN(hm)) return NaN;
+  var isMetric = document.querySelector('#unitToggle .pill-btn.active').dataset.unit === 'metric';
+  if (isMetric) {
+    return parseFloat(document.getElementById('heightCm').value);
+  } else {
+    return hm * 100;
+  }
+}
+
+// ── Update BMI, Category, Gauge, BMR ──
+function updateBMI() {
+  var hm = getHeightM();
+  var wkg = getWeightKg();
+  var hcm = getHeightCm();
+
+  var bmiEl = document.getElementById('bmiValue');
+  var catEl = document.getElementById('bmiCategory');
+  var gaugeEl = document.getElementById('gaugeIndicator');
+  var bmrWrap = document.getElementById('bmrResult');
+  var bmrVal = document.getElementById('bmrValue');
+
+  if (isNaN(hm) || isNaN(wkg) || hm <= 0 || wkg <= 0) {
+    bmiEl.textContent = '—';
+    bmiEl.style.color = 'var(--text-primary)';
+    catEl.textContent = 'Enter your height and weight';
+    catEl.style.color = 'var(--text-tertiary)';
+    gaugeEl.style.display = 'none';
+    bmrWrap.style.display = 'none';
+    return;
+  }
+
+  var bmi = wkg / (hm * hm);
+  bmiEl.textContent = bmi.toFixed(1);
+
+  var category, color, gaugePos;
+
+  // Taiwan MOHW categories
+  if (bmi < 18.5) {
+    category = 'Underweight';
+    color = '#3b82f6';
+    gaugePos = (bmi / 18.5) * 25;
+  } else if (bmi < 24) {
+    category = 'Normal';
+    color = '#22c55e';
+    gaugePos = 25 + ((bmi - 18.5) / 5.5) * 25;
+  } else if (bmi < 27) {
+    category = 'Overweight';
+    color = '#eab308';
+    gaugePos = 50 + ((bmi - 24) / 3) * 12.5;
+  } else if (bmi < 30) {
+    category = 'Mild Obesity';
+    color = '#f97316';
+    gaugePos = 62.5 + ((bmi - 27) / 3) * 12.5;
+  } else {
+    category = 'Obesity';
+    color = '#ef4444';
+    gaugePos = 75 + Math.min(25, ((bmi - 30) / 10) * 25);
+  }
+
+  bmiEl.style.color = color;
+  catEl.textContent = category;
+  catEl.style.color = color;
+
+  gaugeEl.style.display = 'block';
+  gaugeEl.style.left = Math.min(100, Math.max(0, gaugePos)) + '%';
+  gaugeEl.style.background = color;
+
+  // ── BMR (Mifflin-St Jeor) ──
+  var age = parseInt(document.getElementById('ageInput').value);
+  if (!isNaN(age) && age > 0 && !isNaN(wkg) && !isNaN(hcm)) {
+    var sex = document.querySelector('#sexToggle .pill-btn.active').dataset.sex;
+    var bmr;
+    if (sex === 'male') {
+      bmr = 10 * wkg + 6.25 * hcm - 5 * age + 5;
+    } else {
+      bmr = 10 * wkg + 6.25 * hcm - 5 * age - 161;
+    }
+    bmrVal.textContent = Math.round(Math.max(0, bmr)).toLocaleString();
+    bmrWrap.style.display = 'block';
+  } else {
+    bmrWrap.style.display = 'none';
+  }
+}
+
+// ── FAQ Toggle ──
+function toggleFAQ(el) {
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+// ── Feedback Submit ──
+function submitFeedback(e, f) {
+  e.preventDefault();
+  var st = f.querySelector('.fb-status');
+  st.textContent = 'Thanks for your feedback!';
+  st.className = 'fb-status success';
+  f.reset();
+}
+</script>
+</div>
+</body>
+</html>

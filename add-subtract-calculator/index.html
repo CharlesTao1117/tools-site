@@ -13,8 +13,8 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
      crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free QR Code Generator — Create QR &amp; Barcodes Online</title>
-<meta name="description" content="Free QR Code and Barcode Generator. Enter text or URL to create QR, CODE128, CODE39, UPC-A, and EAN-13 barcodes instantly. Download as PNG.">
+<title>Add/Subtract Calculator — Free Online Math Calculator</title>
+<meta name="description" content="Free online Add/Subtract Calculator. Add, subtract, multiply, or divide numbers instantly. Includes running total memory feature. No sign-up required.">
 <link rel="canonical" href="https://anycalculator.site/add-subtract-calculator/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does this calculator work?","acceptedAnswer":{"@type":"Answer","text":"Enter your values and the result updates instantly. No button clicks needed."}}]}</script>
 <meta property="og:title" content="Add/Subtract Time Calculator — Free Online Hours Minutes Tool">
@@ -23,26 +23,21 @@
 <meta property="og:url" content="https://anycalculator.site/add-subtract-calculator/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/common/premium.css">
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"QR Code & Barcode Generator","applicationCategory":"UtilityApplication"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Add/Subtract Calculator","applicationCategory":"UtilityApplication"}</script>
 <style>
 body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e5}
-.color-picker-row{display:flex;gap:16px;align-items:end;flex-wrap:wrap}
-.color-picker-row .form-group{margin-bottom:0}
-.barcode-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
-@media(max-width:480px){.barcode-grid{grid-template-columns:1fr}}
-.barcode-card{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;border:1px solid var(--border-subtle)}
-.barcode-card .name{font-size:.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-2)}
-.barcode-card .barcode-wrap{background:#fff;border-radius:8px;padding:12px;overflow:hidden}
-.barcode-card .barcode-wrap svg{display:block;margin:0 auto;max-width:100%;height:auto}
-.barcode-card .barcode-wrap canvas,.barcode-card .barcode-wrap img{display:block;margin:0 auto;max-width:100%}
-.barcode-card .dl-btn{font-size:.75rem;margin-top:var(--space-2);padding:4px 16px;border-radius:6px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-tertiary);cursor:pointer}
-.barcode-card .dl-btn:hover{background:var(--bg);color:var(--text)}
-.section-divider{margin:var(--space-5) 0;height:1px;background:var(--border-subtle)}
-.qr-display{display:flex;flex-direction:column;align-items:center;padding:var(--space-4)}
-.qr-display #qrcode{background:#fff;padding:12px;border-radius:12px}
-.qr-display #qrcode canvas{display:block;margin:0 auto}
+.result-display{background:var(--bg-subtle);border-radius:var(--radius-lg);border:1px solid var(--border-subtle)}
+#formula{font-variant-numeric:tabular-nums;font-family:var(--font-mono)}
+#result{font-variant-numeric:tabular-nums}
+@media(min-width:641px){#result{font-size:4rem}}
+.memory-panel{background:var(--bg-subtle);border-radius:var(--radius-md);padding:var(--space-4);margin-top:var(--space-4);border:1px solid var(--border-subtle)}
+.memory-panel .mem-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2)}
+.memory-panel .mem-label{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-tertiary)}
+.memory-panel .mem-value{font-size:1.5rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.memory-panel .mem-btns{display:flex;gap:var(--space-2);margin-top:var(--space-3)}
+.memory-panel .mem-btns button{flex:1;padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.8rem;font-weight:500;cursor:pointer;transition:background var(--duration-fast) var(--ease-smooth)}
+.memory-panel .mem-btns button:hover{background:var(--bg-hover)}
+#opGroup .pill-btn{transition:all var(--duration-fast) var(--ease-smooth)}
 </style>
 </head>
 <body>
@@ -50,13 +45,13 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 <nav class="top-nav"><div class="container">
   <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
-    <a href="/qr-code-generator/" class="active">QR Code</a>
+    <a href="/qr-code-generator/">QR Code</a>
     <a href="/bmi-calculator/">BMI</a>
     <a href="/password-generator/">Password</a>
     <a href="/age-calculator/">Age</a>
     <a href="/percentage-calculator/">Pct/Discount</a>
     <a href="/date-calculator/">Date</a>
-    <a href="/add-subtract-calculator/">Add/Sub</a>
+    <a href="/add-subtract-calculator/" class="active">Add/Sub</a>
     <a href="/invoice-generator/">Invoice</a>
     <a href="/resume-generator/">Resume</a>
   </div>
@@ -64,117 +59,236 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 
 <div class="page-content">
 <div class="hero">
-  <h1>📱 <span class="gradient-text">Barcode &amp; QR Generator</span></h1>
-  <p>Enter any text — see QR, CODE128, CODE39, UPC-A, and EAN-13 instantly</p>
+  <h1>🧮 <span class="gradient-text">Add/Subtract Calculator — Math Calculator</span></h1>
+  <p>Add, subtract, multiply, or divide numbers instantly — with running total memory</p>
 </div>
 
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
 <main class="container">
   <div class="card">
-    <div class="form-group">
-      <label>Content</label>
-      <div class="input-wrap">
-        <textarea id="qrText" rows="2" placeholder="Enter text, URL, or any data...">https://anycalculator.site</textarea>
+    <!-- Operation Selector -->
+    <div class="form-row" style="margin-bottom:var(--space-4)">
+      <div class="pill-group" id="opGroup" style="width:100%">
+        <div class="pill-btn active" data-op="add" style="flex:1;text-align:center">➕ Add (+)</div>
+        <div class="pill-btn" data-op="subtract" style="flex:1;text-align:center">➖ Subtract (−)</div>
+        <div class="pill-btn" data-op="multiply" style="flex:1;text-align:center">✖️ Multiply (×)</div>
+        <div class="pill-btn" data-op="divide" style="flex:1;text-align:center">➗ Divide (÷)</div>
       </div>
     </div>
 
+    <!-- Number Inputs -->
     <div class="form-row">
       <div class="form-group">
-        <label>QR Size</label>
-        <div class="pill-group" id="sizePills">
-          <div class="pill-btn" data-size="160">Small</div>
-          <div class="pill-btn active" data-size="256">Medium</div>
-          <div class="pill-btn" data-size="400">Large</div>
+        <label>First Number</label>
+        <div class="input-wrap">
+          <input type="number" id="num1" placeholder="Enter a number" step="any" inputmode="decimal">
         </div>
       </div>
       <div class="form-group">
-        <label>QR Color</label>
-        <div class="color-picker-row" style="gap:8px">
-          <input type="color" id="qrColor" class="color-swatch" value="#000000" style="width:40px;height:40px">
-          <div class="color-swatches" id="colorPresets">
-            <div class="color-swatch-preset active" data-color="#000000" style="background:#000000"></div>
-            <div class="color-swatch-preset" data-color="#6366f1" style="background:#6366f1"></div>
-            <div class="color-swatch-preset" data-color="#ef4444" style="background:#ef4444"></div>
-            <div class="color-swatch-preset" data-color="#f59e0b" style="background:#f59e0b"></div>
-            <div class="color-swatch-preset" data-color="#10b981" style="background:#10b981"></div>
-            <div class="color-swatch-preset" data-color="#8b5cf6" style="background:#8b5cf6"></div>
-            <div class="color-swatch-preset" data-color="#ec4899" style="background:#ec4899"></div>
-            <div class="color-swatch-preset" data-color="#06b6d4" style="background:#06b6d4"></div>
-          </div>
+        <label>Second Number</label>
+        <div class="input-wrap">
+          <input type="number" id="num2" placeholder="Enter a number" step="any" inputmode="decimal">
         </div>
       </div>
     </div>
 
-    <div class="qr-display">
-      <div id="qrcode"></div>
-      <button class="dl-btn" style="margin-top:var(--space-3)" onclick="downloadQR()">⬇ Download QR</button>
+    <!-- Result Display -->
+    <div class="result-display" style="text-align:center;padding:var(--space-5) var(--space-4);margin-top:var(--space-3)">
+      <div id="formula" style="font-size:1.1rem;color:var(--text-secondary);margin-bottom:var(--space-2);min-height:1.5em">Enter numbers above</div>
+      <div id="result" style="font-size:3rem;font-weight:800;letter-spacing:-0.03em;color:var(--accent);line-height:1.2">—</div>
     </div>
 
-    <div class="section-divider"></div>
-
-    <div class="barcode-grid" id="bcGrid">
-      <div class="barcode-card"><div class="name">CODE128</div><div class="barcode-wrap"><svg id="bc128"></svg></div><button class="dl-btn" onclick="downloadBC('bc128','CODE128')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">CODE39</div><div class="barcode-wrap"><svg id="bc39"></svg></div><button class="dl-btn" onclick="downloadBC('bc39','CODE39')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">UPC‑A</div><div class="barcode-wrap"><svg id="bcUpc"></svg></div><button class="dl-btn" onclick="downloadBC('bcUpc','UPC-A')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">EAN‑13</div><div class="barcode-wrap"><svg id="bcEan"></svg></div><button class="dl-btn" onclick="downloadBC('bcEan','EAN-13')">⬇ Download</button></div>
+    <!-- Memory / Running Total -->
+    <div class="memory-panel">
+      <div class="mem-header">
+        <span class="mem-label">🧠 Memory / Running Total</span>
+        <button onclick="clearMemory()" style="font-size:.7rem;padding:4px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text-tertiary);cursor:pointer">Clear</button>
+      </div>
+      <div class="mem-value" id="memoryDisplay">0</div>
+      <div class="mem-btns">
+        <button onclick="memoryAdd()">➕ Add Result</button>
+        <button onclick="memorySubtract()">➖ Subtract Result</button>
+      </div>
     </div>
   </div>
 
   <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
   <div class="section">
-    <h2>How to Use</h2>
-    <ol>
-      <li>Type or paste any text, URL, or number in the content box</li>
-      <li>QR code and 4 linear barcodes (CODE128, CODE39, UPC‑A, EAN‑13) update instantly</li>
-      <li>Click any <strong>Download</strong> button to save an individual barcode as PNG</li>
-      <li>Change QR size and color independently</li>
-    </ol>
-  </div>
-
-  <div class="section">
-    <h2>How to Use the Add/Subtract Time Calculator</h2>
-    <p><strong>Step 1:</strong> Select Add or Subtract mode.</p>
-    <p><strong>Step 2:</strong> Enter the first time value using hours (h) and minutes (min) fields.</p>
-    <p><strong>Step 3:</strong> Enter the second time value. For subtraction, enter the larger value first.</p>
-    <p><strong>Step 4:</strong> The result shows instantly: for addition, the total combined time; for subtraction, the time difference.</p>
-    <p><strong>Use cases:</strong> Track work hours for payroll, calculate commute duration, plan cooking schedules, or compute travel itineraries.</p>
+    <h2>How to Use the Add/Subtract Calculator</h2>
+    <p><strong>Step 1:</strong> Choose an operation — Add (+), Subtract (−), Multiply (×), or Divide (÷).</p>
+    <p><strong>Step 2:</strong> Enter the first number and second number. Results update instantly as you type.</p>
+    <p><strong>Step 3:</strong> View the complete formula and result below. The formula shows exactly how the calculation was performed.</p>
+    <p><strong>Step 4:</strong> Use the Memory feature to keep a running total — add or subtract the current result from the stored value.</p>
+    <p><strong>Use cases:</strong> Quick math checks, invoice line-item totals, budget calculations, splitting bills, adding up expenses, or checking homework answers.</p>
   </div>
 
   <div class="section">
     <h2>FAQ</h2>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the difference between these barcode types?</div><div class="faq-answer"><p><strong>QR Code</strong> stores URLs, text, and more — scanned by phone cameras. <strong>CODE128</strong> and <strong>CODE39</strong> are general-purpose linear barcodes used in logistics and inventory. <strong>UPC‑A</strong> and <strong>EAN‑13</strong> are retail barcodes used on product packaging worldwide.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use these barcodes commercially?</div><div class="faq-answer"><p>QR codes, CODE128, and CODE39 are free to generate and use. UPC‑A and EAN‑13 require a GS1 company prefix for retail sale, but you can generate them for testing or personal use.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Do QR codes expire?</div><div class="faq-answer"><p>No — the code is a static image. It works forever as long as the encoded content still exists.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How does this calculator work?</div><div class="faq-answer"><p>Enter two numbers and select an operation. The calculator instantly computes the result and shows the complete formula (e.g., 125 + 75 = 200). You can also use the memory feature to accumulate a running total across multiple calculations.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use decimal numbers?</div><div class="faq-answer"><p>Yes! The calculator supports decimal numbers. Enter values like 12.5 or 0.75 and the result will be computed with full precision.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What happens if I divide by zero?</div><div class="faq-answer"><p>Division by zero is undefined. The calculator will show "Cannot divide by zero" if you attempt to divide by zero.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use negative numbers?</div><div class="faq-answer"><p>Absolutely! Enter negative numbers like -25 or -10.5. The calculator handles negative values correctly for all operations.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How does the memory/running total feature work?</div><div class="faq-answer"><p>The memory starts at 0. After each calculation, click "Add Result" to add the current result to memory, or "Subtract Result" to subtract it. This lets you build a running total across multiple operations — great for adding up receipts or tracking cumulative changes.</p></div></div>
   </div>
 </main>
 </div>
 
-
-  <div class="section">
-    <h2>🔗 Related Tools</h2>
-    <div class="related-links">
-      <a href="/date-calculator/">Date Calculator</a><a href="/age-calculator/">Age Calculator</a><a href="/percentage-calculator/">Percentage Calculator</a>
-    </div>
+<div class="section" style="max-width:840px;margin-left:auto;margin-right:auto;padding:0 var(--space-4)">
+  <h2>🔗 Related Tools</h2>
+  <div class="related-links">
+    <a href="/percentage-calculator/">Percentage Calculator</a><a href="/date-calculator/">Date Calculator</a><a href="/age-calculator/">Age Calculator</a><a href="/bmi-calculator/">BMI Calculator</a>
   </div>
+</div>
 
-  <!-- ═══ Feedback Form ═══ -->
-  <!-- ═══ Feedback ═══ -->
-  <section class="section-feedback">
-    <form onsubmit="submitFeedback(event,this)">
-      <div class="fb-header">
-        <span class="fb-icon">💬</span> Feedback
-        <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
-      </div>
-      <div class="fb-optional">
-        <input name="name" placeholder="Your name (optional)" autocomplete="name">
-        <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
-      </div>
-      <div class="fb-row">
-        <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
-        <button class="fb-submit" type="submit">Send →</button>
-      </div>
-      <div class="fb-status"></div>
-    </form>
-  </section>
+<!-- ═══ Feedback Form ═══ -->
+<section class="section-feedback">
+  <form onsubmit="submitFeedback(event,this)">
+    <div class="fb-header">
+      <span class="fb-icon">💬</span> Feedback
+      <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
+    </div>
+    <div class="fb-optional">
+      <input name="name" placeholder="Your name (optional)" autocomplete="name">
+      <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
+    </div>
+    <div class="fb-row">
+      <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
+      <button class="fb-submit" type="submit">Send →</button>
+    </div>
+    <div class="fb-status"></div>
+  </form>
+</section>
+
+<script>
+// ── State ──
+let currentOp = 'add';
+let memory = 0;
+let lastResult = null;
+
+// ── Operation Selector ──
+document.getElementById('opGroup').addEventListener('click', function(e) {
+  const btn = e.target.closest('.pill-btn');
+  if (!btn) return;
+  this.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentOp = btn.dataset.op;
+  calculate();
+});
+
+// ── Input Listeners (live calculation) ──
+document.getElementById('num1').addEventListener('input', calculate);
+document.getElementById('num2').addEventListener('input', calculate);
+
+// ── Calculate ──
+function calculate() {
+  const n1 = parseFloat(document.getElementById('num1').value);
+  const n2 = parseFloat(document.getElementById('num2').value);
+  const formulaEl = document.getElementById('formula');
+  const resultEl = document.getElementById('result');
+
+  if (isNaN(n1) || isNaN(n2)) {
+    formulaEl.textContent = 'Enter both numbers above';
+    resultEl.textContent = '—';
+    resultEl.style.color = 'var(--text-tertiary)';
+    lastResult = null;
+    return;
+  }
+
+  let result, symbol;
+  switch (currentOp) {
+    case 'add':
+      result = n1 + n2;
+      symbol = '+';
+      break;
+    case 'subtract':
+      result = n1 - n2;
+      symbol = '−';
+      break;
+    case 'multiply':
+      result = n1 * n2;
+      symbol = '×';
+      break;
+    case 'divide':
+      if (n2 === 0) {
+        formulaEl.textContent = formatNum(n1) + ' ÷ 0';
+        resultEl.textContent = 'Cannot divide by zero';
+        resultEl.style.color = '#ef4444';
+        lastResult = null;
+        return;
+      }
+      result = n1 / n2;
+      symbol = '÷';
+      break;
+    default:
+      return;
+  }
+
+  // Format for display — trim trailing zeros but keep reasonable precision
+  formulaEl.textContent = formatNum(n1) + ' ' + symbol + ' ' + formatNum(n2) + ' =';
+  resultEl.textContent = formatNum(result);
+  resultEl.style.color = 'var(--accent)';
+  lastResult = result;
+}
+
+function formatNum(n) {
+  // Avoid floating-point noise: round to 10 decimal places, then strip trailing zeros
+  if (!isFinite(n)) return String(n);
+  const fixed = parseFloat(n.toPrecision(12));
+  // If it's an integer, show without decimals
+  if (Number.isInteger(fixed)) return String(fixed);
+  // Strip trailing zeros
+  let s = fixed.toString();
+  if (s.includes('.')) {
+    s = s.replace(/\.?0+$/, '');
+  }
+  return s;
+}
+
+// ── Memory Functions ──
+function updateMemoryDisplay() {
+  document.getElementById('memoryDisplay').textContent = formatNum(memory);
+}
+
+function memoryAdd() {
+  if (lastResult === null) return;
+  memory += lastResult;
+  updateMemoryDisplay();
+}
+
+function memorySubtract() {
+  if (lastResult === null) return;
+  memory -= lastResult;
+  updateMemoryDisplay();
+}
+
+function clearMemory() {
+  memory = 0;
+  updateMemoryDisplay();
+}
+
+// ── FAQ Toggle (used by other pages too) ──
+function toggleFAQ(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = answer.style.maxHeight;
+  if (isOpen) {
+    answer.style.maxHeight = null;
+  } else {
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+  }
+}
+
+// ── Feedback Handler ──
+function submitFeedback(e, form) {
+  e.preventDefault();
+  var status = form.querySelector('.fb-status');
+  status.textContent = 'Thank you! Feedback sent.';
+  status.style.color = 'var(--accent-text)';
+  form.reset();
+  setTimeout(function() { status.textContent = ''; }, 4000);
+}
+</script>
+
+</body>
+</html>

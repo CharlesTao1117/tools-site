@@ -329,13 +329,16 @@ document.getElementById('qrText').addEventListener('input',function(){
 
 // ── Init barcodes ──
 function regenerateBC(text){
+  const tips={bc128:'CODE128',bc39:'CODE39 — A-Z, 0-9, -, ., $, /, +, %, space',bcUpc:'UPC‑A — requires 12 digits exactly',bcEan:'EAN‑13 — requires 13 digits exactly'};
   ['bc128','bc39','bcUpc','bcEan'].forEach(id=>{
     const el=document.getElementById(id);
     if(el&&typeof JsBarcode!=='undefined'){
       try{
         el.innerHTML='';
         JsBarcode(el,text||' ',{format:id==='bc128'?'CODE128':id==='bc39'?'CODE39':id==='bcUpc'?'UPC':id==='bcEan'?'EAN13':'CODE128',width:2,height:50,displayValue:true,fontSize:14,margin:5});
-      }catch(e){el.innerHTML='<span style="color:#999;font-size:.75rem">Invalid input</span>'}
+      }catch(e){
+        el.innerHTML='<span style="color:#999;font-size:.68rem">'+tips[id]+'</span>';
+      }
     }
   });
 }

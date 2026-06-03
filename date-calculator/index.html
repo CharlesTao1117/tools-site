@@ -13,35 +13,40 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
      crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free QR Code Generator — Create QR &amp; Barcodes Online</title>
-<meta name="description" content="Free QR Code and Barcode Generator. Enter text or URL to create QR, CODE128, CODE39, UPC-A, and EAN-13 barcodes instantly. Download as PNG.">
+<title>Date Calculator — Days Between Dates &amp; Date Arithmetic</title>
+<meta name="description" content="Free online date calculator. Calculate exact days between two dates, or add/subtract days, weeks, months, and years from any date. Includes workday count. No sign-up required.">
 <link rel="canonical" href="https://anycalculator.site/date-calculator/">
-<meta property="og:title" content="Date Calculator — Days Between Dates <link rel="canonical" href="https://anycalculator.site/date-calculator/">amp; Date Arithmetic">
+<meta property="og:title" content="Date Calculator — Days Between Dates &amp; Date Arithmetic">
 <meta property="og:description" content="Calculate days between two dates or add/subtract days, weeks, months, years from any date. Free online date calculator — no sign-up.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://anycalculator.site/date-calculator/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/common/premium.css">
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"QR Code & Barcode Generator","applicationCategory":"UtilityApplication"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Date Calculator","applicationCategory":"UtilityApplication","description":"Calculate days between dates or add/subtract time from any date. Free online tool."}</script>
 <style>
 body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e5}
-.color-picker-row{display:flex;gap:16px;align-items:end;flex-wrap:wrap}
-.color-picker-row .form-group{margin-bottom:0}
-.barcode-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
-@media(max-width:480px){.barcode-grid{grid-template-columns:1fr}}
-.barcode-card{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;border:1px solid var(--border-subtle)}
-.barcode-card .name{font-size:.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-2)}
-.barcode-card .barcode-wrap{background:#fff;border-radius:8px;padding:12px;overflow:hidden}
-.barcode-card .barcode-wrap svg{display:block;margin:0 auto;max-width:100%;height:auto}
-.barcode-card .barcode-wrap canvas,.barcode-card .barcode-wrap img{display:block;margin:0 auto;max-width:100%}
-.barcode-card .dl-btn{font-size:.75rem;margin-top:var(--space-2);padding:4px 16px;border-radius:6px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-tertiary);cursor:pointer}
-.barcode-card .dl-btn:hover{background:var(--bg);color:var(--text)}
-.section-divider{margin:var(--space-5) 0;height:1px;background:var(--border-subtle)}
-.qr-display{display:flex;flex-direction:column;align-items:center;padding:var(--space-4)}
-.qr-display #qrcode{background:#fff;padding:12px;border-radius:12px}
-.qr-display #qrcode canvas{display:block;margin:0 auto}
+.mode-tabs{display:flex;gap:var(--space-2);margin-bottom:var(--space-5)}
+.mode-tab{padding:10px 20px;border:1px solid var(--border);border-radius:var(--radius-full);background:transparent;color:var(--text-secondary);font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;font-family:var(--font-sans)}
+.mode-tab:hover{border-color:var(--accent);color:var(--accent)}
+.mode-tab.active{border-color:var(--accent);background:var(--accent-subtle);color:var(--accent-text)}
+.mode-panel{display:none}
+.mode-panel.active{display:block}
+.result-hero{text-align:center;padding:var(--space-5);background:var(--bg-subtle);border-radius:var(--radius-lg);margin-bottom:var(--space-3)}
+.result-hero .big-num{font-size:2.5rem;font-weight:700;color:var(--accent);line-height:1.2}
+.result-hero .big-label{font-size:.9rem;color:var(--text-secondary);margin-top:var(--space-1)}
+.result-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-2);margin-top:var(--space-3)}
+.result-grid .stat-box{background:var(--bg-subtle);border-radius:var(--radius);padding:var(--space-3);text-align:center;border:1px solid var(--border-subtle)}
+.result-grid .stat-box .val{font-size:1.3rem;font-weight:700;color:var(--accent)}
+.result-grid .stat-box .lbl{font-size:.7rem;color:var(--text-tertiary);margin-top:2px}
+.addsub-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--space-3);align-items:end;margin-top:var(--space-4)}
+@media(max-width:600px){.result-grid{grid-template-columns:repeat(2,1fr)}.addsub-grid{grid-template-columns:1fr}}
+.addsub-grid .unit-col{display:flex;gap:var(--space-2);align-items:end}
+.addsub-grid .unit-col select{flex:1}
+.toggle-wrap{display:flex;border:2px solid var(--border);border-radius:var(--radius-full);overflow:hidden}
+.toggle-btn{padding:8px 18px;font-size:.875rem;font-weight:600;border:none;background:transparent;color:var(--text-secondary);cursor:pointer;transition:all .15s;font-family:var(--font-sans)}
+.toggle-btn.active{background:var(--accent);color:#fff}
+.toggle-btn:first-child{border-right:1px solid var(--border)}
+.amount-input{width:100px;text-align:center;font-size:1.1rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -49,12 +54,12 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 <nav class="top-nav"><div class="container">
   <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
-    <a href="/qr-code-generator/" class="active">QR Code</a>
+    <a href="/qr-code-generator/">QR Code</a>
     <a href="/bmi-calculator/">BMI</a>
     <a href="/password-generator/">Password</a>
     <a href="/age-calculator/">Age</a>
     <a href="/percentage-calculator/">Pct/Discount</a>
-    <a href="/date-calculator/">Date</a>
+    <a href="/date-calculator/" class="active">Date</a>
     <a href="/add-subtract-calculator/">Add/Sub</a>
     <a href="/invoice-generator/">Invoice</a>
     <a href="/resume-generator/">Resume</a>
@@ -63,116 +68,452 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 
 <div class="page-content">
 <div class="hero">
-  <h1>📱 <span class="gradient-text">Barcode &amp; QR Generator</span></h1>
-  <p>Enter any text — see QR, CODE128, CODE39, UPC-A, and EAN-13 instantly</p>
+  <h1>📅 <span class="gradient-text">Date Calculator</span></h1>
+  <p>Days Between Dates &amp; Date Arithmetic</p>
 </div>
 
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
 <main class="container">
   <div class="card">
-    <div class="form-group">
-      <label>Content</label>
-      <div class="input-wrap">
-        <textarea id="qrText" rows="2" placeholder="Enter text, URL, or any data...">https://anycalculator.site</textarea>
-      </div>
+    <!-- Mode Tabs -->
+    <div class="mode-tabs" id="modeTabs">
+      <button class="mode-tab active" data-mode="between">Days Between</button>
+      <button class="mode-tab" data-mode="addsub">Add / Subtract</button>
     </div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label>QR Size</label>
-        <div class="pill-group" id="sizePills">
-          <div class="pill-btn" data-size="160">Small</div>
-          <div class="pill-btn active" data-size="256">Medium</div>
-          <div class="pill-btn" data-size="400">Large</div>
+    <!-- Mode 1: Days Between -->
+    <div class="mode-panel active" id="panelBetween">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate">Start Date</label>
+          <div class="input-wrap">
+            <input type="date" id="startDate">
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label>QR Color</label>
-        <div class="color-picker-row" style="gap:8px">
-          <input type="color" id="qrColor" class="color-swatch" value="#000000" style="width:40px;height:40px">
-          <div class="color-swatches" id="colorPresets">
-            <div class="color-swatch-preset active" data-color="#000000" style="background:#000000"></div>
-            <div class="color-swatch-preset" data-color="#6366f1" style="background:#6366f1"></div>
-            <div class="color-swatch-preset" data-color="#ef4444" style="background:#ef4444"></div>
-            <div class="color-swatch-preset" data-color="#f59e0b" style="background:#f59e0b"></div>
-            <div class="color-swatch-preset" data-color="#10b981" style="background:#10b981"></div>
-            <div class="color-swatch-preset" data-color="#8b5cf6" style="background:#8b5cf6"></div>
-            <div class="color-swatch-preset" data-color="#ec4899" style="background:#ec4899"></div>
-            <div class="color-swatch-preset" data-color="#06b6d4" style="background:#06b6d4"></div>
+        <div class="form-group">
+          <label for="endDate">End Date</label>
+          <div class="input-wrap">
+            <input type="date" id="endDate">
           </div>
         </div>
       </div>
+
+      <div class="results" id="resultsBetween" style="margin-top:var(--space-4)">
+        <div class="result-hero">
+          <div class="big-num" id="primaryDays">--</div>
+          <div class="big-label" id="primaryDaysLabel">Select two dates to calculate the difference</div>
+        </div>
+        <div class="result-grid">
+          <div class="stat-box">
+            <div class="val" id="valDays">--</div>
+            <div class="lbl">Days</div>
+          </div>
+          <div class="stat-box">
+            <div class="val" id="valWeeks">--</div>
+            <div class="lbl">Weeks</div>
+          </div>
+          <div class="stat-box">
+            <div class="val" id="valMonths">--</div>
+            <div class="lbl">Months</div>
+          </div>
+          <div class="stat-box">
+            <div class="val" id="valYears">--</div>
+            <div class="lbl">Years</div>
+          </div>
+          <div class="stat-box">
+            <div class="val" id="valWorkdays">--</div>
+            <div class="lbl">Workdays (Mon–Fri)</div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:var(--space-3);font-size:.8rem;color:var(--text-tertiary)">
+          <span id="inclusiveNote"></span>
+        </div>
+      </div>
     </div>
 
-    <div class="qr-display">
-      <div id="qrcode"></div>
-      <button class="dl-btn" style="margin-top:var(--space-3)" onclick="downloadQR()">⬇ Download QR</button>
-    </div>
+    <!-- Mode 2: Add/Subtract -->
+    <div class="mode-panel" id="panelAddSub">
+      <div class="form-group">
+        <label for="baseDate">Start Date</label>
+        <div class="input-wrap">
+          <input type="date" id="baseDate">
+        </div>
+      </div>
 
-    <div class="section-divider"></div>
+      <div class="addsub-grid">
+        <div class="form-group">
+          <label>Operation</label>
+          <div class="toggle-wrap" id="opToggle">
+            <button class="toggle-btn active" data-op="add">+ Add</button>
+            <button class="toggle-btn" data-op="subtract">− Subtract</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="amount">Amount</label>
+          <div class="input-wrap">
+            <input type="number" id="amount" class="amount-input" value="1" min="1" max="99999">
+          </div>
+        </div>
+        <div class="unit-col">
+          <div class="form-group" style="flex:1">
+            <label for="unit">Unit</label>
+            <div class="input-wrap">
+              <select id="unit">
+                <option value="days">Days</option>
+                <option value="weeks">Weeks</option>
+                <option value="months">Months</option>
+                <option value="years">Years</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div class="barcode-grid" id="bcGrid">
-      <div class="barcode-card"><div class="name">CODE128</div><div class="barcode-wrap"><svg id="bc128"></svg></div><button class="dl-btn" onclick="downloadBC('bc128','CODE128')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">CODE39</div><div class="barcode-wrap"><svg id="bc39"></svg></div><button class="dl-btn" onclick="downloadBC('bc39','CODE39')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">UPC‑A</div><div class="barcode-wrap"><svg id="bcUpc"></svg></div><button class="dl-btn" onclick="downloadBC('bcUpc','UPC-A')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">EAN‑13</div><div class="barcode-wrap"><svg id="bcEan"></svg></div><button class="dl-btn" onclick="downloadBC('bcEan','EAN-13')">⬇ Download</button></div>
+      <div class="results" style="margin-top:var(--space-4)">
+        <div class="result-hero" style="display:flex;align-items:center;justify-content:center;gap:var(--space-4);flex-wrap:wrap">
+          <div style="font-size:.9rem;color:var(--text-secondary)" id="addSubLabel">Result</div>
+          <div class="big-num" style="font-size:2rem" id="resultDate">--</div>
+          <div style="font-size:.8rem;color:var(--text-tertiary)" id="dayOfWeek"></div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
   <div class="section">
-    <h2>How to Use</h2>
+    <h2>How to Use the Date Calculator</h2>
     <ol>
-      <li>Type or paste any text, URL, or number in the content box</li>
-      <li>QR code and 4 linear barcodes (CODE128, CODE39, UPC‑A, EAN‑13) update instantly</li>
-      <li>Click any <strong>Download</strong> button to save an individual barcode as PNG</li>
-      <li>Change QR size and color independently</li>
+      <li><strong>Days Between mode:</strong> Pick a start date and end date. The calculator instantly shows the exact difference in days, weeks, months, years, and workdays (Monday–Friday).</li>
+      <li><strong>Add/Subtract mode:</strong> Choose a start date, toggle + or −, enter an amount, and select a unit (days, weeks, months, or years). The result date updates as you type.</li>
+      <li>Use the results for project planning, deadline tracking, event countdowns, or calculating due dates.</li>
+      <li>All calculations run locally in your browser — no data is ever sent anywhere.</li>
     </ol>
   </div>
 
   <div class="section">
-    <h2>How to Use the Date Calculator</h2>
-    <p><strong>Step 1:</strong> Choose a mode: "Days Between" or "Add/Subtract".</p>
-    <p><strong>Step 2:</strong> In "Days Between" mode, enter two dates. The calculator shows the exact difference in days, months, weeks, and years.</p>
-    <p><strong>Step 3:</strong> In "Add/Subtract" mode, enter a start date and specify how many days, weeks, months, or years to add or subtract.</p>
-    <p><strong>Step 4:</strong> Use the results for planning: calculate due dates (add 280 days), estimate project deadlines, or find how many days until your next vacation.</p>
-  </div>
-
-  <div class="section">
     <h2>FAQ</h2>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the difference between these barcode types?</div><div class="faq-answer"><p><strong>QR Code</strong> stores URLs, text, and more — scanned by phone cameras. <strong>CODE128</strong> and <strong>CODE39</strong> are general-purpose linear barcodes used in logistics and inventory. <strong>UPC‑A</strong> and <strong>EAN‑13</strong> are retail barcodes used on product packaging worldwide.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use these barcodes commercially?</div><div class="faq-answer"><p>QR codes, CODE128, and CODE39 are free to generate and use. UPC‑A and EAN‑13 require a GS1 company prefix for retail sale, but you can generate them for testing or personal use.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Do QR codes expire?</div><div class="faq-answer"><p>No — the code is a static image. It works forever as long as the encoded content still exists.</p></div></div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">How are workdays calculated?</div>
+      <div class="faq-answer"><p>Workdays count only Monday through Friday, excluding Saturdays and Sundays. The calculation includes both the start and end dates if they fall on weekdays, giving you the total number of business days in the range.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">How does month arithmetic handle different month lengths?</div>
+      <div class="faq-answer"><p>When adding or subtracting months, the calculator preserves the day-of-month where possible. For example, adding 1 month to January 31 yields February 28 (or 29 in leap years) — it clamps to the last valid day of the target month.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">Does the calculator account for leap years?</div>
+      <div class="faq-answer"><p>Yes — all calculations use JavaScript's built-in Date object, which correctly handles leap years, daylight saving transitions, and the Gregorian calendar.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(this)">Can I calculate dates in the past?</div>
+      <div class="faq-answer"><p>Absolutely. You can subtract to find a past date, or use the Days Between mode with past dates. The tool handles any date from year 1 to year 9999.</p></div>
+    </div>
   </div>
 </main>
 </div>
 
-
-  <div class="section">
-    <h2>🔗 Related Tools</h2>
-    <div class="related-links">
-      <a href="/age-calculator/">Age Calculator</a><a href="/add-subtract-calculator/">Add/Subtract Calculator</a><a href="/bmi-calculator/">BMI Calculator</a>
-    </div>
+<div class="section">
+  <h2>🔗 Related Tools</h2>
+  <div class="related-links">
+    <a href="/age-calculator/">Age Calculator</a>
+    <a href="/add-subtract-calculator/">Add/Subtract Calculator</a>
+    <a href="/bmi-calculator/">BMI Calculator</a>
+    <a href="/percentage-calculator/">Percentage Calculator</a>
+    <a href="/qr-code-generator/">QR Code Generator</a>
   </div>
+</div>
 
-  <!-- ═══ Feedback Form ═══ -->
-  <!-- ═══ Feedback ═══ -->
-  <section class="section-feedback">
-    <form onsubmit="submitFeedback(event,this)">
-      <div class="fb-header">
-        <span class="fb-icon">💬</span> Feedback
-        <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
-      </div>
-      <div class="fb-optional">
-        <input name="name" placeholder="Your name (optional)" autocomplete="name">
-        <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
-      </div>
-      <div class="fb-row">
-        <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
-        <button class="fb-submit" type="submit">Send →</button>
-      </div>
-      <div class="fb-status"></div>
-    </form>
-  </section>
+<!-- ═══ Feedback Form ═══ -->
+<section class="section-feedback">
+  <form onsubmit="submitFeedback(event,this)">
+    <div class="fb-header">
+      <span class="fb-icon">💬</span> Feedback
+      <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
+    </div>
+    <div class="fb-optional">
+      <input name="name" placeholder="Your name (optional)" autocomplete="name">
+      <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
+    </div>
+    <div class="fb-row">
+      <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
+      <button class="fb-submit" type="submit">Send →</button>
+    </div>
+    <div class="fb-status"></div>
+  </form>
+</section>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   Date Calculator — All inline JavaScript
+   ═══════════════════════════════════════════════════ */
+
+// ── Helpers ──
+function fmt(n) { return n.toLocaleString(); }
+
+function daysInMonth(y, m) { return new Date(y, m + 1, 0).getDate(); }
+
+function clampDay(y, m, d) {
+  var max = daysInMonth(y, m);
+  return d > max ? max : d;
+}
+
+// ── Mode Tab Switcher ──
+(function(){
+  var tabs = document.querySelectorAll('#modeTabs .mode-tab');
+  var panels = {
+    between: document.getElementById('panelBetween'),
+    addsub: document.getElementById('panelAddSub')
+  };
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      var mode = tab.getAttribute('data-mode');
+      Object.keys(panels).forEach(function(k){ panels[k].classList.remove('active'); });
+      panels[mode].classList.add('active');
+      // Trigger appropriate calculation
+      if (mode === 'between') calcBetween();
+      else calcAddSub();
+    });
+  });
+})();
+
+// ── Set today's date as default ──
+var today = new Date();
+var todayStr = today.getFullYear() + '-' +
+  String(today.getMonth() + 1).padStart(2, '0') + '-' +
+  String(today.getDate()).padStart(2, '0');
+
+var startDateEl = document.getElementById('startDate');
+var endDateEl = document.getElementById('endDate');
+var baseDateEl = document.getElementById('baseDate');
+
+if (startDateEl) startDateEl.value = todayStr;
+if (endDateEl) endDateEl.value = todayStr;
+if (baseDateEl) baseDateEl.value = todayStr;
+
+// ── Mode 1: Days Between ──
+function countWorkdays(start, end) {
+  var count = 0;
+  var cur = new Date(start);
+  cur.setHours(0,0,0,0);
+  var endTime = end.getTime();
+  while (cur.getTime() <= endTime) {
+    var dow = cur.getDay(); // 0=Sun, 6=Sat
+    if (dow !== 0 && dow !== 6) count++;
+    cur.setDate(cur.getDate() + 1);
+  }
+  return count;
+}
+
+function calcBetween() {
+  var sVal = startDateEl.value;
+  var eVal = endDateEl.value;
+
+  if (!sVal || !eVal) {
+    document.getElementById('primaryDays').textContent = '--';
+    document.getElementById('primaryDaysLabel').textContent = 'Select two dates to calculate the difference';
+    ['valDays','valWeeks','valMonths','valYears','valWorkdays'].forEach(function(id){
+      document.getElementById(id).textContent = '--';
+    });
+    document.getElementById('inclusiveNote').textContent = '';
+    return;
+  }
+
+  var start = new Date(sVal + 'T00:00:00');
+  var end = new Date(eVal + 'T00:00:00');
+
+  if (end < start) {
+    document.getElementById('primaryDays').textContent = '--';
+    document.getElementById('primaryDaysLabel').textContent = 'End date is before start date';
+    ['valDays','valWeeks','valMonths','valYears','valWorkdays'].forEach(function(id){
+      document.getElementById(id).textContent = '--';
+    });
+    document.getElementById('inclusiveNote').textContent = '';
+    return;
+  }
+
+  // Total days between
+  var diffMs = end.getTime() - start.getTime();
+  var totalDays = Math.round(diffMs / 86400000);
+
+  // Calendar breakdown: years, months, days
+  var y1 = start.getFullYear(), m1 = start.getMonth(), d1 = start.getDate();
+  var y2 = end.getFullYear(), m2 = end.getMonth(), d2 = end.getDate();
+
+  var years = y2 - y1;
+  var months = m2 - m1;
+  var days = d2 - d1;
+
+  if (days < 0) {
+    var prevMonth = m2 === 0 ? 11 : m2 - 1;
+    var prevMonthYear = m2 === 0 ? y2 - 1 : y2;
+    days += daysInMonth(prevMonthYear, prevMonth);
+    months--;
+  }
+  if (months < 0) {
+    months += 12;
+    years--;
+  }
+
+  // Weeks
+  var weeks = Math.floor(totalDays / 7);
+  var remDays = totalDays % 7;
+
+  // Workdays
+  var workdays = countWorkdays(start, end);
+
+  // Rendering
+  var labelParts = [];
+  if (years > 0) labelParts.push(years + ' year' + (years !== 1 ? 's' : ''));
+  if (months > 0) labelParts.push(months + ' month' + (months !== 1 ? 's' : ''));
+  labelParts.push(days + ' day' + (days !== 1 ? 's' : ''));
+  var primaryLabel = labelParts.join(', ');
+  if (!primaryLabel) primaryLabel = 'Same date';
+
+  document.getElementById('primaryDays').textContent = primaryLabel;
+  document.getElementById('primaryDaysLabel').textContent = 'Calendar difference';
+  document.getElementById('valDays').textContent = fmt(totalDays);
+  document.getElementById('valWeeks').textContent = weeks + ' wk ' + remDays + ' d';
+  document.getElementById('valMonths').textContent = fmt(years * 12 + months);
+  document.getElementById('valYears').textContent = years + ' yr ' + months + ' mo';
+  document.getElementById('valWorkdays').textContent = fmt(workdays);
+  document.getElementById('inclusiveNote').textContent = 'Inclusive count: ' + (totalDays + 1) + ' days including both start and end dates';
+}
+
+// ── Mode 2: Add/Subtract ──
+(function(){
+  var toggleBtns = document.querySelectorAll('#opToggle .toggle-btn');
+  toggleBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      toggleBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      calcAddSub();
+    });
+  });
+})();
+
+function getOp() {
+  var active = document.querySelector('#opToggle .toggle-btn.active');
+  return active ? active.getAttribute('data-op') : 'add';
+}
+
+function calcAddSub() {
+  var baseVal = baseDateEl.value;
+  var amount = parseInt(document.getElementById('amount').value) || 0;
+  var unit = document.getElementById('unit').value;
+  var op = getOp();
+
+  if (!baseVal) {
+    document.getElementById('resultDate').textContent = '--';
+    document.getElementById('addSubLabel').textContent = 'Result';
+    document.getElementById('dayOfWeek').textContent = '';
+    return;
+  }
+
+  var date = new Date(baseVal + 'T00:00:00');
+  var sign = (op === 'subtract') ? -1 : 1;
+  var n = amount * sign;
+
+  switch (unit) {
+    case 'days':
+      date.setDate(date.getDate() + n);
+      break;
+    case 'weeks':
+      date.setDate(date.getDate() + n * 7);
+      break;
+    case 'months':
+      var totalMonths = date.getFullYear() * 12 + date.getMonth() + n;
+      var newY = Math.floor(totalMonths / 12);
+      var newM = totalMonths % 12;
+      if (newM < 0) { newM += 12; newY--; }
+      var origDay = date.getDate();
+      date.setFullYear(newY);
+      date.setMonth(newM);
+      date.setDate(clampDay(newY, newM, origDay));
+      break;
+    case 'years':
+      var origDayY = date.getDate();
+      var origMonth = date.getMonth();
+      date.setFullYear(date.getFullYear() + n);
+      date.setDate(clampDay(date.getFullYear(), date.getMonth(), origDayY));
+      break;
+  }
+
+  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var dayName = days[date.getDay()];
+  var resultStr = date.getFullYear() + '-' +
+    String(date.getMonth() + 1).padStart(2, '0') + '-' +
+    String(date.getDate()).padStart(2, '0');
+
+  var opLabel = (op === 'add') ? 'added to' : 'subtracted from';
+  document.getElementById('addSubLabel').textContent = amount + ' ' + unit + ' ' + opLabel + ' ' + baseVal;
+  document.getElementById('resultDate').textContent = resultStr;
+  document.getElementById('dayOfWeek').textContent = dayName;
+}
+
+// ── Event Listeners ──
+if (startDateEl) startDateEl.addEventListener('change', calcBetween);
+if (endDateEl) endDateEl.addEventListener('change', calcBetween);
+if (startDateEl) startDateEl.addEventListener('input', calcBetween);
+if (endDateEl) endDateEl.addEventListener('input', calcBetween);
+
+if (baseDateEl) baseDateEl.addEventListener('change', calcAddSub);
+if (baseDateEl) baseDateEl.addEventListener('input', calcAddSub);
+
+var amountEl = document.getElementById('amount');
+if (amountEl) {
+  amountEl.addEventListener('input', calcAddSub);
+  amountEl.addEventListener('change', calcAddSub);
+}
+
+var unitEl = document.getElementById('unit');
+if (unitEl) unitEl.addEventListener('change', calcAddSub);
+
+// ── Initial calculations ──
+calcBetween();
+calcAddSub();
+
+// ── FAQ toggle (global) ──
+function toggleFAQ(el) {
+  el.classList.toggle('open');
+  var answer = el.nextElementSibling;
+  if (answer) answer.classList.toggle('open');
+}
+
+// ── Feedback submit (global) ──
+function submitFeedback(e, form) {
+  e.preventDefault();
+  var status = form.querySelector('.fb-status');
+  var btn = form.querySelector('.fb-submit');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  var data = new FormData(form);
+  fetch('https://formspree.io/f/yourFormID', {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(){
+    status.textContent = '✓ Thank you! Feedback sent.';
+    status.className = 'fb-status success';
+    form.reset();
+  })
+  .catch(function(){
+    status.textContent = '⚠ Could not send. Please try again.';
+    status.className = 'fb-status error';
+  })
+  .finally(function(){
+    btn.disabled = false;
+    btn.textContent = 'Send →';
+  });
+}
+</script>
+
+</body>
+</html>

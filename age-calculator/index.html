@@ -13,36 +13,21 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
      crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free QR Code Generator — Create QR &amp; Barcodes Online</title>
-<meta name="description" content="Free QR Code and Barcode Generator. Enter text or URL to create QR, CODE128, CODE39, UPC-A, and EAN-13 barcodes instantly. Download as PNG.">
+<title>Age Calculator — Exact Age in Years, Months, Days</title>
+<meta name="description" content="Free online age calculator. Calculate exact age in years, months, days, hours, minutes and seconds. Also shows total months, weeks, days, and hours. Supports any date range.">
 <link rel="canonical" href="https://anycalculator.site/age-calculator/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does this calculator work?","acceptedAnswer":{"@type":"Answer","text":"Enter your values and the result updates instantly. No button clicks needed."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is age calculated in years, months, and days?","acceptedAnswer":{"@type":"Answer","text":"The calculator counts full years first, then remaining months, then remaining days — accounting for varying month lengths and leap years."}}]}</script>
 <meta property="og:title" content="Age Calculator — Free Online Age in Years Months Days">
 <meta property="og:description" content="Calculate exact age in years, months, days, hours, minutes, and seconds. Free online age calculator — supports future dates and date differences.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://anycalculator.site/age-calculator/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/common/premium.css">
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"QR Code & Barcode Generator","applicationCategory":"UtilityApplication"}</script>
 <style>
 body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e5}
-.color-picker-row{display:flex;gap:16px;align-items:end;flex-wrap:wrap}
-.color-picker-row .form-group{margin-bottom:0}
-.barcode-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-top:var(--space-4)}
-@media(max-width:480px){.barcode-grid{grid-template-columns:1fr}}
-.barcode-card{background:var(--bg-subtle);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center;border:1px solid var(--border-subtle)}
-.barcode-card .name{font-size:.8rem;font-weight:600;color:var(--text-secondary);margin-bottom:var(--space-2)}
-.barcode-card .barcode-wrap{background:#fff;border-radius:8px;padding:12px;overflow:hidden}
-.barcode-card .barcode-wrap svg{display:block;margin:0 auto;max-width:100%;height:auto}
-.barcode-card .barcode-wrap canvas,.barcode-card .barcode-wrap img{display:block;margin:0 auto;max-width:100%}
-.barcode-card .dl-btn{font-size:.75rem;margin-top:var(--space-2);padding:4px 16px;border-radius:6px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-tertiary);cursor:pointer}
-.barcode-card .dl-btn:hover{background:var(--bg);color:var(--text)}
-.section-divider{margin:var(--space-5) 0;height:1px;background:var(--border-subtle)}
-.qr-display{display:flex;flex-direction:column;align-items:center;padding:var(--space-4)}
-.qr-display #qrcode{background:#fff;padding:12px;border-radius:12px}
-.qr-display #qrcode canvas{display:block;margin:0 auto}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-2)}
+.totals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-2)}
+@media(max-width:480px){.result-grid{grid-template-columns:repeat(2,1fr)}.totals-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -50,10 +35,10 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 <nav class="top-nav"><div class="container">
   <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
-    <a href="/qr-code-generator/" class="active">QR Code</a>
+    <a href="/qr-code-generator/">QR Code</a>
     <a href="/bmi-calculator/">BMI</a>
     <a href="/password-generator/">Password</a>
-    <a href="/age-calculator/">Age</a>
+    <a href="/age-calculator/" class="active">Age</a>
     <a href="/percentage-calculator/">Pct/Discount</a>
     <a href="/date-calculator/">Date</a>
     <a href="/add-subtract-calculator/">Add/Sub</a>
@@ -64,116 +49,235 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 
 <div class="page-content">
 <div class="hero">
-  <h1>📱 <span class="gradient-text">Barcode &amp; QR Generator</span></h1>
-  <p>Enter any text — see QR, CODE128, CODE39, UPC-A, and EAN-13 instantly</p>
+  <h1>🎂 <span class="gradient-text">Age Calculator</span></h1>
+  <p>Exact Age in Years, Months, Days</p>
 </div>
 
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
 <main class="container">
   <div class="card">
-    <div class="form-group">
-      <label>Content</label>
-      <div class="input-wrap">
-        <textarea id="qrText" rows="2" placeholder="Enter text, URL, or any data...">https://anycalculator.site</textarea>
-      </div>
-    </div>
-
     <div class="form-row">
       <div class="form-group">
-        <label>QR Size</label>
-        <div class="pill-group" id="sizePills">
-          <div class="pill-btn" data-size="160">Small</div>
-          <div class="pill-btn active" data-size="256">Medium</div>
-          <div class="pill-btn" data-size="400">Large</div>
+        <label for="birthDate">Birth Date</label>
+        <div class="input-wrap">
+          <input type="date" id="birthDate">
         </div>
       </div>
       <div class="form-group">
-        <label>QR Color</label>
-        <div class="color-picker-row" style="gap:8px">
-          <input type="color" id="qrColor" class="color-swatch" value="#000000" style="width:40px;height:40px">
-          <div class="color-swatches" id="colorPresets">
-            <div class="color-swatch-preset active" data-color="#000000" style="background:#000000"></div>
-            <div class="color-swatch-preset" data-color="#6366f1" style="background:#6366f1"></div>
-            <div class="color-swatch-preset" data-color="#ef4444" style="background:#ef4444"></div>
-            <div class="color-swatch-preset" data-color="#f59e0b" style="background:#f59e0b"></div>
-            <div class="color-swatch-preset" data-color="#10b981" style="background:#10b981"></div>
-            <div class="color-swatch-preset" data-color="#8b5cf6" style="background:#8b5cf6"></div>
-            <div class="color-swatch-preset" data-color="#ec4899" style="background:#ec4899"></div>
-            <div class="color-swatch-preset" data-color="#06b6d4" style="background:#06b6d4"></div>
-          </div>
+        <label for="targetDate">Target Date</label>
+        <div class="input-wrap">
+          <input type="date" id="targetDate">
         </div>
       </div>
     </div>
 
-    <div class="qr-display">
-      <div id="qrcode"></div>
-      <button class="dl-btn" style="margin-top:var(--space-3)" onclick="downloadQR()">⬇ Download QR</button>
-    </div>
+    <div class="results" id="results" style="margin-top:var(--space-4)">
+      <div style="text-align:center;padding:var(--space-4);background:var(--bg-subtle);border-radius:var(--radius-lg);margin-bottom:var(--space-3)">
+        <div id="primaryAge" style="font-size:2.5rem;font-weight:700;color:var(--accent)">--</div>
+        <div id="primaryLabel" style="font-size:1rem;color:var(--text-secondary)">Enter your birth date to calculate age</div>
+      </div>
 
-    <div class="section-divider"></div>
+      <div class="result-grid">
+        <div style="background:var(--bg-subtle);border-radius:var(--radius);padding:var(--space-3);text-align:center">
+          <div id="yearsVal" style="font-size:1.5rem;font-weight:700;color:var(--accent)">0</div>
+          <div style="font-size:.75rem;color:var(--text-tertiary)">Years</div>
+        </div>
+        <div style="background:var(--bg-subtle);border-radius:var(--radius);padding:var(--space-3);text-align:center">
+          <div id="monthsVal" style="font-size:1.5rem;font-weight:700;color:var(--accent)">0</div>
+          <div style="font-size:.75rem;color:var(--text-tertiary)">Months</div>
+        </div>
+        <div style="background:var(--bg-subtle);border-radius:var(--radius);padding:var(--space-3);text-align:center">
+          <div id="daysVal" style="font-size:1.5rem;font-weight:700;color:var(--accent)">0</div>
+          <div style="font-size:.75rem;color:var(--text-tertiary)">Days</div>
+        </div>
+        <div style="background:var(--bg-subtle);border-radius:var(--radius);padding:var(--space-3);text-align:center">
+          <div id="hoursVal" style="font-size:1.5rem;font-weight:700;color:var(--accent)">0</div>
+          <div style="font-size:.75rem;color:var(--text-tertiary)">Hours</div>
+        </div>
+        <div style="background:var(--bg-subtle);border-radius:var(--radius);padding:var(--space-3);text-align:center">
+          <div id="minsVal" style="font-size:1.5rem;font-weight:700;color:var(--accent)">0</div>
+          <div style="font-size:.75rem;color:var(--text-tertiary)">Minutes</div>
+        </div>
+        <div style="background:var(--bg-subtle);border-radius:var(--radius);padding:var(--space-3);text-align:center">
+          <div id="secsVal" style="font-size:1.5rem;font-weight:700;color:var(--accent)">0</div>
+          <div style="font-size:.75rem;color:var(--text-tertiary)">Seconds</div>
+        </div>
+      </div>
 
-    <div class="barcode-grid" id="bcGrid">
-      <div class="barcode-card"><div class="name">CODE128</div><div class="barcode-wrap"><svg id="bc128"></svg></div><button class="dl-btn" onclick="downloadBC('bc128','CODE128')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">CODE39</div><div class="barcode-wrap"><svg id="bc39"></svg></div><button class="dl-btn" onclick="downloadBC('bc39','CODE39')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">UPC‑A</div><div class="barcode-wrap"><svg id="bcUpc"></svg></div><button class="dl-btn" onclick="downloadBC('bcUpc','UPC-A')">⬇ Download</button></div>
-      <div class="barcode-card"><div class="name">EAN‑13</div><div class="barcode-wrap"><svg id="bcEan"></svg></div><button class="dl-btn" onclick="downloadBC('bcEan','EAN-13')">⬇ Download</button></div>
+      <div class="totals-grid" style="margin-top:var(--space-3)">
+        <div style="background:var(--accent-subtle);border-radius:var(--radius);padding:var(--space-2);text-align:center">
+          <div id="totalMonths" style="font-weight:600;color:var(--accent-text)">--</div>
+          <div style="font-size:.7rem;color:var(--text-tertiary)">Total Months</div>
+        </div>
+        <div style="background:var(--accent-subtle);border-radius:var(--radius);padding:var(--space-2);text-align:center">
+          <div id="totalWeeks" style="font-weight:600;color:var(--accent-text)">--</div>
+          <div style="font-size:.7rem;color:var(--text-tertiary)">Total Weeks</div>
+        </div>
+        <div style="background:var(--accent-subtle);border-radius:var(--radius);padding:var(--space-2);text-align:center">
+          <div id="totalDays" style="font-weight:600;color:var(--accent-text)">--</div>
+          <div style="font-size:.7rem;color:var(--text-tertiary)">Total Days</div>
+        </div>
+        <div style="background:var(--accent-subtle);border-radius:var(--radius);padding:var(--space-2);text-align:center">
+          <div id="totalHours" style="font-weight:600;color:var(--accent-text)">--</div>
+          <div style="font-size:.7rem;color:var(--text-tertiary)">Total Hours</div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
   <div class="section">
-    <h2>How to Use</h2>
+    <h2>How to Use the Age Calculator</h2>
     <ol>
-      <li>Type or paste any text, URL, or number in the content box</li>
-      <li>QR code and 4 linear barcodes (CODE128, CODE39, UPC‑A, EAN‑13) update instantly</li>
-      <li>Click any <strong>Download</strong> button to save an individual barcode as PNG</li>
-      <li>Change QR size and color independently</li>
+      <li>Enter your <strong>birth date</strong> using the date picker — the calculator instantly shows your exact age</li>
+      <li>Optionally change the <strong>target date</strong> (defaults to today) to calculate your age at any point in the past or future</li>
+      <li>View the detailed breakdown: years, months, days, hours, minutes, and seconds</li>
+      <li>Check the totals section for total months, weeks, days, and hours since birth</li>
     </ol>
   </div>
 
   <div class="section">
-    <h2>How to Use the Age Calculator</h2>
-    <p><strong>Step 1:</strong> Enter your birth date using the date picker. The calculator immediately shows your age in years, months, and days.</p>
-    <p><strong>Step 2:</strong> Optionally set a target date (defaults to today). This lets you calculate your age at any point in the past or future.</p>
-    <p><strong>Step 3:</strong> Read the detailed breakdown: total years, months, days, hours, minutes, and seconds since birth.</p>
-    <p><strong>Step 4:</strong> Use the date difference feature to find the exact duration between any two dates — perfect for counting down to events or planning milestones.</p>
-  </div>
-
-  <div class="section">
     <h2>FAQ</h2>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the difference between these barcode types?</div><div class="faq-answer"><p><strong>QR Code</strong> stores URLs, text, and more — scanned by phone cameras. <strong>CODE128</strong> and <strong>CODE39</strong> are general-purpose linear barcodes used in logistics and inventory. <strong>UPC‑A</strong> and <strong>EAN‑13</strong> are retail barcodes used on product packaging worldwide.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use these barcodes commercially?</div><div class="faq-answer"><p>QR codes, CODE128, and CODE39 are free to generate and use. UPC‑A and EAN‑13 require a GS1 company prefix for retail sale, but you can generate them for testing or personal use.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Do QR codes expire?</div><div class="faq-answer"><p>No — the code is a static image. It works forever as long as the encoded content still exists.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How is age calculated in years, months, and days?</div><div class="faq-answer"><p>The calculator computes the full calendar difference between your birth date and the target date. It first counts full years, then remaining months, then remaining days — accounting for varying month lengths and leap years.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I calculate age for a future date?</div><div class="faq-answer"><p>Yes — set the target date to any future date to see your age at that point, or calculate how old someone will be on a specific upcoming date.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Does this work for any two dates?</div><div class="faq-answer"><p>Absolutely. You can use it as a date difference calculator by entering any two dates — not just a birth date. Find the duration between any two dates in years, months, days, and total time units.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is my data stored or shared?</div><div class="faq-answer"><p>No — all calculations happen in your browser using JavaScript. No dates are ever sent to any server or stored anywhere.</p></div></div>
   </div>
 </main>
 </div>
 
-
-  <div class="section">
-    <h2>🔗 Related Tools</h2>
-    <div class="related-links">
-      <a href="/date-calculator/">Date Calculator</a><a href="/bmi-calculator/">BMI Calculator</a><a href="/percentage-calculator/">Percentage Calculator</a>
-    </div>
+<div class="section">
+  <h2>🔗 Related Tools</h2>
+  <div class="related-links">
+    <a href="/date-calculator/">Date Calculator</a><a href="/bmi-calculator/">BMI Calculator</a><a href="/percentage-calculator/">Percentage Calculator</a><a href="/add-subtract-calculator/">Add/Subtract Calculator</a>
   </div>
+</div>
 
-  <!-- ═══ Feedback Form ═══ -->
-  <!-- ═══ Feedback ═══ -->
-  <section class="section-feedback">
-    <form onsubmit="submitFeedback(event,this)">
-      <div class="fb-header">
-        <span class="fb-icon">💬</span> Feedback
-        <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
-      </div>
-      <div class="fb-optional">
-        <input name="name" placeholder="Your name (optional)" autocomplete="name">
-        <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
-      </div>
-      <div class="fb-row">
-        <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
-        <button class="fb-submit" type="submit">Send →</button>
-      </div>
-      <div class="fb-status"></div>
-    </form>
-  </section>
+<!-- ═══ Feedback Form ═══ -->
+<section class="section-feedback">
+  <form onsubmit="submitFeedback(event,this)">
+    <div class="fb-header">
+      <span class="fb-icon">💬</span> Feedback
+      <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
+    </div>
+    <div class="fb-optional">
+      <input name="name" placeholder="Your name (optional)" autocomplete="name">
+      <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
+    </div>
+    <div class="fb-row">
+      <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
+      <button class="fb-submit" type="submit">Send →</button>
+    </div>
+    <div class="fb-status"></div>
+  </form>
+</section>
+
+<script>
+(function(){
+  const birthInput = document.getElementById('birthDate');
+  const targetInput = document.getElementById('targetDate');
+
+  // Set today as default target date
+  var now = new Date();
+  var yyyy = now.getFullYear();
+  var mm = String(now.getMonth() + 1).padStart(2, '0');
+  var dd = String(now.getDate()).padStart(2, '0');
+  targetInput.value = yyyy + '-' + mm + '-' + dd;
+  targetInput.max = '9999-12-31';
+
+  function daysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+  function fmt(n) {
+    return n.toLocaleString();
+  }
+
+  function calculate() {
+    var birthVal = birthInput.value;
+    var targetVal = targetInput.value;
+
+    if (!birthVal || !targetVal) {
+      document.getElementById('primaryAge').textContent = '--';
+      document.getElementById('primaryLabel').textContent = 'Enter your birth date to calculate age';
+      ['yearsVal','monthsVal','daysVal','hoursVal','minsVal','secsVal'].forEach(function(id){ document.getElementById(id).textContent = '0'; });
+      ['totalMonths','totalWeeks','totalDays','totalHours'].forEach(function(id){ document.getElementById(id).textContent = '--'; });
+      return;
+    }
+
+    var birth = new Date(birthVal + 'T00:00:00');
+    var targetIsToday = (targetVal === yyyy + '-' + mm + '-' + dd);
+    var target = targetIsToday ? new Date() : new Date(targetVal + 'T00:00:00');
+
+    if (target < birth) {
+      document.getElementById('primaryAge').textContent = '--';
+      document.getElementById('primaryLabel').textContent = 'Target date is before birth date';
+      ['yearsVal','monthsVal','daysVal','hoursVal','minsVal','secsVal'].forEach(function(id){ document.getElementById(id).textContent = '0'; });
+      ['totalMonths','totalWeeks','totalDays','totalHours'].forEach(function(id){ document.getElementById(id).textContent = '--'; });
+      return;
+    }
+
+    // Calendar difference: years, months, days
+    var years = target.getFullYear() - birth.getFullYear();
+    var months = target.getMonth() - birth.getMonth();
+    var days = target.getDate() - birth.getDate();
+
+    if (days < 0) {
+      var prevMonth = target.getMonth() === 0 ? 11 : target.getMonth() - 1;
+      var prevMonthYear = target.getMonth() === 0 ? target.getFullYear() - 1 : target.getFullYear();
+      days += daysInMonth(prevMonthYear, prevMonth);
+      months--;
+    }
+
+    if (months < 0) {
+      months += 12;
+      years--;
+    }
+
+    // Total diffs
+    var diffMs = target.getTime() - birth.getTime();
+    var totalDays = Math.floor(diffMs / 86400000);
+    var totalHours = Math.floor(diffMs / 3600000);
+    var totalMinutes = Math.floor(diffMs / 60000);
+    var totalSeconds = Math.floor(diffMs / 1000);
+    var totalWeeks = Math.floor(totalDays / 7);
+    var totalMonths = years * 12 + months;
+
+    // Remaining hours, minutes, seconds after full days
+    var hours = totalHours % 24;
+    var mins = totalMinutes % 60;
+    var secs = totalSeconds % 60;
+
+    // Update primary
+    document.getElementById('primaryAge').textContent = years + ' years, ' + months + ' months, ' + days + ' days';
+    document.getElementById('primaryLabel').textContent = 'Exact age as of ' + (targetIsToday ? 'today' : targetVal);
+
+    // Update breakdown
+    document.getElementById('yearsVal').textContent = fmt(years);
+    document.getElementById('monthsVal').textContent = fmt(months);
+    document.getElementById('daysVal').textContent = fmt(days);
+    document.getElementById('hoursVal').textContent = fmt(hours);
+    document.getElementById('minsVal').textContent = fmt(mins);
+    document.getElementById('secsVal').textContent = fmt(secs);
+
+    // Update totals
+    document.getElementById('totalMonths').textContent = fmt(totalMonths);
+    document.getElementById('totalWeeks').textContent = fmt(totalWeeks) + ' weeks';
+    document.getElementById('totalDays').textContent = fmt(totalDays);
+    document.getElementById('totalHours').textContent = fmt(totalHours);
+  }
+
+  birthInput.addEventListener('change', calculate);
+  targetInput.addEventListener('change', calculate);
+  birthInput.addEventListener('input', calculate);
+  targetInput.addEventListener('input', calculate);
+
+  // Run once on load for any autofilled values
+  calculate();
+})();
+</script>
+
+</body>
+</html>

@@ -71,6 +71,23 @@ body{--accent:#0c9b3b;--accent-subtle:rgba(12,155,59,0.12);--accent-text:#0a7e30
 .popular-rate-card .pr-pair{font-size:0.75rem;font-weight:600;color:var(--text-secondary);letter-spacing:-0.02em}
 .popular-rate-card .pr-rate{font-size:0.9rem;font-weight:700;color:var(--text-primary);margin-top:2px}
 .popular-rate-card .pr-1usd{font-size:0.65rem;color:var(--text-tertiary);margin-top:1px}
+/* ── Live currency ticker ── */
+.currency-ticker{display:flex;gap:var(--space-2);overflow-x:auto;padding:var(--space-2) 0;margin:var(--space-3) 0 -4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.currency-ticker::-webkit-scrollbar{display:none}
+.currency-ticker .ticker-item{flex-shrink:0;padding:6px 14px;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);cursor:pointer;text-align:center;transition:all var(--duration-fast) var(--ease-out);min-width:80px}
+.currency-ticker .ticker-item:hover{border-color:var(--accent);background:var(--accent-subtle)}
+.currency-ticker .ticker-item .ti-pair{font-size:0.6rem;font-weight:600;color:var(--text-tertiary);letter-spacing:0.02em;text-transform:uppercase}
+.currency-ticker .ticker-item .ti-rate{font-size:0.85rem;font-weight:700;color:var(--text-primary)}
+.currency-ticker .ticker-item.active{border-color:var(--accent);background:var(--accent-subtle)}
+.currency-ticker .ticker-item.active .ti-rate{color:var(--accent-text)}
+/* ── Quick-select chips ── */
+.quick-select{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-3);padding-top:var(--space-3);border-top:1px solid var(--border-subtle);align-items:center}
+.quick-select .qs-label{font-size:0.68rem;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.04em;padding:4px 0;margin-right:var(--space-1);line-height:30px}
+.quick-select .qs-chip{padding:4px 14px;border:1px solid var(--border-subtle);border-radius:20px;cursor:pointer;font-size:0.78rem;font-weight:600;transition:all var(--duration-fast) var(--ease-out);background:var(--bg);line-height:24px}
+.quick-select .qs-chip:hover,.quick-select .qs-chip.active{border-color:var(--accent);background:var(--accent-subtle);color:var(--accent-text)}
+/* ── Popular rates active state ── */
+.popular-rate-card.active{border-color:var(--accent);background:var(--accent-subtle)}
+.popular-rate-card.active .pr-rate{color:var(--accent-text)}
 @media(max-width:480px){.conversion-result .result-amount{font-size:1.6rem}.peso-input-wrap input{font-size:1.2rem!important}}
 </style>
 </head>
@@ -158,6 +175,8 @@ body{--accent:#0c9b3b;--accent-subtle:rgba(12,155,59,0.12);--accent-text:#0a7e30
       <div class="rate-update" id="rateUpdate">Fetching latest rates...</div>
     </div>
 
+    <div class="currency-ticker" id="currencyTicker"></div>
+
     <div class="conversion-result">
       <div class="result-label" id="resultLabel">1,000.00 PHP =</div>
       <div class="result-amount" id="resultAmount">—</div>
@@ -165,21 +184,22 @@ body{--accent:#0c9b3b;--accent-subtle:rgba(12,155,59,0.12);--accent-text:#0a7e30
     </div>
 
     <div class="result-grid" id="resultGrid"></div>
+    <div class="quick-select" id="quickSelect"></div>
   </div>
-
-  <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
   <div class="section">
     <h2>Popular PHP Exchange Rates</h2>
     <div class="popular-rates" id="popularRates"></div>
   </div>
 
+  <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
   <div class="section">
     <h2>How to Use the PHP Peso Converter</h2>
     <p><strong>Step 1:</strong> Enter the amount you want to convert in the input field (default: ₱1,000).</p>
     <p><strong>Step 2:</strong> Select the source currency (PHP) and target currency (USD or any other major currency).</p>
     <p><strong>Step 3:</strong> Click the <strong>⇄ swap button</strong> to reverse the conversion direction instantly.</p>
-    <p><strong>Step 4:</strong> Check popular PHP exchange rates in the grid below — tap any rate card to load it.</p>
+    <p><strong>Step 4:</strong> Use the <strong>live ticker</strong> for a quick glance at top rates, the <strong>Quick → chips</strong> to switch targets while keeping your base currency, or the <strong>popular rates grid</strong> below — tap any card to load that pair.</p>
     <p>The exchange rate updates automatically every time you change the amount or currency pair. All rates are sourced from the European Central Bank via the Frankfurter API and reflect interbank rates.</p>
   </div>
 
@@ -352,6 +372,8 @@ async function convert() {
     </div>`;
   }
   resultGrid.innerHTML = gridHTML;
+  renderTicker();
+  updateActiveState();
 }
 
 function swapCurrencies() {
@@ -359,6 +381,32 @@ function swapCurrencies() {
   const toEl = document.getElementById('toCurrency');
   [fromEl.value, toEl.value] = [toEl.value, fromEl.value];
   convert();
+  renderQuickSelect();
+}
+
+/* ── Select a popular pair with active state ── */
+function selectPopularPair(from, to) {
+  document.getElementById('fromCurrency').value = from;
+  document.getElementById('toCurrency').value = to;
+  renderQuickSelect();
+  convert();
+  // Scroll result into view on mobile
+  document.querySelector('.conversion-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ── Update active state on all selectable elements ── */
+function updateActiveState() {
+  const from = document.getElementById('fromCurrency').value;
+  const to = document.getElementById('toCurrency').value;
+  document.querySelectorAll('.popular-rate-card').forEach(el => {
+    el.classList.toggle('active', el.dataset.from === from && el.dataset.to === to);
+  });
+  document.querySelectorAll('.ticker-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.from === from && el.dataset.to === to);
+  });
+  document.querySelectorAll('.qs-chip').forEach(el => {
+    el.classList.toggle('active', el.dataset.cur === to);
+  });
 }
 
 async function loadPopularRates() {
@@ -372,13 +420,54 @@ async function loadPopularRates() {
   for (const [from, to] of pairs) {
     const r = await getRate(from, to);
     const inverse = await getRate(to, from);
-    html += `<div class="popular-rate-card" onclick="document.getElementById('fromCurrency').value='${from}';document.getElementById('toCurrency').value='${to}';convert()">
+    html += `<div class="popular-rate-card" data-from="${from}" data-to="${to}" onclick="selectPopularPair('${from}','${to}')">
       <div class="pr-pair">${from} → ${to}</div>
       <div class="pr-rate">${formatRate(r)}</div>
       <div class="pr-1usd">1 ${to} = ${formatRate(inverse)}</div>
     </div>`;
   }
   container.innerHTML = html;
+}
+
+/* ── Live currency ticker ── */
+async function renderTicker() {
+  const ticker = document.getElementById('currencyTicker');
+  if (!ticker) return;
+  const pairs = [['PHP','USD'],['PHP','EUR'],['PHP','GBP'],['PHP','JPY'],['PHP','CAD'],['PHP','AUD']];
+  let html = '';
+  for (const [from, to] of pairs) {
+    const r = await getRate(from, to);
+    html += `<div class="ticker-item" data-from="${from}" data-to="${to}" onclick="selectPopularPair('${from}','${to}')">
+      <div class="ti-pair">${from}/${to}</div>
+      <div class="ti-rate">${formatRate(r)}</div>
+    </div>`;
+  }
+  ticker.innerHTML = html;
+  updateActiveState();
+}
+
+/* ── Quick-select chips (change only target currency) ── */
+function renderQuickSelect() {
+  const qs = document.getElementById('quickSelect');
+  if (!qs) return;
+  const targets = ['USD','EUR','GBP','JPY','CAD','AUD','SGD','HKD','KRW','CNY'];
+  const currentFrom = document.getElementById('fromCurrency').value;
+  const currentTo = document.getElementById('toCurrency').value;
+  let html = '<span class="qs-label">Quick → </span>';
+  for (const cur of targets) {
+    if (cur === currentFrom) continue;
+    const active = cur === currentTo ? ' active' : '';
+    html += `<span class="qs-chip${active}" data-cur="${cur}" onclick="quickSelectTarget('${cur}')">${CURRENCY_SYMBOLS[cur]||''} ${cur}</span>`;
+  }
+  qs.innerHTML = html;
+}
+
+/* ── Quick select: change only "to" currency ── */
+function quickSelectTarget(cur) {
+  document.getElementById('toCurrency').value = cur;
+  convert();
+  updateActiveState();
+  renderQuickSelect();
 }
 
 /* ── FAQ toggle ── */
@@ -408,11 +497,13 @@ async function submitFeedback(e, form) {
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('phpAmount').addEventListener('input', convert);
-  document.getElementById('fromCurrency').addEventListener('change', convert);
+  document.getElementById('fromCurrency').addEventListener('change', () => { renderQuickSelect(); convert(); });
   document.getElementById('toCurrency').addEventListener('change', convert);
   document.getElementById('swapBtn').addEventListener('click', swapCurrencies);
   convert();
   loadPopularRates();
+  renderTicker();
+  renderQuickSelect();
 });
 
 /* ── FAQ init: collapse all ── */
