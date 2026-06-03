@@ -270,6 +270,11 @@ document.getElementById('formatTabs').addEventListener('click',function(e){
   const fmt=tab.dataset.format;
   document.getElementById('paneQr').classList.toggle('active',fmt==='qr');
   document.getElementById('paneBarcode').classList.toggle('active',fmt==='barcode');
+  if(fmt==='barcode'){
+    // Lazy init: pane just became visible, re-render barcodes
+    const text=document.getElementById('qrText').value||' ';
+    setTimeout(()=>regenerateBC(text),50);
+  }
 });
 
 // ── Init QR ──
@@ -368,7 +373,6 @@ function submitFeedback(e,f){e.preventDefault();const st=f.querySelector('.fb-st
 document.addEventListener('DOMContentLoaded',function(){
   const text=document.getElementById('qrText').value;
   initQR(text||' ');
-  setTimeout(()=>regenerateBC(text||' '),100);
 });
 </script>
 </div>
