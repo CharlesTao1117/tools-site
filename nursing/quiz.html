@@ -564,6 +564,12 @@
       <div id="weakness-content"></div>
     </div>
 
+    <!-- Share button -->
+    <div class="weakness-section" id="share-section" style="text-align:center;padding:20px">
+      <button class="btn btn-outline" id="share-result-btn" onclick="shareResult()" style="margin-bottom:8px">📋 複製成績分享</button>
+      <p class="text-muted">複製成績到剪貼簿，貼到群組或筆記</p>
+    </div>
+
     <div class="review-list" id="review-list"></div>
   </div>
 
@@ -581,6 +587,8 @@
 
 const Q_PER_SESSION = 10;
 const DRILL_MAX = 5;
+let isQuickDiagnosis = false;   // 5-question quick diagnosis mode
+let isDiagnosisDone = false;    // track if returning from drill mid-diagnosis
 
 /* ── State ── */
 let allQuestions = [];
@@ -638,6 +646,22 @@ let wrongBook = [];
     });
 
     renderSubjectCards();
+
+    // Quick diagnosis mode: check sessionStorage flag from landing page
+    try {
+      if (sessionStorage.getItem('quickDiag') === 'true') {
+        sessionStorage.removeItem('quickDiag');
+        isQuickDiagnosis = true;
+        // Add diagnosis banner
+        const banner = document.createElement('div');
+        banner.id = 'diag-banner';
+        banner.style.cssText = 'background:linear-gradient(135deg,#e94560,#ff6b6b);color:white;border-radius:14px;padding:20px 24px;margin-bottom:20px;text-align:center;animation:fadeIn 0.5s ease';
+        banner.innerHTML = '<div style="font-size:2rem;margin-bottom:6px">⚡</div><h3 style="font-size:1.1rem;margin-bottom:4px">快速弱點診斷模式</h3><p style="font-size:0.85rem;opacity:0.9">5 題快速檢測你的強弱項，立即獲得弱點分析報告。</p>';
+        document.getElementById('home-quiz-content').insertBefore(banner, document.getElementById('home-quiz-content').firstChild);
+        // Auto-start with mixed subjects
+        setTimeout(() => startQuiz('all', '⚡ 快速弱點診斷'), 600);
+      }
+    } catch(e) { /* ignore */ }
   } catch (e) {
     document.getElementById('select-phase').innerHTML =
       '<div class="loading"><div class="spinner"></div><p>載入題庫中，請稍候...</p></div>';
@@ -704,7 +728,8 @@ function startQuiz(subjectId, subjectName) {
     : allQuestions.filter(q => q.subject_id === subjectId);
 
   shuffle(pool);
-  sessionQuestions = pool.slice(0, Q_PER_SESSION);
+  const qCount = isQuickDiagnosis ? 5 : Q_PER_SESSION;
+  sessionQuestions = pool.slice(0, qCount);
 
   document.getElementById('select-phase').classList.add('hidden');
   document.getElementById('quiz-phase').classList.remove('hidden');
@@ -779,11 +804,21 @@ function onAnswer(selected, question) {
   if (isCorrect) {
     fb.className = 'feedback show correct-fb';
     fbTitle.textContent = '✅ 答對了！';
-    fbText.textContent = `正確答案就是 ${correct}。`;
+    let extra = '';
+    if (clusterInfo) {
+      extra = ` 此題屬於「${clusterInfo.concept}」高頻概念（歷年考 ${clusterInfo.repeat_count} 次），掌握度良好！`;
+    }
+    fbText.textContent = `正確答案就是 ${correct}。${extra}`;
   } else {
     fb.className = 'feedback show wrong-fb';
     fbTitle.textContent = `❌ 答錯了`;
-    fbText.textContent = `你選了 ${selected}，正確答案是 ${correct}。`;
+    let extra = '';
+    if (clusterInfo) {
+      extra = ` 此題屬於「${clusterInfo.concept}」— 建議點擊下方「強化練習」按鈕，用同概念題目反覆練習。`;
+    } else {
+      extra = ' 建議將此題記錄下來，回頭複習相關章節。';
+    }
+    fbText.textContent = `你選了 ${selected}，正確答案是 ${correct}。${extra}`;
   }
 
   // Cluster hint
@@ -1061,6 +1096,18 @@ function showResults() {
     document.getElementById('result-phase').classList.add('hidden');
     document.getElementById('select-phase').classList.remove('hidden');
   };
+
+  // Diagnosis mode: add CTA to full quiz
+  if (isQuickDiagnosis) {
+    isQuickDiagnosis = false;
+    const shareSection = document.getElementById('share-section');
+    if (shareSection) {
+      const cta = document.createElement('div');
+      cta.style.cssText = 'margin-top:12px';
+      cta.innerHTML = '<a href="quiz.html" class="btn btn-primary" style="text-decoration:none;display:inline-block;padding:12px 28px;font-size:1rem">🎯 開始完整 10 題測驗 →</a><p class="text-muted" style="margin-top:6px">完整版包含概念強化 drill 與錯題本功能</p>';
+      shareSection.appendChild(cta);
+    }
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -1260,6 +1307,69 @@ function startWrongBookClusterDrill(concept) {
     `概念：「${concept}」— 從錯題本啟動強化練習`;
 
   showDrillQuestion();
+}
+
+/* ── Share Result ── */
+function shareResult() {
+  const pct = Math.round((score / sessionQuestions.length) * 100);
+  const wrong = answerLog.filter(a => !a.isCorrect).length;
+  const subjectLabel = currentSubject.name;
+
+  // Build weakness summary
+  const wrongWithCluster = answerLog.filter(a => !a.isCorrect && a.clusterInfo);
+  const clusterCounts = {};
+  wrongWithCluster.forEach(a => {
+    const key = a.clusterInfo.cluster_id;
+    if (!clusterCounts[key]) {
+      clusterCounts[key] = { concept: a.clusterInfo.concept, count: 0 };
+    }
+    clusterCounts[key].count++;
+  });
+  const weakPoints = Object.values(clusterCounts)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 3)
+    .map(c => `  • ${c.concept}（錯 ${c.count} 題）`)
+    .join('\n');
+
+  const text = `📝 護理國考助手 — 測驗報告
+━━━━━━━━━━━━━━━━
+🎯 科目：${subjectLabel}
+📊 成績：${score}/${sessionQuestions.length}（${pct}%）
+❌ 錯題：${wrong} 題
+━━━━━━━━━━━━━━━━
+🔍 弱點 Top ${Math.min(3, Object.keys(clusterCounts).length)}：
+${weakPoints || '  暫無明顯弱點 🎉'}
+━━━━━━━━━━━━━━━━
+🚀 立即免費練習 → https://anycalculator.site/nursing/quiz.html
+`;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('share-result-btn');
+      const orig = btn.textContent;
+      btn.textContent = '✅ 已複製！';
+      setTimeout(() => { btn.textContent = orig; }, 2000);
+    }).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    const btn = document.getElementById('share-result-btn');
+    const orig = btn.textContent;
+    btn.textContent = '✅ 已複製！';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  } catch(e) { alert('複製失敗，請手動選取文字'); }
+  document.body.removeChild(ta);
 }
 
 /* ── Shuffle (Fisher-Yates) ── */

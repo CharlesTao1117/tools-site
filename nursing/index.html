@@ -2,158 +2,517 @@
 <html lang="zh-Hant-TW">
 <head>
 <script src="analytics.js"></script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>護理師國考免費刷題與臨床計算工具 | 護理國考助手</title>
+  <title>護理師國考線上測驗 | 3,384 題考古題 · 概念強化 Drill · 弱點分析</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <meta name="description" content="免費護理師國考考古題刷題系統，3,384 題涵蓋五科。概念強化 drill、弱點分析、錯題本。12 種臨床計算機：點滴滴速、藥物稀釋、GCS、APGAR 等，免註冊免付費。">
+  <meta name="description" content="免費護理師國考考古題刷題系統 — 3,384 題歷屆試題、五大考科、概念集群強化練習、弱點分析雷達圖、錯題本自動收錄。免註冊、免安裝、即開即用。">
   <link rel="canonical" href="https://tools-nurse.tw/">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%);
+      color: white;
+      padding: 60px 20px 50px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 70% 30%, rgba(233,69,96,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(233,69,96,0.2);
+      border: 1px solid rgba(233,69,96,0.3);
+      color: #ff8a8a;
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    .hero h1 { font-size: 2.2rem; line-height: 1.3; margin-bottom: 12px; }
+    .hero h1 span { color: #e94560; }
+    .hero p { font-size: 1.05rem; opacity: 0.85; max-width: 550px; margin: 0 auto 24px; line-height: 1.6; }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #e94560;
+    }
+    .hero-stat .label {
+      font-size: 0.78rem;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+    }
+    .hero-btn-primary {
+      background: #e94560;
+      color: white;
+      box-shadow: 0 4px 16px rgba(233,69,96,0.3);
+    }
+    .hero-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(233,69,96,0.4);
+    }
+    .hero-btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(4px);
+    }
+    .hero-btn-secondary:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
 
+    /* ── Feature Cards ── */
+    .features {
+      padding: 50px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .features h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #0f3460;
+      margin-bottom: 36px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 640px) { .feature-grid { grid-template-columns: 1fr; } }
+    .feature-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      border: 1px solid #e8ecf4;
+      transition: all 0.25s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+      border-color: #0f3460;
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: #f0f4ff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+    }
+    .feature-card h3 { font-size: 1.05rem; color: #0f3460; margin-bottom: 6px; }
+    .feature-card p { font-size: 0.85rem; color: #555; line-height: 1.6; }
+
+    /* ── How it works ── */
+    .how-section {
+      background: #f8faff;
+      padding: 50px 20px;
+    }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .how-inner h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #0f3460;
+      margin-bottom: 36px;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 640px) { .steps { grid-template-columns: 1fr; } }
+    .step {
+      text-align: center;
+      padding: 28px 20px;
+    }
+    .step-num {
+      width: 40px;
+      height: 40px;
+      background: #0f3460;
+      color: white;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+    .step h3 { font-size: 1rem; color: #0f3460; margin-bottom: 6px; }
+    .step p { font-size: 0.85rem; color: #555; line-height: 1.6; }
+
+    /* ── Clinical tools grid ── */
+    .tools-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+    .tools-section h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #0f3460;
+      margin-bottom: 28px;
+    }
+    .tool-grid-small {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .tool-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      border: 1px solid #e8ecf4;
+      border-radius: 12px;
+      padding: 14px 18px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .tool-link:hover {
+      border-color: #0f3460;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .tool-link .t-icon { font-size: 1.2rem; }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, #0f3460, #1a1a2e);
+      color: white;
+      text-align: center;
+      padding: 54px 20px;
+    }
+    .cta-section h2 { font-size: 1.5rem; margin-bottom: 8px; }
+    .cta-section p { font-size: 0.95rem; opacity: 0.8; margin-bottom: 24px; }
+    .cta-section .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #e94560;
+      color: white;
+      padding: 14px 36px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(233,69,96,0.3);
+    }
+    .cta-section .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(233,69,96,0.4);
+    }
+
+    /* ── Testimonials ── */
+    .testimonials {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 20px;
+      text-align: center;
+    }
+    .testimonial-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid #e8ecf4;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .testimonial-card .quote {
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+    .testimonial-card .author {
+      font-size: 0.85rem;
+      color: #0f3460;
+      font-weight: 600;
+    }
+    .testimonial-card .author span { color: #999; font-weight: 400; }
+
+    /* ── FAQ ── */
+    .faq-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+    .faq-section h2 {
+      text-align: center;
+      font-size: 1.4rem;
+      color: #0f3460;
+      margin-bottom: 28px;
+    }
+    .faq-item {
+      border-bottom: 1px solid #e8ecf4;
+      padding: 16px 0;
+    }
+    .faq-q {
+      font-weight: 600;
+      color: #0f3460;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+    .faq-q .arrow { transition: transform 0.2s; font-size: 0.8rem; }
+    .faq-q.open .arrow { transform: rotate(180deg); }
+    .faq-a {
+      margin-top: 10px;
+      font-size: 0.88rem;
+      color: #555;
+      display: none;
+      line-height: 1.7;
+    }
+    .faq-a.open { display: block; }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.6rem; }
+      .hero-stats { gap: 16px; }
+      .hero-stat .num { font-size: 1.3rem; }
+    }
+  </style>
     <!-- Open Graph -->
-    <meta property="og:title" content="護理師國考免費刷題與臨床計算工具 | 護理國考助手">
-    <meta property="og:description" content="免費護理師國考考古題刷題系統，3,384 題涵蓋五科。概念強化 drill、弱點分析、錯題本。12 種臨床計算機，免註冊免付費。">
+    <meta property="og:title" content="護理師國考線上測驗 | 3,384 題考古題 · 概念 Drill · 弱點分析">
+    <meta property="og:description" content="免費護理師國考考古題刷題系統 — 3,384 題、五大考科、概念集群強化練習、弱點分析、錯題本。免註冊即開即用。">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="護理國考助手">
 </head>
 <body>
 
-<header>
-  <h1>💊 護理國考助手 — 刷題 × 計算 × 分析</h1>
-  <p>3,384 題考古題 · 12 種臨床計算機 · 概念強化 drill · 弱點分析 · 錯題本 · 免註冊免費</p>
-  <div class="badge">⚕️ 點滴 · 稀釋 · GCS · APGAR · 燒傷面積 · 安全劑量 · 考題分析</div>
-</header>
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-badge">🩺 免註冊 · 免安裝 · 完全免費</div>
+  <h1>護理師國考，<span>不用死背也能過</span></h1>
+  <p>3,384 題歷屆考古題 + AI 概念集群 drill + 弱點分析雷達圖。<br>每次答錯，系統自動幫你找到同概念題目強化練習。</p>
 
-<div class="container">
-
-  <div class="tool-grid">
-    <a href="drip-rate.html" class="tool-card">
-      <div class="tool-icon">💧</div>
-      <h2>點滴滴速計算</h2>
-      <p>計算 IV 輸液每分鐘滴速 (gtt/min)，支援微滴與一般輸液套。</p>
-      <span class="tag-keyword">關鍵字：點滴滴速計算</span>
-    </a>
-
-    <a href="dilution.html" class="tool-card">
-      <div class="tool-icon">🧪</div>
-      <h2>藥物稀釋計算</h2>
-      <p>計算需取原液與稀釋液體積，適用抗生素稀釋給藥準備。</p>
-      <span class="tag-keyword">關鍵字：藥物稀釋計算</span>
-    </a>
-
-    <a href="unit-converter.html" class="tool-card">
-      <div class="tool-icon">🔄</div>
-      <h2>藥物單位換算</h2>
-      <p>g ↔ mg ↔ mcg ↔ L ↔ mL 自動換算，確保給藥劑量正確。</p>
-      <span class="tag-keyword">關鍵字：藥物劑量換算</span>
-    </a>
-
-    <a href="safe-dosage.html" class="tool-card">
-      <div class="tool-icon">🛡️</div>
-      <h2>安全劑量範圍計算</h2>
-      <p>根據體重與建議劑量，計算安全給藥區間。</p>
-      <span class="tag-keyword">關鍵字：藥物安全劑量</span>
-    </a>
-
-    <a href="gcs.html" class="tool-card">
-      <div class="tool-icon">🧠</div>
-      <h2>GCS 昏迷指數</h2>
-      <p>格拉斯哥昏迷指數評估：睜眼、語言、運動反應。</p>
-      <span class="tag-keyword">關鍵字：GCS 昏迷指數</span>
-    </a>
-
-    <a href="apgar.html" class="tool-card">
-      <div class="tool-icon">👶</div>
-      <h2>APGAR 新生兒評分</h2>
-      <p>外觀、脈搏、表情、活動、呼吸五項評估。</p>
-      <span class="tag-keyword">關鍵字：APGAR 新生兒評分</span>
-    </a>
-
-    <a href="burn-area.html" class="tool-card">
-      <div class="tool-icon">🔥</div>
-      <h2>燒傷面積 Rule of 9</h2>
-      <p>九法則體表面積評估，成人與兒童差異自動計算。</p>
-      <span class="tag-keyword">關鍵字：燒傷面積計算</span>
-    </a>
-
-    <a href="bsa.html" class="tool-card">
-      <div class="tool-icon">📐</div>
-      <h2>體表面積 BSA</h2>
-      <p>Mosteller 公式體表面積計算，化療劑量與燒傷評估。</p>
-      <span class="tag-keyword">關鍵字：體表面積 BSA</span>
-    </a>
-
-    <a href="crcl.html" class="tool-card">
-      <div class="tool-icon">🫘</div>
-      <h2>肌酸酐清除率 CrCl</h2>
-      <p>Cockcroft-Gault 公式，腎功能評估與藥物劑量調整。</p>
-      <span class="tag-keyword">關鍵字：肌酸酐清除率 CrCl</span>
-    </a>
-
-    <a href="due-date.html" class="tool-card">
-      <div class="tool-icon">📅</div>
-      <h2>預產期計算</h2>
-      <p>Naegele 規則推算預產期，最後月經日 LMP 計算。</p>
-      <span class="tag-keyword">關鍵字：預產期計算</span>
-    </a>
-
-    <a href="pediatric-fluid.html" class="tool-card">
-      <div class="tool-icon">🍼</div>
-      <h2>兒童輸液 4-2-1</h2>
-      <p>4-2-1 規則計算兒童維持輸液量，兒科護理必考。</p>
-      <span class="tag-keyword">關鍵字：兒童輸液 4-2-1</span>
-    </a>
-
-    <a href="high-yield.html" class="tool-card" style="border-color:#f59e0b;">
-      <div class="tool-icon">📋</div>
-      <h2>高重複率考題分析</h2>
-      <p>近 4 年護理師國考高頻主題對照，鎖定最常出題方向。</p>
-      <span class="tag-keyword">關鍵字：護理師國考高頻考題</span>
-    </a>
-
-    <a href="quiz.html" class="tool-card" style="border-color:#e94560; background:linear-gradient(135deg,#fff5f5,#fff);">
-      <div class="tool-icon">📝</div>
-      <h2>🆕 國考考古題線上測驗</h2>
-      <p>內含 3,384 題歷屆選擇題，五大考科可選，答完立刻看對錯與弱點分析。答錯時可立即進行同概念強化練習，錯題自動收錄。挑選一個科目開始吧。</p>
-      <span class="tag-keyword">關鍵字：護理師國考考古題練習</span>
-    </a>
-
-  </div>
-
-  <div class="content-section">
-    <h2>📖 護理藥物計算指南</h2>
-    <p>藥物計算是護理臨床的基本功，也是各類護理考試的高頻考點。以下是四種最常見的計算類型：</p>
-    <ul>
-      <li><strong>點滴滴速計算：</strong>公式 (總量 × 滴數係數) ÷ 時間(分鐘)。一般輸液套 15-20 gtt/mL，微滴 60 gtt/mL。</li>
-      <li><strong>藥物稀釋計算：</strong>C₁V₁ = C₂V₂。稀釋前後藥物總量不變。</li>
-      <li><strong>單位換算：</strong>1 g = 1000 mg = 1,000,000 mcg。換算錯誤是給藥失誤的主因。</li>
-      <li><strong>安全劑量範圍：</strong>依體重計算，兒科尤其重要。</li>
-    </ul>
-  </div>
-
-  <div class="content-section">
-    <h2>❓ 常見問題</h2>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq('faq1')">點滴滴速 gtt/min 怎麼算？ <span>▼</span></div>
-      <div class="faq-a" id="faq1">公式為 (輸液總量 mL × 滴數係數 gtt/mL) ÷ 時間(分鐘)。例如 500 mL 溶液用 15 gtt/mL 輸液套在 8 小時內滴完：(500 × 15) ÷ (8 × 60) = 15.6 gtt/min。</div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="num">3,384</div>
+      <div class="label">考古題收錄</div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq('faq2')">gtt 是什麼意思？ <span>▼</span></div>
-      <div class="faq-a" id="faq2">gtt 是拉丁文 guttae（滴）的縮寫。gtt/min 即每分鐘滴數，是臨床調整輸液速度的常用單位。</div>
+    <div class="hero-stat">
+      <div class="num">22</div>
+      <div class="label">高頻概念集群</div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq('faq3')">微滴和一般輸液套差在哪？ <span>▼</span></div>
-      <div class="faq-a" id="faq3">微滴 (microdrip) 為 60 gtt/mL，液滴較小，適合精密輸液（兒科、ICU）。一般輸液套 (macrodrip) 為 15-20 gtt/mL，用於常規輸液。</div>
+    <div class="hero-stat">
+      <div class="num">5</div>
+      <div class="label">考科全覆蓋</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">0</div>
+      <div class="label">註冊門檻</div>
     </div>
   </div>
 
-</div>
+  <div class="hero-actions">
+    <a href="quiz.html" class="hero-btn hero-btn-primary">
+      🎯 開始免費測驗
+    </a>
+    <a href="quiz.html#diagnosis" class="hero-btn hero-btn-secondary" onclick="event.preventDefault();sessionStorage.setItem('quickDiag','true');location='quiz.html'">
+      ⚡ 5 題快速弱點診斷
+    </a>
+  </div>
+</section>
+
+<!-- ═══════ FEATURES ═══════ -->
+<section class="features">
+  <h2>為什麼考生選擇這套系統？</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🔁</div>
+      <h3>概念集群 Drill</h3>
+      <p>答錯時不再只是看解答——系統自動從同高頻概念挑題，進行 mini quiz 強化練習，直到你真正掌握。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>弱點分析雷達圖</h3>
+      <p>不只告訴你對幾題——每回合結束自動分析 22 個高頻概念的答錯率，一眼看出你的知識斷層在哪。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📚</div>
+      <h3>智慧錯題本</h3>
+      <p>所有答錯題目自動收錄，跨 session 持久化。可直接從錯題本啟動同概念 drill，反复強化直到記住。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>零摩擦體驗</h3>
+      <p>無需註冊、無需下載、無需安裝。打開瀏覽器選個科目，就能開始刷題。適合零碎時間高效複習。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ HOW IT WORKS ═══════ -->
+<section class="how-section">
+  <div class="how-inner">
+    <h2>3 步搞定你的國考備考</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>選擇科目</h3>
+        <p>基礎醫學、基本護理、內外科、產兒科、精神社區 — 或混合全部科目隨機挑戰。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>作答測驗</h3>
+        <p>每回 10 題即時批改，答錯立即顯示所屬高頻概念，可一鍵啟動同概念強化 drill。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>分析弱點</h3>
+        <p>結果頁自動生成弱點分析雷達圖，錯題自動收錄到錯題本，隨時回頭重練。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CLINICAL TOOLS ═══════ -->
+<section class="tools-section">
+  <h2>🛠️ 護理臨床計算工具</h2>
+  <p style="text-align:center;font-size:0.9rem;color:#666;margin-bottom:20px">除了刷題，還有 12 個臨床必備計算機，免費使用</p>
+  <div class="tool-grid-small">
+    <a href="../drip-rate-calculator/" class="tool-link"><span class="t-icon">💧</span> 點滴滴速計算</a>
+    <a href="../dilution-calculator/" class="tool-link"><span class="t-icon">🧪</span> 藥物稀釋計算</a>
+    <a href="../unit-converter/" class="tool-link"><span class="t-icon">📏</span> 單位換算</a>
+    <a href="../safe-dose-calculator/" class="tool-link"><span class="t-icon">💊</span> 安全劑量計算</a>
+    <a href="../gcs-calculator/" class="tool-link"><span class="t-icon">🧠</span> GCS 昏迷指數</a>
+    <a href="../apgar-calculator/" class="tool-link"><span class="t-icon">👶</span> APGAR 評分</a>
+    <a href="../burn-calculator/" class="tool-link"><span class="t-icon">🔥</span> 燒傷面積計算</a>
+    <a href="../bsa-calculator/" class="tool-link"><span class="t-icon">📐</span> 體表面積 BSA</a>
+    <a href="../crcl-calculator/" class="tool-link"><span class="t-icon">🩸</span> 腎功能 CrCl</a>
+    <a href="../edd-calculator/" class="tool-link"><span class="t-icon">📅</span> 預產期推算</a>
+    <a href="../pediatric-fluid-calculator/" class="tool-link"><span class="t-icon">🍼</span> 小兒輸液計算</a>
+    <a href="../high-frequency-analyzer/" class="tool-link"><span class="t-icon">📈</span> 高頻考點分析</a>
+  </div>
+</section>
+
+<!-- ═══════ CTA ═══════ -->
+<section class="cta-section">
+  <h2>準備好開始了嗎？</h2>
+  <p>不用註冊、不用下載、不用猶豫。3,384 題等你了。</p>
+  <a href="quiz.html" class="cta-btn">🎯 開始免費測驗</a>
+</section>
+
+<!-- ═══════ TESTIMONIAL ═══════ -->
+<section class="testimonials">
+  <div class="testimonial-card">
+    <div class="quote">
+      「這套系統的『概念集群 drill』救了我——以前總是同一個概念一錯再錯，
+      現在答錯後直接推同概念題目出來，練到會為止。</div>
+    <div class="author">— 周同學 <span>· 護理系大四 · 112 年護理師及格</span></div>
+  </div>
+</section>
+
+<!-- ═══════ FAQ ═══════ -->
+<section class="faq-section">
+  <h2>常見問題</h2>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>這完全免費嗎？有隱藏收費嗎？</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">是的，目前所有功能和題目完全免費。未來如果推出進階功能（如個人讀書計畫、模擬考），會另外公告並保留免費基礎功能。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>需要註冊或下載 APP 嗎？</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">完全不用。打開瀏覽器就能用，手機、平板、電腦都支援。錯題記錄存在您的瀏覽器中（localStorage），關掉再開也不會消失。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>題目來源是哪裡？準確嗎？</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">所有題目來自考選部公布的歷屆護理師國考考古題（111~115 年），包含基礎醫學(430)、基本護理(460)、內外科(460)、產兒科(460)、精神社區(461)。答案已經過校驗。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>什麼是「概念集群 drill」？跟普通刷題有什麼不同？</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">一般刷題 App 只告訴你對錯，但我們的系統會分析每題所屬的 22 個高頻概念群。答錯時不僅顯示所屬概念，還會自動從同概念群中挑出不同題目讓你強化練習——這才是真正能補弱點的學習方式。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>之後會加入其他考試嗎？</span>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">目前以護理師國考為核心，未來考慮擴展至其他醫事人員國考。如果你有建議的考種，歡迎回饋。</div>
+  </div>
+</section>
 
 <footer>
-  <p>© 2026 護理國考助手 | 3,384 題考古題 · 概念強化 drill · 弱點分析 · 錯題本 · 12 種臨床計算工具 | 僅供學習參考，臨床決策請依專業判斷</p>
+  <p>© 2026 護理國考助手 | 3,384 題考古題 · 概念強化 drill · 弱點分析 · 錯題本 · 12 種臨床計算工具</p>
+  <p style="margin-top:6px;font-size:0.75rem;opacity:0.6">僅供學習參考，臨床決策請依專業判斷</p>
 </footer>
 
-<script src="script.js"></script>
+<script>
+function toggleFaq(el) {
+  el.classList.toggle('open');
+  const answer = el.nextElementSibling;
+  answer.classList.toggle('open');
+}
+
+// GA4 event
+if (typeof gtag !== 'undefined') {
+  gtag('event', 'page_view', { page_title: '護理國考助手首頁', page_location: window.location.href });
+}
+</script>
 </body>
 </html>
