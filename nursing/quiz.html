@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>護理師國考模擬測驗 | 護理國考助手</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="description" content="3,384 題護理師國考考古題，科目分類測驗，即時正誤回饋，概念集群強化練習，弱點分析，錯題本。涵蓋基礎醫學、基本護理、內外科、產兒科、精神社區。">
   <link rel="canonical" href="https://tools-nurse.tw/quiz.html">
   <link rel="stylesheet" href="style.css">
@@ -588,7 +588,6 @@
 const Q_PER_SESSION = 10;
 const DRILL_MAX = 5;
 let isQuickDiagnosis = false;   // 5-question quick diagnosis mode
-let isDiagnosisDone = false;    // track if returning from drill mid-diagnosis
 
 /* ── State ── */
 let allQuestions = [];
@@ -607,6 +606,7 @@ let drillClusterConcept = '';
 let drillQuestions = [];
 let drillIndex = 0;
 let drillCorrect = 0;
+let drillFromQuiz = false;    // track if drill was started from mid-quiz
 
 /* Wrong book */
 let wrongBook = [];
@@ -796,6 +796,12 @@ function onAnswer(selected, question) {
   document.getElementById('progress-fill').style.width =
     `${((currentIndex + 1) / sessionQuestions.length) * 100}%`;
 
+  // Cluster info lookup (moved before feedback to avoid TDZ)
+  const clusterEl = document.getElementById('cluster-hint');
+  clusterEl.classList.remove('show');
+  const qid = `${question.session_code}_${question.number}`;
+  const clusterInfo = clusterMap[qid];
+
   // Feedback
   const fb = document.getElementById('feedback-area');
   const fbTitle = document.getElementById('fb-title');
@@ -811,7 +817,7 @@ function onAnswer(selected, question) {
     fbText.textContent = `正確答案就是 ${correct}。${extra}`;
   } else {
     fb.className = 'feedback show wrong-fb';
-    fbTitle.textContent = `❌ 答錯了`;
+    fbTitle.textContent = '❌ 答錯了';
     let extra = '';
     if (clusterInfo) {
       extra = ` 此題屬於「${clusterInfo.concept}」— 建議點擊下方「強化練習」按鈕，用同概念題目反覆練習。`;
@@ -821,11 +827,7 @@ function onAnswer(selected, question) {
     fbText.textContent = `你選了 ${selected}，正確答案是 ${correct}。${extra}`;
   }
 
-  // Cluster hint
-  const clusterEl = document.getElementById('cluster-hint');
-  clusterEl.classList.remove('show');
-  const qid = `${question.session_code}_${question.number}`;
-  const clusterInfo = clusterMap[qid];
+  // Cluster hint display
   if (clusterInfo) {
     clusterEl.innerHTML = `
       <span class="ch-tag">高頻 🔥</span>
@@ -935,6 +937,7 @@ function startClusterDrill(clusterInfo, excludeQid) {
   // Show drill phase
   document.getElementById('quiz-phase').classList.add('hidden');
   document.getElementById('drill-phase').classList.remove('hidden');
+  drillFromQuiz = true;  // came from mid-quiz
 
   document.getElementById('drill-banner-text').textContent =
     `概念：「${drillClusterConcept}」— 共 ${drillQuestions.length} 題強化練習`;
@@ -1015,11 +1018,10 @@ document.getElementById('drill-next-btn').addEventListener('click', () => {
 });
 
 document.getElementById('drill-finish-btn').addEventListener('click', () => {
-  // Return to quiz (if still active) or results
+  // Return to quiz (if came from mid-quiz) or show results
   document.getElementById('drill-phase').classList.add('hidden');
-  if (document.getElementById('result-phase').classList.contains('hidden') &&
-      !document.getElementById('quiz-phase').classList.contains('hidden')) {
-    // We were mid-quiz, go back to quiz
+  if (drillFromQuiz) {
+    drillFromQuiz = false;
     document.getElementById('quiz-phase').classList.remove('hidden');
   } else {
     showResults();
@@ -1234,7 +1236,7 @@ function renderWrongBook() {
   if (clusters.size > 0) {
     clusterDrillHtml = '<p class="text-muted mb-8">💡 點擊下方概念可進行強化練習（從題庫隨機抽題）</p><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">';
     clusters.forEach(c => {
-      clusterDrillHtml += `<button class="btn-drill btn-drill-sm" onclick="startWrongBookClusterDrill('${c.replace(/'/g, "\\'")}')">📌 ${c}</button>`;
+      clusterDrillHtml += `<button class="btn-drill btn-drill-sm" data-concept="${c.replace(/'/g, '&#39;').replace(/"/g, '&quot;')}" onclick="startWrongBookClusterDrill(this.dataset.concept)">📌 ${c}</button>`;
     });
     clusterDrillHtml += '</div>';
   }
@@ -1340,7 +1342,7 @@ function shareResult() {
 🔍 弱點 Top ${Math.min(3, Object.keys(clusterCounts).length)}：
 ${weakPoints || '  暫無明顯弱點 🎉'}
 ━━━━━━━━━━━━━━━━
-🚀 立即免費練習 → https://anycalculator.site/nursing/quiz.html
+🚀 立即免費練習 → https://tools-nurse.tw/quiz.html
 `;
 
   if (navigator.clipboard && navigator.clipboard.writeText) {

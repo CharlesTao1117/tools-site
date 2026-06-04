@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>護理師國考線上測驗 | 3,384 題考古題 · 概念強化 Drill · 弱點分析</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="description" content="免費護理師國考考古題刷題系統 — 3,384 題歷屆試題、五大考科、概念集群強化練習、弱點分析雷達圖、錯題本自動收錄。免註冊、免安裝、即開即用。">
   <link rel="canonical" href="https://tools-nurse.tw/">
   <link rel="stylesheet" href="style.css">
@@ -503,6 +503,9 @@
     (function(){
       var t = document.getElementById('ai-insights-track');
       if(t){
+        t.parentNode.style.display = 'flex';
+        t.parentNode.style.overflow = 'hidden';
+        t.parentNode.style.width = '100%';
         var c = t.cloneNode(true);
         t.parentNode.appendChild(c);
         t.style.animation = 'scrollAI 35s linear infinite';
