@@ -228,11 +228,37 @@ document.getElementById('unitToggle').addEventListener('click', function(e) {
   document.getElementById('heightImperialWrap').style.display = isMetric ? 'none' : '';
   document.getElementById('weightUnit').textContent = isMetric ? 'kg' : 'lbs';
   document.getElementById('weightInput').placeholder = isMetric ? 'e.g. 65' : 'e.g. 143';
-  // Clear values on unit switch
-  document.getElementById('heightCm').value = '';
-  document.getElementById('heightFt').value = '';
-  document.getElementById('heightIn').value = '';
-  document.getElementById('weightInput').value = '';
+  // Convert values instead of clearing
+  var hCm = parseFloat(document.getElementById('heightCm').value);
+  var wKg = parseFloat(document.getElementById('weightInput').value);
+  if (isMetric) {
+    // Imperial → Metric: convert if there are values
+    var hFt = parseFloat(document.getElementById('heightFt').value) || 0;
+    var hIn = parseFloat(document.getElementById('heightIn').value) || 0;
+    var wLbs = parseFloat(document.getElementById('weightInput').value);
+    if (hFt > 0 || hIn > 0) {
+      var totalIn = hFt * 12 + hIn;
+      document.getElementById('heightCm').value = Math.round(totalIn * 2.54);
+    }
+    if (!isNaN(wLbs) && wLbs > 0) {
+      document.getElementById('weightInput').value = Math.round((wLbs * 0.453592) * 10) / 10;
+    }
+    document.getElementById('heightFt').value = '';
+    document.getElementById('heightIn').value = '';
+  } else {
+    // Metric → Imperial: convert
+    if (!isNaN(hCm) && hCm > 0) {
+      var totalInches = hCm / 2.54;
+      var newFt = Math.floor(totalInches / 12);
+      var newIn = Math.round(totalInches % 12);
+      document.getElementById('heightFt').value = newFt;
+      document.getElementById('heightIn').value = newIn;
+    }
+    if (!isNaN(wKg) && wKg > 0) {
+      document.getElementById('weightInput').value = Math.round((wKg / 0.453592) * 10) / 10;
+    }
+    document.getElementById('heightCm').value = '';
+  }
   updateBMI();
 });
 
