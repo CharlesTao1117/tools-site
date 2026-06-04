@@ -13,65 +13,55 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
      crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Percentage Calculator — Free Online Percent &amp; Discount Tool</title>
-<meta name="description" content="Calculate percentages, tips, discounts, and grade scores instantly. Free online percentage calculator with multiple modes — percent of a number, change, and more.">
+<title>Percentage & Discount Calculator — Free Online Tool</title>
+<meta name="description" content="Calculate tip, discount, tax, and percentage value instantly. Enter percentage and amount to see all results at once — free online calculator.">
 <link rel="canonical" href="https://anycalculator.site/percentage-calculator/">
-<meta property="og:title" content="Percentage Calculator — Free Online Percent &amp; Discount Tool">
-<meta property="og:description" content="Calculate percentages, tips, discounts, and grade scores instantly. Free online percentage calculator with multiple modes — percent of a number, change, and more.">
+<meta property="og:title" content="Percentage & Discount Calculator — Free Online Tool">
+<meta property="og:description" content="Calculate tip, discount, tax, and percentage value instantly. Enter percentage and amount to see all results at once.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://anycalculator.site/percentage-calculator/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/common/premium.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Percentage Calculator","applicationCategory":"UtilityApplication"}</script>
 <style>
 body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e5}
 
-/* Mode tabs */
-.mode-tabs{display:flex;gap:4px;margin-bottom:var(--space-5);background:var(--bg-subtle);border-radius:var(--radius-full);padding:4px}
-.mode-tab{flex:1;text-align:center;padding:10px 16px;border-radius:var(--radius-full);font-size:.88rem;font-weight:500;cursor:pointer;transition:all var(--duration-fast) var(--ease-out);color:var(--text-secondary);border:none;background:transparent;font-family:var(--font-sans)}
-.mode-tab.active{background:var(--bg);color:var(--accent-text);box-shadow:var(--shadow-sm);font-weight:600}
+/* ── Two-input row ── */
+.inputs-row{display:flex;gap:var(--space-4);align-items:flex-end;margin-bottom:var(--space-5)}
+.inputs-row .form-group{flex:1;min-width:0}
+.inputs-row .form-group label{font-size:.7rem;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:block}
+.inputs-row .input-wrap input{font-size:1.35rem;font-weight:700;padding:14px 16px;text-align:center;height:56px}
+.inputs-row .input-wrap input::placeholder{font-weight:400;color:var(--text-placeholder)}
+@media(max-width:480px){.inputs-row{flex-direction:row;gap:var(--space-3)}}
+@media(max-width:380px){.inputs-row .input-wrap input{font-size:1.1rem;padding:12px 10px;height:48px}}
 
-/* Sub-calc selector */
-.sub-calc-tabs{display:flex;gap:4px;margin-bottom:var(--space-4);flex-wrap:wrap}
-.sub-calc-tab{flex:1;min-width:120px;text-align:center;padding:8px 12px;border-radius:var(--radius-sm);font-size:.78rem;font-weight:500;cursor:pointer;transition:all var(--duration-fast) var(--ease-out);color:var(--text-secondary);border:1px solid var(--border);background:var(--bg);font-family:var(--font-sans)}
-.sub-calc-tab.active{background:var(--accent-subtle);border-color:var(--accent);color:var(--accent-text);font-weight:600}
+/* ── Result cards grid ── */
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)}
+@media(max-width:480px){.results-grid{grid-template-columns:1fr;gap:var(--space-3)}}
 
-/* Input row */
-.input-row{display:flex;gap:var(--space-3);align-items:flex-end;flex-wrap:wrap}
-.input-row .form-group{flex:1;min-width:140px}
-.input-inline-label{font-size:.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:4px;display:flex;align-items:center;gap:4px}
-.formula-hint{font-size:.7rem;color:var(--text-tertiary);font-weight:400;margin-left:2px}
-
-/* Result box */
-.result-box{background:var(--bg-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);margin-top:var(--space-4);text-align:center;transition:all var(--duration-normal) var(--ease-out)}
-.result-box.has-value{border-color:var(--accent);background:var(--accent-subtle);box-shadow:var(--shadow-glow)}
-.result-label{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-tertiary);margin-bottom:4px}
-.result-value{font-size:2.5rem;font-weight:800;letter-spacing:-0.04em;color:var(--text-primary);line-height:1.1}
-.result-value .small{font-size:.85rem;font-weight:600;color:var(--text-secondary);display:block;margin-top:2px}
-.result-value.highlight{color:var(--accent-text)}
-.result-breakdown{display:flex;gap:var(--space-3);margin-top:var(--space-3);flex-wrap:wrap;justify-content:center}
-.breakdown-item{text-align:center;min-width:100px}
-.breakdown-label{font-size:.68rem;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
-.breakdown-value{font-size:1.15rem;font-weight:700;color:var(--text-primary)}
-
-/* Placeholder / prompt */
-.result-placeholder{color:var(--text-tertiary);font-size:.88rem;padding:var(--space-3) 0}
-
-/* Discount card highlight */
-.discount-highlight{background:linear-gradient(135deg,var(--accent-subtle),rgba(99,102,241,0.05));border:1px solid var(--accent);border-radius:var(--radius-lg);padding:var(--space-4);margin-top:var(--space-3);text-align:center}
-.discount-highlight .final-price{font-size:2.8rem;font-weight:800;letter-spacing:-0.04em;color:var(--accent-text);line-height:1.1}
-.discount-highlight .savings-text{font-size:.82rem;color:var(--text-secondary);margin-top:4px}
-
-/* Responsive */
-@media(max-width:480px){
-  .result-value{font-size:2rem}
-  .discount-highlight .final-price{font-size:2.2rem}
-  .input-row{flex-direction:column}
+.result-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-4);text-align:center;transition:all .15s var(--ease-out)}
+.result-card.has-value{border-color:var(--accent);background:var(--accent-subtle)}
+.result-card .r-icon{font-size:1.1rem;margin-bottom:2px}
+.result-card .r-label{font-size:.65rem;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.result-card .r-value{font-size:1.65rem;font-weight:800;letter-spacing:-0.03em;color:var(--text-primary);line-height:1.1}
+.result-card .r-value.accent{color:var(--accent-text)}
+.result-card .r-value.green{color:#22c55e}
+.result-card .r-note{font-size:.62rem;color:var(--text-tertiary);margin-top:3px;line-height:1.3}
+@media(max-width:380px){
+  .result-card{padding:var(--space-3)}
+  .result-card .r-value{font-size:1.35rem}
 }
+
+/* ── Card 1 highlight (main answer) ── */
+.result-card.primary{background:var(--accent-subtle);border-color:var(--accent);box-shadow:var(--shadow-glow)}
+
+/* ── 💡 badge ── */
+.tip-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--radius-full);background:var(--bg-subtle);font-size:.68rem;color:var(--text-tertiary);margin-top:var(--space-4)}
+.tip-badge span{font-weight:600;color:var(--text-secondary)}
 </style>
 </head>
 <body>
 <div class="page-wrap">
+
 <nav class="top-nav"><div class="container">
   <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
@@ -89,156 +79,96 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 </div></nav>
 
 <div class="page-content">
+
 <div class="hero">
-  <h1>📊 <span class="gradient-text">Percentage Calculator &amp; Discount Calculator</span></h1>
-  <p>Calculate percentages, discounts, and percentage change instantly — free online tool</p>
+  <h1>📊 <span class="gradient-text">Percentage &amp; Discount Calculator</span></h1>
+  <p>Enter a percentage and amount — see tip, discount, tax, and savings all at once</p>
 </div>
 
 <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
 <main class="container">
+
   <div class="card">
-    <!-- ═══ MODE TABS: Percentage | Discount ═══ -->
-    <div class="mode-tabs" id="modeTabs">
-      <button class="mode-tab active" data-mode="percentage">📊 Percentage</button>
-      <button class="mode-tab" data-mode="discount">🏷️ Discount</button>
-    </div>
 
-    <!-- ══════════ MODE 1: PERCENTAGE ══════════ -->
-    <div id="modePercentage">
-      <!-- Sub-calc selector tabs -->
-      <div class="sub-calc-tabs" id="subCalcTabs">
-        <button class="sub-calc-tab active" data-sub="percentOf">What is X% of Y?</button>
-        <button class="sub-calc-tab" data-sub="isWhatPercent">X is what % of Y?</button>
-        <button class="sub-calc-tab" data-sub="percentChange">% change from X to Y</button>
-      </div>
-
-      <!-- Sub-calc 1: What is X% of Y? -->
-      <div id="subPercentOf">
-        <div class="input-row">
-          <div class="form-group">
-            <div class="input-inline-label">Percentage <span class="formula-hint">(%)</span></div>
-            <div class="input-wrap">
-              <input type="number" id="pctOfPct" placeholder="e.g. 15" step="any" inputmode="decimal">
-              <span class="suffix">%</span>
-            </div>
-          </div>
-          <span style="font-size:1.2rem;color:var(--text-tertiary);padding-bottom:8px">of</span>
-          <div class="form-group">
-            <div class="input-inline-label">Number <span class="formula-hint">(Y)</span></div>
-            <div class="input-wrap">
-              <input type="number" id="pctOfNum" placeholder="e.g. 200" step="any" inputmode="decimal">
-            </div>
-          </div>
-        </div>
-        <div class="result-box" id="resultPercentOf">
-          <div class="result-placeholder">Enter values above to see the result</div>
+    <!-- ═══ Step 1: Enter values ═══ -->
+    <div class="inputs-row">
+      <div class="form-group">
+        <label>Percentage <span style="font-weight:400;text-transform:none">(%)</span></label>
+        <div class="input-wrap">
+          <input type="number" id="pctInput" value="15" step="any" inputmode="decimal" placeholder="%">
         </div>
       </div>
-
-      <!-- Sub-calc 2: X is what % of Y? -->
-      <div id="subIsWhatPercent" style="display:none">
-        <div class="input-row">
-          <div class="form-group">
-            <div class="input-inline-label">Part <span class="formula-hint">(X)</span></div>
-            <div class="input-wrap">
-              <input type="number" id="iwpX" placeholder="e.g. 85" step="any" inputmode="decimal">
-            </div>
-          </div>
-          <span style="font-size:1.2rem;color:var(--text-tertiary);padding-bottom:8px">is what % of</span>
-          <div class="form-group">
-            <div class="input-inline-label">Whole <span class="formula-hint">(Y)</span></div>
-            <div class="input-wrap">
-              <input type="number" id="iwpY" placeholder="e.g. 100" step="any" inputmode="decimal">
-            </div>
-          </div>
-        </div>
-        <div class="result-box" id="resultIsWhatPercent">
-          <div class="result-placeholder">Enter values above to see the result</div>
-        </div>
-      </div>
-
-      <!-- Sub-calc 3: % change from X to Y -->
-      <div id="subPercentChange" style="display:none">
-        <div class="input-row">
-          <div class="form-group">
-            <div class="input-inline-label">Original Value <span class="formula-hint">(X)</span></div>
-            <div class="input-wrap">
-              <input type="number" id="pcX" placeholder="e.g. 100" step="any" inputmode="decimal">
-            </div>
-          </div>
-          <span style="font-size:1.2rem;color:var(--text-tertiary);padding-bottom:8px">→</span>
-          <div class="form-group">
-            <div class="input-inline-label">New Value <span class="formula-hint">(Y)</span></div>
-            <div class="input-wrap">
-              <input type="number" id="pcY" placeholder="e.g. 125" step="any" inputmode="decimal">
-            </div>
-          </div>
-        </div>
-        <div class="result-box" id="resultPercentChange">
-          <div class="result-placeholder">Enter values above to see the result</div>
+      <div class="form-group">
+        <label>Amount <span style="font-weight:400;text-transform:none">($)</span></label>
+        <div class="input-wrap">
+          <input type="number" id="amtInput" value="85" step="any" inputmode="decimal" placeholder="$0.00">
         </div>
       </div>
     </div>
 
-    <!-- ══════════ MODE 2: DISCOUNT ══════════ -->
-    <div id="modeDiscount" style="display:none">
-      <div class="input-row">
-        <div class="form-group">
-          <div class="input-inline-label">Original Price</div>
-          <div class="input-wrap">
-            <span class="prefix">$</span>
-            <input type="number" id="discOriginal" placeholder="e.g. 100" step="any" inputmode="decimal">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="input-inline-label">Discount</div>
-          <div class="input-wrap">
-            <input type="number" id="discPercent" placeholder="e.g. 20" step="any" inputmode="decimal">
-            <span class="suffix">% off</span>
-          </div>
-        </div>
+    <!-- ═══ Step 2: See all results ═══ -->
+    <div class="results-grid" id="resultsGrid">
+      <!-- Tip / Percentage Value -->
+      <div class="result-card primary" id="cardTip">
+        <div class="r-icon">💰</div>
+        <div class="r-label">Tip / Percentage Value</div>
+        <div class="r-value accent" id="valTip">$12.75</div>
+        <div class="r-note" id="noteTip">15% of $85.00</div>
       </div>
-
-      <div class="result-box" id="resultDiscount">
-        <div class="result-placeholder">Enter original price and discount percentage to see final price</div>
+      <!-- After Discount -->
+      <div class="result-card" id="cardDiscount">
+        <div class="r-icon">🏷️</div>
+        <div class="r-label">After Discount</div>
+        <div class="r-value" id="valDiscount">$72.25</div>
+        <div class="r-note" id="noteDiscount">Original − Tip</div>
       </div>
-
-      <div class="discount-highlight" id="discountHighlight" style="display:none">
-        <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-tertiary);margin-bottom:4px">You Pay</div>
-        <div class="final-price" id="finalPrice">—</div>
-        <div class="savings-text" id="savingsText"></div>
+      <!-- Including Tax/Tip -->
+      <div class="result-card" id="cardTotal">
+        <div class="r-icon">🧾</div>
+        <div class="r-label">Including Tax / Tip</div>
+        <div class="r-value" id="valTotal">$97.75</div>
+        <div class="r-note" id="noteTotal">Amount + Tip</div>
+      </div>
+      <!-- You Save -->
+      <div class="result-card" id="cardSave">
+        <div class="r-icon">💵</div>
+        <div class="r-label">You Save</div>
+        <div class="r-value green" id="valSave">$12.75</div>
+        <div class="r-note" id="noteSave">Same as Tip Value</div>
       </div>
     </div>
+
+    <!-- 💡 Use-case badges (secondary) -->
+    <div class="tip-badge">💡 <span>Tip:</span> 15% on $85 bill = $12.75 tip, $97.75 total</div>
+
   </div>
 
   <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
 
   <div class="section">
-    <h2>How to Use the Percentage Calculator</h2>
-    <p><strong>Step 1:</strong> Choose a mode — Percentage for general percent calculations, or Discount for shopping savings.</p>
-    <p><strong>Step 2:</strong> For <strong>"What is X% of Y?"</strong>: enter the percentage and the total to find the portion. Example: 15% of $200 = $30.</p>
-    <p><strong>Step 3:</strong> For <strong>"X is what % of Y?"</strong>: enter the part and the whole. Example: 85 out of 100 = 85% — perfect for test scores.</p>
-    <p><strong>Step 4:</strong> For <strong>"Percentage Change"</strong>: enter original and new values to find the increase or decrease. Use this for price changes and investment returns.</p>
-    <p><strong>Step 5:</strong> For the <strong>Discount Calculator</strong>: enter the original price and discount percentage to see your savings and final price instantly.</p>
+    <h2>How to Use</h2>
+    <p><strong>Step 1:</strong> Enter the percentage (e.g. 15 for 15% tip or discount rate).</p>
+    <p><strong>Step 2:</strong> Enter the amount (e.g. 85 for an $85 bill or price).</p>
+    <p>All results update automatically — tip value, total with tax/tip, discounted price, and amount saved.</p>
   </div>
 
   <div class="section">
     <h2>FAQ</h2>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate a percentage of a number?</div><div class="faq-answer"><p>Multiply the number by the percentage divided by 100. For example, 15% of 200 = 200 × (15 ÷ 100) = 30. Our calculator does this instantly — just enter your values above.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I calculate percentage change?</div><div class="faq-answer"><p>Subtract the original value from the new value, divide by the original value, then multiply by 100. Formula: ((New − Original) ÷ Original) × 100. A positive result means an increase, negative means a decrease.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How does the discount calculator work?</div><div class="faq-answer"><p>It calculates the saved amount (Original × Discount% ÷ 100) and subtracts it from the original price. For example, $100 with 20% off saves you $20, so your final price is $80.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use negative numbers?</div><div class="faq-answer"><p>Yes! For percentage change, entering a lower new value than the original will show a negative percentage change (decrease). For the discount calculator, negative discounts are treated as price increases.</p></div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is this calculator free to use?</div><div class="faq-answer"><p>Yes! This percentage and discount calculator is completely free. No sign-up, no downloads — just enter your numbers and get results instantly.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How is the tip amount calculated?</div><div class="faq-answer"><p>Multiply the amount by the percentage divided by 100. Formula: Amount × (Percentage ÷ 100). Example: $85 × (15 ÷ 100) = $12.75.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I find the total including tax or tip?</div><div class="faq-answer"><p>Add the tip/percentage value to the original amount. Formula: Amount + (Amount × Percentage ÷ 100). Example: $85 + $12.75 = $97.75.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the discounted price?</div><div class="faq-answer"><p>Subtract the tip/percentage value from the original amount. Formula: Amount − (Amount × Percentage ÷ 100). Example: $85 − $12.75 = $72.25.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I use decimals?</div><div class="faq-answer"><p>Yes — enter any decimal percentage (e.g. 8.5 for tax rate) and any decimal amount. Results update in real time.</p></div></div>
   </div>
-</main>
-</div>
 
-<div class="section" style="max-width:840px;margin-left:auto;margin-right:auto;padding:0 var(--space-4)">
-  <h2>🔗 Related Tools</h2>
-  <div class="related-links">
-    <a href="/bmi-calculator/">BMI Calculator</a><a href="/age-calculator/">Age Calculator</a><a href="/date-calculator/">Date Calculator</a><a href="/add-subtract-calculator/">Add/Subtract Calculator</a>
+  <div class="section">
+    <h2>🔗 Related Tools</h2>
+    <div class="related-links">
+      <a href="/bmi-calculator/">BMI Calculator</a><a href="/age-calculator/">Age Calculator</a><a href="/date-calculator/">Date Calculator</a><a href="/add-subtract-calculator/">Add/Subtract Calculator</a>
+    </div>
   </div>
+
+</main>
 </div>
 
 <!-- ═══ Feedback Form ═══ -->
@@ -261,186 +191,64 @@ body{--accent:#6366f1;--accent-subtle:rgba(99,102,241,0.12);--accent-text:#4f46e
 </section>
 
 <script>
-// ═══════════════════════════════════════════
-//  MODE TABS: Percentage ↔ Discount
-// ═══════════════════════════════════════════
-document.getElementById('modeTabs').addEventListener('click', function(e) {
-  var btn = e.target.closest('.mode-tab');
-  if (!btn) return;
-  this.querySelectorAll('.mode-tab').forEach(function(b) { b.classList.remove('active'); });
-  btn.classList.add('active');
-  var mode = btn.dataset.mode;
-  document.getElementById('modePercentage').style.display = mode === 'percentage' ? '' : 'none';
-  document.getElementById('modeDiscount').style.display = mode === 'discount' ? '' : 'none';
-});
+// ── DOM refs ──
+var pctInput = document.getElementById('pctInput');
+var amtInput = document.getElementById('amtInput');
 
-// ═══════════════════════════════════════════
-//  SUB-CALC TABS: What is X% of Y / X is what % of Y / % Change
-// ═══════════════════════════════════════════
-document.getElementById('subCalcTabs').addEventListener('click', function(e) {
-  var btn = e.target.closest('.sub-calc-tab');
-  if (!btn) return;
-  this.querySelectorAll('.sub-calc-tab').forEach(function(b) { b.classList.remove('active'); });
-  btn.classList.add('active');
-  var sub = btn.dataset.sub;
-  document.getElementById('subPercentOf').style.display = sub === 'percentOf' ? '' : 'none';
-  document.getElementById('subIsWhatPercent').style.display = sub === 'isWhatPercent' ? '' : 'none';
-  document.getElementById('subPercentChange').style.display = sub === 'percentChange' ? '' : 'none';
-});
+// ── Update all results on input ──
+function update() {
+  var pct = parseFloat(pctInput.value);
+  var amt = parseFloat(amtInput.value);
 
-// ═══════════════════════════════════════════
-//  INPUT LISTENERS — live calculation
-// ═══════════════════════════════════════════
-var pctInputs = ['pctOfPct','pctOfNum','iwpX','iwpY','pcX','pcY','discOriginal','discPercent'];
-pctInputs.forEach(function(id) {
-  var el = document.getElementById(id);
-  if (el) el.addEventListener('input', updateCalculations);
-});
-
-// ═══════════════════════════════════════════
-//  UPDATE ALL CALCULATIONS
-// ═══════════════════════════════════════════
-function updateCalculations() {
-  updatePercentOf();
-  updateIsWhatPercent();
-  updatePercentChange();
-  updateDiscount();
-}
-
-// ── Sub-calc 1: What is X% of Y? ──
-function updatePercentOf() {
-  var pct = parseFloat(document.getElementById('pctOfPct').value);
-  var num = parseFloat(document.getElementById('pctOfNum').value);
-  var box = document.getElementById('resultPercentOf');
-
-  if (isNaN(pct) || isNaN(num)) {
-    box.innerHTML = '<div class="result-placeholder">Enter values above to see the result</div>';
-    box.classList.remove('has-value');
+  if (isNaN(pct) || isNaN(amt)) {
+    document.querySelectorAll('.result-card').forEach(function(c) { c.classList.remove('has-value'); });
+    document.getElementById('valTip').textContent = '—';
+    document.getElementById('valDiscount').textContent = '—';
+    document.getElementById('valTotal').textContent = '—';
+    document.getElementById('valSave').textContent = '—';
+    document.getElementById('noteTip').textContent = 'Enter values above';
+    document.getElementById('noteDiscount').textContent = '—';
+    document.getElementById('noteTotal').textContent = '—';
+    document.getElementById('noteSave').textContent = '—';
     return;
   }
 
-  var result = (pct / 100) * num;
-  var formula = pct + '% of ' + num.toLocaleString() + ' = ' + (pct / 100) + ' × ' + num.toLocaleString();
+  var tip = (pct / 100) * amt;
+  var discount = amt - tip;
+  if (discount < 0) discount = 0;
+  var total = amt + tip;
+  var saved = tip;
 
-  box.innerHTML =
-    '<div class="result-label">Result</div>' +
-    '<div class="result-value highlight">' + formatNum(result) + '</div>' +
-    '<div style="font-size:.72rem;color:var(--text-tertiary);margin-top:6px">' + formula + ' = <strong>' + formatNum(result) + '</strong></div>';
-  box.classList.add('has-value');
+  document.getElementById('valTip').textContent = '$' + fmt(tip);
+  document.getElementById('valDiscount').textContent = '$' + fmt(discount);
+  document.getElementById('valTotal').textContent = '$' + fmt(total);
+  document.getElementById('valSave').textContent = '$' + fmt(saved);
+  document.getElementById('noteTip').textContent = fmt(pct) + '% of $' + fmt(amt);
+  document.getElementById('noteDiscount').textContent = '$' + fmt(amt) + ' − $' + fmt(tip);
+  document.getElementById('noteTotal').textContent = '$' + fmt(amt) + ' + $' + fmt(tip);
+  document.getElementById('noteSave').textContent = 'Same as percentage value';
+
+  document.querySelectorAll('.result-card').forEach(function(c) { c.classList.add('has-value'); });
 }
 
-// ── Sub-calc 2: X is what % of Y? ──
-function updateIsWhatPercent() {
-  var x = parseFloat(document.getElementById('iwpX').value);
-  var y = parseFloat(document.getElementById('iwpY').value);
-  var box = document.getElementById('resultIsWhatPercent');
-
-  if (isNaN(x) || isNaN(y) || y === 0) {
-    box.innerHTML = '<div class="result-placeholder">Enter values above to see the result</div>';
-    box.classList.remove('has-value');
-    return;
-  }
-
-  var result = (x / y) * 100;
-
-  box.innerHTML =
-    '<div class="result-label">Result</div>' +
-    '<div class="result-value highlight">' + formatNum(result) + '%</div>' +
-    '<div style="font-size:.72rem;color:var(--text-tertiary);margin-top:6px">' + x.toLocaleString() + ' ÷ ' + y.toLocaleString() + ' × 100 = <strong>' + formatNum(result) + '%</strong></div>';
-  box.classList.add('has-value');
+// ── Format number (no trailing zeros after 2 decimals for display) ──
+function fmt(n) {
+  // Always show min 2 decimal places for money
+  return n.toFixed(2);
 }
 
-// ── Sub-calc 3: % change from X to Y ──
-function updatePercentChange() {
-  var x = parseFloat(document.getElementById('pcX').value);
-  var y = parseFloat(document.getElementById('pcY').value);
-  var box = document.getElementById('resultPercentChange');
+// ── Event listeners ──
+pctInput.addEventListener('input', update);
+amtInput.addEventListener('input', update);
 
-  if (isNaN(x) || isNaN(y) || x === 0) {
-    box.innerHTML = '<div class="result-placeholder">Enter values above to see the result</div>';
-    box.classList.remove('has-value');
-    return;
-  }
+// ── FAQ toggle ──
+function toggleFAQ(el) { el.classList.toggle('open'); el.nextElementSibling.classList.toggle('open'); }
 
-  var change = ((y - x) / Math.abs(x)) * 100;
-  var direction = change >= 0 ? 'increase' : 'decrease';
-  var arrow = change >= 0 ? '↑' : '↓';
-  var color = change >= 0 ? '#22c55e' : '#ef4444';
+// ── Feedback ──
+function submitFeedback(e, f) { e.preventDefault(); var st = f.querySelector('.fb-status'); st.textContent = 'Thanks for your feedback!'; st.className = 'fb-status success'; f.reset(); }
 
-  box.innerHTML =
-    '<div class="result-label">Percentage Change</div>' +
-    '<div class="result-value" style="color:' + color + '">' + arrow + ' ' + formatNum(Math.abs(change)) + '%</div>' +
-    '<div class="small" style="color:' + color + '">' + direction.charAt(0).toUpperCase() + direction.slice(1) + '</div>' +
-    '<div style="font-size:.72rem;color:var(--text-tertiary);margin-top:6px">((' + y.toLocaleString() + ' − ' + x.toLocaleString() + ') ÷ ' + Math.abs(x).toLocaleString() + ') × 100 = <strong>' + formatNum(change) + '%</strong></div>';
-  box.classList.add('has-value');
-}
-
-// ── Mode 2: Discount Calculator ──
-function updateDiscount() {
-  var original = parseFloat(document.getElementById('discOriginal').value);
-  var discPct = parseFloat(document.getElementById('discPercent').value);
-  var box = document.getElementById('resultDiscount');
-  var hl = document.getElementById('discountHighlight');
-  var finalPriceEl = document.getElementById('finalPrice');
-  var savingsTextEl = document.getElementById('savingsText');
-
-  if (isNaN(original) || isNaN(discPct) || original <= 0) {
-    box.innerHTML = '<div class="result-placeholder">Enter original price and discount percentage to see final price</div>';
-    box.classList.remove('has-value');
-    hl.style.display = 'none';
-    return;
-  }
-
-  var saved = (discPct / 100) * original;
-  var final = original - saved;
-
-  // Cap final at 0 if discount > 100%
-  if (final < 0) final = 0;
-
-  box.innerHTML =
-    '<div class="result-breakdown">' +
-      '<div class="breakdown-item">' +
-        '<div class="breakdown-label">Original</div>' +
-        '<div class="breakdown-value">$' + formatNum(original) + '</div>' +
-      '</div>' +
-      '<div class="breakdown-item">' +
-        '<div class="breakdown-label">You Save</div>' +
-        '<div class="breakdown-value" style="color:#22c55e">−$' + formatNum(saved) + '</div>' +
-      '</div>' +
-      '<div class="breakdown-item">' +
-        '<div class="breakdown-label">Final Price</div>' +
-        '<div class="breakdown-value" style="color:var(--accent-text)">$' + formatNum(final) + '</div>' +
-      '</div>' +
-    '</div>';
-  box.classList.add('has-value');
-
-  hl.style.display = 'block';
-  finalPriceEl.textContent = '$' + formatNum(final);
-  savingsTextEl.textContent = 'You save $' + formatNum(saved) + ' (' + formatNum(discPct) + '% off)';
-}
-
-// ── Number formatter (handles decimals cleanly) ──
-function formatNum(n) {
-  if (Number.isInteger(n)) return n.toLocaleString();
-  // Round to max 6 decimal places, strip trailing zeros
-  var rounded = parseFloat(n.toFixed(6));
-  return rounded.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 6 });
-}
-
-// ── FAQ Toggle ──
-function toggleFAQ(el) {
-  el.classList.toggle('open');
-  el.nextElementSibling.classList.toggle('open');
-}
-
-// ── Feedback Submit ──
-function submitFeedback(e, f) {
-  e.preventDefault();
-  var st = f.querySelector('.fb-status');
-  st.textContent = 'Thanks for your feedback!';
-  st.className = 'fb-status success';
-  f.reset();
-}
+// ── Boot: initial render ──
+update();
 </script>
 </div>
 </body>
