@@ -335,17 +335,42 @@ document.getElementById('qrText').addEventListener('input',function(){
 });
 
 // ── Init barcodes ──
+function sanitizeForCode39(text){
+  // CODE39 supports: A-Z, 0-9, -, ., $, /, +, %, space
+  return text.toUpperCase().replace(/[^A-Z0-9\-\.\$\/\+\% ]/g,'').slice(0,50)||'CODE39';
+}
+function hashToDigits(text, len){
+  // Deterministically convert any text to N digits for UPC/EAN
+  let h=0;
+  for(let i=0;i<text.length;i++){h=((h<<5)-h)+text.charCodeAt(i);h|=0}
+  let s=Math.abs(h).toString();
+  while(s.length<len)s='0'+s;
+  s=s.slice(0,len);
+  // Luhn checksum for last digit (UPC/EAN requirement)
+  if(len===12||len===13){
+    let sum=0;
+    for(let i=0;i<len-1;i++)sum+=(i%2===0?3:1)*parseInt(s[i]);
+    let chk=(10-sum%10)%10;
+    s=s.slice(0,len-1)+chk;
+  }
+  return s;
+}
 function regenerateBC(text){
   const tips={bc128:'CODE128',bc39:'CODE39 — A-Z, 0-9, -, ., $, /, +, %, space',bcUpc:'UPC‑A — requires 12 digits exactly',bcEan:'EAN‑13 — requires 13 digits exactly'};
   ['bc128','bc39','bcUpc','bcEan'].forEach(id=>{
     const el=document.getElementById(id);
-    if(el&&typeof JsBarcode!=='undefined'){
-      try{
-        el.innerHTML='';
-        JsBarcode(el,text||' ',{format:id==='bc128'?'CODE128':id==='bc39'?'CODE39':id==='bcUpc'?'UPC':id==='bcEan'?'EAN13':'CODE128',width:2,height:50,displayValue:true,fontSize:14,margin:5});
-      }catch(e){
-        el.innerHTML='<span style="color:#999;font-size:.68rem">'+tips[id]+'</span>';
-      }
+    if(!el||typeof JsBarcode==='undefined')return;
+    let val=text||' ';
+    // Auto-adapt input for each format
+    if(id==='bc39')val=sanitizeForCode39(val);
+    else if(id==='bcUpc')val=hashToDigits(val,12);
+    else if(id==='bcEan')val=hashToDigits(val,13);
+    try{
+      el.innerHTML='';
+      el.querySelector('span')?.remove();
+      JsBarcode(el,val,{format:id==='bc128'?'CODE128':id==='bc39'?'CODE39':id==='bcUpc'?'UPC':id==='bcEan'?'EAN13':'CODE128',width:2,height:50,displayValue:true,fontSize:14,margin:5});
+    }catch(e){
+      el.innerHTML='<span style="color:#999;font-size:.68rem">'+tips[id]+'</span>';
     }
   });
 }
