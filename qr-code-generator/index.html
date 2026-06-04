@@ -383,6 +383,7 @@ function submitFeedback(e,f){e.preventDefault();const st=f.querySelector('.fb-st
 document.addEventListener('DOMContentLoaded',function(){
   const text=document.getElementById('qrText').value;
   initQR(text||' ');
+  setTimeout(()=>regenerateBC(text||' '),100);
 });
 </script>
 </div>
