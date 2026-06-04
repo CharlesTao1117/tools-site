@@ -349,7 +349,7 @@ function hashToDigits(text, len){
   // Luhn checksum for last digit (UPC/EAN requirement)
   if(len===12||len===13){
     let sum=0;
-    for(let i=0;i<len-1;i++)sum+=(i%2===0?3:1)*parseInt(s[i]);
+    for(let i=0;i<len-1;i++)sum+=(i%2===(len===13?1:0)?3:1)*parseInt(s[i]);
     let chk=(10-sum%10)%10;
     s=s.slice(0,len-1)+chk;
   }
