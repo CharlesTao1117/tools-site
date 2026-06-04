@@ -442,44 +442,81 @@
   <a href="quiz.html" class="cta-btn">🎯 開始免費測驗</a>
 </section>
 
-<!-- ═══════ AI INSIGHTS ═══════ -->
-<section style="background:#f8faff;padding:50px 20px">
+<!-- ═══════ AI INSIGHTS (Scrolling) ═══════ -->
+<section style="background:#f8faff;padding:50px 20px;overflow:hidden">
   <div style="max-width:900px;margin:0 auto">
-    <h2 style="text-align:center;font-size:1.4rem;color:#0f3460;margin-bottom:8px">🤖 AI 考題分析報告</h2>
-    <p style="text-align:center;font-size:0.9rem;color:#666;margin-bottom:28px">系統自動分析歷屆數據，幫你看見肉眼看不到的模式</p>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-      <div style="background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+    <h2 style="text-align:center;font-size:1.4rem;color:#0f3460;margin-bottom:4px">🤖 AI 分析考題後發現</h2>
+    <p style="text-align:center;font-size:0.9rem;color:#666;margin-bottom:28px">系統自動分析歷屆數據，這些結論你可能不知道</p>
+  </div>
+  <div class="ai-insights-track-wrap" style="overflow:hidden;width:100%">
+    <div class="ai-insights-track" id="ai-insights-track" style="display:flex;gap:16px;width:max-content;padding:0 20px">
+      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
         <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:1rem;color:#0f3460;margin-bottom:4px">你知道嗎？</h3>
-        <p style="font-size:0.88rem;color:#444;line-height:1.6">113 年與 112 年的基礎醫學試題，高頻概念重疊率高達 <strong style="color:#e94560">68%</strong>。代表同一批概念每年輪流出，掌握 22 個高頻集群就掌握了出題核心。</p>
+        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
+        <p style="font-size:0.85rem;color:#444;line-height:1.6">113 年與 112 年的基礎醫學試題，高頻概念重疊率高達 <strong style="color:#e94560">68%</strong>。掌握 22 個高頻集群就掌握了出題核心。</p>
       </div>
-      <div style="background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
         <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:1rem;color:#0f3460;margin-bottom:4px">你知道嗎？</h3>
-        <p style="font-size:0.88rem;color:#444;line-height:1.6">內外科護理學近三年出題最高頻的 TOP 3 概念：<strong style="color:#e94560">AIDS</strong>、<strong style="color:#e94560">SLE</strong>、<strong style="color:#e94560">燒傷</strong>，累計出題 12 次，佔內外科總出題量的 10%。</p>
+        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
+        <p style="font-size:0.85rem;color:#444;line-height:1.6">內外科近三年 TOP 3 概念：<strong style="color:#e94560">AIDS</strong>、<strong style="color:#e94560">SLE</strong>、<strong style="color:#e94560">燒傷</strong>，累計出題 12 次，佔內外科總出題量 10%。</p>
       </div>
-      <div style="background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
         <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:1rem;color:#0f3460;margin-bottom:4px">你知道嗎？</h3>
-        <p style="font-size:0.88rem;color:#444;line-height:1.6"><strong style="color:#e94560">82%</strong> 的考生在「精神科與社區衛生」的低正確率題目集中在「思覺失調症與情緒障礙的鑑別」——AI 分析顯示這是台灣護理國考最常見的邏輯陷阱區。</p>
+        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
+        <p style="font-size:0.85rem;color:#444;line-height:1.6"><strong style="color:#e94560">82%</strong> 考生的精神科低分題集中在「思覺失調症與情緒障礙的鑑別」——這是台灣護理國考最常見的邏輯陷阱。</p>
       </div>
-      <div style="background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
         <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:1rem;color:#0f3460;margin-bottom:4px">你知道嗎？</h3>
-        <p style="font-size:0.88rem;color:#444;line-height:1.6">產兒科護理學的「新生兒篩檢與疫苗接種時程」題目，連續 <strong style="color:#e94560">4 年</strong>（111-114）每年必出 2 題，但每年考生的正確率均低於 60%——是最被低估的冷箭區。</p>
+        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
+        <p style="font-size:0.85rem;color:#444;line-height:1.6">「新生兒篩檢與疫苗接種時程」連續 <strong style="color:#e94560">4 年</strong>每年必出 2 題，但考生正確率低於 60%——最被低估的冷箭區。</p>
       </div>
-    </div>
-
-    <div style="background:linear-gradient(135deg,#fff3e0,#fff8e1);border:1px solid #ffcc80;border-radius:14px;padding:20px 24px;margin-top:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-      <div style="font-size:2rem">🤖</div>
-      <div style="flex:1">
-        <strong style="color:#e65100">AI 弱點分析怎麼幫你？</strong>
-        <p style="font-size:0.85rem;color:#bf360c;margin:4px 0 0">你每做完一回測驗，AI 自動比對 22 個高頻概念集群，算出你的弱點分佈圖——告訴你「哪個概念錯最多」、「哪個概念進步了」、「該補哪裡最有效」。不再盲讀，不再亂刷題。</p>
+      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+        <div style="font-size:2rem;margin-bottom:8px">📊</div>
+        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
+        <p style="font-size:0.85rem;color:#444;line-height:1.6">基本護理「無菌技術」相關題目，每年至少有 <strong style="color:#e94560">3 題</strong>，但考生最容易混淆「消毒 vs 滅菌」的應用情境。</p>
       </div>
-      <a href="quiz.html#diagnosis" class="hero-btn-secondary" style="display:inline-flex;align-items:center;gap:6px;background:#e94560;color:white;padding:10px 22px;border-radius:30px;font-size:0.9rem;font-weight:700;text-decoration:none;white-space:nowrap;border:none" onclick="event.preventDefault();sessionStorage.setItem('quickDiag','true');location='quiz.html'">⚡ 免費測驗</a>
+      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+        <div style="font-size:2rem;margin-bottom:8px">📊</div>
+        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
+        <p style="font-size:0.85rem;color:#444;line-height:1.6">SLE 三年考了四次，每次都考「哪個敘述正確/錯誤」——同一題型反覆出現，代表命題委員認為這是經典必考題。</p>
+      </div>
+      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+        <div style="font-size:2rem;margin-bottom:8px">📊</div>
+        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
+        <p style="font-size:0.85rem;color:#444;line-height:1.6">產兒科出題趨勢正在從「新生兒疾病特性」轉向「<strong style="color:#e94560">護理措施與家屬衛教</strong>」，近三年這類題目增加 40%。</p>
+      </div>
+      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+        <div style="font-size:2rem;margin-bottom:8px">📊</div>
+        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
+        <p style="font-size:0.85rem;color:#444;line-height:1.6">精神科「思覺失調症」與「情感障礙」的鑑別題，考生平均答題時間比其他題多 <strong style="color:#e94560">47%</strong>，但正確率反而更低。</p>
+      </div>
     </div>
   </div>
+  <div style="max-width:900px;margin:20px auto 0;text-align:center">
+    <div style="background:linear-gradient(135deg,#fff3e0,#fff8e1);border:1px solid #ffcc80;border-radius:14px;padding:18px 24px;display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:100%">
+      <span style="font-size:1.2rem">🤖</span>
+      <span style="font-size:0.88rem;color:#bf360c;text-align:left"><strong>AI 弱點分析怎麼幫你？</strong> 每做完一回測驗，AI 自動比對 22 個高頻概念集群，算出你的弱點分佈——不再盲讀，不再亂刷題。</span>
+      <a href="quiz.html#diagnosis" style="display:inline-flex;align-items:center;gap:6px;background:#e94560;color:white;padding:8px 20px;border-radius:30px;font-size:0.85rem;font-weight:700;text-decoration:none;white-space:nowrap;border:none" onclick="event.preventDefault();sessionStorage.setItem('quickDiag','true');location='quiz.html'">⚡ 免費測驗</a>
+    </div>
+  </div>
+  <script>
+    (function(){
+      var t = document.getElementById('ai-insights-track');
+      if(t){
+        var c = t.cloneNode(true);
+        t.parentNode.appendChild(c);
+        t.style.animation = 'scrollAI 35s linear infinite';
+        c.style.animation = 'scrollAI 35s linear infinite';
+      }
+    })();
+  </script>
+  <style>
+    @keyframes scrollAI {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    .ai-insights-track-wrap:hover .ai-insights-track { animation-play-state: paused; }
+  </style>
 </section>
 
 <!-- ═══════ TESTIMONIALS (Scrolling Infinite) ═══════ -->
