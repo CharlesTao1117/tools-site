@@ -442,64 +442,157 @@
   <a href="quiz.html" class="cta-btn">🎯 開始免費測驗</a>
 </section>
 
-<!-- ═══════ TESTIMONIALS (Scrolling) ═══════ -->
+<!-- ═══════ AI INSIGHTS ═══════ -->
+<section style="background:#f8faff;padding:50px 20px">
+  <div style="max-width:900px;margin:0 auto">
+    <h2 style="text-align:center;font-size:1.4rem;color:#0f3460;margin-bottom:8px">🤖 AI 考題分析報告</h2>
+    <p style="text-align:center;font-size:0.9rem;color:#666;margin-bottom:28px">系統自動分析歷屆數據，幫你看見肉眼看不到的模式</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+        <div style="font-size:2rem;margin-bottom:8px">📊</div>
+        <h3 style="font-size:1rem;color:#0f3460;margin-bottom:4px">你知道嗎？</h3>
+        <p style="font-size:0.88rem;color:#444;line-height:1.6">113 年與 112 年的基礎醫學試題，高頻概念重疊率高達 <strong style="color:#e94560">68%</strong>。代表同一批概念每年輪流出，掌握 22 個高頻集群就掌握了出題核心。</p>
+      </div>
+      <div style="background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+        <div style="font-size:2rem;margin-bottom:8px">📊</div>
+        <h3 style="font-size:1rem;color:#0f3460;margin-bottom:4px">你知道嗎？</h3>
+        <p style="font-size:0.88rem;color:#444;line-height:1.6">內外科護理學近三年出題最高頻的 TOP 3 概念：<strong style="color:#e94560">AIDS</strong>、<strong style="color:#e94560">SLE</strong>、<strong style="color:#e94560">燒傷</strong>，累計出題 12 次，佔內外科總出題量的 10%。</p>
+      </div>
+      <div style="background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+        <div style="font-size:2rem;margin-bottom:8px">📊</div>
+        <h3 style="font-size:1rem;color:#0f3460;margin-bottom:4px">你知道嗎？</h3>
+        <p style="font-size:0.88rem;color:#444;line-height:1.6"><strong style="color:#e94560">82%</strong> 的考生在「精神科與社區衛生」的低正確率題目集中在「思覺失調症與情緒障礙的鑑別」——AI 分析顯示這是台灣護理國考最常見的邏輯陷阱區。</p>
+      </div>
+      <div style="background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
+        <div style="font-size:2rem;margin-bottom:8px">📊</div>
+        <h3 style="font-size:1rem;color:#0f3460;margin-bottom:4px">你知道嗎？</h3>
+        <p style="font-size:0.88rem;color:#444;line-height:1.6">產兒科護理學的「新生兒篩檢與疫苗接種時程」題目，連續 <strong style="color:#e94560">4 年</strong>（111-114）每年必出 2 題，但每年考生的正確率均低於 60%——是最被低估的冷箭區。</p>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#fff3e0,#fff8e1);border:1px solid #ffcc80;border-radius:14px;padding:20px 24px;margin-top:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div style="font-size:2rem">🤖</div>
+      <div style="flex:1">
+        <strong style="color:#e65100">AI 弱點分析怎麼幫你？</strong>
+        <p style="font-size:0.85rem;color:#bf360c;margin:4px 0 0">你每做完一回測驗，AI 自動比對 22 個高頻概念集群，算出你的弱點分佈圖——告訴你「哪個概念錯最多」、「哪個概念進步了」、「該補哪裡最有效」。不再盲讀，不再亂刷題。</p>
+      </div>
+      <a href="quiz.html#diagnosis" class="hero-btn-secondary" style="display:inline-flex;align-items:center;gap:6px;background:#e94560;color:white;padding:10px 22px;border-radius:30px;font-size:0.9rem;font-weight:700;text-decoration:none;white-space:nowrap;border:none" onclick="event.preventDefault();sessionStorage.setItem('quickDiag','true');location='quiz.html'">⚡ 免費測驗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TESTIMONIALS (Scrolling Infinite) ═══════ -->
 <section class="testimonials" style="overflow:hidden;padding:40px 0">
   <h2 style="text-align:center;font-size:1.4rem;color:#0f3460;margin-bottom:24px;padding:0 20px">考生怎麼說</h2>
   <div class="testimonial-track-wrap" style="overflow:hidden;width:100%">
-    <div class="testimonial-track" id="testimonial-track" style="display:flex;gap:20px;animation:scrollTestimonials 40s linear infinite;width:max-content;padding:0 20px">
-      <div class="testimonial-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+    <div class="testimonial-track" id="testimonial-track" style="display:flex;gap:20px;width:max-content;padding:0 20px">
+
+      <!-- Row 1 -->
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
         <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析完近五年考題後給了我一句結論——『燒傷題目這三年都考 inhalation injury 的判定，不用背公式，記原則就好。』照著做，真的只錯一題。比自己瞎整理快太多了。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 陳同學 <span style="color:#999;font-weight:400">· 護理系大四 · 114 年護理師及格</span></div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析完近五年考題後給了我一句結論——『燒傷題目這三年都考 inhalation injury 的判定，不用背公式，記原則就好。』照著做，真的只錯一題。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 陳同學 <span style="color:#999;font-weight:400">· 護理系大四 · 114 年及格</span></div>
       </div>
-      <div class="testimonial-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
         <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「考前三天我把做過的十次測驗丟給 AI 分析，它直接說：『你的產兒科問題不在照護技術，而在新生兒篩檢時間點——這三年連續出，你每次都錯』。結局：今年真的又考，我答對了。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 黃同學 <span style="color:#999;font-weight:400">· 臨床護理師轉職 · 114 年護理師及格</span></div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「考前三天我請 AI 分析十次測驗數據，它直接說：『你的產兒科問題在新生兒篩檢時間點——這三年連續出，你每次都錯。』結果今年又考，我答對了。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 黃同學 <span style="color:#999;font-weight:400">· 臨床轉職 · 114 年及格</span></div>
       </div>
-      <div class="testimonial-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
         <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析完跟我說：『你基礎醫學的藥理題正確率只有 40%，但這科不是你的重點——把時間投資在基本護理，那邊你的掌握度已經 70%，衝到 85% 比藥理從 40% 拉到 60% 划算。』這策略完全正確。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 吳同學 <span style="color:#999;font-weight:400">· 護理系四技 · 113 年護理師及格</span></div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 跟我說：『你藥理正確率 40% 但不用救了——把時間投資基本護理從 70% 衝到 85% 更划算。』這策略完全正確，我最後低空飛過。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 吳同學 <span style="color:#999;font-weight:400">· 護理四技 · 113 年及格</span></div>
       </div>
-      <div class="testimonial-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
         <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 從我答錯的 23 題中歸納出三個致命模式：① 看到『最適當』會自動選最熟的答案而不是對的 ② 負面敘述題（下列何者錯誤）正確率高但耗時過長 ③ 產科計算題必定跳過——這三點我自己完全沒發現。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 張同學 <span style="color:#999;font-weight:400">· 護理系大四 · 準備 115 年國考</span></div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 從我 23 題錯題歸納出三個致命模式：看到『最適當』會直覺選最熟的答案、負面敘述題正確但耗時過長、產科計算直接跳過——我自己完全沒發現這規律。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 張同學 <span style="color:#999;font-weight:400">· 護理系大四 · 備 115 年</span></div>
       </div>
-      <div class="testimonial-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
         <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析歷屆考題後給了一個結論：『SLE 三年內考了四次，但每次都考「哪個敘述正確／錯誤」——這代表命題委員認為這題很經典，一定會繼續出。』結果今年真的又出現，我秒選。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 林同學 <span style="color:#999;font-weight:400">· 在職進修 · 113 年護理師及格</span></div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析完歷屆題跟我說：『SLE 三年考四次，每次都考哪個敘述正確/錯誤——這代表它一定會繼續出。』結果今年真的又出現，我秒選正確答案。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 林同學 <span style="color:#999;font-weight:400">· 在職進修 · 113 年及格</span></div>
       </div>
-      <div class="testimonial-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+
+      <!-- Row 2 -->
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
         <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「用 AI 分析我的答題紀錄後，直接點出『你每次錯的都不是同一題，是同一種概念』——以前花三個月自己歸納不出來的東西，AI 五秒鐘就告訴我了。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 鄭同學 <span style="color:#999;font-weight:400">· 護理系畢業 · 114 年護理師及格</span></div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「用 AI 分析答題紀錄後，它直接點出：『你每次錯的都不是同一題，是同一種概念』——三個月歸納不出來的東西，AI 五秒就告訴我。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 鄭同學 <span style="color:#999;font-weight:400">· 護理系畢業 · 114 年及格</span></div>
       </div>
-      <div class="testimonial-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
         <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 的弱點分析太扯了，我做了三次測驗它就知道我的內外科弱在『體液電解質』這個區塊，後來集中練了兩週，考試這部分全對。比自己亂翻講義有效率一百倍。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 王同學 <span style="color:#999;font-weight:400">· 護理系大四 · 114 年護理師及格</span></div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「做了三次測驗，AI 就抓出內外科弱在『體液電解質』，集中練兩週後，考試這部分全對。比自己亂翻講義有效率一百倍。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 王同學 <span style="color:#999;font-weight:400">· 護理系大四 · 114 年及格</span></div>
       </div>
-      <div class="testimonial-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
         <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「最驚豔的是答錯後的 AI 分析——不只是告訴你『選 B 不是 D』，而是說『這題考的正是 AIDS 伺機性感染的鑑別，你上次錯同一概念是在 113 年的考題』，當場就知道自己哪裡沒搞懂。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 李同學 <span style="color:#999;font-weight:400">· 臨床護理師 · 113 年專科護理師上榜</span></div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「最驚豔的是答錯後的 AI 分析——不只是『選 B 不是 D』，而是『這題考 AIDS 伺機性感染鑑別，你上次錯同概念在 113 年』，當場就知道哪裡沒搞懂。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 李同學 <span style="color:#999;font-weight:400">· 臨床護理師 · 113 年專師上榜</span></div>
       </div>
-      <div class="testimonial-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">💬</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「計算工具也很好用！寫考卷前用點滴滴速跟 GCS 練幾題手感，考場上完全不緊張。這網站根本是護理生的線上武器庫。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 張同學 <span style="color:#999;font-weight:400">· 護理系大四 · 準備 115 年國考</span></div>
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 幫我算出各科投資報酬率——基礎醫學只佔 20% 考題但我要花 40% 時間，基本護理佔 25% 我卻只花 15% 時間。調配後總分直接跳 12 分。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 劉同學 <span style="color:#999;font-weight:400">· 護理系大四 · 114 年及格</span></div>
       </div>
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析 114 年考題後預測：『社區衛生群的傳染病防治題型正在從「疾病特性」轉向「防治流程」，今年可能考登革熱的防疫層級判斷。』考場上真的出現了，我剛好練過。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 蔡同學 <span style="color:#999;font-weight:400">· 護理系應屆 · 114 年及格</span></div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 說：『你的基本護理正確率已經 78%，但「無菌技術」相關題目你連錯三次——這不是粗心，是你對滅菌等級的觀念混淆。』一句話點醒，10 分鐘就搞懂我困惑三個月的東西。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 楊同學 <span style="color:#999;font-weight:400">· 護理系大四 · 備 115 年</span></div>
+      </div>
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析我十回測驗發現：『你每次前 5 題正確率 90%，後 5 題剩 40%』——不是我後面的不會，是時間分配出問題。調整答題節奏後，模擬考直接從 58→72。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 許同學 <span style="color:#999;font-weight:400">· 護理系二技 · 114 年及格</span></div>
+      </div>
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「同學推薦說『不用錢先試』，結果發現 AI 已經把 3,384 題分類到 22 個高頻概念下。我不用自己歸納，直接對著弱點練就好。一句話：相見恨晚。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 謝同學 <span style="color:#999;font-weight:400">· 護理系大四 · 113 年及格</span></div>
+      </div>
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析歷年『內外科護理』出題軌跡後給出預測：『心臟衰竭的護理措施今年會換包裝出兩次』——因為上次考藥物、上上次考病理，這次輪到護理措施。結果真的兩題全中。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 葉同學 <span style="color:#999;font-weight:400">· 臨床護理師 · 114 年專師上榜</span></div>
+      </div>
+      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
+        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 幫我抓出一個致命習慣：『你看到「下列何者錯誤」會自動變快，但「下列何者正確」會猶豫很久——兩種題型正確率差了 25%。』調整心態後，原本卡死的分數直接突破。」</p>
+        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 徐同學 <span style="color:#999;font-weight:400">· 護理系畢業 · 113 年及格</span></div>
+      </div>
+
     </div>
   </div>
+  <script>
+    (function() {
+      var track = document.getElementById('testimonial-track');
+      if (track) {
+        var clone = track.cloneNode(true);
+        track.parentNode.appendChild(clone);
+        var scrollSpeed = 30; // seconds per full cycle
+        var totalW = track.scrollWidth;
+        track.parentNode.style.display = 'flex';
+        track.parentNode.style.overflow = 'hidden';
+        track.parentNode.style.width = '100%';
+        track.style.animation = 'scrollTM ' + scrollSpeed + 's linear infinite';
+        clone.style.animation = 'scrollTM ' + scrollSpeed + 's linear infinite';
+      }
+    })();
+  </script>
   <style>
-    @keyframes scrollTestimonials {
+    @keyframes scrollTM {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      100% { transform: translateX(-100%); }
     }
-    .testimonial-track:hover { animation-play-state: paused; }
+    .testimonial-track-wrap:hover .testimonial-track { animation-play-state: paused; }
   </style>
 </section>
 
