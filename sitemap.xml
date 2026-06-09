@@ -4,84 +4,169 @@
     <loc>https://anycalculator.site/</loc>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/qr-code-generator/</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/bmi-calculator/</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/password-generator/</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/age-calculator/</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/percentage-calculator/</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/date-calculator/</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/add-subtract-calculator/</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/privacy-policy/</loc>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/terms/</loc>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/about/</loc>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/invoice-generator/</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/resume-generator/</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-06-09</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/peso-converter/</loc>
     <priority>0.9</priority>
     <changefreq>daily</changefreq>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <!-- Nursing sub-site -->
+  <url>
+    <loc>https://anycalculator.site/nursing/</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/quiz</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/high-yield</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/apgar</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/bsa</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/burn-area</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/crcl</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/dilution</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/drip-rate</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/due-date</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/gcs</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/pediatric-fluid</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/safe-dosage</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/unit-converter</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-09</lastmod>
   </url>
 </urlset>
