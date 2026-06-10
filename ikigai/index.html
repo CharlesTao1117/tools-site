@@ -18,12 +18,12 @@
     crossorigin="anonymous"></script>
 
   <!-- Google Analytics (GA4) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXX');
+    gtag('config', 'G-JL08H6FMN6');
   </script>
 
   <!-- Schema: WebApplication -->
@@ -40,7 +40,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/common/premium.css">
   <style>
     /* ===== Ikigai Tool Specific Styles ===== */
     :root {
@@ -49,6 +49,13 @@
       --ikigai-vocation: #ff9800;
       --ikigai-profession: #2196f3;
       --ikigai-center: #7c3aed;
+      /* Map premium.css vars for backward compat */
+      --radius: var(--radius-md, 10px);
+      --surface: var(--bg-card, #ffffff);
+      --shadow: var(--shadow-md, 0 4px 6px -1px rgba(0,0,0,0.04));
+      --primary: var(--accent, #6366f1);
+      --text: var(--text-primary, #0a0a0a);
+      --border: var(--border-subtle, #f0f0f0);
     }
 
     .ikigai-header {
@@ -501,16 +508,24 @@
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="logo">🧭 Ikigai</a>
-      <nav class="nav-links">
-        <a href="/" class="active">人生方向分析</a>
-        <a href="/about.html">關於</a>
-      </nav>
-    </div>
-  </header>
-
+<div class="page-wrap">
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/">BMI</a>
+    <a href="/password-generator/">Password</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/percentage-calculator/">Pct/Discount</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/add-subtract-calculator/">Add/Sub</a>
+    <a href="/invoice-generator/">Invoice</a>
+    <a href="/resume-generator/">Resume</a>
+    <a href="/peso-converter/">Peso</a>
+    <a href="/ikigai/" class="active">Ikigai</a>
+  </div>
+</div></nav>
+<div class="page-content">
   <main class="container">
     <section class="tool-section">
       <div class="ikigai-header">
@@ -1343,5 +1358,7 @@
   `;
   document.head.appendChild(styleShake);
   </script>
+</div>
+</div>
 </body>
 </html>
