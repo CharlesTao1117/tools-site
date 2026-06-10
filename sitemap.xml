@@ -84,6 +84,12 @@
     <changefreq>daily</changefreq>
     <lastmod>2026-06-09</lastmod>
   </url>
+  <url>
+    <loc>https://anycalculator.site/ikigai/</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-10</lastmod>
+  </url>
   <!-- Nursing sub-site -->
   <url>
     <loc>https://anycalculator.site/nursing/</loc>
