@@ -1,514 +1,103 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ikigai (生き甲斐) 分析工具 — 透過 4 個面向的評分量表，幫助你找到人生目的、熱情、天職與使命的交會點。免費線上人生方向測試。">
-  <meta name="keywords" content="ikigai,生き甲斐,人生目的測試,天命分析,人生方向,熱情測驗,天職測試,日本人生哲學">
-  <meta property="og:title" content="Ikigai 人生方向分析工具 — 找到你的生き甲斐">
-  <meta property="og:description" content="透過 4 個面向的簡易評分，幫你視覺化呈現 Passion、Mission、Vocation、Profession 的交集，找到專屬的人生目的。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://anycalculator.site/ikigai/">
-  <link rel="canonical" href="https://anycalculator.site/ikigai/">
-
-  <title>Ikigai 人生方向分析工具 | 找到你的生き甲斐 | 免費線上測試</title>
-
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
-    crossorigin="anonymous"></script>
-
-  <!-- Google Analytics (GA4) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-JL08H6FMN6');
-  </script>
-
-  <!-- Schema: WebApplication -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Ikigai 人生方向分析工具",
-    "url": "https://anycalculator.site/ikigai/",
-    "description": "透過 4 個面向的評分量表，幫助使用者找到人生目的、熱情、天職與使命的交會點，視覺化呈現 ikigai 分析結果。",
-    "applicationCategory": "SelfManagementApplication",
-    "operatingSystem": "All",
-    "browserRequirements": "Requires JavaScript"
-  }
-  </script>
-
-  <link rel="stylesheet" href="/common/premium.css">
-  <style>
-    /* ===== Ikigai Tool Specific Styles ===== */
-    :root {
-      --ikigai-passion: #e91e63;
-      --ikigai-mission: #4caf50;
-      --ikigai-vocation: #ff9800;
-      --ikigai-profession: #2196f3;
-      --ikigai-center: #7c3aed;
-      /* Map premium.css vars for backward compat */
-      --radius: var(--radius-md, 10px);
-      --surface: var(--bg-card, #ffffff);
-      --shadow: var(--shadow-md, 0 4px 6px -1px rgba(0,0,0,0.04));
-      --primary: var(--accent, #6366f1);
-      --text: var(--text-primary, #0a0a0a);
-      --border: var(--border-subtle, #f0f0f0);
-    }
-
-    .ikigai-header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    .ikigai-header .ikigai-kanji {
-      font-size: 3rem;
-      font-weight: 300;
-      color: var(--ikigai-center);
-      margin-bottom: 4px;
-      letter-spacing: 4px;
-    }
-
-    .ikigai-header .ikigai-sub {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      max-width: 520px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* ===== Intro Card ===== */
-    .intro-card {
-      background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
-      border: 1px solid #ddd6fe;
-      border-radius: var(--radius);
-      padding: 24px 28px;
-      margin-bottom: 28px;
-    }
-    @media (prefers-color-scheme: dark) {
-      .intro-card {
-        background: linear-gradient(135deg, #1e1b4b 0%, #2e1065 100%);
-        border-color: #4c1d95;
-      }
-    }
-    .intro-card p {
-      font-size: 0.92rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-    }
-    .intro-card p:last-child {
-      margin-bottom: 0;
-    }
-    .intro-card strong {
-      color: var(--text);
-    }
-
-    /* ===== Progress Bar ===== */
-    .progress-wrap {
-      margin-bottom: 24px;
-    }
-    .progress-bar-bg {
-      height: 6px;
-      background: var(--border);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--ikigai-passion), var(--ikigai-mission), var(--ikigai-vocation), var(--ikigai-profession));
-      border-radius: 3px;
-      transition: width 0.4s ease;
-      width: 0%;
-    }
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin-top: 6px;
-    }
-
-    /* ===== Dimension Label ===== */
-    .dimension-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      padding: 16px 20px;
-      background: var(--bg);
-      border-radius: 10px;
-      border-left: 4px solid;
-    }
-    .dimension-label .d-icon {
-      font-size: 1.8rem;
-    }
-    .dimension-label .d-text h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-    }
-    .dimension-label .d-text p {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-top: 2px;
-    }
-    .d-passion { border-color: var(--ikigai-passion); }
-    .d-mission { border-color: var(--ikigai-mission); }
-    .d-vocation { border-color: var(--ikigai-vocation); }
-    .d-profession { border-color: var(--ikigai-profession); }
-
-    /* ===== Question Items ===== */
-    .question-item {
-      margin-bottom: 20px;
-    }
-    .question-item .q-text {
-      font-size: 0.95rem;
-      font-weight: 500;
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
-    .rating-row {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-    .rating-btn {
-      width: 42px;
-      height: 42px;
-      border: 2px solid var(--border);
-      border-radius: 50%;
-      background: var(--surface);
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .rating-btn:hover {
-      border-color: var(--primary);
-      background: #eff6ff;
-    }
-    .rating-btn.selected {
-      border-color: var(--primary);
-      background: var(--primary);
-      color: #fff;
-      transform: scale(1.1);
-    }
-    .rating-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      color: var(--text-secondary);
-      margin-top: 4px;
-      padding: 0 2px;
-    }
-
-    /* ===== Nav Buttons ===== */
-    .nav-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 28px;
-      gap: 12px;
-    }
-    .nav-buttons .tool-button {
-      min-width: 120px;
-    }
-    .nav-buttons .tool-button:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-
-    /* ===== Step Indicator ===== */
-    .step-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-    .step-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--border);
-      transition: all 0.3s;
-    }
-    .step-dot.active {
-      background: var(--ikigai-center);
-      transform: scale(1.3);
-    }
-    .step-dot.done {
-      background: var(--ikigai-center);
-      opacity: 0.4;
-    }
-    .step-dot.passion-color { background: var(--ikigai-passion); }
-    .step-dot.mission-color { background: var(--ikigai-mission); }
-    .step-dot.vocation-color { background: var(--ikigai-vocation); }
-    .step-dot.profession-color { background: var(--ikigai-profession); }
-
-    /* ===== Results ===== */
-    #results-section {
-      display: none;
-    }
-    #results-section.active {
-      display: block;
-    }
-
-    .results-hero {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-    .results-hero h2 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--ikigai-center);
-    }
-    .results-hero p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      margin-top: 6px;
-    }
-
-    /* Radar + Score Layout */
-    .results-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
-    @media (max-width: 640px) {
-      .results-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .radar-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
-    .radar-card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-    #radarCanvas {
-      display: block;
-      margin: 0 auto;
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* Score Cards */
-    .scores-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .score-card {
-      border-radius: 10px;
-      padding: 16px;
-      text-align: center;
-    }
-    .score-card .sc-icon {
-      font-size: 1.5rem;
-    }
-    .score-card .sc-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-top: 4px;
-    }
-    .score-card .sc-value {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-top: 2px;
-    }
-    .sc-passion { background: #fce4ec; color: #c2185b; }
-    .sc-mission { background: #e8f5e9; color: #2e7d32; }
-    .sc-vocation { background: #fff3e0; color: #e65100; }
-    .sc-profession { background: #e3f2fd; color: #1565c0; }
-    @media (prefers-color-scheme: dark) {
-      .sc-passion { background: #3e1b2b; color: #f48fb1; }
-      .sc-mission { background: #1b3e1b; color: #81c784; }
-      .sc-vocation { background: #3e2e1b; color: #ffb74d; }
-      .sc-profession { background: #1b2b3e; color: #64b5f6; }
-    }
-
-    /* Intersection Analysis */
-    .insight-section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow);
-    }
-    .insight-section h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .intersection-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    @media (max-width: 640px) {
-      .intersection-grid { grid-template-columns: 1fr; }
-    }
-
-    .intersection-card {
-      padding: 16px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-    }
-    .intersection-card .ic-label {
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-bottom: 4px;
-    }
-    .intersection-card .ic-desc {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-    .intersection-card .ic-score {
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-top: 6px;
-    }
-    .ic-high { color: #16a34a; }
-    .ic-mid { color: #ca8a04; }
-    .ic-low { color: #dc2626; }
-
-    /* Primary Result */
-    .primary-result {
-      background: linear-gradient(135deg, #f5f3ff, #ede9fe);
-      border: 2px solid #c4b5fd;
-      border-radius: var(--radius);
-      padding: 28px;
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    @media (prefers-color-scheme: dark) {
-      .primary-result {
-        background: linear-gradient(135deg, #1e1b4b, #2e1065);
-        border-color: #6d28d9;
-      }
-    }
-    .primary-result .pr-type {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--ikigai-center);
-      font-weight: 600;
-    }
-    .primary-result .pr-title {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin: 8px 0;
-      color: var(--ikigai-center);
-    }
-    .primary-result .pr-desc {
-      font-size: 0.92rem;
-      color: var(--text-secondary);
-      max-width: 480px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* Action Cards */
-    .action-list {
-      display: grid;
-      gap: 12px;
-    }
-    .action-card {
-      padding: 16px 18px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-    .action-card .a-icon {
-      font-size: 1.2rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .action-card .a-text {
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-    .action-card .a-text strong {
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    /* Reset Button */
-    .reset-wrap {
-      text-align: center;
-      margin-top: 24px;
-    }
-    .reset-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-      padding: 10px 24px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .reset-btn:hover {
-      background: var(--bg);
-      border-color: var(--text-secondary);
-    }
-
-    /* ===== Checkbox style for rating ===== */
-    .rating-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .rating-label {
-      font-size: 0.7rem;
-      color: var(--text-secondary);
-      min-width: 28px;
-      text-align: center;
-    }
-
-    /* Step pages */
-    .step-page {
-      display: none;
-    }
-    .step-page.active {
-      display: block;
-    }
-
-    /* Responsive */
-    @media (max-width: 480px) {
-      .rating-btn { width: 36px; height: 36px; font-size: 0.75rem; }
-      .rating-row { gap: 4px; }
-      .results-hero h2 { font-size: 1.4rem; }
-      .primary-result .pr-title { font-size: 1.3rem; }
-      .primary-result { padding: 20px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JL08H6FMN6');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
+     crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ikigai Finder — Discover Your Life Purpose &amp; Meaning</title>
+<meta name="description" content="Discover your Ikigai — the Japanese concept of life purpose. Rate 4 dimensions (passion, mission, vocation, profession) and visualize where they intersect. Free self-assessment tool.">
+<link rel="canonical" href="https://anycalculator.site/ikigai/">
+<meta property="og:title" content="Ikigai Finder — Visualize Your Passion, Mission &amp; Purpose">
+<meta property="og:description" content="Discover the intersection of what you love, what you're good at, what the world needs, and what you can be paid for — visualized instantly.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://anycalculator.site/ikigai/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/common/premium.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Ikigai Finder","applicationCategory":"SelfManagementApplication"}</script>
+<style>
+body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.1);--accent-text:#6d28d9;--accent-hover:#6d28d9;--accent-glow:rgba(124,58,237,0.2)}
+/* ── Hero ── */
+.hero{padding:var(--space-10) 0 var(--space-6)}
+.hero h1 .gradient-text{background:linear-gradient(135deg,#7c3aed,#a78bfa,#f472b6)}
+/* ── Intro block ── */
+.intro-block{max-width:560px;margin:0 auto var(--space-6);text-align:center;font-size:.85rem;color:var(--text-secondary);line-height:1.7}
+.intro-block cite{display:block;margin-top:var(--space-2);font-size:.75rem;color:var(--text-tertiary);font-style:normal}
+/* ── Slider Grid ── */
+.slider-grid{display:grid;gap:var(--space-5);margin-bottom:var(--space-6)}
+.slider-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:var(--space-5);box-shadow:var(--shadow-xl)}
+.slider-card .sc-head{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-2)}
+.slider-card .sc-icon{font-size:1.8rem;line-height:1}
+.slider-card .sc-info{flex:1}
+.slider-card .sc-info h3{font-size:.95rem;font-weight:600}
+.slider-card .sc-info p{font-size:.78rem;color:var(--text-tertiary);margin-top:1px}
+.slider-card .sc-value{font-size:1.25rem;font-weight:700;color:var(--accent);min-width:36px;text-align:right}
+.slider-card .sc-body{margin-top:var(--space-2)}
+.slider-card input[type=range]{width:100%;height:6px;-webkit-appearance:none;appearance:none;background:var(--border);border-radius:3px;outline:none;transition:background .15s}
+.slider-card input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 2px 6px var(--accent-glow);transition:transform .15s var(--ease-spring)}
+.slider-card input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+.slider-card input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent);cursor:pointer;border:none}
+.sc-labels{display:flex;justify-content:space-between;font-size:.68rem;color:var(--text-tertiary);margin-top:4px}
+/* ── Results Area ── */
+.results-area{display:none;margin-top:var(--space-6)}
+.results-area.active{display:block}
+/* Radar + scores side by side */
+.radar-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5);margin-bottom:var(--space-5)}
+@media(max-width:640px){.radar-row{grid-template-columns:1fr}}
+.radar-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:var(--space-5);box-shadow:var(--shadow-xl);text-align:center}
+.radar-card h3{font-size:.85rem;font-weight:600;margin-bottom:var(--space-3);color:var(--text-secondary)}
+#radarCanvas{display:block;margin:0 auto;max-width:100%}
+/* Score summary */
+.score-summary{display:flex;flex-direction:column;gap:var(--space-3)}
+.score-bar-wrap{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:var(--space-4);box-shadow:var(--shadow-xl)}
+.score-bar-wrap .sb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.score-bar-wrap .sb-head .sb-label{font-size:.78rem;font-weight:600}
+.score-bar-wrap .sb-head .sb-pct{font-size:.82rem;font-weight:700;color:var(--accent)}
+.score-bar-wrap .sb-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.score-bar-wrap .sb-fill{height:100%;border-radius:3px;transition:width .5s cubic-bezier(.34,1.56,.64,1)}
+/* Type badge */
+.type-badge{background:var(--accent-subtle);border:1px solid var(--accent);border-radius:var(--radius-lg);padding:var(--space-6);text-align:center;margin-bottom:var(--space-5)}
+.type-badge .tb-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);margin-bottom:4px}
+.type-badge .tb-title{font-size:1.4rem;font-weight:700;color:var(--accent);margin-bottom:6px}
+.type-badge .tb-desc{font-size:.82rem;color:var(--text-secondary);line-height:1.6;max-width:480px;margin:0 auto}
+/* Insights grid */
+.insights-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-bottom:var(--space-5)}
+@media(max-width:480px){.insights-grid{grid-template-columns:1fr}}
+.insight-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-4);box-shadow:var(--shadow-sm)}
+.insight-card .ic-label{font-size:.78rem;font-weight:600;margin-bottom:3px}
+.insight-card .ic-desc{font-size:.75rem;color:var(--text-tertiary);line-height:1.5}
+.insight-card .ic-score{font-size:.78rem;font-weight:700;margin-top:6px}
+.ic-strong{color:#16a34a}
+.ic-fair{color:#ca8a04}
+.ic-low{color:#dc2626}
+/* Actions */
+.actions-list{display:grid;gap:var(--space-3);margin-bottom:var(--space-5)}
+.action-card{display:flex;align-items:flex-start;gap:var(--space-3);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-4);box-shadow:var(--shadow-sm)}
+.action-card .a-icon{font-size:1.1rem;margin-top:1px;flex-shrink:0}
+.action-card .a-text{font-size:.8rem;color:var(--text-secondary);line-height:1.5}
+.action-card .a-text strong{display:block;color:var(--text-primary);margin-bottom:1px;font-size:.85rem}
+/* Responsive */
+@media(max-width:640px){
+  .hero h1{font-size:1.65rem}
+  .slider-card .sc-icon{font-size:1.4rem}
+  .type-badge .tb-title{font-size:1.15rem}
+}
+@media(max-width:480px){
+  .slider-card{padding:var(--space-4)}
+}
+</style>
 </head>
 <body>
 <div class="page-wrap">
+
 <nav class="top-nav"><div class="container">
   <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
   <div class="links">
@@ -525,840 +114,432 @@
     <a href="/ikigai/" class="active">Ikigai</a>
   </div>
 </div></nav>
+
 <div class="page-content">
-  <main class="container">
-    <section class="tool-section">
-      <div class="ikigai-header">
-        <div class="ikigai-kanji">生き甲斐</div>
-        <h1 class="tool-title" style="margin-bottom:4px;">Ikigai 人生方向分析</h1>
-        <p class="ikigai-sub">透過 4 個面向的簡易評分，找到你熱愛、擅長、世界需要、且能獲得報酬的人生交會點</p>
+<div class="container">
+
+<div class="hero">
+  <h1>🎯 <span class="gradient-text">Ikigai — Find Your Reason to Get Up</span></h1>
+  <p>Rate 4 dimensions to discover where passion, mission, strength, and livelihood intersect</p>
+</div>
+
+<div class="intro-block">
+  <strong>Ikigai</strong> (生き甲斐) is a Japanese concept meaning "reason for being." It sits at the overlap of what you <strong>love</strong>, what the <strong>world needs</strong>, what you're <strong>good at</strong>, and what you can be <strong>paid for</strong>. Move each slider to reflect where you stand today, and see your personal ikigai map instantly.
+  <cite>— "The happiest people are not those who have the most, but those who know their ikigai."</cite>
+</div>
+
+<!-- Sliders -->
+<div class="slider-grid" id="sliderGrid">
+  <div class="slider-card" data-dim="passion">
+    <div class="sc-head">
+      <div class="sc-icon">🔥</div>
+      <div class="sc-info">
+        <h3>Passion — What You Love</h3>
+        <p>Activities that make you lose track of time</p>
       </div>
-
-      <div class="intro-card">
-        <p><strong>Ikigai（生き甲斐）</strong>是來自日本的生命哲學概念，意思是「值得活下去的理由」或「人生目的」。它位於四個面向的交會處：</p>
-        <p style="margin-top:8px;">
-          🔥 <strong>熱情（Passion）</strong> — 你熱愛的事<br>
-          🌍 <strong>使命（Mission）</strong> — 世界需要的事<br>
-          ⚡ <strong>天職（Vocation）</strong> — 你擅長的事<br>
-          💰 <strong>職業（Profession）</strong> — 能獲得報酬的事
-        </p>
-        <p style="margin-top:8px;">依序對每個陳述按照 <strong>1（完全不符合）～ 5（完全符合）</strong>評分，完成後將獲得你的 Ikigai 分析圖譜與個人化建議。</p>
-      </div>
-
-      <!-- Progress -->
-      <div class="progress-wrap">
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-label">
-          <span id="progressText">0 / 16 題</span>
-          <span id="progressPct">0%</span>
-        </div>
-      </div>
-
-      <!-- Step Dots -->
-      <div class="step-dots" id="stepDots">
-        <div class="step-dot active" data-step="0"></div>
-        <div class="step-dot" data-step="1"></div>
-        <div class="step-dot" data-step="2"></div>
-        <div class="step-dot" data-step="3"></div>
-      </div>
-
-      <div class="tool-card" id="quizCard">
-        <!-- Questions will be rendered by JS -->
-        <div id="questionsContainer"></div>
-
-        <!-- Navigation -->
-        <div class="nav-buttons">
-          <button class="tool-button" id="prevBtn" style="background:var(--border);color:var(--text);">← 上一頁</button>
-          <button class="tool-button" id="nextBtn">下一頁 →</button>
-        </div>
-      </div>
-
-      <!-- ===== RESULTS ===== -->
-      <div id="results-section">
-        <div class="results-hero">
-          <h2>🧭 你的 Ikigai 圖譜</h2>
-          <p>以下是你四個面向的評分結果與分析</p>
-        </div>
-
-        <!-- Primary Result -->
-        <div class="primary-result" id="primaryResult">
-          <div class="pr-type">你的主要方向類型</div>
-          <div class="pr-title" id="prTitle">綜合型</div>
-          <div class="pr-desc" id="prDesc">Loading...</div>
-        </div>
-
-        <!-- Radar + Scores -->
-        <div class="results-grid">
-          <div class="radar-card">
-            <h3>📊 Ikigai 雷達圖</h3>
-            <canvas id="radarCanvas" width="300" height="300"></canvas>
-          </div>
-          <div>
-            <div class="scores-grid" id="scoreCards">
-              <!-- Populated by JS -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Intersection Insights -->
-        <div class="insight-section">
-          <h3>🔗 交集分析</h3>
-          <div class="intersection-grid" id="intersectionGrid">
-            <!-- Populated by JS -->
-          </div>
-        </div>
-
-        <!-- Action Suggestions -->
-        <div class="insight-section">
-          <h3>💡 個人化行動建議</h3>
-          <div class="action-list" id="actionList">
-            <!-- Populated by JS -->
-          </div>
-        </div>
-
-        <!-- Ad placement -->
-        <div class="ad-banner">
-          <p class="ad-label">— 廣告 —</p>
-        </div>
-
-        <!-- CTA -->
-        <div class="cta-section" style="margin-top:24px;">
-          <h2>想更深入探索人生方向？</h2>
-          <p>Ikigai 是一個持續探索的過程，定期重新評量可以幫助你掌握人生方向的變化。</p>
-          <a href="/" class="cta-button">探索更多工具 →</a>
-        </div>
-
-        <!-- Reset -->
-        <div class="reset-wrap">
-          <button class="reset-btn" onclick="resetQuiz()">🔄 重新測試</button>
-        </div>
-      </div>
-
-      <!-- Ad on quiz side -->
-      <div class="ad-banner" id="quizAd">
-        <p class="ad-label">— 廣告 —</p>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
-      <h2>關於 Ikigai 的常見問題</h2>
-      <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-question">🧐 Ikigai 是什麼意思？</div>
-          <div class="faq-answer">Ikigai（生き甲斐）是日文詞彙，直譯為「活下去的理由」。它代表一個人生目的與意義的來源，通常來自於你熱愛的事物、你擅長的技能、世界需要的貢獻、以及你能獲得報酬的工作這四個面向的交集。</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">📋 這個測試結果準確嗎？</div>
-          <div class="faq-answer">這份 Ikigai 分析工具是基於自我評估問卷，幫助你反思自己的價值觀與現狀。結果僅供參考，真正的 Ikigai 需要透過持續的自我探索與生活實踐來發現。建議每 3-6 個月重新測試一次，觀察變化趨勢。</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">🔄 四個面向分數很低怎麼辦？</div>
-          <div class="faq-answer">如果四個面向分數都偏低，可能代表你正處在人生探索階段。這是正常的！可以從「你擅長的事」開始，專注發展一個技能；或從「你熱愛的事」開始，給自己時間嘗試不同興趣。Ikigai 不是一天找到的。</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">🎯 Ikigai 和一般人生目標設定有什麼不同？</div>
-          <div class="faq-answer">Ikigai 強調的是四個面向的平衡交會，而非單一目標。傳統目標設定可能只關注「成就」或「財富」，但 Ikigai 同時考慮你的內在滿足感、社會貢獻與個人成長，是一種更全面的人生方向思考框架。</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question">🌏 Ikigai 是日本特有的概念嗎？</div>
-          <div class="faq-answer">雖然 Ikigai 源自日本文化（沖繩尤其著名），但類似「人生意義」的概念存在於許多文化中。Ikigai 的 Venn 圖分析框架（熱情、使命、天職、職業）是西方世界普及的詮釋版本，幫助來自各地的人都能應用這個概念。</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Related Tools -->
-    <section class="related-section">
-      <h2>你可能也會喜歡</h2>
-      <div class="related-grid">
-        <a href="/tools/exam-countdown/" class="related-card">
-          <div class="card-title">📅 國考倒數計時器</div>
-          <div class="card-desc">即時查看各項國家考試倒數天數</div>
-        </a>
-        <a href="/" class="related-card">
-          <div class="card-title">🧮 更多工具</div>
-          <div class="card-desc">探索其他免費線上工具</div>
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2026 工具站. Ikigai 分析工具僅供參考與自我探索使用。</p>
+      <div class="sc-value" id="val-passion">50</div>
     </div>
-  </footer>
+    <div class="sc-body">
+      <input type="range" min="0" max="100" value="50" id="sl-passion" oninput="updateDim('passion')">
+      <div class="sc-labels"><span>I don't know what I love</span><span>I'm deeply passionate</span></div>
+    </div>
+  </div>
 
-  <script src="/assets/tool.js"></script>
-  <script>
-  // =============================================
-  // Ikigai Assessment Questions
-  // =============================================
-  const dimensions = [
-    {
-      id: 'passion',
-      label: '🔥 熱情（Passion）',
-      desc: '你發自內心熱愛的事',
-      icon: '🔥',
-      color: '#e91e63',
-      cssClass: 'd-passion',
-      dotColor: 'passion-color',
-      scoreClass: 'sc-passion',
-      questions: [
-        '即使沒有報酬，我也願意花時間做這件事',
-        '做這件事的時候，我完全感受不到時間流逝',
-        '這件事讓我感到發自內心的快樂與滿足',
-        '我會主動尋找機會去接觸或學習相關事物'
-      ]
-    },
-    {
-      id: 'mission',
-      label: '🌍 使命（Mission）',
-      desc: '世界需要你做的事',
-      icon: '🌍',
-      color: '#4caf50',
-      cssClass: 'd-mission',
-      dotColor: 'mission-color',
-      scoreClass: 'sc-mission',
-      questions: [
-        '我關心社會／環境中的某些問題，並想為此貢獻',
-        '我認為我的行動能對他人或社會產生正面影響',
-        '幫助他人或改善周圍環境讓我感到有意義',
-        '我經常思考如何讓這個世界變得更好'
-      ]
-    },
-    {
-      id: 'vocation',
-      label: '⚡ 天職（Vocation）',
-      desc: '你擅長做的事',
-      icon: '⚡',
-      color: '#ff9800',
-      cssClass: 'd-vocation',
-      dotColor: 'vocation-color',
-      scoreClass: 'sc-vocation',
-      questions: [
-        '我在某些領域確實比大多數人更擅長',
-        '別人經常稱讚我在特定方面的表現或能力',
-        '學習相關技能時，我通常能很快掌握',
-        '我對自己的專業能力有信心'
-      ]
-    },
-    {
-      id: 'profession',
-      label: '💰 職業（Profession）',
-      desc: '能獲得報酬的事',
-      icon: '💰',
-      color: '#2196f3',
-      cssClass: 'd-profession',
-      dotColor: 'profession-color',
-      scoreClass: 'sc-profession',
-      questions: [
-        '我目前的技能在市場上具備經濟價值',
-        '別人願意為我提供的服務或產品付費',
-        '我清楚知道如何透過我的專業獲得收入',
-        '我的收入來源與我的核心能力相關'
-      ]
-    }
-  ];
-
-  // =============================================
-  // State
-  // =============================================
-  let currentStep = 0;
-  const totalSteps = dimensions.length;
-  const answers = {}; // { 'dimId_qIdx': rating }
-
-  // =============================================
-  // Initialize
-  // =============================================
-  function init() {
-    renderStep(0);
-    updateProgress();
-    updateDots();
-    loadSaved();
-    document.getElementById('prevBtn').disabled = true;
-  }
-
-  function loadSaved() {
-    try {
-      const saved = localStorage.getItem('ikigai_answers');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        Object.assign(answers, parsed);
-        // Re-render current step to show saved ratings
-        const container = document.getElementById('questionsContainer');
-        const btns = container.querySelectorAll('.rating-btn');
-        btns.forEach(btn => {
-          const key = btn.dataset.key;
-          if (key && answers[key]) {
-            btn.classList.add('selected');
-            btn.textContent = answers[key];
-          }
-        });
-        updateProgress();
-      }
-    } catch(e) {}
-  }
-
-  function saveAnswers() {
-    try {
-      localStorage.setItem('ikigai_answers', JSON.stringify(answers));
-    } catch(e) {}
-  }
-
-  // =============================================
-  // Render Step
-  // =============================================
-  function renderStep(step) {
-    const container = document.getElementById('questionsContainer');
-    const dim = dimensions[step];
-    if (!dim) return;
-
-    let html = `
-      <div class="dimension-label ${dim.cssClass}">
-        <div class="d-icon">${dim.icon}</div>
-        <div class="d-text">
-          <h3>${dim.label}</h3>
-          <p>${dim.desc}</p>
-        </div>
+  <div class="slider-card" data-dim="mission">
+    <div class="sc-head">
+      <div class="sc-icon">🌍</div>
+      <div class="sc-info">
+        <h3>Mission — What the World Needs</h3>
+        <p>How much your work contributes to something bigger</p>
       </div>
-    `;
+      <div class="sc-value" id="val-mission">50</div>
+    </div>
+    <div class="sc-body">
+      <input type="range" min="0" max="100" value="50" id="sl-mission" oninput="updateDim('mission')">
+      <div class="sc-labels"><span>I don't feel a calling</span><span>I'm driven by purpose</span></div>
+    </div>
+  </div>
 
-    dim.questions.forEach((q, qi) => {
-      const key = `${dim.id}_${qi}`;
-      const saved = answers[key] || 0;
-      html += `
-        <div class="question-item">
-          <div class="q-text">${q}</div>
-          <div class="rating-row" id="row-${key}">
-            ${[1,2,3,4,5].map(r => `
-              <button class="rating-btn ${saved === r ? 'selected' : ''}"
-                data-key="${key}" data-value="${r}"
-                onclick="setRating('${key}', ${r})">${r}</button>
-            `).join('')}
-          </div>
-          <div class="rating-labels">
-            <span>完全不符合</span>
-            <span>完全符合</span>
-          </div>
-        </div>
-      `;
-    });
+  <div class="slider-card" data-dim="vocation">
+    <div class="sc-head">
+      <div class="sc-icon">⚡</div>
+      <div class="sc-info">
+        <h3>Vocation — What You're Good At</h3>
+        <p>Your natural talents and developed skills</p>
+      </div>
+      <div class="sc-value" id="val-vocation">50</div>
+    </div>
+    <div class="sc-body">
+      <input type="range" min="0" max="100" value="50" id="sl-vocation" oninput="updateDim('vocation')">
+      <div class="sc-labels"><span>I'm still discovering my strengths</span><span>I have proven expertise</span></div>
+    </div>
+  </div>
 
-    container.innerHTML = html;
-    currentStep = step;
-    updateProgress();
-    updateDots();
+  <div class="slider-card" data-dim="profession">
+    <div class="sc-head">
+      <div class="sc-icon">💰</div>
+      <div class="sc-info">
+        <h3>Profession — What You Can Be Paid For</h3>
+        <p>How well your skills translate into income</p>
+      </div>
+      <div class="sc-value" id="val-profession">50</div>
+    </div>
+    <div class="sc-body">
+      <input type="range" min="0" max="100" value="50" id="sl-profession" oninput="updateDim('profession')">
+      <div class="sc-labels"><span>Not monetized yet</span><span>I earn well from my skills</span></div>
+    </div>
+  </div>
+</div>
 
-    // Nav buttons
-    document.getElementById('prevBtn').disabled = step === 0;
-    if (step === totalSteps - 1) {
-      document.getElementById('nextBtn').textContent = '📊 查看結果';
-    } else {
-      document.getElementById('nextBtn').textContent = '下一頁 →';
-    }
+<button class="btn-download" onclick="showResults()" style="display:block;margin:0 auto var(--space-6)">🧭 Show My Ikigai →</button>
+
+<!-- RESULTS -->
+<div class="results-area" id="resultsArea">
+
+  <div class="type-badge" id="typeBadge">
+    <div class="tb-label">Your Ikigai Profile</div>
+    <div class="tb-title" id="profileTitle">Loading...</div>
+    <div class="tb-desc" id="profileDesc"></div>
+  </div>
+
+  <div class="radar-row">
+    <div class="radar-card">
+      <h3>Ikigai Radar</h3>
+      <canvas id="radarCanvas" width="280" height="280"></canvas>
+    </div>
+    <div class="score-summary" id="scoreSummary">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <div class="insights-grid" id="insightsGrid">
+    <!-- filled by JS -->
+  </div>
+
+  <div class="actions-list" id="actionsList">
+    <!-- filled by JS -->
+  </div>
+
+  <div class="card" style="text-align:center;margin-bottom:var(--space-6)">
+    <h2 style="margin-bottom:var(--space-2)">🔄 Review Your Ikigai Over Time</h2>
+    <p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:var(--space-4)">Your ikigai changes as you grow. Come back every few months to see how your balance shifts.</p>
+    <button class="btn-download" onclick="resetAll()">🔄 Take Again</button>
+  </div>
+
+  <div class="card" style="margin-bottom:var(--space-6)">
+    <h2 style="margin-bottom:var(--space-3)">❓ Frequently Asked Questions</h2>
+    <div style="border-bottom:1px solid var(--border-subtle);padding:var(--space-3) 0">
+      <div style="font-weight:600;font-size:.85rem;cursor:pointer" onclick="this.nextElementSibling.classList.toggle('active')">What exactly is Ikigai?</div>
+      <div style="display:none;font-size:.8rem;color:var(--text-secondary);margin-top:6px;line-height:1.6">Ikigai (生き甲斐) is a Japanese life philosophy that means "a reason for being." Unlike a simple goal, ikigai is an ongoing sense of purpose that comes from the convergence of four areas: what you love, what you're good at, what the world needs, and what you can be paid for.</div>
+    </div>
+    <div style="border-bottom:1px solid var(--border-subtle);padding:var(--space-3) 0">
+      <div style="font-weight:600;font-size:.85rem;cursor:pointer" onclick="this.nextElementSibling.classList.toggle('active')">Is this assessment accurate?</div>
+      <div style="display:none;font-size:.8rem;color:var(--text-secondary);margin-top:6px;line-height:1.6">This tool is a self-reflection aid, not a clinical assessment. It helps you visualize where you currently stand across the four dimensions. Your true ikigai is discovered through real-world exploration, reflection, and practice over time.</div>
+    </div>
+    <div style="border-bottom:1px solid var(--border-subtle);padding:var(--space-3) 0">
+      <div style="font-weight:600;font-size:.85rem;cursor:pointer" onclick="this.nextElementSibling.classList.toggle('active')">What if all my scores are low?</div>
+      <div style="display:none;font-size:.8rem;color:var(--text-secondary);margin-top:6px;line-height:1.6">That's completely normal, especially during transition periods. Start small: pick one dimension and invest 30 minutes a week exploring it. Try a new hobby (passion), volunteer (mission), take a course (vocation), or freelance a skill (profession). Small steps compound over time.</div>
+    </div>
+    <div style="border-bottom:1px solid var(--border-subtle);padding:var(--space-3) 0">
+      <div style="font-weight:600;font-size:.85rem;cursor:pointer" onclick="this.nextElementSibling.classList.toggle('active')">How often should I retake this?</div>
+      <div style="display:none;font-size:.8rem;color:var(--text-secondary);margin-top:6px;line-height:1.6">Every 3–6 months is ideal. Life changes — new jobs, skills, relationships, and experiences shift your balance. Tracking the trend over time is more useful than any single score.</div>
+    </div>
+    <div style="padding:var(--space-3) 0">
+      <div style="font-weight:600;font-size:.85rem;cursor:pointer" onclick="this.nextElementSibling.classList.toggle('active')">Is Ikigai different from happiness?</div>
+      <div style="display:none;font-size:.8rem;color:var(--text-secondary);margin-top:6px;line-height:1.6">Yes. Happiness is a temporary emotion; ikigai is a sustained sense of direction and meaning. You can experience joy without ikigai, and you can have ikigai even during difficult times because it gives you a reason to keep going.</div>
+    </div>
+  </div>
+
+</div><!-- /results-area -->
+
+</div><!-- /container -->
+</div><!-- /page-content -->
+
+<footer style="border-top:1px solid var(--border-subtle);padding:var(--space-6) 0;margin-top:var(--space-8)">
+  <div class="container" style="text-align:center;font-size:.75rem;color:var(--text-tertiary)">
+    <p>Ikigai Finder — free self-assessment tool. Not a clinical instrument. Made with ♥.</p>
+  </div>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+// =============================================
+// Ikigai Assessment Engine
+// =============================================
+
+const labels = {
+  passion: { icon: '🔥', name: 'Passion' },
+  mission: { icon: '🌍', name: 'Mission' },
+  vocation: { icon: '⚡', name: 'Vocation' },
+  profession: { icon: '💰', name: 'Profession' }
+};
+
+const colors = {
+  passion: '#e91e63',
+  mission: '#4caf50',
+  vocation: '#ff9800',
+  profession: '#2196f3'
+};
+
+let scores = { passion: 50, mission: 50, vocation: 50, profession: 50 };
+let resultsShown = false;
+
+// ── Slider update ──
+function updateDim(dim) {
+  const val = parseInt(document.getElementById('sl-' + dim).value);
+  document.getElementById('val-' + dim).textContent = val;
+  scores[dim] = val;
+  // Save to localStorage
+  try { localStorage.setItem('ikigai_scores', JSON.stringify(scores)); } catch(e) {}
+  // Live update if results are shown
+  if (resultsShown) {
+    renderAll();
   }
+}
 
-  function setRating(key, value) {
-    answers[key] = value;
-    saveAnswers();
-
-    // Update visual
-    const row = document.getElementById(`row-${key}`);
-    if (row) {
-      row.querySelectorAll('.rating-btn').forEach(btn => {
-        btn.classList.toggle('selected', parseInt(btn.dataset.value) === value);
-      });
-    }
-    updateProgress();
-  }
-
-  // =============================================
-  // Navigation
-  // =============================================
-  function goNext() {
-    // Check all questions in current step answered
-    const dim = dimensions[currentStep];
-    let allAnswered = true;
-    dim.questions.forEach((_, qi) => {
-      const key = `${dim.id}_${qi}`;
-      if (!answers[key]) allAnswered = false;
-    });
-
-    if (!allAnswered) {
-      // Highlight unanswered
-      dim.questions.forEach((_, qi) => {
-        const key = `${dim.id}_${qi}`;
-        if (!answers[key]) {
-          const row = document.getElementById(`row-${key}`);
-          if (row) {
-            row.style.animation = 'shake 0.4s ease';
-            setTimeout(() => row.style.animation = '', 500);
-          }
+// ── Load saved ──
+function loadSaved() {
+  try {
+    const saved = localStorage.getItem('ikigai_scores');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      for (const dim of ['passion','mission','vocation','profession']) {
+        if (typeof parsed[dim] === 'number') {
+          scores[dim] = parsed[dim];
+          document.getElementById('sl-' + dim).value = parsed[dim];
+          document.getElementById('val-' + dim).textContent = parsed[dim];
         }
-      });
-      return;
-    }
-
-    if (currentStep === totalSteps - 1) {
-      showResults();
-    } else {
-      renderStep(currentStep + 1);
-    }
-  }
-
-  function goPrev() {
-    if (currentStep > 0) {
-      renderStep(currentStep - 1);
-    }
-  }
-
-  // =============================================
-  // Progress
-  // =============================================
-  function updateProgress() {
-    let answered = 0;
-    let total = 0;
-    dimensions.forEach(dim => {
-      dim.questions.forEach((_, qi) => {
-        total++;
-        if (answers[`${dim.id}_${qi}`]) answered++;
-      });
-    });
-
-    const pct = total > 0 ? Math.round((answered / total) * 100) : 0;
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressText').textContent = `${answered} / ${total} 題`;
-    document.getElementById('progressPct').textContent = pct + '%';
-  }
-
-  function updateDots() {
-    document.querySelectorAll('.step-dot').forEach((dot, i) => {
-      dot.classList.remove('active');
-      dot.className = 'step-dot';
-      const dim = dimensions[i];
-      if (dim) dot.classList.add(dim.dotColor);
-      if (i === currentStep) dot.classList.add('active');
-      // Check if all questions in this dim are answered
-      let allDone = true;
-      if (dim) {
-        dim.questions.forEach((_, qi) => {
-          if (!answers[`${dim.id}_${qi}`]) allDone = false;
-        });
       }
-      if (allDone && i !== currentStep) dot.classList.add('done');
-    });
-  }
-
-  // =============================================
-  // Results
-  // =============================================
-  function showResults() {
-    // Hide quiz
-    document.getElementById('quizCard').style.display = 'none';
-    document.getElementById('quizAd').style.display = 'none';
-    document.getElementById('stepDots').style.display = 'none';
-    document.getElementById('results-section').classList.add('active');
-
-    const scores = {};
-    dimensions.forEach(dim => {
-      let sum = 0;
-      let count = 0;
-      dim.questions.forEach((_, qi) => {
-        const val = answers[`${dim.id}_${qi}`] || 0;
-        sum += val;
-        count++;
-      });
-      scores[dim.id] = Math.round((sum / (count * 5)) * 100);
-    });
-
-    renderScoreCards(scores);
-    drawRadar(scores);
-    renderIntersections(scores);
-    renderPrimaryResult(scores);
-    renderActions(scores);
-
-    // Scroll to top of results
-    document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    // Save last result
-    try {
-      localStorage.setItem('ikigai_result', JSON.stringify(scores));
-    } catch(e) {}
-  }
-
-  function renderScoreCards(scores) {
-    const container = document.getElementById('scoreCards');
-    container.innerHTML = dimensions.map(dim => {
-      const val = scores[dim.id];
-      return `
-        <div class="score-card ${dim.scoreClass}">
-          <div class="sc-icon">${dim.icon}</div>
-          <div class="sc-label">${dim.label.replace(/^.{1,2}\s/, '')}</div>
-          <div class="sc-value">${val}%</div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  // =============================================
-  // Radar Chart
-  // =============================================
-  function drawRadar(scores) {
-    const canvas = document.getElementById('radarCanvas');
-    const ctx = canvas.getContext('2d');
-    const w = canvas.width;
-    const h = canvas.height;
-    const cx = w / 2;
-    const cy = h / 2;
-    const r = Math.min(cx, cy) - 30;
-
-    ctx.clearRect(0, 0, w, h);
-
-    const labels = ['熱情', '使命', '天職', '職業'];
-    const angles = [-Math.PI / 2, 0, Math.PI / 2, Math.PI]; // top, right, bottom, left
-    const vals = [scores.passion / 100, scores.mission / 100, scores.vocation / 100, scores.profession / 100];
-    const colors = ['#e91e63', '#4caf50', '#ff9800', '#2196f3'];
-
-    // Background grid (concentric)
-    for (let level = 1; level <= 5; level++) {
-      const lr = (r / 5) * level;
-      ctx.beginPath();
-      for (let i = 0; i < 4; i++) {
-        const angle = angles[i];
-        const x = cx + lr * Math.cos(angle);
-        const y = cy + lr * Math.sin(angle);
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-      ctx.strokeStyle = '#e2e8f0';
-      ctx.lineWidth = 1;
-      ctx.stroke();
     }
+  } catch(e) {}
+}
 
-    // Axis lines
-    angles.forEach((angle, i) => {
-      ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.lineTo(cx + r * Math.cos(angle), cy + r * Math.sin(angle));
-      ctx.strokeStyle = '#cbd5e1';
-      ctx.lineWidth = 1;
-      ctx.stroke();
+// ── Show Results ──
+function showResults() {
+  resultsShown = true;
+  document.getElementById('resultsArea').classList.add('active');
+  renderAll();
+  // Scroll to results
+  document.getElementById('resultsArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
-      // Labels
-      const lx = cx + (r + 22) * Math.cos(angle);
-      const ly = cy + (r + 22) * Math.sin(angle);
-      ctx.fillStyle = colors[i];
-      ctx.font = 'bold 12px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(labels[i], lx, ly);
-    });
+// ── Render all results ──
+function renderAll() {
+  renderProfileType();
+  renderScoreBars();
+  drawRadar();
+  renderInsights();
+  renderActions();
+}
 
-    // Percent labels on each axis
-    [25, 50, 75, 100].forEach((pct, idx) => {
-      const lr = (r / 5) * (idx + 1);
-      const px = cx + lr * Math.cos(angles[1]);
-      const py = cy + lr * Math.sin(angles[1]);
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '9px sans-serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(pct + '%', px + 4, py);
-    });
+// ── Profile Type ──
+function renderProfileType() {
+  const { passion, mission, vocation, profession } = scores;
+  const avg = Math.round((passion + mission + vocation + profession) / 4);
+  const maxDim = Object.entries(scores).sort((a,b) => b[1] - a[1])[0][0];
+  const maxVal = Math.max(passion, mission, vocation, profession);
+  const minVal = Math.min(passion, mission, vocation, profession);
+  const range = maxVal - minVal;
 
-    // Data polygon
+  let title, desc;
+
+  if (avg >= 75 && range < 20) {
+    title = '🌟 Balanced Ikigai';
+    desc = 'You\'re living at the intersection of all four dimensions. Your work feels meaningful, uses your strengths, supports your livelihood, and you genuinely enjoy it. Keep nurturing each area — balance isn\'t a destination, it\'s a practice.';
+  } else if (passion >= 70 && mission >= 70 && vocation < 50 && profession < 50) {
+    title = '🌈 Dreamer — High Passion, High Mission';
+    desc = 'You have a strong sense of what you love and what matters, but you may lack the skills or income channel to bring it to life. The gap between vision and execution is real — your next step is to build one concrete skill that serves your mission.';
+  } else if (vocation >= 70 && profession >= 70 && passion < 40) {
+    title = '💼 Comfortable — Skilled & Paid, but Unfulfilled';
+    desc = 'You\'re good at what you do and it pays well, but something feels missing. This is the classic golden cage. The fix isn\'t to quit — it\'s to reintroduce passion and purpose into your existing work. Find one project that excites you.';
+  } else if (passion >= 70 && vocation >= 70 && profession < 40) {
+    title = '🔥 Artisan — Passionate & Talented, Not Yet Monetized';
+    desc = 'You love what you do and you\'re great at it, but you haven\'t turned it into a sustainable income. This is common for creators, hobbyists, and students. Your next challenge: identify who would pay for your skill and start small.';
+  } else if (mission >= 70 && profession >= 70 && passion < 40) {
+    title = '🌱 Purpose-Driven Professional';
+    desc = 'Your work serves a meaningful cause and pays the bills, but you\'ve lost the spark. You don\'t need a career change — you need to reconnect with what genuinely excites you. Add one passion project alongside your main work.';
+  } else if (maxVal < 40) {
+    title = '🔍 Explorer — Discovering Your Path';
+    desc = 'All four dimensions are still forming, and that\'s okay. Many people go through seasons of exploration before finding their ikigai. Start with one small commitment: try something new for 30 minutes a week and see what sticks.';
+  } else {
+    const dimName = { passion: 'Passion', mission: 'Mission', vocation: 'Vocation', profession: 'Profession' };
+    const dimIcon = { passion: '🔥', mission: '🌍', vocation: '⚡', profession: '💰' };
+    title = `${dimIcon[maxDim]} ${dimName[maxDim]}-Led`;
+    desc = `Your strongest driver is ${dimName[maxDim]} (${maxVal}%). Build from this strength. If ${dimName[maxDim]} is your engine, the question is: which dimension needs the most attention next? Focus your energy there for the next 30 days.`;
+  }
+
+  document.getElementById('profileTitle').textContent = title;
+  document.getElementById('profileDesc').textContent = desc;
+}
+
+// ── Score Bars ──
+function renderScoreBars() {
+  const container = document.getElementById('scoreSummary');
+  container.innerHTML = Object.entries(scores).map(([dim, val]) => `
+    <div class="score-bar-wrap">
+      <div class="sb-head">
+        <div class="sb-label"><span style="margin-right:6px">${labels[dim].icon}</span>${labels[dim].name}</div>
+        <div class="sb-pct">${val}%</div>
+      </div>
+      <div class="sb-track">
+        <div class="sb-fill" style="width:${val}%;background:${colors[dim]}"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── Radar Chart ──
+function drawRadar() {
+  const canvas = document.getElementById('radarCanvas');
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  if (!w || !h) return;
+  const cx = w / 2, cy = h / 2;
+  const r = Math.min(cx, cy) - 28;
+
+  ctx.clearRect(0, 0, w, h);
+
+  const dims = ['passion','mission','vocation','profession'];
+  const angles = [-Math.PI/2, 0, Math.PI/2, Math.PI]; // top, right, bottom, left
+  const vals = dims.map(d => scores[d] / 100);
+  const c = dims.map(d => colors[d]);
+
+  // Grid (4 circles)
+  for (let lvl = 1; lvl <= 4; lvl++) {
+    const lr = (r / 4) * lvl;
     ctx.beginPath();
-    vals.forEach((val, i) => {
-      const angle = angles[i];
-      const dist = val * r;
-      const x = cx + dist * Math.cos(angle);
-      const y = cy + dist * Math.sin(angle);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    });
+    for (let i = 0; i < 4; i++) {
+      const x = cx + lr * Math.cos(angles[i]);
+      const y = cy + lr * Math.sin(angles[i]);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
     ctx.closePath();
-    ctx.fillStyle = 'rgba(124, 58, 237, 0.15)';
-    ctx.fill();
-    ctx.strokeStyle = '#7c3aed';
-    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = 'var(--border)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Axis lines
+  angles.forEach((angle, i) => {
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + r * Math.cos(angle), cy + r * Math.sin(angle));
+    ctx.strokeStyle = 'var(--border-subtle)';
+    ctx.lineWidth = 1;
     ctx.stroke();
 
-    // Data points
-    vals.forEach((val, i) => {
-      const angle = angles[i];
-      const dist = val * r;
-      const x = cx + dist * Math.cos(angle);
-      const y = cy + dist * Math.sin(angle);
-      ctx.beginPath();
-      ctx.arc(x, y, 5, 0, Math.PI * 2);
-      ctx.fillStyle = colors[i];
-      ctx.fill();
-      ctx.strokeStyle = '#fff';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    });
-
-    // Center dot
-    ctx.beginPath();
-    ctx.arc(cx, cy, 4, 0, Math.PI * 2);
-    ctx.fillStyle = '#7c3aed';
-    ctx.fill();
-  }
-
-  // =============================================
-  // Intersections
-  // =============================================
-  function renderIntersections(scores) {
-    const container = document.getElementById('intersectionGrid');
-    const passion = scores.passion;
-    const mission = scores.mission;
-    const vocation = scores.vocation;
-    const profession = scores.profession;
-
-    const intersections = [
-      {
-        label: '❤️ 熱情 × 使命',
-        desc: '你熱愛且世界需要的事 — 這是「喜悅」的來源，但如果沒有收入支撐可能難以持續。',
-        score: Math.round((passion + mission) / 2),
-        color: 'ic-mid'
-      },
-      {
-        label: '🔥 熱情 × 天職',
-        desc: '你熱愛且擅長的事 — 這是「熱忱」，但如果沒有市場需求可能難以作為主業。',
-        score: Math.round((passion + vocation) / 2),
-        color: 'ic-mid'
-      },
-      {
-        label: '💼 天職 × 職業',
-        desc: '你擅長且能賺錢的事 — 這是「舒適區」，但如果缺乏熱情可能感到空虛。',
-        score: Math.round((vocation + profession) / 2),
-        color: 'ic-mid'
-      },
-      {
-        label: '🌟 使命 × 職業',
-        desc: '世界需要且能賺錢的事 — 這是「使命」，但如果並非你所擅長可能壓力很大。',
-        score: Math.round((mission + profession) / 2),
-        color: 'ic-mid'
-      }
-    ];
-
-    // Determine range for coloring
-    const allScores = intersections.map(i => i.score);
-    const max = Math.max(...allScores);
-    const min = Math.min(...allScores);
-    const range = max - min || 1;
-
-    container.innerHTML = intersections.map((item, idx) => {
-      // Normalize score color relative to other intersections
-      const normalized = (item.score - min) / range;
-      let colorClass = 'ic-low';
-      if (normalized > 0.6) colorClass = 'ic-high';
-      else if (normalized > 0.3) colorClass = 'ic-mid';
-
-      return `
-        <div class="intersection-card">
-          <div class="ic-label">${item.label}</div>
-          <div class="ic-desc">${item.desc}</div>
-          <div class="ic-score ${colorClass}">匹配度：${item.score}%</div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  // =============================================
-  // Primary Result
-  // =============================================
-  function renderPrimaryResult(scores) {
-    const passion = scores.passion;
-    const mission = scores.mission;
-    const vocation = scores.vocation;
-    const profession = scores.profession;
-    const avg = Math.round((passion + mission + vocation + profession) / 4);
-    const maxScore = Math.max(passion, mission, vocation, profession);
-    const minScore = Math.min(passion, mission, vocation, profession);
-
-    let type, desc;
-
-    if (avg >= 70 && maxScore - minScore < 20) {
-      type = '🌟 Ikigai 均衡型';
-      desc = '你的四個面向發展相當均衡且分數偏高，顯示你很可能已經處在 Ikigai 的核心區域。你做的事情同時符合熱情、擅長、有意義且有回報。建議持續深耕，同時留意不要因為過度均衡而忽略某一面的持續成長。';
-    } else if (passion >= 70 && vocation >= 70 && profession < 50) {
-      type = '🔥 熱情工匠型';
-      desc = '你擁有極高的熱情與專業天賦，但目前還未充分轉化為穩定的收入來源。你可能正處在從興趣／專業轉向商業化的過渡期。下一步重點：找出你的技能在市場上的價值定位。';
-    } else if (mission >= 70 && profession >= 70 && passion < 50) {
-      type = '🌍 社會使命型';
-      desc = '你正在做對世界有意義且能獲得報酬的事，但可能還未找到真正讓你熱情投入的方向。你的工作有社會影響力，但長期的熱情缺失可能導致倦怠。試著為日常任務加入更多你喜歡的元素。';
-    } else if (vocation >= 70 && profession >= 70 && mission < 40) {
-      type = '💼 專業舒適型';
-      desc = '你擅長你的專業且能獲得良好收入，處於舒適區。但你可能逐漸感受到「除了賺錢之外，這件事的意義是什麼」的疑問。這是正常的，建議探索能將你的專業與社會貢獻連結的方式。';
-    } else if (passion >= 70 && mission >= 70 && vocation < 40) {
-      type = '🌈 理想主義型';
-      desc = '你有滿腔熱情與改變世界的渴望，但目前可能缺乏將理想落地所需的專業技能。這不是問題——你的熱情是最大的動力來源。下一步：針對你想做的事，有系統地學習關鍵技能。';
-    } else if (passion < 30 && mission < 30 && vocation < 30 && profession < 30) {
-      type = '🔍 探索型';
-      desc = '你正處在人生探索階段，四個面向都還在發展中。這不是壞事！很多人在不同階段重新發現自己的 Ikigai。建議先從一個面向開始：嘗試一個新的興趣（熱情）、學習一個新技能（天職），或參與志工活動（使命）。';
-    } else {
-      // Default: highlight the strongest dimension
-      const dimNames = [
-        { id: 'passion', label: '熱情', score: passion },
-        { id: 'mission', label: '使命', score: mission },
-        { id: 'vocation', label: '天職', score: vocation },
-        { id: 'profession', label: '職業', score: profession }
-      ];
-      dimNames.sort((a, b) => b.score - a.score);
-      const top = dimNames[0];
-      const second = dimNames[1];
-
-      if (top.score >= 60) {
-        type = `🎯 ${top.label}主導型`;
-        desc = `你的主要驅動力來自「${top.label}」（${top.score}%），其次為「${second.label}」（${second.score}%）。${top.label === '熱情' ? '你是一個由內在動力驅動的人，' : top.label === '使命' ? '你是一個有社會意識的人，' : top.label === '天職' ? '你是一個重視專業成長的人，' : '你是一個務實、重視穩定的人。'}建議在維持${top.label}優勢的同時，有意識地發展${second.label}面向，讓自己的人生更加平衡。`;
-      } else {
-        type = '🌱 成長潛力型';
-        desc = `你的四個面向都還有發展空間，這代表你擁有很大的成長潛力。目前最高的面向是「${top.label}」（${top.score}%）。建議從這個優勢面向出發，逐步擴展到其他領域。Ikigai 不是終點，而是一個持續探索的過程。`;
-      }
-    }
-
-    document.getElementById('prTitle').textContent = type;
-    document.getElementById('prDesc').textContent = desc;
-  }
-
-  // =============================================
-  // Action Suggestions
-  // =============================================
-  function renderActions(scores) {
-    const container = document.getElementById('actionList');
-    const passion = scores.passion;
-    const mission = scores.mission;
-    const vocation = scores.vocation;
-    const profession = scores.profession;
-
-    const actions = [];
-
-    if (passion < 50) {
-      actions.push({
-        icon: '🎨',
-        title: '探索你的熱情',
-        text: '列出 3 件你小時候很喜歡但很久沒做的事，安排時間重新嘗試。或從每週保留 2 小時「無目的時間」開始，純粹做讓你開心的事。'
-      });
-    }
-    if (mission < 50) {
-      actions.push({
-        icon: '🌱',
-        title: '尋找你的使命',
-        text: '關注一個你關心的社會或環境議題，從小事開始參與——捐贈、志工、或只是在社群分享相關資訊。「貢獻感」是可以練習的。'
-      });
-    }
-    if (vocation < 50) {
-      actions.push({
-        icon: '📚',
-        title: '強化你的專業',
-        text: '選擇一個你想精進的技能，設定 30 天的學習計畫。使用「刻意練習」原則：專注弱點、尋求反饋、重複練習。'
-      });
-    }
-    if (profession < 50) {
-      actions.push({
-        icon: '💡',
-        title: '建立收入渠道',
-        text: '盤點你已有的技能與資源，評估哪些具有市場價值。可以從接案、數位產品、或顧問服務開始，小規模測試市場反應。'
-      });
-    }
-
-    // Always add a general action
-    if (actions.length === 0) {
-      actions.push({
-        icon: '🌟',
-        title: '維持平衡',
-        text: '你的四個面向發展相當均衡！建議持續關注各面向的變化，每季重新測試一次。同時留意不要過度偏重某一面向而忽略其他。'
-      });
-    } else if (Math.max(passion, mission, vocation, profession) >= 70) {
-      actions.push({
-        icon: '🎯',
-        title: '深化優勢',
-        text: '你最強的面向已達 70% 以上，可以在維持優勢的同時，針對較弱面向制定具體的行動計畫。真正的 Ikigai 來自四者的平衡發展。'
-      });
-    }
-
-    actions.push({
-      icon: '📝',
-      title: '定期回顧',
-      text: 'Ikigai 會隨著人生階段變化。建議設定每 3 個月重新測試一次，記錄變化趨勢，觀察哪個面向在成長、哪個需要更多關注。'
-    });
-
-    container.innerHTML = actions.map(a => `
-      <div class="action-card">
-        <div class="a-icon">${a.icon}</div>
-        <div class="a-text">
-          <strong>${a.title}</strong>
-          ${a.text}
-        </div>
-      </div>
-    `).join('');
-  }
-
-  // =============================================
-  // Reset
-  // =============================================
-  function resetQuiz() {
-    if (!confirm('確定要重新測試嗎？所有作答紀錄將被清除。')) return;
-    for (const key in answers) {
-      delete answers[key];
-    }
-    try {
-      localStorage.removeItem('ikigai_answers');
-      localStorage.removeItem('ikigai_result');
-    } catch(e) {}
-
-    document.getElementById('results-section').classList.remove('active');
-    document.getElementById('quizCard').style.display = 'block';
-    document.getElementById('quizAd').style.display = 'block';
-    document.getElementById('stepDots').style.display = 'flex';
-    currentStep = 0;
-    renderStep(0);
-    updateProgress();
-    updateDots();
-    document.getElementById('prevBtn').disabled = true;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // =============================================
-  // Event Listeners
-  // =============================================
-  document.addEventListener('DOMContentLoaded', () => {
-    init();
-
-    document.getElementById('nextBtn').addEventListener('click', goNext);
-    document.getElementById('prevBtn').addEventListener('click', goPrev);
-
-    // Keyboard support
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'Enter') {
-        const results = document.getElementById('results-section');
-        if (!results.classList.contains('active')) {
-          goNext();
-        }
-      }
-      if (e.key === 'ArrowLeft') goPrev();
-    });
+    // Label
+    const lx = cx + (r + 20) * Math.cos(angle);
+    const ly = cy + (r + 20) * Math.sin(angle);
+    ctx.fillStyle = c[i];
+    ctx.font = 'bold 11px Inter,sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(labels[dims[i]].name, lx, ly);
   });
 
-  // Shake animation keyframes (added dynamically)
-  const styleShake = document.createElement('style');
-  styleShake.textContent = `
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-6px); }
-      40% { transform: translateX(6px); }
-      60% { transform: translateX(-4px); }
-      80% { transform: translateX(4px); }
+  // Data polygon
+  ctx.beginPath();
+  vals.forEach((val, i) => {
+    const dist = val * r;
+    const x = cx + dist * Math.cos(angles[i]);
+    const y = cy + dist * Math.sin(angles[i]);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.closePath();
+  ctx.fillStyle = 'var(--accent-subtle)';
+  ctx.fill();
+  ctx.strokeStyle = 'var(--accent)';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Data points
+  vals.forEach((val, i) => {
+    const dist = val * r;
+    const x = cx + dist * Math.cos(angles[i]);
+    const y = cy + dist * Math.sin(angles[i]);
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = c[i];
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  });
+}
+
+// ── Insights ──
+function renderInsights() {
+  const { passion, mission, vocation, profession } = scores;
+  const intersections = [
+    { label: '❤️ Passion × Mission', desc: 'What you love + what the world needs = delight & meaning, but may lack income.', score: Math.round((passion + mission) / 2) },
+    { label: '🔥 Passion × Vocation', desc: 'What you love + what you\'re good at = passion-driven skill. Sustainable joy.', score: Math.round((passion + vocation) / 2) },
+    { label: '💼 Vocation × Profession', desc: 'What you\'re good at + what pays = comfortable expertise. Risk: feeling empty.', score: Math.round((vocation + profession) / 2) },
+    { label: '🌟 Mission × Profession', desc: 'What the world needs + what pays = meaningful career. Risk: burnout without passion.', score: Math.round((mission + profession) / 2) }
+  ];
+
+  const allScores = intersections.map(i => i.score);
+  const max = Math.max(...allScores), min = Math.min(...allScores);
+  const range = max - min || 1;
+
+  document.getElementById('insightsGrid').innerHTML = intersections.map(item => {
+    const norm = (item.score - min) / range;
+    let cls = 'ic-low';
+    if (norm > 0.6) cls = 'ic-strong';
+    else if (norm > 0.3) cls = 'ic-fair';
+    return `<div class="insight-card"><div class="ic-label">${item.label}</div><div class="ic-desc">${item.desc}</div><div class="ic-score ${cls}">Match: ${item.score}%</div></div>`;
+  }).join('');
+}
+
+// ── Actions ──
+function renderActions() {
+  const { passion, mission, vocation, profession } = scores;
+  const actions = [];
+
+  if (passion < 50) actions.push({ icon: '🎨', title: 'Explore Your Passion', text: 'List 3 things you loved as a child and try one again this week. Set aside 2 "no-purpose" hours — just do something because it\'s fun.' });
+  if (mission < 50) actions.push({ icon: '🌱', title: 'Find Your Mission', text: 'Pick one cause you care about and take a small action: donate, volunteer an hour, or share information on social media. Purpose builds through participation.' });
+  if (vocation < 50) actions.push({ icon: '📚', title: 'Build a Skill', text: 'Choose one skill relevant to your interests and commit to 30 minutes of deliberate practice daily for 30 days. Track your progress.' });
+  if (profession < 50) actions.push({ icon: '💡', title: 'Monetize a Skill', text: 'Inventory your current skills. Which ones have market value? Start with one small gig, digital product, or freelance project to test demand.' });
+
+  if (actions.length === 0) {
+    actions.push({ icon: '🌟', title: 'Maintain Your Balance', text: 'Your dimensions are balanced — don\'t neglect any one area. Retake this assessment quarterly to catch shifts early.' });
+  } else {
+    if (Math.max(passion, mission, vocation, profession) >= 70) {
+      actions.push({ icon: '🎯', title: 'Deepen Your Strength', text: `Your strongest area is at ${Math.max(passion, mission, vocation, profession)}%. Maintain it while investing in your weakest dimension.` });
     }
-  `;
-  document.head.appendChild(styleShake);
-  </script>
-</div>
-</div>
+    actions.push({ icon: '📝', title: 'Review Quarterly', text: 'Your ikigai evolves. Set a reminder to retake this assessment every 3 months and journal what changed.' });
+  }
+
+  document.getElementById('actionsList').innerHTML = actions.map(a =>
+    `<div class="action-card"><div class="a-icon">${a.icon}</div><div class="a-text"><strong>${a.title}</strong>${a.text}</div></div>`
+  ).join('');
+}
+
+// ── Reset ──
+function resetAll() {
+  scores = { passion: 50, mission: 50, vocation: 50, profession: 50 };
+  ['passion','mission','vocation','profession'].forEach(dim => {
+    document.getElementById('sl-' + dim).value = 50;
+    document.getElementById('val-' + dim).textContent = 50;
+  });
+  try { localStorage.removeItem('ikigai_scores'); } catch(e) {}
+  resultsShown = false;
+  document.getElementById('resultsArea').classList.remove('active');
+  document.getElementById('resultsArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── FAQ toggle ──
+document.addEventListener('click', function(e) {
+  if (e.target && e.target.closest('[onclick*="this.nextElementSibling.classList.toggle"]')) {
+    // handled inline
+  }
+});
+
+// ── Init ──
+document.addEventListener('DOMContentLoaded', function() {
+  loadSaved();
+});
+</script>
 </body>
 </html>
