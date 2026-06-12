@@ -9,7 +9,9 @@
   <meta name="description" content="免費護理師國考考古題刷題系統 — 3,384 題歷屆試題、五大考科、概念集群強化練習、弱點分析雷達圖、錯題本自動收錄。免註冊、免安裝、即開即用。">
   <link rel="canonical" href="https://anycalculator.site/nursing/">
   <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/common/premium.css">
   <style>
+body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
     /* ── Hero ── */
     .hero {
       background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%);
@@ -328,6 +330,25 @@
     <meta property="og:site_name" content="護理國考助手">
 </head>
 <body>
+<div class="page-wrap">
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/">BMI</a>
+    <a href="/password-generator/">Password</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/percentage-calculator/">Pct/Discount</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/add-subtract-calculator/">Add/Sub</a>
+    <a href="/invoice-generator/">Invoice</a>
+    <a href="/resume-generator/">Resume</a>
+    <a href="/peso-converter/">Peso</a>
+    <a href="/ikigai/">Ikigai</a>
+    <a href="/nursing/" class="active">Nursing Exam</a>
+  </div>
+</div></nav>
+<div class="page-content">
 
 <!-- ═══════ HERO ═══════ -->
 <section class="hero">
@@ -681,8 +702,32 @@
   </div>
 </section>
 
+  </div>
+
+<!-- ═══════ Feedback Form ═══════ -->
+<section class="section-feedback">
+  <form onsubmit="submitFeedback(event,this)">
+    <div class="fb-header">
+      <span class="fb-icon">💬</span> Feedback
+      <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
+    </div>
+    <div class="fb-optional">
+      <input name="name" placeholder="Your name (optional)" autocomplete="name">
+      <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
+    </div>
+    <div class="fb-row">
+      <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
+      <button class="fb-submit" type="submit">Send →</button>
+    </div>
+    <div class="fb-status"></div>
+  </form>
+</section>
+
+</div> <!-- /page-content -->
+</div> <!-- /page-wrap -->
+
 <footer>
-  <p>© 2026 護理國考助手 | 3,384 題考古題 · 概念強化 drill · 弱點分析 · 錯題本 · 12 種臨床計算工具</p>
+  <p>© 2026 護理國考助手 | 3,384 題考古題 · 概念 drill · 弱點分析 · 錯題本 · 12 種臨床計算工具</p>
   <p style="margin-top:6px;font-size:0.75rem;opacity:0.6">僅供學習參考，臨床決策請依專業判斷</p>
 </footer>
 

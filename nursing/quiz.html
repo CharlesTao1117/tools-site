@@ -10,7 +10,9 @@
   <meta name="description" content="3,384 題護理師國考考古題，科目分類測驗，即時正誤回饋，概念集群強化練習，弱點分析，錯題本。涵蓋基礎醫學、基本護理、內外科、產兒科、精神社區。">
   <link rel="canonical" href="https://anycalculator.site/nursing/quiz">
   <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/common/premium.css">
   <style>
+body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
     /* ── Quiz-specific styles ── */
 
     .quiz-container { max-width: 800px; margin: 0 auto; }
@@ -451,6 +453,25 @@
     <meta property="og:site_name" content="護理國考助手">
 </head>
 <body>
+<div class="page-wrap">
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/">BMI</a>
+    <a href="/password-generator/">Password</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/percentage-calculator/">Pct/Discount</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/add-subtract-calculator/">Add/Sub</a>
+    <a href="/invoice-generator/">Invoice</a>
+    <a href="/resume-generator/">Resume</a>
+    <a href="/peso-converter/">Peso</a>
+    <a href="/ikigai/">Ikigai</a>
+    <a href="/nursing/" class="active">Nursing Exam</a>
+  </div>
+</div></nav>
+<div class="page-content">
 
 <header>
   <h1>📝 護理師國考免費線上測驗</h1>
@@ -573,7 +594,29 @@
     <div class="review-list" id="review-list"></div>
   </div>
 
-</div>
+</div> <!-- /container -->
+
+<!-- ═══════ Feedback Form ═══════ -->
+<section class="section-feedback">
+  <form onsubmit="submitFeedback(event,this)">
+    <div class="fb-header">
+      <span class="fb-icon">💬</span> Feedback
+      <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
+    </div>
+    <div class="fb-optional">
+      <input name="name" placeholder="Your name (optional)" autocomplete="name">
+      <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
+    </div>
+    <div class="fb-row">
+      <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
+      <button class="fb-submit" type="submit">Send →</button>
+    </div>
+    <div class="fb-status"></div>
+  </form>
+</section>
+
+</div> <!-- /page-content -->
+</div> <!-- /page-wrap -->
 
 <footer>
   <p>© 2026 護理師國考線上測驗 | 題庫來源：考選部歷年考古題，「AI 國考助教」技術提供</p>
