@@ -405,14 +405,68 @@ body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
     .cluster-hint.show { display: block; }
     .cluster-hint .ch-icon { font-weight: 700; }
     .cluster-hint .ch-tag {
-      display: inline-block;
-      background: #ff8f00;
-      color: white;
-      padding: 1px 10px;
-      border-radius: 10px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      margin-right: 6px;
+    padding: 2px 10px; background: #fff3e0; color: #e65100; border-radius: 10px; font-size: 0.72rem; font-weight: 700; margin-right: 6px;
+    }
+    /* ── Enriched Explanation Styles ── */
+    .enriched-section {
+      margin-top: 10px;
+      border-top: 1px dashed #ddd;
+      padding-top: 10px;
+    }
+    .enriched-section .es-title {
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: #0f3460;
+      margin-bottom: 4px;
+    }
+    .enriched-section .es-body {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #444;
+    }
+    .enriched-ww-item {
+      font-size: 0.82rem;
+      line-height: 1.5;
+      margin-bottom: 4px;
+      padding-left: 8px;
+      border-left: 2px solid #e0e0e0;
+    }
+    .enriched-ww-item strong {
+      color: #0f3460;
+      font-weight: 600;
+    }
+    .enriched-ww-correct {
+      border-left-color: #4caf50;
+      background: #f1f8e9;
+      padding: 4px 8px;
+      border-radius: 0 4px 4px 0;
+    }
+    .enriched-ww-wrong {
+      border-left-color: #e94560;
+    }
+    .enriched-clinical-toggle {
+      color: #0f3460;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 0;
+      margin-top: 4px;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+    .enriched-clinical-toggle:hover { opacity: 0.8; }
+    .enriched-clinical-body {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: #555;
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 4px;
     }
 
     /* Section tabs */
@@ -526,6 +580,23 @@ body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
       <div class="feedback" id="feedback-area">
         <div class="fb-title" id="fb-title"></div>
         <div class="fb-text" id="fb-text"></div>
+        <!-- Enriched explanation (hidden unless data exists for this question) -->
+        <div id="enriched-wrap" style="display:none">
+          <div class="enriched-section" id="enriched-section-simple">
+            <div class="es-title">💡 簡單記</div>
+            <div class="es-body" id="enriched-simple"></div>
+          </div>
+          <div class="enriched-section" id="enriched-section-ww">
+            <div class="es-title">🔍 為什麼對／為什麼錯</div>
+            <div id="enriched-ww-container"></div>
+          </div>
+          <div class="enriched-section">
+            <button class="enriched-clinical-toggle" id="enriched-clinical-toggle" onclick="toggleClinical()">
+              📋 臨床情境 <span id="clinical-arrow">▶</span>
+            </button>
+            <div class="enriched-clinical-body" id="enriched-clinical-body" style="display:none"></div>
+          </div>
+        </div>
       </div>
       <div class="cluster-hint" id="cluster-hint"></div>
     </div>
@@ -653,6 +724,7 @@ let drillFromQuiz = false;    // track if drill was started from mid-quiz
 
 /* Wrong book */
 let wrongBook = [];
+let enrichedData = {};  // qid → { explanation_simple, why_wrong, clinical_case, ... }
 
 /* ── Init ── */
 (async function init() {
@@ -664,15 +736,21 @@ let wrongBook = [];
   updateWrongBookBadge();
 
   try {
-    const [qRes, sRes, cRes] = await Promise.all([
+    const [qRes, sRes, cRes, eRes] = await Promise.all([
       fetch('data/questions.json'),
       fetch('data/subjects.json'),
-      fetch('data/concept_clusters.json')
+      fetch('data/concept_clusters.json'),
+      fetch('data/enriched_explanations_20.json').catch(() => null)
     ]);
     allQuestions = await qRes.json();
     subjects = await sRes.json();
     const clusters = await cRes.json();
     clustersData = clusters.clusters;
+    // Load enriched explanations if available
+    if (eRes && eRes.ok) {
+      const enrichedJson = await eRes.json();
+      enrichedData = enrichedJson.by_qid || {};
+    }
 
     // Build qid → cluster lookup map
     clustersData.forEach(c => {
@@ -849,6 +927,8 @@ function onAnswer(selected, question) {
   const fb = document.getElementById('feedback-area');
   const fbTitle = document.getElementById('fb-title');
   const fbText = document.getElementById('fb-text');
+  const enrichedWrap = document.getElementById('enriched-wrap');
+  enrichedWrap.style.display = 'none';
 
   if (isCorrect) {
     fb.className = 'feedback show correct-fb';
@@ -868,6 +948,34 @@ function onAnswer(selected, question) {
       extra = ' 建議將此題記錄下來，回頭複習相關章節。';
     }
     fbText.textContent = `你選了 ${selected}，正確答案是 ${correct}。${extra}`;
+  }
+
+  // Show enriched explanation if available for this question
+  const enriched = enrichedData[qid];
+  if (enriched) {
+    enrichedWrap.style.display = 'block';
+    document.getElementById('enriched-simple').textContent = enriched.explanation_simple || '';
+
+    // Build why_wrong section
+    const wwContainer = document.getElementById('enriched-ww-container');
+    wwContainer.innerHTML = '';
+    const letters = ['A', 'B', 'C', 'D'];
+    letters.forEach(l => {
+      if (enriched.why_wrong && enriched.why_wrong[l]) {
+        const div = document.createElement('div');
+        div.className = 'enriched-ww-item';
+        if (l === correct) div.classList.add('enriched-ww-correct');
+        else if (l === selected && !isCorrect) div.classList.add('enriched-ww-wrong');
+        const label = l === correct ? '✅ 正確' : (l === selected ? '← 你選的' : '');
+        div.innerHTML = `<strong>${l}${label ? ' (' + label + ')' : ''}</strong> ${enriched.why_wrong[l]}`;
+        wwContainer.appendChild(div);
+      }
+    });
+
+    // Clinical case
+    document.getElementById('enriched-clinical-body').textContent = enriched.clinical_case || '';
+    document.getElementById('enriched-clinical-body').style.display = 'none';
+    document.getElementById('clinical-arrow').textContent = '▶';
   }
 
   // Cluster hint display
@@ -1431,6 +1539,15 @@ function shuffleArray(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
+}
+
+/* ── Enriched Explanation Clinical Toggle ── */
+function toggleClinical() {
+  const body = document.getElementById('enriched-clinical-body');
+  const arrow = document.getElementById('clinical-arrow');
+  const isHidden = body.style.display === 'none';
+  body.style.display = isHidden ? 'block' : 'none';
+  arrow.textContent = isHidden ? '▼' : '▶';
 }
 </script>
 </body>
