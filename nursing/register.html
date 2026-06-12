@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JL08H6FMN6');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — Nursing Exam Assistant (Beta)</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="/common/premium.css">
+<style>
+body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
+.auth-wrap{max-width:400px;margin:60px auto;padding:0 20px}
+.auth-card{background:var(--bg);border-radius:var(--radius-lg);border:1px solid var(--border-subtle);padding:var(--space-8);box-shadow:var(--shadow-md)}
+.auth-card h1{font-size:1.3rem;margin-bottom:4px;text-align:center}
+.auth-card .sub{font-size:.82rem;color:var(--text-tertiary);text-align:center;margin-bottom:var(--space-6)}
+.form-group{margin-bottom:var(--space-4)}
+.form-group label{display:block;font-size:.78rem;font-weight:600;color:var(--text-secondary);margin-bottom:4px}
+.form-group .input-wrap input{width:100%;padding:10px 14px;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);font-size:.9rem;font-family:var(--font-sans);background:var(--bg);color:var(--text);transition:border-color .15s}
+.form-group .input-wrap input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-subtle)}
+.btn-auth{width:100%;padding:12px;border:none;border-radius:var(--radius-sm);font-size:.95rem;font-weight:600;cursor:pointer;background:var(--accent);color:#fff;transition:all .15s;min-height:48px}
+.btn-auth:hover{opacity:.9;transform:translateY(-1px)}
+.btn-auth:disabled{opacity:.5;cursor:not-allowed}
+.auth-error{background:#ffebee;color:#c62828;padding:10px 14px;border-radius:var(--radius-sm);font-size:.82rem;margin-bottom:var(--space-4);display:none}
+.auth-success{background:#e8f5e9;color:#2e7d32;padding:10px 14px;border-radius:var(--radius-sm);font-size:.82rem;margin-bottom:var(--space-4);display:none}
+.auth-link{text-align:center;font-size:.82rem;color:var(--text-tertiary);margin-top:var(--space-4)}
+.auth-link a{color:var(--accent);text-decoration:none;font-weight:600}
+.auth-link a:hover{text-decoration:underline}
+.invite-hint{font-size:.75rem;color:var(--text-tertiary);margin-top:2px}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/">BMI</a>
+    <a href="/password-generator/">Password</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/percentage-calculator/">Pct/Discount</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/add-subtract-calculator/">Add/Sub</a>
+    <a href="/invoice-generator/">Invoice</a>
+    <a href="/resume-generator/">Resume</a>
+    <a href="/peso-converter/">Peso</a>
+    <a href="/ikigai/">Ikigai</a>
+    <a href="/nursing/">Nursing Exam</a>
+  </div>
+</div></nav>
+<div class="page-content">
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1>📝 註冊帳號</h1>
+    <p class="sub">封測邀請制 — 需要邀請碼才能註冊</p>
+
+    <div class="auth-error" id="auth-error"></div>
+    <div class="auth-success" id="auth-success"></div>
+
+    <form id="register-form" onsubmit="return handleRegister(event)">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-wrap">
+          <input type="email" id="email" placeholder="your@email.com" required autocomplete="email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="nickname">暱稱（選填）</label>
+        <div class="input-wrap">
+          <input type="text" id="nickname" placeholder="如何稱呼您？" autocomplete="name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">密碼（至少 6 碼）</label>
+        <div class="input-wrap">
+          <input type="password" id="password" placeholder="••••••" required minlength="6" autocomplete="new-password">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="invite-code">邀請碼</label>
+        <div class="input-wrap">
+          <input type="text" id="invite-code" placeholder="EXAMAI-XXXX-XXXX" required autocomplete="off">
+        </div>
+        <div class="invite-hint">封測階段需要邀請碼才能註冊</div>
+      </div>
+      <button type="submit" class="btn-auth" id="register-btn">註冊</button>
+    </form>
+
+    <div class="auth-link">
+      已經有帳號？<a href="login.html">登入 →</a>
+    </div>
+  </div>
+</div>
+
+</div> <!-- /page-content -->
+</div> <!-- /page-wrap -->
+
+<script>
+const API_BASE = '/api';
+
+async function handleRegister(e) {
+  e.preventDefault();
+  const btn = document.getElementById('register-btn');
+  const errorEl = document.getElementById('auth-error');
+  const successEl = document.getElementById('auth-success');
+  errorEl.style.display = 'none';
+  successEl.style.display = 'none';
+
+  const email = document.getElementById('email').value.trim();
+  const nickname = document.getElementById('nickname').value.trim();
+  const password = document.getElementById('password').value;
+  const inviteCode = document.getElementById('invite-code').value.trim();
+
+  if (!email || !password || !inviteCode) {
+    errorEl.textContent = '請填寫所有必填欄位';
+    errorEl.style.display = 'block';
+    return false;
+  }
+  if (password.length < 6) {
+    errorEl.textContent = '密碼至少需要 6 個字元';
+    errorEl.style.display = 'block';
+    return false;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '註冊中...';
+
+  try {
+    const res = await fetch(API_BASE + '/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, nickname, invite_code: inviteCode })
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      localStorage.setItem('exam_ai_token', data.token);
+      localStorage.setItem('exam_ai_user', JSON.stringify(data.user));
+      successEl.textContent = '註冊成功！跳轉中...';
+      successEl.style.display = 'block';
+      setTimeout(() => {
+        window.location.href = '/nursing/quiz';
+      }, 800);
+    } else {
+      errorEl.textContent = data.error || '註冊失敗';
+      errorEl.style.display = 'block';
+    }
+  } catch (err) {
+    errorEl.textContent = '無法連線到伺服器，請稍後再試';
+    errorEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '註冊';
+  }
+  return false;
+}
+
+// Redirect if already logged in
+(function() {
+  const token = localStorage.getItem('exam_ai_token');
+  if (token) {
+    window.location.href = '/nursing/quiz';
+  }
+})();
+</script>
+</body>
+</html>

@@ -528,9 +528,18 @@ body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
 <div class="page-content">
 
 <header>
-  <h1>📝 護理師國考免費線上測驗</h1>
-  <p>內含 3,384 題歷年考古題 · 五大考科 · 概念強化 drill · 錯題本</p>
-  <div class="badge">⚕️ 基礎醫學 · 基本護理 · 內外科 · 產兒科 · 精神社區</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+    <div>
+      <h1>📝 護理師國考免費線上測驗</h1>
+      <p>內含 3,384 題歷年考古題 · 五大考科 · 概念強化 drill · 錯題本</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;font-size:.78rem">
+      <span id="user-badge" style="background:#f0f4ff;padding:4px 12px;border-radius:20px;color:#0f3460;font-weight:600">👤 <span id="user-name">載入中</span></span>
+      <button onclick="syncWrongBook()" style="background:none;border:1px solid #ddd;border-radius:20px;padding:4px 12px;cursor:pointer;font-size:.78rem;color:#555" title="同步錯題本">🔄 同步</button>
+      <button onclick="logout()" style="background:none;border:none;cursor:pointer;font-size:.78rem;color:#e94560;padding:4px">登出</button>
+    </div>
+  </div>
+  <div class="badge" style="margin-top:8px">⚕️ 基礎醫學 · 基本護理 · 內外科 · 產兒科 · 精神社區</div>
 </header>
 
 <div class="container quiz-container">
@@ -703,6 +712,45 @@ const Q_PER_SESSION = 10;
 const DRILL_MAX = 5;
 let isQuickDiagnosis = false;   // 5-question quick diagnosis mode
 
+/* ── Auth check ── */
+const AUTH_TOKEN = localStorage.getItem('exam_ai_token');
+const AUTH_USER = (function() {
+  try { return JSON.parse(localStorage.getItem('exam_ai_user')); } catch(e) { return null; }
+})();
+if (!AUTH_TOKEN) {
+  window.location.href = '/nursing/login.html';
+}
+
+/* ── Sync helpers ── */
+async function syncUpload() {
+  if (!AUTH_TOKEN) return;
+  try {
+    const wrongBook = (function() {
+      try { return JSON.parse(localStorage.getItem('nursingWrongBook')); } catch(e) { return []; }
+    })();
+    await fetch('/api/sync/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + AUTH_TOKEN },
+      body: JSON.stringify({ wrong_book: wrongBook })
+    });
+  } catch(e) { /* silent */ }
+}
+async function syncDownload() {
+  if (!AUTH_TOKEN) return;
+  try {
+    const res = await fetch('/api/sync/download', {
+      headers: { 'Authorization': 'Bearer ' + AUTH_TOKEN }
+    });
+    const data = await res.json();
+    if (data.success && data.data.wrong_book) {
+      localStorage.setItem('nursingWrongBook', JSON.stringify(data.data.wrong_book));
+    }
+  } catch(e) { /* silent */ }
+}
+function syncWrongBook() {
+  syncUpload();
+}
+
 /* ── State ── */
 let allQuestions = [];
 let subjects = [];
@@ -734,6 +782,19 @@ let enrichedData = {};  // qid → { explanation_simple, why_wrong, clinical_cas
     if (saved) wrongBook = JSON.parse(saved);
   } catch(e) { /* ignore */ }
   updateWrongBookBadge();
+  
+  // Show user name
+  const userNameEl = document.getElementById('user-name');
+  if (AUTH_USER && AUTH_USER.nickname) {
+    userNameEl.textContent = AUTH_USER.nickname;
+  } else if (AUTH_USER && AUTH_USER.email) {
+    userNameEl.textContent = AUTH_USER.email.split('@')[0];
+  } else {
+    userNameEl.textContent = 'User';
+  }
+
+  // Sync from cloud on startup
+  syncDownload();
 
   try {
     const [qRes, sRes, cRes, eRes] = await Promise.all([
@@ -1355,6 +1416,8 @@ function addToWrongBook(question, selected, correct, clusterInfo) {
   } catch(e) { /* quota exceeded - trim */ }
 
   updateWrongBookBadge();
+  // Auto-sync to cloud
+  syncWrongBook();
 }
 
 function updateWrongBookBadge() {
@@ -1548,6 +1611,15 @@ function toggleClinical() {
   const isHidden = body.style.display === 'none';
   body.style.display = isHidden ? 'block' : 'none';
   arrow.textContent = isHidden ? '▼' : '▶';
+}
+
+/* ── Logout ── */
+function logout() {
+  if (confirm('確定要登出嗎？')) {
+    localStorage.removeItem('exam_ai_token');
+    localStorage.removeItem('exam_ai_user');
+    window.location.href = '/nursing/login.html';
+  }
 }
 </script>
 </body>

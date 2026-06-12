@@ -1,0 +1,18 @@
+# Cloudflare Pages configuration for tools-site
+# This enables Pages Functions for auth API
+
+# D1 Database for user auth & progress sync
+[[d1_databases]]
+binding = "EXAM_AI_DB"
+database_name = "exam-ai-db"
+database_id = "placeholder-replace-with-actual-id"
+
+# KV for invite codes (simpler key-value access)
+[[kv_namespaces]]
+binding = "INVITE_CODES"
+id = "placeholder-replace-with-actual-id"
+
+# Environment variables
+[vars]
+JWT_SECRET = "exam-ai-beta-secret-20260612"
+ADMIN_EMAIL = "calmestao@gmail.com"
