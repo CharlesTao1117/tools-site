@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<script src="analytics.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>學習儀表板 | 護理國考助手</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="description" content="個人化學習儀表板 — 記憶曲線、弱點雷達、錯題本摘要、作答時間分析、考前衝刺計畫。">
+  <link rel="canonical" href="https://anycalculator.site/nursing/dashboard">
+  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/common/premium.css">
+  <style>
+:root {
+  --db-bg: #f4f6fb;
+  --db-card: #ffffff;
+  --db-border: #e8ecf4;
+  --db-primary: #0f3460;
+  --db-accent: #e94560;
+  --db-text: #1a1a2e;
+  --db-text-secondary: #666;
+  --db-text-muted: #999;
+  --db-green: #2e7d32;
+  --db-orange: #f59e0b;
+}
+
+body { background: var(--db-bg); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; color: var(--db-text); line-height: 1.6; }
+
+/* ── Layout ── */
+.db-container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* ── Welcome Header ── */
+.db-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.db-header h1 { font-size: 1.4rem; color: var(--db-primary); display: flex; align-items: center; gap: 8px; }
+.db-header h1 span { font-size: 0.78rem; color: var(--db-text-muted); font-weight: 400; }
+.db-header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ── Countdown Banner ── */
+.countdown-banner {
+  background: linear-gradient(135deg, var(--db-primary), #1a1a2e);
+  color: white;
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.countdown-banner .left { display: flex; align-items: center; gap: 16px; }
+.countdown-banner .big-num {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.countdown-banner .big-num span { font-size: 1rem; font-weight: 400; opacity: 0.7; }
+.countdown-banner .label { font-size: 0.82rem; opacity: 0.8; }
+.countdown-banner .phase-badge {
+  background: rgba(233,69,96,0.2);
+  border: 1px solid rgba(233,69,96,0.4);
+  color: #ff8a8a;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.countdown-banner .right { display: flex; gap: 10px; }
+
+/* Grid */
+.db-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (max-width: 768px) { .db-grid { grid-template-columns: 1fr; } }
+.db-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (max-width: 768px) { .db-grid-3 { grid-template-columns: 1fr; } }
+
+/* Cards */
+.db-card {
+  background: var(--db-card);
+  border-radius: 14px;
+  border: 1px solid var(--db-border);
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s;
+}
+.db-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.db-card-title {
+  font-size: 0.85rem;
+  color: var(--db-text-secondary);
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.db-card-title .more-link {
+  font-size: 0.72rem;
+  color: var(--db-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.db-card-title .more-link:hover { text-decoration: underline; }
+
+/* Stats row */
+.stat-row { display: flex; gap: 20px; flex-wrap: wrap; }
+.stat-item { text-align: center; min-width: 60px; }
+.stat-num { font-size: 1.5rem; font-weight: 800; color: var(--db-primary); line-height: 1.2; }
+.stat-num.green { color: var(--db-green); }
+.stat-num.red { color: var(--db-accent); }
+.stat-num.orange { color: var(--db-orange); }
+.stat-label { font-size: 0.7rem; color: var(--db-text-muted); margin-top: 2px; }
+.stat-label .trend-up { color: var(--db-green); }
+.stat-label .trend-down { color: var(--db-accent); }
+
+/* Review Queue */
+.review-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f2f8;
+}
+.review-item:last-child { border-bottom: none; }
+.review-item .ri-left { display: flex; align-items: center; gap: 10px; }
+.review-item .ri-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.review-item .ri-dot.critical { background: var(--db-accent); }
+.review-item .ri-dot.warning { background: var(--db-orange); }
+.review-item .ri-dot.good { background: var(--db-green); }
+.review-item .ri-name { font-size: 0.85rem; font-weight: 500; }
+.review-item .ri-meta { font-size: 0.72rem; color: var(--db-text-muted); }
+.review-item .ri-action {
+  font-size: 0.72rem;
+  color: var(--db-primary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 8px;
+  background: #f0f4ff;
+  transition: background 0.15s;
+}
+.review-item .ri-action:hover { background: #dce4f5; }
+
+/* Memory curve bar */
+.memory-bar-wrap { margin-bottom: 10px; }
+.memory-bar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  margin-bottom: 3px;
+}
+.memory-bar-header .mb-subject { font-weight: 600; }
+.memory-bar-header .mb-pct { color: var(--db-text-secondary); }
+.memory-bar-track {
+  height: 8px;
+  background: #e8ecf4;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.memory-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+.memory-bar-fill.critical { background: linear-gradient(90deg, #e94560, #ff6b6b); }
+.memory-bar-fill.warning { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.memory-bar-fill.good { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+.memory-bar-fill.mastered { background: linear-gradient(90deg, #059669, #34d399); }
+
+/* Weakness radar canvas */
+.radar-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+.radar-wrap canvas { width: 100%; height: auto; }
+
+/* Wrong book cluster list */
+.wb-cluster {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f2f8;
+}
+.wb-cluster:last-child { border-bottom: none; }
+.wb-cluster .wbc-icon { font-size: 1.1rem; }
+.wb-cluster .wbc-info { flex: 1; }
+.wb-cluster .wbc-name { font-size: 0.82rem; font-weight: 500; }
+.wb-cluster .wbc-meta { font-size: 0.7rem; color: var(--db-text-muted); }
+.wb-cluster .wbc-count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--db-accent);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* Time trend mini chart */
+.time-trend { display: flex; align-items: flex-end; gap: 4px; height: 60px; padding: 8px 0; }
+.time-bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  transition: height 0.5s ease;
+  min-height: 4px;
+}
+
+/* Sprint progress */
+.sprint-progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 12px 0;
+}
+.sprint-track {
+  flex: 1;
+  height: 10px;
+  background: #e8ecf4;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.sprint-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--db-primary), var(--db-accent));
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+.sprint-stat {
+  text-align: center;
+}
+.sprint-stat .ss-num { font-size: 1.1rem; font-weight: 700; display: block; }
+.sprint-stat .ss-label { font-size: 0.68rem; color: var(--db-text-muted); }
+
+/* Quick actions */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+}
+.qa-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--db-card);
+  border: 1px solid var(--db-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--db-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+.qa-btn:hover {
+  border-color: var(--db-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+.qa-btn .qa-icon { font-size: 1.3rem; }
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 30px 16px;
+  color: var(--db-text-muted);
+}
+.empty-state .es-icon { font-size: 2rem; margin-bottom: 8px; }
+.empty-state .es-text { font-size: 0.85rem; }
+
+/* WOOP card */
+.woop-card {
+  background: linear-gradient(135deg, #f8f4ff, #f0efff);
+  border: 1px solid #d4cffa;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-top: 10px;
+}
+.woop-card .woop-wish { font-weight: 600; font-size: 0.85rem; color: #4a3f8a; }
+.woop-card .woop-plan { font-size: 0.8rem; color: #6b5fa0; margin-top: 4px; }
+.woop-card .woop-empty { font-size: 0.82rem; color: var(--db-text-muted); }
+.woop-card .woop-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--db-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal-box {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 480px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+.modal-box h2 { font-size: 1.1rem; margin-bottom: 16px; color: var(--db-primary); }
+.modal-box .form-group { margin-bottom: 14px; }
+.modal-box .form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--db-text-secondary); margin-bottom: 4px; }
+.modal-box .form-group input, .modal-box .form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--db-border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+.modal-box .form-group input:focus, .modal-box .form-group select:focus {
+  outline: none;
+  border-color: var(--db-primary);
+  box-shadow: 0 0 0 3px rgba(15,52,96,0.1);
+}
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
+.btn-primary {
+  padding: 10px 24px;
+  background: var(--db-primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-secondary {
+  padding: 10px 24px;
+  background: #f0f2f8;
+  color: var(--db-text);
+  border: none;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-secondary:hover { background: #e4e6ef; }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .db-container { padding: 16px 12px 40px; }
+  .db-header h1 { font-size: 1.2rem; }
+  .countdown-banner { padding: 16px 20px; }
+  .countdown-banner .big-num { font-size: 1.8rem; }
+  .stat-num { font-size: 1.2rem; }
+}
+
+/* Loading */
+.loading-db {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--db-text-muted);
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/">BMI</a>
+    <a href="/password-generator/">Password</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/percentage-calculator/">Pct/Discount</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/add-subtract-calculator/">Add/Sub</a>
+    <a href="/invoice-generator/">Invoice</a>
+    <a href="/resume-generator/">Resume</a>
+    <a href="/peso-converter/">Peso</a>
+    <a href="/ikigai/">Ikigai</a>
+    <a href="/nursing/" class="active">Nursing Exam</a>
+  </div>
+</div></nav>
+<div class="page-content">
+
+<div class="db-container" id="app">
+  <!-- Loading -->
+  <div class="loading-db" id="loading">
+    <div style="font-size:2rem;margin-bottom:12px">📊</div>
+    <div>載入你的學習數據...</div>
+  </div>
+
+  <!-- Dashboard (hidden until loaded) -->
+  <div id="dashboard" style="display:none">
+
+    <!-- Header -->
+    <div class="db-header">
+      <h1>📊 學習儀表板 <span id="user-greeting"></span></h1>
+      <div class="db-header-actions">
+        <a href="quiz.html" class="btn-primary" style="text-decoration:none;font-size:0.82rem">🎯 開始測驗</a>
+        <button class="btn-secondary" onclick="showExamSettings()" style="font-size:0.82rem">⚙️</button>
+      </div>
+    </div>
+
+    <!-- Countdown Banner -->
+    <div class="countdown-banner" id="countdown-banner">
+      <div class="left">
+        <div>
+          <div class="big-num"><span id="days-remaining">--</span> <span>天</span></div>
+          <div class="label" id="exam-name-label">距離考試</div>
+        </div>
+        <div>
+          <div class="phase-badge" id="phase-badge">---</div>
+        </div>
+      </div>
+      <div class="right">
+        <a href="sprint.html" class="btn-primary" style="text-decoration:none;font-size:0.82rem;background:#e94560">🏃 考前衝刺</a>
+        <button class="btn-secondary" onclick="showExamSettings()" style="font-size:0.82rem">📅 設定考試</button>
+      </div>
+    </div>
+
+    <!-- Row 1: Stats -->
+    <div class="db-grid-3">
+      <div class="db-card">
+        <div class="db-card-title">📚 總練習量</div>
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num" id="total-answered">0</div>
+            <div class="stat-label">已作答</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num green" id="total-correct">0</div>
+            <div class="stat-label">正確</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num red" id="total-wrong">0</div>
+            <div class="stat-label">錯誤</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="accuracy-rate">0%</div>
+            <div class="stat-label">正確率</div>
+          </div>
+        </div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-title">⏱️ 平均作答時間</div>
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num" id="avg-time">0s</div>
+            <div class="stat-label">平均</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num orange" id="avg-time-change">0s</div>
+            <div class="stat-label"><span class="trend-up" id="time-trend-label">vs 上週</span></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="total-hours">0h</div>
+            <div class="stat-label">學習時數</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="streak-days">0</div>
+            <div class="stat-label">🔥 連續天數</div>
+          </div>
+        </div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-title">🎯 元認知準確度</div>
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num" id="meta-accuracy">0%</div>
+            <div class="stat-label">自評 vs 實測</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="most-overestimated">--</div>
+            <div class="stat-label">最常高估</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num green" id="meta-trend">↗️</div>
+            <div class="stat-label">趨勢</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Memory Curve + Review Queue -->
+    <div class="db-grid">
+      <div class="db-card">
+        <div class="db-card-title">🧠 記憶曲線 <span style="font-weight:400;font-size:0.72rem;color:#999">各科 retention 預測</span></div>
+        <div id="memory-curve-bars"></div>
+        <div style="margin-top:8px;font-size:0.72rem;color:var(--db-text-muted);display:flex;gap:12px;flex-wrap:wrap">
+          <span>🔴 <span style="color:#e94560">retention < 50%</span> 緊急</span>
+          <span>🟡 <span style="color:#f59e0b">50-70%</span> 需複習</span>
+          <span>🔵 <span style="color:#2563eb">70-90%</span> 穩定</span>
+          <span>🟢 <span style="color:#059669">> 90%</span> 熟練</span>
+        </div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-title">📋 今日複習佇列 <span id="review-count" style="font-weight:400;font-size:0.78rem;color:var(--db-text-muted)">0 項</span></div>
+        <div id="review-queue"></div>
+      </div>
+    </div>
+
+    <!-- Row 3: Wrong Book + Time Trend -->
+    <div class="db-grid">
+      <div class="db-card">
+        <div class="db-card-title">📚 錯題本摘要 <a href="wrongbook.html" class="more-link">查看全部 →</a></div>
+        <div id="wrongbook-summary"></div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-title">⏱️ 作答時間趨勢 <span style="font-weight:400;font-size:0.72rem;color:#999">近 7 天</span></div>
+        <div id="time-trend-chart"></div>
+        <div style="margin-top:8px;font-size:0.72rem;color:var(--db-text-muted)" id="time-insight"></div>
+      </div>
+    </div>
+
+    <!-- Row 4: Weakness Radar + Sprint -->
+    <div class="db-grid">
+      <div class="db-card">
+        <div class="db-card-title">📊 弱點雷達圖 <span style="font-weight:400;font-size:0.72rem;color:#999">實線=自評 虛線=實際 點=時間</span></div>
+        <div class="radar-wrap">
+          <canvas id="radar-canvas" width="320" height="280"></canvas>
+        </div>
+        <div style="margin-top:8px;font-size:0.72rem;color:var(--db-text-muted)" id="radar-insight"></div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-title">🏃 考前衝刺進度 <a href="sprint.html" class="more-link">進入衝刺 →</a></div>
+        <div id="sprint-summary"></div>
+      </div>
+    </div>
+
+    <!-- Row 5: WOOP + Quick Actions -->
+    <div class="db-grid">
+      <div class="db-card">
+        <div class="db-card-title">🎯 本週 WOOP 目標</div>
+        <div id="woop-card"></div>
+      </div>
+      <div class="db-card">
+        <div class="db-card-title">⚡ 快速入口</div>
+        <div class="quick-actions">
+          <a href="quiz.html" class="qa-btn"><span class="qa-icon">🎯</span> 開始測驗</a>
+          <a href="search.html" class="qa-btn"><span class="qa-icon">🔍</span> 搜尋題目</a>
+          <a href="wrongbook.html" class="qa-btn"><span class="qa-icon">📚</span> 錯題本</a>
+          <a href="sprint.html" class="qa-btn"><span class="qa-icon">🏃</span> 考前衝刺</a>
+          <a href="flashcards.html" class="qa-btn"><span class="qa-icon">📇</span> 記憶小卡</a>
+          <a href="analytics.html" class="qa-btn"><span class="qa-icon">📊</span> 弱點分析</a>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- /dashboard -->
+</div> <!-- /db-container -->
+
+<!-- Exam Settings Modal -->
+<div class="modal-overlay" id="exam-modal">
+  <div class="modal-box">
+    <h2>📅 考試設定</h2>
+    <div class="form-group">
+      <label for="exam-name">考試名稱</label>
+      <select id="exam-name">
+        <option value="護理師國考">護理師國考</option>
+        <option value="醫師國考">醫師國考</option>
+        <option value="藥師國考">藥師國考</option>
+        <option value="高考三級">高考三級</option>
+        <option value="普考">普考</option>
+        <option value="學測">學測</option>
+        <option value="會考">會考</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exam-date">考試日期</label>
+      <input type="date" id="exam-date">
+    </div>
+    <div class="form-group">
+      <label for="daily-target">每日練習目標（題）</label>
+      <select id="daily-target">
+        <option value="10">10 題</option>
+        <option value="20" selected>20 題</option>
+        <option value="30">30 題</option>
+        <option value="40">40 題</option>
+        <option value="50">50 題</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeExamModal()">取消</button>
+      <button class="btn-primary" onclick="saveExamSettings()">儲存</button>
+    </div>
+  </div>
+</div>
+
+</div> <!-- /page-content -->
+</div> <!-- /page-wrap -->
+
+<script>
+// ===== Data =====
+const SUBJECTS = [
+  { id: 'basic_medical', name: '基礎醫學', icon: '🧬' },
+  { id: 'fundamental_nursing', name: '基本護理學', icon: '🩺' },
+  { id: 'med_surg_nursing', name: '內外科護理學', icon: '🫀' },
+  { id: 'ob_peds_nursing', name: '產兒科護理學', icon: '👶' },
+  { id: 'psych_community_nursing', name: '精神與社區護理', icon: '🧠' }
+];
+
+const CONCEPT_CLUSTERS = [
+  { name: 'AIDS', subject: '內外科護理學', icon: '🦠' },
+  { name: 'SLE', subject: '內外科護理學', icon: '🩸' },
+  { name: 'COPD', subject: '內外科護理學', icon: '🫁' },
+  { name: '急性胰臟炎', subject: '內外科護理學', icon: '🔥' },
+  { name: '藥物計算與給藥', subject: '基礎醫學', icon: '💊' },
+  { name: '癌症標靶治療', subject: '內外科護理學', icon: '🎯' },
+  { name: '抗生素分類', subject: '基礎醫學', icon: '🧪' },
+  { name: '心臟藥物', subject: '基礎醫學', icon: '❤️' },
+  { name: '體液電解質', subject: '基本護理學', icon: '💧' },
+  { name: '傷口護理', subject: '基本護理學', icon: '🩹' },
+  { name: '真陣痛vs假陣痛', subject: '產兒科護理學', icon: '🤰' },
+  { name: '新生兒評估', subject: '產兒科護理學', icon: '🍼' },
+  { name: '精神科藥物', subject: '精神與社區護理', icon: '💊' }
+];
+
+// ===== State =====
+let state = {
+  examName: '護理師國考',
+  examDate: '2026-07-25',
+  dailyTarget: 20,
+  wrongBook: [],
+  quizHistory: [],
+  metaAssessments: [],
+  woop: null
+};
+
+// ===== Load / Save =====
+function loadState() {
+  try {
+    state.examName = localStorage.getItem('exam_ai_exam_name') || '護理師國考';
+    state.examDate = localStorage.getItem('exam_ai_exam_date') || '2026-07-25';
+    state.dailyTarget = parseInt(localStorage.getItem('exam_ai_daily_target')) || 20;
+    state.wrongBook = JSON.parse(localStorage.getItem('exam_ai_wrong_book') || '[]');
+    state.quizHistory = JSON.parse(localStorage.getItem('exam_ai_quiz_history') || '[]');
+    state.metaAssessments = JSON.parse(localStorage.getItem('exam_ai_meta') || '[]');
+    state.woop = JSON.parse(localStorage.getItem('exam_ai_woop') || 'null');
+  } catch(e) { console.warn('State load error:', e); }
+}
+
+function saveExamSettings() {
+  const name = document.getElementById('exam-name').value;
+  const date = document.getElementById('exam-date').value;
+  const target = parseInt(document.getElementById('daily-target').value);
+  state.examName = name;
+  state.examDate = date;
+  state.dailyTarget = target;
+  localStorage.setItem('exam_ai_exam_name', name);
+  localStorage.setItem('exam_ai_exam_date', date);
+  localStorage.setItem('exam_ai_daily_target', target.toString());
+  closeExamModal();
+  renderDashboard();
+}
+
+// ===== Calculations =====
+function getDaysRemaining() {
+  if (!state.examDate) return 0;
+  const now = new Date();
+  const exam = new Date(state.examDate + 'T23:59:59');
+  const diff = Math.ceil((exam - now) / (1000 * 60 * 60 * 24));
+  return Math.max(0, diff);
+}
+
+function getPhase(days) {
+  if (days > 21) return { name: '基礎補強期', color: '#2e7d32', emoji: '🟢' };
+  if (days > 7) return { name: '衝刺強化期', color: '#f59e0b', emoji: '🟡' };
+  if (days > 0) return { name: '極限衝刺期', color: '#e94560', emoji: '🔴' };
+  return { name: '考試已過期', color: '#999', emoji: '⚫' };
+}
+
+function computeStats() {
+  const history = state.quizHistory;
+  const total = history.length;
+  const correct = history.filter(h => h.is_correct).length;
+  const wrong = total - correct;
+  const accuracy = total > 0 ? Math.round(correct / total * 100) : 0;
+  
+  const totalSeconds = history.reduce((s, h) => s + (h.time || 0), 0);
+  const avgTime = total > 0 ? Math.round(totalSeconds / total) : 0;
+
+  // Weekly trend
+  const now = Date.now();
+  const oneWeek = 7 * 24 * 60 * 60 * 1000;
+  const weekAgo = now - oneWeek;
+  const lastWeek = now - 2 * oneWeek;
+  const recent = history.filter(h => h.timestamp >= weekAgo);
+  const previous = history.filter(h => h.timestamp >= lastWeek && h.timestamp < weekAgo);
+  
+  const recentAcc = recent.length > 0 ? Math.round(recent.filter(h => h.is_correct).length / recent.length * 100) : 0;
+  const prevAcc = previous.length > 0 ? Math.round(previous.filter(h => h.is_correct).length / previous.length * 100) : 0;
+  
+  const recentAvgTime = recent.length > 0 ? Math.round(recent.reduce((s, h) => s + (h.time || 0), 0) / recent.length) : 0;
+  const prevAvgTime = previous.length > 0 ? Math.round(previous.reduce((s, h) => s + (h.time || 0), 0) / previous.length) : 0;
+  
+  const timeChange = prevAvgTime > 0 ? recentAvgTime - prevAvgTime : 0;
+
+  // Streak
+  let streak = 0;
+  const dates = [...new Set(history.map(h => {
+    const d = new Date(h.timestamp);
+    return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+  }))].sort().reverse();
+  
+  if (dates.length > 0) {
+    const today = new Date();
+    const todayStr = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
+    let checkDate = new Date(todayStr);
+    for (let i = 0; i < 365; i++) {
+      const check = `${checkDate.getFullYear()}-${checkDate.getMonth()+1}-${checkDate.getDate()}`;
+      if (dates.includes(check)) {
+        streak++;
+        checkDate.setDate(checkDate.getDate() - 1);
+      } else break;
+    }
+  }
+
+  // Total hours (estimate: each question ~1min)
+  const totalHours = Math.round(total / 60 * 10) / 10;
+
+  // Meta-cognition
+  const meta = state.metaAssessments;
+  const accurateMeta = meta.filter(m => {
+    const wasConfident = m.rating >= 4;
+    return (wasConfident && m.is_correct) || (!wasConfident && !m.is_correct);
+  }).length;
+  const metaAcc = meta.length > 0 ? Math.round(accurateMeta / meta.length * 100) : 0;
+
+  // Most overestimated subject
+  const subjectMeta = {};
+  meta.forEach(m => {
+    if (!subjectMeta[m.subject]) subjectMeta[m.subject] = { total: 0, overestimated: 0 };
+    subjectMeta[m.subject].total++;
+    if (m.rating >= 4 && !m.is_correct) subjectMeta[m.subject].overestimated++;
+  });
+  let mostOver = '--';
+  let mostOverRate = 0;
+  Object.keys(subjectMeta).forEach(s => {
+    const rate = subjectMeta[s].overestimated / subjectMeta[s].total;
+    if (rate > mostOverRate) { mostOverRate = rate; mostOver = s; }
+  });
+
+  // Wrong book by cluster
+  const clusterCount = {};
+  state.wrongBook.forEach(w => {
+    const c = w.cluster || '未分類';
+    clusterCount[c] = (clusterCount[c] || 0) + 1;
+  });
+  const topClusters = Object.entries(clusterCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([name, count]) => ({ name, count }));
+
+  return { total, correct, wrong, accuracy, avgTime, timeChange, streak, totalHours,
+           metaAcc, mostOver, recentAcc, prevAcc, recentAvgTime, prevAvgTime, topClusters };
+}
+
+// ===== Memory Curve (SM-2 based retention estimate) =====
+function computeRetention() {
+  const now = Date.now();
+  return SUBJECTS.map(subj => {
+    const wrongs = state.wrongBook.filter(w => w.subject === subj.name || w.subject_id === subj.id);
+    const history = state.quizHistory.filter(h => h.subject_id === subj.id || h.subject === subj.name);
+    
+    // Simple SM-2 simulation
+    let retention = 0.9;
+    let lastReview = now;
+    if (history.length > 0) {
+      const sorted = [...history].sort((a, b) => b.timestamp - a.timestamp);
+      const recent = sorted.slice(0, 10);
+      const correctCount = recent.filter(h => h.is_correct).length;
+      const baseRate = correctCount / recent.length;
+      
+      // Time decay
+      const lastTime = sorted[0].timestamp;
+      const daysSince = (now - lastTime) / (1000 * 60 * 60 * 24);
+      const decay = Math.exp(-daysSince * 0.3);
+      
+      retention = baseRate * 0.7 + decay * 0.3;
+      lastReview = lastTime;
+    }
+    
+    // Penalty for wrong answers
+    const wrongCount = wrongs.length;
+    retention = Math.max(0.1, Math.min(1, retention - wrongCount * 0.02));
+    
+    const daysSince = Math.round((now - lastReview) / (1000 * 60 * 60 * 24));
+    
+    return {
+      id: subj.id,
+      name: subj.name,
+      icon: subj.icon,
+      retention: Math.round(retention * 100),
+      daysSince,
+      wrongCount,
+      needsReview: retention < 0.6
+    };
+  });
+}
+
+// ===== Radar Chart =====
+function drawRadar(stats, retention) {
+  const canvas = document.getElementById('radar-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2 - 10, radius = 110;
+  const levels = 5;
+  
+  ctx.clearRect(0, 0, W, H);
+  
+  // Subjects for radar (estimate self-rating vs actual)
+  const radarSubjects = SUBJECTS.map(s => {
+    const r = retention.find(rt => rt.id === s.id);
+    const history = state.quizHistory.filter(h => h.subject_id === s.id || h.subject === s.name);
+    const total = history.length;
+    const correct = history.filter(h => h.is_correct).length;
+    const actual = total > 0 ? Math.round(correct / total * 100) : 50;
+    
+    // Self-rating (estimate from meta assessments)
+    const meta = state.metaAssessments.filter(m => m.subject === s.name || m.subject_id === s.id);
+    const avgSelf = meta.length > 0
+      ? Math.round(meta.reduce((sum, m) => sum + (m.rating || 3) * 20, 0) / meta.length)
+      : Math.max(30, actual + 10); // default: slightly overestimate
+    
+    // Average time as bubble size
+    const avgTime = total > 0
+      ? Math.round(history.reduce((sum, h) => sum + (h.time || 0), 0) / total)
+      : 30;
+    
+    return { name: s.name, short: s.name.slice(0, 2), self: avgSelf, actual, time: avgTime };
+  });
+  
+  const totalAxis = radarSubjects.length;
+  const angleStep = (Math.PI * 2) / totalAxis;
+  
+  // Draw grid
+  for (let level = 1; level <= levels; level++) {
+    const r = (radius / levels) * level;
+    ctx.beginPath();
+    for (let i = 0; i <= totalAxis; i++) {
+      const angle = -Math.PI / 2 + i * angleStep;
+      const x = cx + r * Math.cos(angle);
+      const y = cy + r * Math.sin(angle);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = '#e0e4ec';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+  
+  // Draw axes
+  for (let i = 0; i < totalAxis; i++) {
+    const angle = -Math.PI / 2 + i * angleStep;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + radius * Math.cos(angle), cy + radius * Math.sin(angle));
+    ctx.strokeStyle = '#e0e4ec';
+    ctx.stroke();
+    
+    // Labels
+    const labelR = radius + 18;
+    const lx = cx + labelR * Math.cos(angle);
+    const ly = cy + labelR * Math.sin(angle);
+    ctx.fillStyle = '#666';
+    ctx.font = '9px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(radarSubjects[i].short, lx, ly);
+  }
+  
+  // Draw self-rating (dashed)
+  ctx.beginPath();
+  for (let i = 0; i <= totalAxis; i++) {
+    const idx = i % totalAxis;
+    const val = radarSubjects[idx].self / 100;
+    const angle = -Math.PI / 2 + i * angleStep;
+    const x = cx + radius * val * Math.cos(angle);
+    const y = cy + radius * val * Math.sin(angle);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.strokeStyle = '#0f3460';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([4, 4]);
+  ctx.stroke();
+  
+  // Draw actual (solid)
+  ctx.beginPath();
+  for (let i = 0; i <= totalAxis; i++) {
+    const idx = i % totalAxis;
+    const val = radarSubjects[idx].actual / 100;
+    const angle = -Math.PI / 2 + i * angleStep;
+    const x = cx + radius * val * Math.cos(angle);
+    const y = cy + radius * val * Math.sin(angle);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.strokeStyle = '#e94560';
+  ctx.lineWidth = 2.5;
+  ctx.setLineDash([]);
+  ctx.stroke();
+  
+  // Fill actual area
+  ctx.beginPath();
+  for (let i = 0; i <= totalAxis; i++) {
+    const idx = i % totalAxis;
+    const val = radarSubjects[idx].actual / 100;
+    const angle = -Math.PI / 2 + i * angleStep;
+    const x = cx + radius * val * Math.cos(angle);
+    const y = cy + radius * val * Math.sin(angle);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.fillStyle = 'rgba(233,69,96,0.08)';
+  ctx.fill();
+  
+  // Draw time bubbles
+  radarSubjects.forEach((s, i) => {
+    const val = s.actual / 100;
+    const angle = -Math.PI / 2 + i * angleStep;
+    const x = cx + radius * val * Math.cos(angle);
+    const y = cy + radius * val * Math.sin(angle);
+    const bubbleR = 3 + (s.time / 120) * 10;
+    
+    ctx.beginPath();
+    ctx.arc(x, y, bubbleR, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(15,52,96,0.4)';
+    ctx.fill();
+  });
+  
+  // Legend
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#0f3460';
+  ctx.fillRect(10, H - 22, 12, 3);
+  ctx.fillStyle = '#999';
+  ctx.font = '9px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('自評', 26, H - 20);
+  
+  ctx.fillStyle = '#e94560';
+  ctx.fillRect(70, H - 22, 12, 3);
+  ctx.fillStyle = '#999';
+  ctx.fillText('實際', 86, H - 20);
+  
+  ctx.fillStyle = 'rgba(15,52,96,0.4)';
+  ctx.beginPath();
+  ctx.arc(140, H - 20, 5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#999';
+  ctx.fillText('=作答時間', 150, H - 20);
+  
+  // Insight
+  const biggestGap = radarSubjects.reduce((max, s) => {
+    const gap = s.self - s.actual;
+    return gap > max.gap ? { name: s.name, gap } : max;
+  }, { name: '', gap: 0 });
+  
+  const insightEl = document.getElementById('radar-insight');
+  if (insightEl) {
+    if (biggestGap.gap > 15) {
+      insightEl.innerHTML = `⚠️ <strong>${biggestGap.name}</strong> 高估 ${biggestGap.gap}%（自評 ${Math.round(radarSubjects.find(s => s.name === biggestGap.name).self)}% / 實際 ${Math.round(radarSubjects.find(s => s.name === biggestGap.name).actual)}%）`;
+    } else {
+      insightEl.innerHTML = '✅ 你的自評與實際表現接近，元認知準確度良好';
+    }
+  }
+}
+
+// ===== Render =====
+function renderDashboard() {
+  const days = getDaysRemaining();
+  const phase = getPhase(days);
+  const stats = computeStats();
+  const retention = computeRetention();
+  
+  // Greeting
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? '早安' : hour < 18 ? '午安' : '晚安';
+  document.getElementById('user-greeting').textContent = `— ${greet}！`;
+  
+  // Countdown
+  document.getElementById('days-remaining').textContent = days;
+  document.getElementById('exam-name-label').textContent = `距離 ${state.examName}`;
+  document.getElementById('phase-badge').textContent = `${phase.emoji} ${phase.name}`;
+  document.getElementById('phase-badge').style.borderColor = phase.color;
+  document.getElementById('phase-badge').style.color = phase.color;
+  
+  // Stats
+  document.getElementById('total-answered').textContent = stats.total;
+  document.getElementById('total-correct').textContent = stats.correct;
+  document.getElementById('total-wrong').textContent = stats.wrong;
+  document.getElementById('accuracy-rate').textContent = stats.accuracy + '%';
+  document.getElementById('avg-time').textContent = stats.avgTime + 's';
+  
+  const timeChangeEl = document.getElementById('avg-time-change');
+  timeChangeEl.textContent = (stats.timeChange > 0 ? '+' : '') + stats.timeChange + 's';
+  timeChangeEl.className = 'stat-num ' + (stats.timeChange <= 0 ? 'green' : 'red');
+  document.getElementById('time-trend-label').textContent = stats.timeChange <= 0 ? '↓ 比上週快' : '↑ 比上週慢';
+  
+  document.getElementById('total-hours').textContent = stats.totalHours + 'h';
+  document.getElementById('streak-days').textContent = stats.streak;
+  document.getElementById('meta-accuracy').textContent = stats.metaAcc + '%';
+  document.getElementById('most-overestimated').textContent = stats.mostOver.length > 6 ? stats.mostOver.slice(0, 6) + '..' : stats.mostOver;
+  document.getElementById('meta-trend').textContent = stats.metaAcc >= 70 ? '✅ 良好' : '⚠️ 需改善';
+  
+  // Memory Curve
+  const mcEl = document.getElementById('memory-curve-bars');
+  mcEl.innerHTML = retention.map(r => {
+    const cls = r.retention < 50 ? 'critical' : r.retention < 70 ? 'warning' : 'good';
+    const warnIcon = r.needsReview ? ' ⚠️' : '';
+    return `
+      <div class="memory-bar-wrap">
+        <div class="memory-bar-header">
+          <span class="mb-subject">${r.icon} ${r.name}${warnIcon}</span>
+          <span class="mb-pct">${r.retention}% · ${r.daysSince} 天前</span>
+        </div>
+        <div class="memory-bar-track">
+          <div class="memory-bar-fill ${cls}" style="width:${r.retention}%"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  const needsReview = retention.filter(r => r.needsReview);
+  document.getElementById('review-count').textContent = `${needsReview.length} 項需複習`;
+  
+  // Review Queue
+  const rqEl = document.getElementById('review-queue');
+  if (needsReview.length === 0) {
+    rqEl.innerHTML = '<div class="empty-state"><div class="es-icon">✅</div><div class="es-text">今天沒有待複習項目</div></div>';
+  } else {
+    rqEl.innerHTML = needsReview.slice(0, 5).map(r => `
+      <div class="review-item">
+        <div class="ri-left">
+          <div class="ri-dot ${r.retention < 50 ? 'critical' : 'warning'}"></div>
+          <div>
+            <div class="ri-name">${r.icon} ${r.name}</div>
+            <div class="ri-meta">retention ${r.retention}% · ${r.daysSince} 天前複習</div>
+          </div>
+        </div>
+        <a href="quiz.html?subject=${r.id}&drill=1" class="ri-action">複習</a>
+      </div>
+    `).join('');
+  }
+  
+  // Wrong Book Summary
+  const wbEl = document.getElementById('wrongbook-summary');
+  if (stats.topClusters.length === 0) {
+    wbEl.innerHTML = '<div class="empty-state"><div class="es-icon">🎉</div><div class="es-text">還沒有錯題記錄，繼續保持！</div></div>';
+  } else {
+    wbEl.innerHTML = stats.topClusters.map((c, i) => {
+      const cluster = CONCEPT_CLUSTERS.find(cc => cc.name === c.name) || { icon: '📝' };
+      const pct = state.wrongBook.length > 0 ? Math.round(c.count / state.wrongBook.length * 100) : 0;
+      return `
+        <div class="wb-cluster">
+          <div class="wbc-icon">${cluster.icon}</div>
+          <div class="wbc-info">
+            <div class="wbc-name">${c.name}</div>
+            <div class="wbc-meta">佔總錯題 ${pct}%</div>
+          </div>
+          <div class="wbc-count">${c.count}</div>
+        </div>
+      `;
+    }).join('');
+  }
+  
+  // Time Trend
+  const ttEl = document.getElementById('time-trend-chart');
+  const days7 = [];
+  const now = new Date();
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - i);
+    days7.push(d);
+  }
+  
+  const dayData = days7.map(day => {
+    const dayStart = new Date(day.getFullYear(), day.getMonth(), day.getDate()).getTime();
+    const dayEnd = dayStart + 86400000;
+    const dayHistory = state.quizHistory.filter(h => h.timestamp >= dayStart && h.timestamp < dayEnd);
+    const avg = dayHistory.length > 0
+      ? Math.round(dayHistory.reduce((s, h) => s + (h.time || 0), 0) / dayHistory.length)
+      : 0;
+    return { day: `${day.getMonth()+1}/${day.getDate()}`, avg, count: dayHistory.length };
+  });
+  
+  const maxTime = Math.max(...dayData.map(d => d.avg), 60);
+  ttEl.innerHTML = `
+    <div class="time-trend">
+      ${dayData.map(d => {
+        const h = d.avg > 0 ? Math.round((d.avg / maxTime) * 56) : 2;
+        const cls = d.avg > 0 && d.avg > maxTime * 0.7 ? 'red' : d.avg > 0 ? 'orange' : '';
+        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div class="time-bar" style="height:${Math.max(4, h)}px;background:${d.avg > 0 ? (d.avg > maxTime * 0.7 ? '#e94560' : '#0f3460') : '#e8ecf4'};width:80%"></div>
+          <span style="font-size:0.6rem;color:#999">${d.avg > 0 ? d.avg + 's' : ''}</span>
+          <span style="font-size:0.55rem;color:#bbb">${d.day}</span>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+  
+  const insightEl = document.getElementById('time-insight');
+  const recentTimes = dayData.filter(d => d.avg > 0);
+  if (recentTimes.length >= 2) {
+    const first = recentTimes[0].avg;
+    const last = recentTimes[recentTimes.length - 1].avg;
+    if (last < first) insightEl.innerHTML = `✅ 作答速度正在加快（${first}s → ${last}s），進步中！`;
+    else if (last > first * 1.2) insightEl.innerHTML = `⚠️ 作答時間增加（${first}s → ${last}s），可能需要加強基礎概念`;
+    else insightEl.innerHTML = `📊 作答時間穩定在 ${Math.round(recentTimes.reduce((s, d) => s + d.avg, 0) / recentTimes.length)}s 左右`;
+  } else {
+    insightEl.innerHTML = '📊 開始作答後會顯示時間趨勢';
+  }
+  
+  // Radar
+  drawRadar(stats, retention);
+  
+  // Sprint
+  const sprintEl = document.getElementById('sprint-summary');
+  const totalWrong = state.wrongBook.length;
+  const conquered = state.wrongBook.filter(w => w.conquered).length;
+  const remaining = totalWrong - conquered;
+  const sprintPct = totalWrong > 0 ? Math.round(conquered / totalWrong * 100) : 0;
+  
+  if (state.wrongBook.length === 0) {
+    sprintEl.innerHTML = '<div class="empty-state"><div class="es-icon">🏁</div><div class="es-text">開始作答後會自動建立衝刺計畫</div></div>';
+  } else {
+    const worstCount = state.wrongBook.filter(w => (w.errorCount || 1) >= 2).length;
+    sprintEl.innerHTML = `
+      <div class="sprint-progress">
+        <div class="sprint-track">
+          <div class="sprint-fill" style="width:${sprintPct}%"></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px">
+        <div class="sprint-stat"><span class="ss-num">${totalWrong}</span><span class="ss-label">原始錯題</span></div>
+        <div class="sprint-stat"><span class="ss-num" style="color:#2e7d32">${conquered}</span><span class="ss-label">已攻克 ✅</span></div>
+        <div class="sprint-stat"><span class="ss-num" style="color:#e94560">${remaining}</span><span class="ss-label">剩餘 ⏳</span></div>
+        <div class="sprint-stat"><span class="ss-num" style="color:#f59e0b">${worstCount}</span><span class="ss-label">高頻錯題</span></div>
+      </div>
+      <div style="margin-top:10px;font-size:0.78rem;color:var(--db-text-muted)">
+        ${days > 7 ? `距離考試還有 ${days} 天，建議進入衝刺模式` : days > 0 ? `🔴 最後 ${days} 天！只反覆練習最弱題目` : ''}
+      </div>
+    `;
+  }
+  
+  // WOOP
+  const woopEl = document.getElementById('woop-card');
+  if (state.woop) {
+    woopEl.innerHTML = `
+      <div class="woop-card">
+        <div class="woop-wish">🎯 ${state.woop.wish}</div>
+        <div class="woop-plan">📋 ${state.woop.plan}</div>
+        <div style="margin-top:4px;font-size:0.72rem;color:var(--db-text-muted)">障礙：${state.woop.obstacle} · 設定 ${new Date(state.woop.createdAt).toLocaleDateString()}</div>
+        <a href="studyplan.html" class="woop-link">編輯 WOOP →</a>
+      </div>
+    `;
+  } else {
+    woopEl.innerHTML = `
+      <div class="woop-card">
+        <div class="woop-empty">還沒有設定本週目標</div>
+        <a href="studyplan.html" class="woop-link">設定 WOOP 目標 →</a>
+      </div>
+    `;
+  }
+}
+
+// ===== Modal =====
+function showExamSettings() {
+  document.getElementById('exam-name').value = state.examName;
+  document.getElementById('exam-date').value = state.examDate;
+  document.getElementById('daily-target').value = state.dailyTarget;
+  document.getElementById('exam-modal').classList.add('show');
+}
+
+function closeExamModal() {
+  document.getElementById('exam-modal').classList.remove('show');
+}
+
+// ===== Init =====
+document.addEventListener('DOMContentLoaded', function() {
+  loadState();
+  renderDashboard();
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JL08H6FMN6');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
+     crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group Randomizer — Split Names into Teams Randomly | AnyCalculator</title>
+<meta name="description" content="Free Group Randomizer tool. Paste names and split them into random teams instantly. Perfect for classrooms, sports, workshops, and party games. Fair shuffle, copy results, save history.">
+<link rel="canonical" href="https://anycalculator.site/group-randomizer/">
+<meta property="og:title" content="Group Randomizer — Split Names into Random Teams">
+<meta property="og:description" content="Paste a list of names and split them into random groups instantly. Fair shuffle algorithm, copy results, save history. Free online tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://anycalculator.site/group-randomizer/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/common/premium.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Group Randomizer","applicationCategory":"UtilityApplication"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does the Group Randomizer work?","acceptedAnswer":{"@type":"Answer","text":"Paste a list of names (one per line or comma-separated), choose how many groups you want, and click Randomize. The tool uses a Fisher-Yates shuffle algorithm to assign each name to a random group for a truly fair distribution."}},{"@type":"Question","name":"What's the maximum number of names I can randomize?","acceptedAnswer":{"@type":"Answer","text":"There's no hard limit — the tool works with any number of names. For best performance, we recommend up to 1000 names. All processing happens locally in your browser; no data is sent to any server."}},{"@type":"Question","name":"Can I save my group assignments?","acceptedAnswer":{"@type":"Answer","text":"Yes! Use the Copy Results button to copy all groups to your clipboard and paste them anywhere. Your input text is also saved automatically in your browser so you won't lose your list if you close the page."}},{"@type":"Question","name":"Is the randomization truly random?","acceptedAnswer":{"@type":"Answer","text":"The tool uses the Fisher-Yates (Knuth) shuffle algorithm, which produces a uniformly random permutation. Each name has an equal probability of ending up in any group. Click Redistribute to re-shuffle at any time."}},{"@type":"Question","name":"What can I use this for?","acceptedAnswer":{"@type":"Answer","text":"Common uses include: assigning students to project teams, creating sports teams from a roster, randomizing breakout room groups for workshops, picking Secret Santa groups, splitting party guests into teams for games, and any situation where you need fair random group assignments."}}]}</script>
+<style>
+body{--accent:#f59e0b;--accent-subtle:rgba(245,158,11,0.1);--accent-text:#d97706;--accent-hover:#d97706;--accent-glow:rgba(245,158,11,0.2)}
+/* ── Hero ── */
+.hero{padding:var(--space-10) 0 var(--space-6)}
+.hero h1 .gradient-text{background:linear-gradient(135deg,#f59e0b,#fbbf24,#fcd34d)}
+/* ── Input area ── */
+.input-section{margin-bottom:var(--space-4)}
+.input-section textarea{min-height:140px;resize:vertical;font-size:.9rem}
+/* ── Chip badges for parsed names ── */
+.chips-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--space-2);min-height:32px}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;background:var(--accent-subtle);border:1px solid var(--accent);border-radius:var(--radius-full);font-size:.75rem;font-weight:500;color:var(--accent-text);transition:all .15s}
+.chip .chip-x{cursor:pointer;font-size:.85rem;line-height:1;opacity:.6;margin-left:2px}
+.chip .chip-x:hover{opacity:1}
+/* ── Group count control ── */
+.controls-row{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-4)}
+.controls-row .form-group{margin-bottom:0;flex:1;min-width:180px;max-width:320px}
+.controls-row .form-group label{font-size:.78rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px}
+.controls-row .form-group input[type=number],.controls-row .form-group input[type=range]{width:100%}
+.controls-row .form-group input[type=number]{padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background:var(--bg);color:var(--text-primary);outline:none;transition:border-color .15s}
+.controls-row .form-group input[type=number]:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-subtle)}
+.controls-row .form-group input[type=range]{-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none}
+.controls-row .form-group input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 2px 6px var(--accent-glow)}
+.count-display{font-size:1.4rem;font-weight:700;color:var(--accent);min-width:40px;text-align:center}
+/* ── Button row ── */
+.btn-row{display:flex;gap:var(--space-3);flex-wrap:wrap;align-items:center;margin-bottom:var(--space-5)}
+.btn-download{padding:12px 28px;border:none;border-radius:var(--radius-sm);font-size:.9rem;font-weight:600;font-family:var(--font-sans);cursor:pointer;background:var(--accent);color:#fff;transition:all .15s;min-height:48px;display:inline-flex;align-items:center;gap:var(--space-2);-webkit-tap-highlight-color:transparent}
+.btn-download:hover{transform:translateY(-1px);box-shadow:0 4px 12px var(--accent-glow)}
+.btn-download:active{transform:translateY(0)}
+.btn-download:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-secondary{padding:10px 22px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.85rem;font-weight:500;font-family:var(--font-sans);cursor:pointer;background:var(--bg);color:var(--text-secondary);transition:all .15s;min-height:44px;display:inline-flex;align-items:center;gap:var(--space-2);-webkit-tap-highlight-color:transparent}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent-text);background:var(--accent-subtle)}
+.stats-bar{font-size:.8rem;color:var(--text-tertiary);margin-left:auto}
+/* ── Results area ── */
+.results-area{display:none}
+.results-area.active{display:block}
+.groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-4);margin-bottom:var(--space-5)}
+.group-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-xl);overflow:hidden;transition:transform .15s}
+.group-card:hover{transform:translateY(-2px)}
+.group-card .gc-header{padding:var(--space-3) var(--space-4);font-weight:700;font-size:.85rem;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.group-card .gc-header .gc-count{font-size:.7rem;opacity:.85;font-weight:500}
+.group-card .gc-body{padding:var(--space-3) var(--space-4)}
+.group-card .gc-body .member{padding:6px 0;border-bottom:1px solid var(--border-subtle);font-size:.85rem;color:var(--text-primary)}
+.group-card .gc-body .member:last-child{border-bottom:none}
+/* Group header colors — amber palette */
+.gc-c0{background:#f59e0b}
+.gc-c1{background:#d97706}
+.gc-c2{background:#ea580c}
+.gc-c3{background:#dc2626}
+.gc-c4{background:#7c3aed}
+.gc-c5{background:#2563eb}
+.gc-c6{background:#0891b2}
+.gc-c7{background:#059669}
+.gc-c8{background:#4f46e5}
+.gc-c9{background:#9333ea}
+/* ── Toast ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text-primary);color:var(--bg);padding:10px 24px;border-radius:var(--radius-full);font-size:.82rem;font-weight:500;z-index:var(--z-toast);opacity:0;transition:opacity .25s var(--ease-out);pointer-events:none}
+.toast.show{opacity:1}
+@media(max-width:640px){
+  .hero h1{font-size:1.65rem}
+  .groups-grid{grid-template-columns:1fr}
+  .controls-row{flex-direction:column;align-items:stretch}
+  .controls-row .form-group{max-width:none}
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/">BMI</a>
+    <a href="/password-generator/">Password</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/percentage-calculator/">Pct/Discount</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/add-subtract-calculator/">Add/Sub</a>
+    <a href="/invoice-generator/">Invoice</a>
+    <a href="/resume-generator/">Resume</a>
+    <a href="/peso-converter/">Peso</a>
+    <a href="/group-randomizer/">Groups</a>
+    <a href="/lottery-draw/">Lottery</a>
+    <a href="/ikigai/">Ikigai</a>
+  </div>
+</div></nav>
+
+<div class="page-content">
+<div class="container">
+
+<div class="hero">
+  <h1>👥 <span class="gradient-text">Group Randomizer — Split Names into Teams</span></h1>
+  <p>Paste names, pick a group count, and get fair random assignments instantly</p>
+</div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+<div class="card">
+
+  <!-- ── Input ── -->
+  <div class="input-section">
+    <div class="input-wrap">
+      <textarea id="nameInput" rows="5" placeholder="Paste names here — one per line or comma-separated&#10;&#10;Example:&#10;Alice&#10;Bob&#10;Charlie&#10;Diana&#10;Eve&#10;Frank" spellcheck="false"></textarea>
+    </div>
+    <div class="chips-wrap" id="chipsWrap"></div>
+    <div class="stats-bar" id="statsBar"></div>
+  </div>
+
+  <!-- ── Controls ── -->
+  <div class="controls-row">
+    <div class="form-group">
+      <label>Number of Groups</label>
+      <div style="display:flex;align-items:center;gap:var(--space-3)">
+        <input type="range" id="groupSlider" min="2" max="10" value="2" oninput="syncGroupCount()">
+        <span class="count-display" id="groupCountDisplay">2</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>&nbsp;</label>
+      <input type="number" id="groupNumber" min="2" max="10" value="2" onchange="syncGroupCount(true)">
+    </div>
+  </div>
+
+  <!-- ── Actions ── -->
+  <div class="btn-row">
+    <button class="btn-download" id="randomizeBtn" onclick="randomize()">🎲 Randomize Groups →</button>
+    <button class="btn-secondary" id="redistributeBtn" onclick="randomize()" style="display:none">🔄 Redistribute</button>
+    <button class="btn-secondary" id="copyBtn" onclick="copyResults()" style="display:none">📋 Copy Results</button>
+  </div>
+
+  <!-- ── Results ── -->
+  <div class="results-area" id="resultsArea">
+    <div class="groups-grid" id="groupsGrid"></div>
+  </div>
+
+</div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+<!-- ═══ How to Use ═══ -->
+<div class="section">
+  <h2>📖 How to Use</h2>
+  <p><strong>Step 1:</strong> Paste your list of names into the text box. Names can be separated by line breaks or commas — the tool auto-detects the format.</p>
+  <p><strong>Step 2:</strong> Choose the number of groups (2–10) using the slider or number input.</p>
+  <p><strong>Step 3:</strong> Click <strong>Randomize Groups</strong>. Each name is assigned to a group using a fair Fisher-Yates shuffle.</p>
+  <p><strong>Step 4:</strong> Review the results, use <strong>Redistribute</strong> to re-shuffle, or <strong>Copy Results</strong> to paste them anywhere.</p>
+</div>
+
+<!-- ═══ FAQ ═══ -->
+<div class="section">
+  <h2>❓ Frequently Asked Questions</h2>
+  <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How does the Group Randomizer work?</div><div class="faq-answer"><p>Paste a list of names (one per line or comma-separated), choose how many groups you want, and click Randomize. The tool uses a Fisher-Yates shuffle algorithm to assign each name to a random group for a truly fair distribution.</p></div></div>
+  <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What's the maximum number of names I can randomize?</div><div class="faq-answer"><p>There's no hard limit — the tool works with any number of names. For best performance, we recommend up to 1,000 names. All processing happens locally in your browser; no data is sent to any server.</p></div></div>
+  <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I save my group assignments?</div><div class="faq-answer"><p>Yes! Use the <strong>Copy Results</strong> button to copy all groups to your clipboard and paste them anywhere — a text document, email, chat, or spreadsheet. Your input text is also saved automatically in your browser so you won't lose your list if you close the page.</p></div></div>
+  <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is the randomization truly random?</div><div class="faq-answer"><p>The tool uses the Fisher-Yates (Knuth) shuffle algorithm, which produces a uniformly random permutation. Each name has an equal probability of ending up in any group. Click <strong>Redistribute</strong> to re-shuffle at any time for a new random assignment.</p></div></div>
+  <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What can I use this for?</div><div class="faq-answer"><p>Common uses include: assigning students to project teams, creating sports teams from a roster, randomizing breakout room groups for workshops, picking Secret Santa groups, splitting party guests into teams for games, and any situation where you need fair random group assignments.</p></div></div>
+</div>
+
+<!-- ═══ Related Tools ═══ -->
+<div class="section">
+  <h2>🔗 Related Tools</h2>
+  <div class="related-links">
+    <a href="/lottery-draw/">Lottery Draw</a>
+    <a href="/ikigai/">Ikigai Finder</a>
+    <a href="/password-generator/">Password Generator</a>
+    <a href="/percentage-calculator/">Percentage Calculator</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+</div><!-- /page-content -->
+
+<!-- ═══ Feedback Form ═══ -->
+<section class="section-feedback">
+  <form onsubmit="submitFeedback(event,this)">
+    <div class="fb-header">
+      <span class="fb-icon">💬</span> Feedback
+      <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
+    </div>
+    <div class="fb-optional">
+      <input name="name" placeholder="Your name (optional)" autocomplete="name">
+      <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
+    </div>
+    <div class="fb-row">
+      <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
+      <button class="fb-submit" type="submit">Send →</button>
+    </div>
+    <div class="fb-status"></div>
+  </form>
+</section>
+
+<footer style="border-top:1px solid var(--border-subtle);padding:var(--space-6) 0;margin-top:var(--space-8)">
+  <div class="container" style="text-align:center;font-size:.75rem;color:var(--text-tertiary)">
+    <p>Group Randomizer — free online tool. All processing happens in your browser. Made with ♥.</p>
+  </div>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<!-- ═══ Toast ═══ -->
+<div class="toast" id="toast"></div>
+
+<script>
+// =============================================
+// Group Randomizer Engine
+// =============================================
+
+const groupColors = ['gc-c0','gc-c1','gc-c2','gc-c3','gc-c4','gc-c5','gc-c6','gc-c7','gc-c8','gc-c9'];
+
+// ── Parse names from input ──
+function parseNames(raw) {
+  if (!raw || !raw.trim()) return [];
+  // Detect separator: if there are commas, use comma; otherwise newline
+  const hasCommas = raw.includes(',');
+  let parts;
+  if (hasCommas) {
+    parts = raw.split(',');
+  } else {
+    parts = raw.split(/\n+/);
+  }
+  return parts
+    .map(s => s.trim())
+    .filter(s => s.length > 0);
+}
+
+// ── Render chips ──
+function renderChips() {
+  const raw = document.getElementById('nameInput').value;
+  const names = parseNames(raw);
+  const wrap = document.getElementById('chipsWrap');
+  const statsBar = document.getElementById('statsBar');
+
+  if (names.length === 0) {
+    wrap.innerHTML = '';
+    statsBar.textContent = '';
+    return;
+  }
+
+  // Show up to 20 chips, then "+N more"
+  const maxChips = 20;
+  const showNames = names.slice(0, maxChips);
+  let html = showNames.map((n, i) =>
+    `<span class="chip">${escapeHTML(n)}<span class="chip-x" onclick="removeName(${i})" title="Remove">×</span></span>`
+  ).join('');
+  if (names.length > maxChips) {
+    html += `<span class="chip" style="border-style:dashed">+${names.length - maxChips} more</span>`;
+  }
+  wrap.innerHTML = html;
+  statsBar.textContent = `📊 ${names.length} name${names.length !== 1 ? 's' : ''} parsed`;
+}
+
+function removeName(idx) {
+  const raw = document.getElementById('nameInput').value;
+  const names = parseNames(raw);
+  names.splice(idx, 1);
+  document.getElementById('nameInput').value = names.join('\n');
+  renderChips();
+  saveInput();
+}
+
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ── Group count sync ──
+function syncGroupCount(fromNumber) {
+  const slider = document.getElementById('groupSlider');
+  const num = document.getElementById('groupNumber');
+  const display = document.getElementById('groupCountDisplay');
+  if (fromNumber) {
+    const val = Math.max(2, Math.min(10, parseInt(num.value) || 2));
+    slider.value = val;
+    num.value = val;
+    display.textContent = val;
+  } else {
+    const val = parseInt(slider.value);
+    num.value = val;
+    display.textContent = val;
+  }
+}
+
+// ── Fisher-Yates shuffle ──
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ── Randomize ──
+function randomize() {
+  const raw = document.getElementById('nameInput').value;
+  const names = parseNames(raw);
+  const numGroups = parseInt(document.getElementById('groupSlider').value);
+
+  if (names.length === 0) {
+    showToast('⚠️ Please enter at least one name');
+    return;
+  }
+
+  if (numGroups > names.length) {
+    showToast('⚠️ More groups than names — each group needs at least 1 person');
+    return;
+  }
+
+  const shuffled = shuffle(names);
+  const groups = Array.from({ length: numGroups }, () => []);
+
+  // Round-robin distribution for fairness (each group gets ≈ same size)
+  shuffled.forEach((name, idx) => {
+    groups[idx % numGroups].push(name);
+  });
+
+  renderResults(groups);
+  showButtons(true);
+}
+
+// ── Render results ──
+function renderResults(groups) {
+  const area = document.getElementById('resultsArea');
+  const grid = document.getElementById('groupsGrid');
+
+  let html = '';
+  groups.forEach((members, i) => {
+    const colorClass = groupColors[i % groupColors.length];
+    html += `<div class="group-card">
+      <div class="gc-header ${colorClass}">
+        <span>👥 Group ${i + 1}</span>
+        <span class="gc-count">${members.length} member${members.length !== 1 ? 's' : ''}</span>
+      </div>
+      <div class="gc-body">
+        ${members.map(m => `<div class="member">${escapeHTML(m)}</div>`).join('')}
+      </div>
+    </div>`;
+  });
+
+  grid.innerHTML = html;
+  area.classList.add('active');
+  area.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Update button text
+  document.getElementById('randomizeBtn').textContent = '🎲 Randomize Groups →';
+
+  saveInput();
+}
+
+function showButtons(visible) {
+  document.getElementById('redistributeBtn').style.display = visible ? 'inline-flex' : 'none';
+  document.getElementById('copyBtn').style.display = visible ? 'inline-flex' : 'none';
+}
+
+// ── Copy results ──
+function copyResults() {
+  const cards = document.querySelectorAll('.group-card');
+  if (cards.length === 0) return;
+
+  let text = '';
+  cards.forEach(card => {
+    const header = card.querySelector('.gc-header span:first-child').textContent;
+    const count = card.querySelector('.gc-count').textContent;
+    const members = Array.from(card.querySelectorAll('.member')).map(m => m.textContent);
+    text += `${header} (${count})\n${members.map(m => `  • ${m}`).join('\n')}\n\n`;
+  });
+
+  navigator.clipboard.writeText(text.trim()).then(() => {
+    showToast('✅ Copied to clipboard!');
+  }).catch(() => {
+    showToast('⚠️ Failed to copy — try selecting manually');
+  });
+}
+
+// ── Toast ──
+let toastTimer;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+// ── FAQ toggle ──
+function toggleFAQ(el) {
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+// ── Feedback ──
+function submitFeedback(e, f) {
+  e.preventDefault();
+  const st = f.querySelector('.fb-status');
+  st.textContent = 'Thanks for your feedback!';
+  st.className = 'fb-status success';
+  f.reset();
+}
+
+// ── localStorage ──
+function saveInput() {
+  try {
+    localStorage.setItem('grp_names', document.getElementById('nameInput').value);
+  } catch(e) {}
+}
+
+function loadInput() {
+  try {
+    const saved = localStorage.getItem('grp_names');
+    if (saved) {
+      document.getElementById('nameInput').value = saved;
+      renderChips();
+    }
+  } catch(e) {}
+}
+
+// ── Debounced input handler ──
+let inputTimer;
+document.getElementById('nameInput').addEventListener('input', function() {
+  clearTimeout(inputTimer);
+  inputTimer = setTimeout(() => {
+    renderChips();
+    saveInput();
+  }, 150);
+});
+
+// ── Paste handler for auto-parse ──
+document.getElementById('nameInput').addEventListener('paste', function() {
+  // Allow the paste to happen, then parse after a short delay
+  setTimeout(() => {
+    renderChips();
+    saveInput();
+  }, 50);
+});
+
+// ── Init ──
+document.addEventListener('DOMContentLoaded', function() {
+  loadInput();
+  syncGroupCount();
+});
+</script>
+</div>
+</body>
+</html>

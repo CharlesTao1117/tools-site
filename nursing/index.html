@@ -2,745 +2,427 @@
 <html lang="zh-Hant-TW">
 <head>
 <script src="analytics.js"></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>護理師國考線上測驗 | 3,384 題考古題 · 概念強化 Drill · 弱點分析</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <meta name="description" content="免費護理師國考考古題刷題系統 — 3,384 題歷屆試題、五大考科、概念集群強化練習、弱點分析雷達圖、錯題本自動收錄。免註冊、免安裝、即開即用。">
-  <link rel="canonical" href="https://anycalculator.site/nursing/">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>備考通 — 免費做10題，AI分析你的國考弱點在哪</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="備考通 — 免費做10題跨科測驗，AI自動分析弱點。涵蓋高考、普考、專技、升學等所有考試。記憶曲線、錯題本、衝刺模式。">
+<link rel="canonical" href="https://anycalculator.site/nursing/">
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="/common/premium.css">
-  <style>
-body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
-    /* ── Hero ── */
-    .hero {
-      background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%);
-      color: white;
-      padding: 60px 20px 50px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 70% 30%, rgba(233,69,96,0.08) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(233,69,96,0.2);
-      border: 1px solid rgba(233,69,96,0.3);
-      color: #ff8a8a;
-      padding: 4px 16px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      letter-spacing: 1px;
-    }
-    .hero h1 { font-size: 2.2rem; line-height: 1.3; margin-bottom: 12px; }
-    .hero h1 span { color: #e94560; }
-    .hero p { font-size: 1.05rem; opacity: 0.85; max-width: 550px; margin: 0 auto 24px; line-height: 1.6; }
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-    }
-    .hero-stat { text-align: center; }
-    .hero-stat .num {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: #e94560;
-    }
-    .hero-stat .label {
-      font-size: 0.78rem;
-      opacity: 0.7;
-      margin-top: 2px;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .hero-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 32px;
-      border-radius: 30px;
-      font-size: 1.05rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s;
-      border: none;
-    }
-    .hero-btn-primary {
-      background: #e94560;
-      color: white;
-      box-shadow: 0 4px 16px rgba(233,69,96,0.3);
-    }
-    .hero-btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(233,69,96,0.4);
-    }
-    .hero-btn-secondary {
-      background: rgba(255,255,255,0.1);
-      color: white;
-      border: 1.5px solid rgba(255,255,255,0.25);
-      backdrop-filter: blur(4px);
-    }
-    .hero-btn-secondary:hover {
-      background: rgba(255,255,255,0.18);
-      transform: translateY(-2px);
-    }
+<style>
+:root {
+  --bk-primary: #0f3460;
+  --bk-accent: #e94560;
+  --bk-card: #ffffff;
+  --bk-border: #e8ecf4;
+  --bk-text: #1a1a2e;
+  --bk-bg: #f4f6fb;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bk-bg); color: var(--bk-text); line-height: 1.6; }
 
-    /* ── Feature Cards ── */
-    .features {
-      padding: 50px 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .features h2 {
-      text-align: center;
-      font-size: 1.5rem;
-      color: #0f3460;
-      margin-bottom: 36px;
-    }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    @media (max-width: 640px) { .feature-grid { grid-template-columns: 1fr; } }
-    .feature-card {
-      background: white;
-      border-radius: 16px;
-      padding: 28px;
-      border: 1px solid #e8ecf4;
-      transition: all 0.25s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .feature-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
-      border-color: #0f3460;
-    }
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      background: #f0f4ff;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 14px;
-    }
-    .feature-card h3 { font-size: 1.05rem; color: #0f3460; margin-bottom: 6px; }
-    .feature-card p { font-size: 0.85rem; color: #555; line-height: 1.6; }
+/* Top Bar */
+.topbar { display:flex; align-items:center; justify-content:space-between; padding:10px 20px; max-width:1100px; margin:0 auto; }
+.topbar .brand { font-size:1.1rem; font-weight:800; color:var(--bk-primary); display:flex; align-items:center; gap:8px; text-decoration:none; }
+.topbar .brand .dot { width:10px; height:10px; background:var(--bk-accent); border-radius:50%; display:inline-block; }
+.topbar .brand .sub { font-size:0.65rem; font-weight:400; color:#999; margin-left:4px; }
+.topbar .nav-links { display:flex; align-items:center; gap:4px; }
+.topbar .nav-links a { font-size:0.8rem; color:var(--bk-text); text-decoration:none; padding:6px 10px; border-radius:8px; font-weight:500; transition:background 0.12s; }
+.topbar .nav-links a:hover { background:#f0f2f8; }
+.topbar .btn-google-mini { display:inline-flex; align-items:center; gap:6px; padding:6px 16px; background:var(--bk-primary); color:white; border-radius:20px; font-size:0.75rem; font-weight:700; text-decoration:none; cursor:pointer; border:none; font-family:inherit; transition:all 0.15s; }
+.topbar .btn-google-mini:hover { opacity:0.9; transform:translateY(-1px); }
 
-    /* ── How it works ── */
-    .how-section {
-      background: #f8faff;
-      padding: 50px 20px;
-    }
-    .how-inner { max-width: 1100px; margin: 0 auto; }
-    .how-inner h2 {
-      text-align: center;
-      font-size: 1.5rem;
-      color: #0f3460;
-      margin-bottom: 36px;
-    }
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    @media (max-width: 640px) { .steps { grid-template-columns: 1fr; } }
-    .step {
-      text-align: center;
-      padding: 28px 20px;
-    }
-    .step-num {
-      width: 40px;
-      height: 40px;
-      background: #0f3460;
-      color: white;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 1rem;
-      margin-bottom: 14px;
-    }
-    .step h3 { font-size: 1rem; color: #0f3460; margin-bottom: 6px; }
-    .step p { font-size: 0.85rem; color: #555; line-height: 1.6; }
+/* Hero */
+.hero { background:linear-gradient(135deg,#0f3460 0%,#1a1a2e 50%,#16213e 100%); color:white; padding:56px 20px 46px; text-align:center; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at 70% 30%,rgba(233,69,96,0.08) 0%,transparent 50%); pointer-events:none; }
+.hero-badge { display:inline-block; background:rgba(233,69,96,0.18); border:1px solid rgba(233,69,96,0.25); color:#ff8a8a; padding:4px 16px; border-radius:20px; font-size:0.75rem; font-weight:600; margin-bottom:14px; letter-spacing:1px; }
+.hero h1 { font-size:2rem; line-height:1.3; margin-bottom:8px; }
+.hero h1 span { color:#e94560; }
+.hero p { font-size:0.95rem; opacity:0.8; max-width:500px; margin:0 auto 20px; line-height:1.7; }
+.hero-stats { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:20px; }
+.hero-stat { text-align:center; min-width:60px; }
+.hero-stat .num { font-size:1.4rem; font-weight:800; color:#e94560; }
+.hero-stat .label { font-size:0.7rem; opacity:0.55; margin-top:2px; }
+.hero-actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.hero-btn { display:inline-flex; align-items:center; gap:8px; padding:13px 30px; border-radius:30px; font-size:1rem; font-weight:700; cursor:pointer; text-decoration:none; transition:all 0.2s; border:none; }
+.hero-btn-primary { background:#e94560; color:white; box-shadow:0 4px 16px rgba(233,69,96,0.3); animation:pulse-cta 2s ease-in-out infinite; }
+@keyframes pulse-cta { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+.hero-btn-primary:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(233,69,96,0.4); animation:none; }
+.hero-btn-secondary { background:rgba(255,255,255,0.1); color:white; border:1.5px solid rgba(255,255,255,0.2); }
+.hero-btn-secondary:hover { background:rgba(255,255,255,0.16); transform:translateY(-2px); }
 
-    /* ── Clinical tools grid ── */
-    .tools-section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 50px 20px;
-    }
-    .tools-section h2 {
-      text-align: center;
-      font-size: 1.5rem;
-      color: #0f3460;
-      margin-bottom: 28px;
-    }
-    .tool-grid-small {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
-    }
-    .tool-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: white;
-      border: 1px solid #e8ecf4;
-      border-radius: 12px;
-      padding: 14px 18px;
-      text-decoration: none;
-      color: #333;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: all 0.15s;
-    }
-    .tool-link:hover {
-      border-color: #0f3460;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    }
-    .tool-link .t-icon { font-size: 1.2rem; }
+/* Google Login */
+.google-btn-wrap { margin:16px auto 0; max-width:340px; }
+.btn-google { width:100%; display:flex; align-items:center; justify-content:center; gap:10px; padding:12px 20px; border:1.5px solid rgba(255,255,255,0.2); border-radius:12px; background:rgba(255,255,255,0.06); cursor:pointer; font-size:0.88rem; font-weight:600; color:white; transition:all 0.15s; font-family:inherit; backdrop-filter:blur(4px); }
+.btn-google:hover { background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.35); transform:translateY(-1px); }
+.btn-google svg { width:18px; height:18px; flex-shrink:0; }
 
-    /* ── CTA ── */
-    .cta-section {
-      background: linear-gradient(135deg, #0f3460, #1a1a2e);
-      color: white;
-      text-align: center;
-      padding: 54px 20px;
-    }
-    .cta-section h2 { font-size: 1.5rem; margin-bottom: 8px; }
-    .cta-section p { font-size: 0.95rem; opacity: 0.8; margin-bottom: 24px; }
-    .cta-section .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #e94560;
-      color: white;
-      padding: 14px 36px;
-      border-radius: 30px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s;
-      box-shadow: 0 4px 16px rgba(233,69,96,0.3);
-    }
-    .cta-section .cta-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(233,69,96,0.4);
-    }
+/* Section */
+.section { padding:46px 20px; max-width:1100px; margin:0 auto; }
+.section h2 { text-align:center; font-size:1.35rem; color:var(--bk-primary); margin-bottom:4px; }
+.section .sub { text-align:center; font-size:0.85rem; color:#888; margin-bottom:28px; }
+.section.gray { background:#f8faff; max-width:100%; margin:0; padding:46px 20px; }
 
-    /* ── Testimonials ── */
-    .testimonials {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 50px 20px;
-      text-align: center;
-    }
-    .testimonial-card {
-      background: white;
-      border-radius: 16px;
-      padding: 32px;
-      border: 1px solid #e8ecf4;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .testimonial-card .quote {
-      font-size: 0.95rem;
-      color: #444;
-      line-height: 1.7;
-      font-style: italic;
-      margin-bottom: 12px;
-    }
-    .testimonial-card .author {
-      font-size: 0.85rem;
-      color: #0f3460;
-      font-weight: 600;
-    }
-    .testimonial-card .author span { color: #999; font-weight: 400; }
+/* Exam Grid */
+.exam-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; }
+.exam-cat { margin-bottom:28px; }
+.exam-cat h3 { font-size:0.95rem; color:var(--bk-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+.exam-btn {
+  display:flex; align-items:center; gap:8px; padding:10px 14px;
+  background:white; border:1px solid var(--bk-border); border-radius:10px;
+  cursor:pointer; font-size:0.82rem; font-weight:500; color:var(--bk-text);
+  transition:all 0.12s; width:100%; font-family:inherit; text-align:left;
+}
+.exam-btn:hover { border-color:var(--bk-primary); transform:translateY(-1px); box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.exam-btn .e-icon { font-size:1.1rem; }
 
-    /* ── FAQ ── */
-    .faq-section {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 50px 20px;
-    }
-    .faq-section h2 {
-      text-align: center;
-      font-size: 1.4rem;
-      color: #0f3460;
-      margin-bottom: 28px;
-    }
-    .faq-item {
-      border-bottom: 1px solid #e8ecf4;
-      padding: 16px 0;
-    }
-    .faq-q {
-      font-weight: 600;
-      color: #0f3460;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.95rem;
-    }
-    .faq-q .arrow { transition: transform 0.2s; font-size: 0.8rem; }
-    .faq-q.open .arrow { transform: rotate(180deg); }
-    .faq-a {
-      margin-top: 10px;
-      font-size: 0.88rem;
-      color: #555;
-      display: none;
-      line-height: 1.7;
-    }
-    .faq-a.open { display: block; }
+/* Funnel */
+.funnel { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+@media (max-width:640px){ .funnel{grid-template-columns:1fr 1fr} }
+.funnel-step { background:white; border-radius:14px; padding:22px 14px; border:1px solid var(--bk-border); text-align:center; position:relative; box-shadow:0 2px 8px rgba(0,0,0,0.03); }
+.funnel-step .fs-num { width:30px; height:30px; background:var(--bk-primary); color:white; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:0.8rem; margin-bottom:8px; }
+.funnel-step .fs-icon { font-size:1.5rem; margin-bottom:4px; }
+.funnel-step h3 { font-size:0.85rem; color:var(--bk-primary); margin-bottom:4px; }
+.funnel-step p { font-size:0.74rem; color:#666; line-height:1.5; }
+.funnel-step .fs-arrow { position:absolute; right:-10px; top:50%; transform:translateY(-50%); font-size:1.1rem; color:#ccc; }
+@media (max-width:640px){ .funnel-step .fs-arrow { display:none; } }
 
-    @media (max-width: 480px) {
-      .hero h1 { font-size: 1.6rem; }
-      .hero-stats { gap: 16px; }
-      .hero-stat .num { font-size: 1.3rem; }
-    }
-  </style>
-    <!-- Open Graph -->
-    <meta property="og:title" content="護理師國考線上測驗 | 3,384 題考古題 · 概念 Drill · 弱點分析">
-    <meta property="og:description" content="免費護理師國考考古題刷題系統 — 3,384 題、五大考科、概念集群強化練習、弱點分析、錯題本。免註冊即開即用。">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="護理國考助手">
+/* Pricing */
+.pricing { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:560px; margin:0 auto; }
+@media (max-width:480px){ .pricing{grid-template-columns:1fr} }
+.plan { background:white; border-radius:14px; padding:26px; border:1px solid var(--bk-border); text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.03); }
+.plan.featured { border:2px solid var(--bk-accent); position:relative; }
+.plan.featured::before { content:'🔥 推薦'; position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--bk-accent); color:white; padding:2px 16px; border-radius:20px; font-size:0.7rem; font-weight:700; }
+.plan .p-name { font-size:1.05rem; font-weight:700; color:var(--bk-primary); }
+.plan .p-price { font-size:1.8rem; font-weight:800; color:var(--bk-primary); margin:6px 0; }
+.plan .p-price span { font-size:0.8rem; font-weight:400; color:#888; }
+.plan .p-desc { font-size:0.8rem; color:#666; margin-bottom:14px; }
+.plan .p-features { text-align:left; list-style:none; padding:0; margin-bottom:16px; }
+.plan .p-features li { font-size:0.78rem; color:#444; padding:4px 0; display:flex; align-items:center; gap:6px; }
+.plan .p-features li .ck { color:#2e7d32; }
+.plan .p-features li .no { color:#ccc; }
+.plan .p-btn { display:inline-flex; align-items:center; gap:6px; padding:9px 26px; border-radius:30px; font-size:0.85rem; font-weight:700; text-decoration:none; transition:all 0.15s; }
+.plan .p-btn-primary { background:var(--bk-accent); color:white; }
+.plan .p-btn-primary:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(233,69,96,0.3); }
+.plan .p-btn-outline { border:1.5px solid var(--bk-border); color:var(--bk-text); }
+.plan .p-btn-outline:hover { border-color:var(--bk-primary); }
+
+/* Features */
+.feat-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media (max-width:480px){ .feat-grid{grid-template-columns:1fr} }
+.feat { background:white; border-radius:14px; padding:22px; border:1px solid var(--bk-border); transition:all 0.2s; }
+.feat:hover { transform:translateY(-2px); border-color:var(--bk-accent); box-shadow:0 6px 20px rgba(0,0,0,0.06); }
+.feat .f-icon { font-size:1.3rem; margin-bottom:6px; }
+.feat h3 { font-size:0.88rem; color:var(--bk-primary); margin-bottom:4px; }
+.feat p { font-size:0.78rem; color:#555; line-height:1.6; }
+.feat .f-tag { display:inline-block; background:#fff3e0; color:#e65100; font-size:0.6rem; font-weight:700; padding:1px 8px; border-radius:8px; margin-top:4px; }
+
+/* Testimonials */
+.tm-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:480px){ .tm-grid{grid-template-columns:1fr} }
+.tm-card { background:white; border-radius:14px; padding:20px; border:1px solid var(--bk-border); }
+.tm-card .tm-q { font-size:0.82rem; color:#444; line-height:1.7; font-style:italic; margin-bottom:8px; }
+.tm-card .tm-author { font-size:0.75rem; color:var(--bk-primary); font-weight:600; }
+
+/* FAQ */
+.faq { max-width:600px; margin:0 auto; }
+.faq-item { border-bottom:1px solid var(--bk-border); padding:12px 0; }
+.faq-q { font-weight:600; color:var(--bk-primary); cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; }
+.faq-q .arrow { transition:transform 0.2s; font-size:0.65rem; }
+.faq-q.open .arrow { transform:rotate(180deg); }
+.faq-a { margin-top:6px; font-size:0.8rem; color:#555; display:none; line-height:1.7; }
+.faq-a.open { display:block; }
+
+/* Footer */
+footer { background:#1a1a2e; color:white; text-align:center; padding:24px 20px; }
+footer .links { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:10px; }
+footer .links a { font-size:0.78rem; color:rgba(255,255,255,0.6); text-decoration:none; }
+footer .links a:hover { color:white; }
+footer p { font-size:0.72rem; opacity:0.4; }
+
+@media (max-width:480px){
+  .hero h1 { font-size:1.4rem; }
+  .hero-stats { gap:10px; }
+  .hero-stat .num { font-size:1.1rem; }
+}
+
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#1a1a2e; color:white; padding:12px 22px; border-radius:12px; font-size:0.85rem; font-weight:600; box-shadow:0 4px 20px rgba(0,0,0,0.2); display:none; z-index:999; max-width:90vw; text-align:center; }
+.toast.show { display:block; animation:toastIn 0.3s ease; }
+@keyframes toastIn { from{opacity:0;transform:translateX(-50%) translateY(20px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+</style>
+<meta property="og:title" content="備考通 — 免費做10題，AI分析你的國考弱點在哪">
+<meta property="og:description" content="免費做10題跨科測驗，AI自動分析弱點。涵蓋高考、普考、專技、升學等所有考試。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="備考通">
 </head>
 <body>
+
 <div class="page-wrap">
-<nav class="top-nav"><div class="container">
-  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
-  <div class="links">
-    <a href="/qr-code-generator/">QR Code</a>
-    <a href="/bmi-calculator/">BMI</a>
-    <a href="/password-generator/">Password</a>
-    <a href="/age-calculator/">Age</a>
-    <a href="/percentage-calculator/">Pct/Discount</a>
-    <a href="/date-calculator/">Date</a>
-    <a href="/add-subtract-calculator/">Add/Sub</a>
-    <a href="/invoice-generator/">Invoice</a>
-    <a href="/resume-generator/">Resume</a>
-    <a href="/peso-converter/">Peso</a>
-    <a href="/ikigai/">Ikigai</a>
-    <a href="/nursing/" class="active">Nursing Exam</a>
-  </div>
-</div></nav>
-<div class="page-content">
 
-<!-- ═══════ HERO ═══════ -->
+<!-- ═══ Top Bar ═══ -->
+<div class="topbar">
+  <a href="/" class="brand"><span class="dot"></span>備考通 <span class="sub">AI 國考備考系統</span></a>
+  <div class="nav-links">
+    <a href="#" onclick="scrollTo('exams')">考試</a>
+    <a href="#" onclick="scrollTo('features')">功能</a>
+    <a href="#" onclick="scrollTo('pricing')">方案</a>
+    <button class="btn-google-mini" onclick="handleLogin()">
+      <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#fff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#fff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      登入
+    </button>
+  </div>
+</div>
+
+<!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div class="hero-badge">🩺 免註冊 · 免安裝 · 完全免費</div>
-  <h1>護理師國考，<span>不用死背也能過</span></h1>
-  <p>3,384 題歷屆考古題 + AI 概念集群 drill + 弱點分析雷達圖。<br>每次答錯，系統自動幫你找到同概念題目強化練習。</p>
-
+  <div class="hero-badge">🆓 不用下載 · 不用信用卡</div>
+  <h1>免費做 <span>10 題</span>，AI 找出你的<br>國考弱點在哪</h1>
+  <p>涵蓋高考、普考、專技、升學等所有考試類別。10 題跨科測驗，AI 自動分析弱點分佈。</p>
   <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="num">3,384</div>
-      <div class="label">考古題收錄</div>
-    </div>
-    <div class="hero-stat">
-      <div class="num">22</div>
-      <div class="label">高頻概念集群</div>
-    </div>
-    <div class="hero-stat">
-      <div class="num">5</div>
-      <div class="label">考科全覆蓋</div>
-    </div>
-    <div class="hero-stat">
-      <div class="num">0</div>
-      <div class="label">註冊門檻</div>
-    </div>
+    <div class="hero-stat"><div class="num">10</div><div class="label">免費題數</div></div>
+    <div class="hero-stat"><div class="num">40+</div><div class="label">考試類別</div></div>
+    <div class="hero-stat"><div class="num">10年</div><div class="label">考古題覆蓋</div></div>
+    <div class="hero-stat"><div class="num">0</div><div class="label">註冊門檻</div></div>
   </div>
-
   <div class="hero-actions">
-    <a href="quiz.html" class="hero-btn hero-btn-primary">
-      🎯 開始免費測驗
-    </a>
-    <a href="quiz.html#diagnosis" class="hero-btn hero-btn-secondary" onclick="event.preventDefault();sessionStorage.setItem('quickDiag','true');location='quiz.html'">
-      ⚡ 5 題快速弱點診斷
-    </a>
+    <a href="quiz.html?free=1" class="hero-btn hero-btn-primary">🎯 免費做 10 題</a>
+    <a href="#exams" class="hero-btn hero-btn-secondary">選擇考試 →</a>
+  </div>
+  <div class="google-btn-wrap">
+    <button class="btn-google" onclick="handleLogin()">
+      <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      使用 Google 一鍵登入
+    </button>
+    <p style="font-size:0.7rem;opacity:0.45;margin-top:6px">登入後保存學習進度 · 30 秒搞定</p>
   </div>
 </section>
 
-<!-- ═══════ FEATURES ═══════ -->
-<section class="features">
-  <h2>為什麼考生選擇這套系統？</h2>
-  <div class="feature-grid">
-    <div class="feature-card">
-      <div class="feature-icon">🔁</div>
-      <h3>概念集群 Drill</h3>
-      <p>答錯時不再只是看解答——系統自動從同高頻概念挑題，進行 mini quiz 強化練習，直到你真正掌握。</p>
+<!-- ═══ EXAM SELECTOR ═══ -->
+<section class="section" id="exams">
+  <h2>📋 選擇你的考試</h2>
+  <p class="sub">超過 40 種考試類別，全部免費做 10 題</p>
+
+  <div class="exam-cat">
+    <h3>🏛️ 公務人員</h3>
+    <div class="exam-grid">
+      <button class="exam-btn" onclick="startExam('高考三級')"><span class="e-icon">📜</span> 高考三級</button>
+      <button class="exam-btn" onclick="startExam('高考二級')"><span class="e-icon">📜</span> 高考二級</button>
+      <button class="exam-btn" onclick="startExam('普考')"><span class="e-icon">📋</span> 普考</button>
+      <button class="exam-btn" onclick="startExam('初等考試')"><span class="e-icon">📄</span> 初等考試</button>
+      <button class="exam-btn" onclick="startExam('地方特考')"><span class="e-icon">🏛️</span> 地方特考</button>
+      <button class="exam-btn" onclick="startExam('司法特考')"><span class="e-icon">⚖️</span> 司法特考</button>
+      <button class="exam-btn" onclick="startExam('警察特考')"><span class="e-icon">👮</span> 警察特考</button>
+      <button class="exam-btn" onclick="startExam('鐵路特考')"><span class="e-icon">🚂</span> 鐵路特考</button>
+      <button class="exam-btn" onclick="startExam('調查局特考')"><span class="e-icon">🔍</span> 調查局特考</button>
+      <button class="exam-btn" onclick="startExam('外交特考')"><span class="e-icon">🌏</span> 外交特考</button>
+      <button class="exam-btn" onclick="startExam('關務特考')"><span class="e-icon">🛃</span> 關務特考</button>
+      <button class="exam-btn" onclick="startExam('身心障礙特考')"><span class="e-icon">♿</span> 身心障礙特考</button>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">📊</div>
-      <h3>弱點分析雷達圖</h3>
-      <p>不只告訴你對幾題——每回合結束自動分析 22 個高頻概念的答錯率，一眼看出你的知識斷層在哪。</p>
+  </div>
+
+  <div class="exam-cat">
+    <h3>🩺 專技人員</h3>
+    <div class="exam-grid">
+      <button class="exam-btn" onclick="startExam('律師')"><span class="e-icon">⚖️</span> 律師</button>
+      <button class="exam-btn" onclick="startExam('會計師')"><span class="e-icon">📊</span> 會計師</button>
+      <button class="exam-btn" onclick="startExam('醫師')"><span class="e-icon">🩺</span> 醫師</button>
+      <button class="exam-btn" onclick="startExam('牙醫師')"><span class="e-icon">🦷</span> 牙醫師</button>
+      <button class="exam-btn" onclick="startExam('藥師')"><span class="e-icon">💊</span> 藥師</button>
+      <button class="exam-btn" onclick="startExam('護理師')"><span class="e-icon">🩺</span> 護理師</button>
+      <button class="exam-btn" onclick="startExam('物理治療師')"><span class="e-icon">🦵</span> 物理治療師</button>
+      <button class="exam-btn" onclick="startExam('職能治療師')"><span class="e-icon">🤲</span> 職能治療師</button>
+      <button class="exam-btn" onclick="startExam('營養師')"><span class="e-icon">🥗</span> 營養師</button>
+      <button class="exam-btn" onclick="startExam('社工師')"><span class="e-icon">🤝</span> 社工師</button>
+      <button class="exam-btn" onclick="startExam('不動產經紀人')"><span class="e-icon">🏠</span> 不動產經紀人</button>
+      <button class="exam-btn" onclick="startExam('地政士')"><span class="e-icon">📝</span> 地政士</button>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">📚</div>
-      <h3>智慧錯題本</h3>
-      <p>所有答錯題目自動收錄，跨 session 持久化。可直接從錯題本啟動同概念 drill，反复強化直到記住。</p>
+  </div>
+
+  <div class="exam-cat">
+    <h3>📚 升學考試</h3>
+    <div class="exam-grid">
+      <button class="exam-btn" onclick="startExam('學測')"><span class="e-icon">📚</span> 學測</button>
+      <button class="exam-btn" onclick="startExam('分科測驗')"><span class="e-icon">📖</span> 分科測驗</button>
+      <button class="exam-btn" onclick="startExam('國中會考')"><span class="e-icon">🎒</span> 國中會考</button>
+      <button class="exam-btn" onclick="startExam('統測')"><span class="e-icon">🔧</span> 統測</button>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>零摩擦體驗</h3>
-      <p>無需註冊、無需下載、無需安裝。打開瀏覽器選個科目，就能開始刷題。適合零碎時間高效複習。</p>
+  </div>
+
+  <div class="exam-cat">
+    <h3>🎓 其他</h3>
+    <div class="exam-grid">
+      <button class="exam-btn" onclick="startExam('教師資格考')"><span class="e-icon">🍎</span> 教師資格考</button>
+      <button class="exam-btn" onclick="startExam('證券商業務員')"><span class="e-icon">📈</span> 證券商業務員</button>
+      <button class="exam-btn" onclick="startExam('投信投顧業務員')"><span class="e-icon">💰</span> 投信投顧業務員</button>
+      <button class="exam-btn" onclick="startExam('期貨業務員')"><span class="e-icon">📊</span> 期貨業務員</button>
     </div>
   </div>
 </section>
 
-<!-- ═══════ HOW IT WORKS ═══════ -->
-<section class="how-section">
-  <div class="how-inner">
-    <h2>3 步搞定你的國考備考</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3>選擇科目</h3>
-        <p>基礎醫學、基本護理、內外科、產兒科、精神社區 — 或混合全部科目隨機挑戰。</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3>作答測驗</h3>
-        <p>每回 10 題即時批改，答錯立即顯示所屬高頻概念，可一鍵啟動同概念強化 drill。</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3>分析弱點</h3>
-        <p>結果頁自動生成弱點分析雷達圖，錯題自動收錄到錯題本，隨時回頭重練。</p>
-      </div>
+<!-- ═══ FUNNEL ═══ -->
+<section class="section gray">
+  <h2>🚀 4 步：從免費到上榜</h2>
+  <p class="sub">不用花錢就知道自己的弱點在哪</p>
+  <div class="funnel">
+    <div class="funnel-step">
+      <div class="fs-num">1</div>
+      <div class="fs-icon">🔑</div>
+      <h3>一鍵登入</h3>
+      <p>Google 帳號 30 秒搞定，跨裝置同步。</p>
+      <div class="fs-arrow">→</div>
+    </div>
+    <div class="funnel-step">
+      <div class="fs-num">2</div>
+      <div class="fs-icon">🎯</div>
+      <h3>免費做 10 題</h3>
+      <p>選你的考試，跨科目隨機出題。</p>
+      <div class="fs-arrow">→</div>
+    </div>
+    <div class="funnel-step">
+      <div class="fs-num">3</div>
+      <div class="fs-icon">📊</div>
+      <h3>AI 分析弱點</h3>
+      <p>系統比對概念群，告訴你弱在哪。</p>
+      <div class="fs-arrow">→</div>
+    </div>
+    <div class="funnel-step">
+      <div class="fs-num">4</div>
+      <div class="fs-icon">🚀</div>
+      <h3>解鎖完整功能</h3>
+      <p>無限刷題、記憶曲線、考前衝刺模式。</p>
     </div>
   </div>
 </section>
 
-<!-- ═══════ CLINICAL TOOLS ═══════ -->
-<section class="tools-section">
-  <h2>🛠️ 護理臨床計算工具</h2>
-  <p style="text-align:center;font-size:0.9rem;color:#666;margin-bottom:20px">除了刷題，還有 12 個臨床必備計算機，免費使用</p>
-  <div class="tool-grid-small">
-    <a href="../drip-rate-calculator/" class="tool-link"><span class="t-icon">💧</span> 點滴滴速計算</a>
-    <a href="../dilution-calculator/" class="tool-link"><span class="t-icon">🧪</span> 藥物稀釋計算</a>
-    <a href="../unit-converter/" class="tool-link"><span class="t-icon">📏</span> 單位換算</a>
-    <a href="../safe-dose-calculator/" class="tool-link"><span class="t-icon">💊</span> 安全劑量計算</a>
-    <a href="../gcs-calculator/" class="tool-link"><span class="t-icon">🧠</span> GCS 昏迷指數</a>
-    <a href="../apgar-calculator/" class="tool-link"><span class="t-icon">👶</span> APGAR 評分</a>
-    <a href="../burn-calculator/" class="tool-link"><span class="t-icon">🔥</span> 燒傷面積計算</a>
-    <a href="../bsa-calculator/" class="tool-link"><span class="t-icon">📐</span> 體表面積 BSA</a>
-    <a href="../crcl-calculator/" class="tool-link"><span class="t-icon">🩸</span> 腎功能 CrCl</a>
-    <a href="../edd-calculator/" class="tool-link"><span class="t-icon">📅</span> 預產期推算</a>
-    <a href="../pediatric-fluid-calculator/" class="tool-link"><span class="t-icon">🍼</span> 小兒輸液計算</a>
-    <a href="../high-frequency-analyzer/" class="tool-link"><span class="t-icon">📈</span> 高頻考點分析</a>
+<!-- ═══ FEATURES ═══ -->
+<section class="section" id="features">
+  <h2>🧠 學習科學引擎：不只刷題</h2>
+  <p class="sub">記憶曲線 · 時間分析 · 元認知 · 衝刺模式</p>
+  <div class="feat-grid">
+    <div class="feat"><div class="f-icon">🧠</div><h3>記憶曲線追蹤</h3><p>SM-2 算法算出你每科的 retention，低於 60% 自動排複習。不再讀過就忘。</p><span class="f-tag">Pro</span></div>
+    <div class="feat"><div class="f-icon">⏱️</div><h3>作答時間分析</h3><p>答對但花很久 = 知識不穩。弱點分數 = 錯誤率 × 作答時間。</p><span class="f-tag">Pro</span></div>
+    <div class="feat"><div class="f-icon">🎯</div><h3>元認知監控</h3><p>每題自評信心對比實際正確率，揪出你以為你會但你不會的盲點。</p><span class="f-tag">Pro</span></div>
+    <div class="feat"><div class="f-icon">🏃</div><h3>考前衝刺模式</h3><p>設定考試日期，AI 三階段衝刺，最後一週只練錯最多的題目。</p><span class="f-tag">Pro</span></div>
+    <div class="feat"><div class="f-icon">🔁</div><h3>概念集群 Drill</h3><p>答錯後自動從同概念群挑題強化，直到真正掌握。</p><span class="f-tag">Pro</span></div>
+    <div class="feat"><div class="f-icon">📇</div><h3>錯題本 + 記憶小卡</h3><p>錯題按概念群分組，可匯出 Anki/PDF。附「為什麼錯」+ 口訣。</p><span class="f-tag">Pro</span></div>
   </div>
 </section>
 
-<!-- ═══════ CTA ═══════ -->
-<section class="cta-section">
-  <h2>準備好開始了嗎？</h2>
-  <p>不用註冊、不用下載、不用猶豫。3,384 題等你了。</p>
-  <a href="quiz.html" class="cta-btn">🎯 開始免費測驗</a>
-</section>
-
-<!-- ═══════ AI INSIGHTS (Scrolling) ═══════ -->
-<section style="background:#f8faff;padding:50px 20px;overflow:hidden">
-  <div style="max-width:900px;margin:0 auto">
-    <h2 style="text-align:center;font-size:1.4rem;color:#0f3460;margin-bottom:4px">🤖 AI 分析考題後發現</h2>
-    <p style="text-align:center;font-size:0.9rem;color:#666;margin-bottom:28px">系統自動分析歷屆數據，這些結論你可能不知道</p>
-  </div>
-  <div class="ai-insights-track-wrap" style="overflow:hidden;width:100%">
-    <div class="ai-insights-track" id="ai-insights-track" style="display:flex;gap:16px;width:max-content;padding:0 20px">
-      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
-        <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
-        <p style="font-size:0.85rem;color:#444;line-height:1.6">22 個高頻概念集群中，<strong style="color:#e94560">11 個</strong>在歷屆試題中重複出現 2 次以上，其中 AIDS 與 SLE 更連續 3 年命題。</p>
-      </div>
-      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
-        <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
-        <p style="font-size:0.85rem;color:#444;line-height:1.6">基礎醫學的「藥物計算與給藥」高達 <strong style="color:#e94560">88 題</strong>，是同站題量最大的單一概念群——佔全部 3,384 題的 2.6%。</p>
-      </div>
-      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
-        <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
-        <p style="font-size:0.85rem;color:#444;line-height:1.6">內外科護理學 <strong style="color:#e94560">4 個</strong>高頻概念（AIDS、SLE、COPD、急性胰臟炎）均重複出題 2 次以上，屬於「必考概念區」。</p>
-      </div>
-      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
-        <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
-        <p style="font-size:0.85rem;color:#444;line-height:1.6">22 個概念集群中 <strong style="color:#e94560">13 個</strong>被標記為高難度（high），9 個為中難度——沒有低難度概念，代表收錄的均為考題關鍵。</p>
-      </div>
-      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
-        <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
-        <p style="font-size:0.85rem;color:#444;line-height:1.6">產兒科護理學的「真陣痛 vs 假陣痛辨識」在 <strong style="color:#e94560">2023 與 2026 年</strong>連續出題——同一概念隔年再考，掌握它等於白撿分數。</p>
-      </div>
-      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
-        <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
-        <p style="font-size:0.85rem;color:#444;line-height:1.6">基本護理的「輸血注意事項」與「護理成本控制方法」分別在 <strong style="color:#e94560">2024-2026 年</strong>重複出現——看似冷門，卻是一再命題的穩定區。</p>
-      </div>
-      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
-        <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
-        <p style="font-size:0.85rem;color:#444;line-height:1.6">精神科的「創傷後壓力症（PTSD）」與「全民健康保險」在 <strong style="color:#e94560">2023-2025 年</strong>跨年度重複——精神社區僅 2 個高頻概念，但年年命中。</p>
-      </div>
-      <div class="ai-card" style="min-width:320px;max-width:360px;flex-shrink:0;background:white;border-radius:14px;padding:24px;border:1px solid #e8ecf4;text-align:center">
-        <div style="font-size:2rem;margin-bottom:8px">📊</div>
-        <h3 style="font-size:0.95rem;color:#0f3460;margin-bottom:6px">你知道嗎？</h3>
-        <p style="font-size:0.85rem;color:#444;line-height:1.6">本站 3,384 題涵蓋 <strong style="color:#e94560">2022-2026 年</strong>共 12 場次，每科題數：基礎醫學 629、基本護理 690、內外科 688、產兒科 687、精神社區 690。</p>
-      </div>
+<!-- ═══ PRICING ═══ -->
+<section class="section gray" id="pricing">
+  <h2>📋 免費 vs Pro</h2>
+  <p class="sub">免費讓你體驗核心價值，Pro 讓你真正上榜</p>
+  <div class="pricing">
+    <div class="plan">
+      <div class="p-name">🎈 免費版</div>
+      <div class="p-price">$0</div>
+      <div class="p-desc">試用體驗，了解弱點</div>
+      <ul class="p-features">
+        <li><span class="ck">✅</span> Google 一鍵登入</li>
+        <li><span class="ck">✅</span> 免費 10 題測驗</li>
+        <li><span class="ck">✅</span> 基本弱點分析</li>
+        <li><span class="no">✗</span> 完整題庫</li>
+        <li><span class="no">✗</span> 概念集群 drill</li>
+        <li><span class="no">✗</span> 記憶曲線追蹤</li>
+        <li><span class="no">✗</span> 考前衝刺模式</li>
+      </ul>
+      <a href="quiz.html?free=1" class="p-btn p-btn-outline" style="width:100%;justify-content:center">🎯 免費試用</a>
     </div>
-  </div>
-  <div style="max-width:900px;margin:20px auto 0;text-align:center">
-    <div style="background:linear-gradient(135deg,#fff3e0,#fff8e1);border:1px solid #ffcc80;border-radius:14px;padding:18px 24px;display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:100%">
-      <span style="font-size:1.2rem">🤖</span>
-      <span style="font-size:0.88rem;color:#bf360c;text-align:left"><strong>AI 弱點分析怎麼幫你？</strong> 每做完一回測驗，AI 自動比對 22 個高頻概念集群，算出你的弱點分佈——不再盲讀，不再亂刷題。</span>
-      <a href="quiz.html#diagnosis" style="display:inline-flex;align-items:center;gap:6px;background:#e94560;color:white;padding:8px 20px;border-radius:30px;font-size:0.85rem;font-weight:700;text-decoration:none;white-space:nowrap;border:none" onclick="event.preventDefault();sessionStorage.setItem('quickDiag','true');location='quiz.html'">⚡ 免費測驗</a>
+    <div class="plan featured">
+      <div class="p-name">🚀 Pro 版</div>
+      <div class="p-price">$199 <span>/月</span></div>
+      <div class="p-desc">或 $1,999/年（省 16%）</div>
+      <ul class="p-features">
+        <li><span class="ck">✅</span> Google 一鍵登入</li>
+        <li><span class="ck">✅</span> 無限題庫</li>
+        <li><span class="ck">✅</span> 完整弱點雷達</li>
+        <li><span class="ck">✅</span> 概念集群 drill 無限次</li>
+        <li><span class="ck">✅</span> 記憶曲線 + SM-2</li>
+        <li><span class="ck">✅</span> 作答時間 + 元認知分析</li>
+        <li><span class="ck">✅</span> 考前衝刺 + AI 讀書計畫</li>
+        <li><span class="ck">✅</span> 錯題本 + 記憶小卡匯出</li>
+      </ul>
+      <a href="#" class="p-btn p-btn-primary" style="width:100%;justify-content:center" onclick="upgrade()">🔥 升級 Pro</a>
     </div>
-  </div>
-  <script>
-    (function(){
-      var t = document.getElementById('ai-insights-track');
-      if(t){
-        t.parentNode.style.display = 'flex';
-        t.parentNode.style.overflow = 'hidden';
-        t.parentNode.style.width = '100%';
-        var c = t.cloneNode(true);
-        t.parentNode.appendChild(c);
-        t.style.animation = 'scrollAI 35s linear infinite';
-        c.style.animation = 'scrollAI 35s linear infinite';
-      }
-    })();
-  </script>
-  <style>
-    @keyframes scrollAI {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-    .ai-insights-track-wrap:hover .ai-insights-track { animation-play-state: paused; }
-  </style>
-</section>
-
-<!-- ═══════ TESTIMONIALS (Scrolling Infinite) ═══════ -->
-<section class="testimonials" style="overflow:hidden;padding:40px 0">
-  <h2 style="text-align:center;font-size:1.4rem;color:#0f3460;margin-bottom:24px;padding:0 20px">考生怎麼說</h2>
-  <div class="testimonial-track-wrap" style="overflow:hidden;width:100%">
-    <div class="testimonial-track" id="testimonial-track" style="display:flex;gap:20px;width:max-content;padding:0 20px">
-
-      <!-- Row 1 -->
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析完近五年考題後給了我一句結論——『燒傷題目這三年都考 inhalation injury 的判定，不用背公式，記原則就好。』照著做，真的只錯一題。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 陳同學 <span style="color:#999;font-weight:400">· 護理系大四 · 114 年及格</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「考前三天我請 AI 分析十次測驗數據，它直接說：『你的產兒科問題在新生兒篩檢時間點——這三年連續出，你每次都錯。』結果今年又考，我答對了。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 黃同學 <span style="color:#999;font-weight:400">· 臨床轉職 · 114 年及格</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 跟我說：『你藥理正確率 40% 但不用救了——把時間投資基本護理從 70% 衝到 85% 更划算。』這策略完全正確，我最後低空飛過。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 吳同學 <span style="color:#999;font-weight:400">· 護理四技 · 113 年及格</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 從我 23 題錯題歸納出三個致命模式：看到『最適當』會直覺選最熟的答案、負面敘述題正確但耗時過長、產科計算直接跳過——我自己完全沒發現這規律。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 張同學 <span style="color:#999;font-weight:400">· 護理系大四 · 備 115 年</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析完歷屆題跟我說：『SLE 三年考四次，每次都考哪個敘述正確/錯誤——這代表它一定會繼續出。』結果今年真的又出現，我秒選正確答案。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 林同學 <span style="color:#999;font-weight:400">· 在職進修 · 113 年及格</span></div>
-      </div>
-
-      <!-- Row 2 -->
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「用 AI 分析答題紀錄後，它直接點出：『你每次錯的都不是同一題，是同一種概念』——三個月歸納不出來的東西，AI 五秒就告訴我。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 鄭同學 <span style="color:#999;font-weight:400">· 護理系畢業 · 114 年及格</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「做了三次測驗，AI 就抓出內外科弱在『體液電解質』，集中練兩週後，考試這部分全對。比自己亂翻講義有效率一百倍。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 王同學 <span style="color:#999;font-weight:400">· 護理系大四 · 114 年及格</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「最驚豔的是答錯後的 AI 分析——不只是『選 B 不是 D』，而是『這題考 AIDS 伺機性感染鑑別，你上次錯同概念在 113 年』，當場就知道哪裡沒搞懂。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 李同學 <span style="color:#999;font-weight:400">· 臨床護理師 · 113 年專師上榜</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 幫我算出各科投資報酬率——基礎醫學只佔 20% 考題但我要花 40% 時間，基本護理佔 25% 我卻只花 15% 時間。調配後總分直接跳 12 分。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 劉同學 <span style="color:#999;font-weight:400">· 護理系大四 · 114 年及格</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析 114 年考題後預測：『社區衛生群的傳染病防治題型正在從「疾病特性」轉向「防治流程」，今年可能考登革熱的防疫層級判斷。』考場上真的出現了，我剛好練過。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 蔡同學 <span style="color:#999;font-weight:400">· 護理系應屆 · 114 年及格</span></div>
-      </div>
-
-      <!-- Row 3 -->
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 說：『你的基本護理正確率已經 78%，但「無菌技術」相關題目你連錯三次——這不是粗心，是你對滅菌等級的觀念混淆。』一句話點醒，10 分鐘就搞懂我困惑三個月的東西。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 楊同學 <span style="color:#999;font-weight:400">· 護理系大四 · 備 115 年</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析我十回測驗發現：『你每次前 5 題正確率 90%，後 5 題剩 40%』——不是我後面的不會，是時間分配出問題。調整答題節奏後，模擬考直接從 58→72。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 許同學 <span style="color:#999;font-weight:400">· 護理系二技 · 114 年及格</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「同學推薦說『不用錢先試』，結果發現 AI 已經把 3,384 題分類到 22 個高頻概念下。我不用自己歸納，直接對著弱點練就好。一句話：相見恨晚。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 謝同學 <span style="color:#999;font-weight:400">· 護理系大四 · 113 年及格</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 分析歷年『內外科護理』出題軌跡後給出預測：『心臟衰竭的護理措施今年會換包裝出兩次』——因為上次考藥物、上上次考病理，這次輪到護理措施。結果真的兩題全中。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 葉同學 <span style="color:#999;font-weight:400">· 臨床護理師 · 114 年專師上榜</span></div>
-      </div>
-      <div class="tm-card" style="min-width:340px;max-width:380px;flex-shrink:0;background:white;border-radius:16px;padding:28px;border:1px solid #e8ecf4;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
-        <div style="font-size:1.5rem;margin-bottom:8px">🤖</div>
-        <p style="font-size:0.88rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:12px">「AI 幫我抓出一個致命習慣：『你看到「下列何者錯誤」會自動變快，但「下列何者正確」會猶豫很久——兩種題型正確率差了 25%。』調整心態後，原本卡死的分數直接突破。」</p>
-        <div style="font-size:0.82rem;color:#0f3460;font-weight:600">— 徐同學 <span style="color:#999;font-weight:400">· 護理系畢業 · 113 年及格</span></div>
-      </div>
-
-    </div>
-  </div>
-  <script>
-    (function() {
-      var track = document.getElementById('testimonial-track');
-      if (track) {
-        var clone = track.cloneNode(true);
-        track.parentNode.appendChild(clone);
-        var scrollSpeed = 30; // seconds per full cycle
-        var totalW = track.scrollWidth;
-        track.parentNode.style.display = 'flex';
-        track.parentNode.style.overflow = 'hidden';
-        track.parentNode.style.width = '100%';
-        track.style.animation = 'scrollTM ' + scrollSpeed + 's linear infinite';
-        clone.style.animation = 'scrollTM ' + scrollSpeed + 's linear infinite';
-      }
-    })();
-  </script>
-  <style>
-    @keyframes scrollTM {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-    .testimonial-track-wrap:hover .testimonial-track { animation-play-state: paused; }
-  </style>
-</section>
-
-<!-- ═══════ FAQ ═══════ -->
-<section class="faq-section">
-  <h2>常見問題</h2>
-
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      <span>這完全免費嗎？有隱藏收費嗎？</span>
-      <span class="arrow">▼</span>
-    </div>
-    <div class="faq-a">是的，目前所有功能和題目完全免費。未來如果推出進階功能（如個人讀書計畫、模擬考），會另外公告並保留免費基礎功能。</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      <span>需要註冊或下載 APP 嗎？</span>
-      <span class="arrow">▼</span>
-    </div>
-    <div class="faq-a">完全不用。打開瀏覽器就能用，手機、平板、電腦都支援。錯題記錄存在您的瀏覽器中（localStorage），關掉再開也不會消失。</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      <span>題目來源是哪裡？準確嗎？</span>
-      <span class="arrow">▼</span>
-    </div>
-    <div class="faq-a">所有題目來自考選部公布的歷屆護理師國考考古題（111~115 年），包含基礎醫學(430)、基本護理(460)、內外科(460)、產兒科(460)、精神社區(461)。答案已經過校驗。</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      <span>什麼是「概念集群 drill」？跟普通刷題有什麼不同？</span>
-      <span class="arrow">▼</span>
-    </div>
-    <div class="faq-a">一般刷題 App 只告訴你對錯，但我們的系統會分析每題所屬的 22 個高頻概念群。答錯時不僅顯示所屬概念，還會自動從同概念群中挑出不同題目讓你強化練習——這才是真正能補弱點的學習方式。</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">
-      <span>之後會加入其他考試嗎？</span>
-      <span class="arrow">▼</span>
-    </div>
-    <div class="faq-a">目前以護理師國考為核心，未來考慮擴展至其他醫事人員國考。如果你有建議的考種，歡迎回饋。</div>
   </div>
 </section>
 
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="section">
+  <h2>💬 考生怎麼說</h2>
+  <p class="sub">AI 分析讓他們發現從沒注意到的弱點</p>
+  <div class="tm-grid">
+    <div class="tm-card"><div class="tm-q">「AI 從我 23 題錯題歸納出三個致命模式——我自己完全沒發現這規律。」</div><div class="tm-author">— 張同學 · 護理系</div></div>
+    <div class="tm-card"><div class="tm-q">「AI 跟我說藥理正確率 40% 不用救了，把時間投資基本護理更划算。這策略完全正確。」</div><div class="tm-author">— 吳同學 · 護理四技</div></div>
+    <div class="tm-card"><div class="tm-q">「AI 幫我算出各科投資報酬率，調配後總分直接跳 12 分。」</div><div class="tm-author">— 劉同學 · 114 年及格</div></div>
+    <div class="tm-card"><div class="tm-q">「最驚豔的是答錯後 AI 說『這題考 AIDS 伺機性感染，你上次錯同概念在 113 年』。」</div><div class="tm-author">— 李同學 · 臨床護理師</div></div>
   </div>
-
-<!-- ═══════ Feedback Form ═══════ -->
-<section class="section-feedback">
-  <form onsubmit="submitFeedback(event,this)">
-    <div class="fb-header">
-      <span class="fb-icon">💬</span> Feedback
-      <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
-    </div>
-    <div class="fb-optional">
-      <input name="name" placeholder="Your name (optional)" autocomplete="name">
-      <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
-    </div>
-    <div class="fb-row">
-      <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
-      <button class="fb-submit" type="submit">Send →</button>
-    </div>
-    <div class="fb-status"></div>
-  </form>
 </section>
 
-</div> <!-- /page-content -->
-</div> <!-- /page-wrap -->
+<!-- ═══ CTA ═══ -->
+<section style="background:linear-gradient(135deg,#0f3460,#1a1a2e);color:white;text-align:center;padding:46px 20px">
+  <h2 style="font-size:1.35rem;margin-bottom:6px">10 題就知道你的弱點</h2>
+  <p style="font-size:0.88rem;opacity:0.7;margin-bottom:18px">免費 · 不用下載 · 不用信用卡</p>
+  <a href="quiz.html?free=1" style="display:inline-flex;align-items:center;gap:8px;background:#e94560;color:white;padding:13px 34px;border-radius:30px;font-size:1rem;font-weight:700;text-decoration:none;box-shadow:0 4px 16px rgba(233,69,96,0.3)">🎯 免費做 10 題</a>
+  <div style="margin-top:12px">
+    <button onclick="handleLogin()" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);color:white;padding:9px 22px;border-radius:30px;font-size:0.82rem;font-weight:600;border:1px solid rgba(255,255,255,0.15);cursor:pointer;font-family:inherit">Google 一鍵登入</button>
+  </div>
+</section>
 
+<!-- ═══ FAQ ═══ -->
+<section class="section" id="faq">
+  <div class="faq">
+    <h2 style="text-align:center;font-size:1.25rem;color:var(--bk-primary);margin-bottom:18px">常見問題</h2>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>免費 10 題做完之後呢？</span><span class="arrow">▼</span></div><div class="faq-a">做完後 AI 會分析你的弱點分佈。如果想看到完整弱點雷達圖、繼續做更多題、使用記憶曲線追蹤，可以升級 Pro 版。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>一定要登入才能做嗎？</span><span class="arrow">▼</span></div><div class="faq-a">建議登入 Google，作答記錄和弱點分析可跨裝置保存。不登入也可以做，但記錄只存在當前瀏覽器。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Pro 版多少錢？怎麼付款？</span><span class="arrow">▼</span></div><div class="faq-a">Pro 版 $199/月 或 $1,999/年。支援信用卡、LINE Pay、ATM（藍新金流）。年繳平均每月 $167。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>題目涵蓋哪些範圍？</span><span class="arrow">▼</span></div><div class="faq-a">收錄近 10 年各類考試考古題：公務人員（高考/普考/特考）、專技人員（律師/醫師/護理師等）、升學考試（學測/會考/統測）、教師資格考、金融證照等。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>跟刷題王有什麼不同？</span><span class="arrow">▼</span></div><div class="faq-a">刷題王是「AI 解析錯題」，我們是「學習科學引擎」。記憶曲線追蹤、作答時間分析、元認知監控、考前衝刺模式——這些刷題王都沒有。</div></div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
 <footer>
-  <p>© 2026 護理國考助手 | 3,384 題考古題 · 概念 drill · 弱點分析 · 錯題本 · 12 種臨床計算工具</p>
-  <p style="margin-top:6px;font-size:0.75rem;opacity:0.6">僅供學習參考，臨床決策請依專業判斷</p>
+  <div class="links">
+    <a href="dashboard.html">儀表板</a>
+    <a href="quiz.html">測驗</a>
+    <a href="review.html">搜尋錯題</a>
+    <a href="analytics.html">弱點分析</a>
+    <a href="login.html">登入</a>
+  </div>
+  <p>© 2026 備考通 — AI 國考備考系統</p>
 </footer>
+
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 function toggleFaq(el) {
   el.classList.toggle('open');
-  const answer = el.nextElementSibling;
-  answer.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
 }
-
-// GA4 event
-if (typeof gtag !== 'undefined') {
-  gtag('event', 'page_view', { page_title: '護理國考助手首頁', page_location: window.location.href });
+function scrollTo(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior:'smooth' });
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function handleLogin() {
+  if (localStorage.getItem('exam_ai_token')) { window.location.href='dashboard.html'; return; }
+  window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.pathname + '?free=1');
+}
+function startExam(name) {
+  localStorage.setItem('exam_ai_current_exam', name);
+  window.location.href = 'quiz.html?free=1';
+}
+function upgrade() {
+  const token = localStorage.getItem('exam_ai_token');
+  if (!token) { showToast('請先登入 Google 帳號'); handleLogin(); return; }
+  showToast('🔥 Pro 版即將開放，敬請期待！');
 }
 </script>
 </body>

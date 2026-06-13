@@ -4,7 +4,19 @@
     <loc>https://anycalculator.site/</loc>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-06-13</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/group-randomizer/</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-13</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/lottery-draw/</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-06-13</lastmod>
   </url>
   <url>
     <loc>https://anycalculator.site/qr-code-generator/</loc>

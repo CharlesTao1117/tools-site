@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JL08H6FMN6');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
+     crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lottery Draw — Random Name Picker &amp; Raffle Wheel | anycalculator.site</title>
+<meta name="description" content="Free online Lottery Draw & Random Name Picker. Paste names, spin the wheel, and pick a random winner instantly. Great for raffles, giveaways, classroom picks, and contests.">
+<link rel="canonical" href="https://anycalculator.site/lottery-draw/">
+<meta property="og:title" content="🎲 Lottery Draw — Free Random Name Picker & Raffle Draw">
+<meta property="og:description" content="Pick a random winner from your list of names. Animated draw with confetti celebration, draw history, and full reset. Free, no sign-up required.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://anycalculator.site/lottery-draw/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/common/premium.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Lottery Draw — Random Name Picker","applicationCategory":"UtilityApplication"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does the Lottery Draw work?","acceptedAnswer":{"@type":"Answer","text":"Paste or type a list of participant names (one per line or comma-separated), then click Draw Winner. The tool shuffles names and runs a quick cycling animation before landing on a random winner. Each winner is removed from the pool so they won't be drawn again unless you reset."}},{"@type":"Question","name":"Is the draw truly random?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Lottery Draw uses the Fisher-Yates shuffle algorithm — a proven method for unbiased random permutation — combined with Math.random(). Every participant has an equal chance of being selected on each draw."}},{"@type":"Question","name":"Can I draw multiple winners?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. Click Draw Winner repeatedly to pick multiple winners. Each winner is removed from the remaining pool so there are no duplicates. You can see your draw history with timestamps and use the Copy Results button to export."}},{"@type":"Question","name":"Will my data be saved if I close the page?","acceptedAnswer":{"@type":"Answer","text":"Yes. Your participant list and draw history are saved to your browser's localStorage. When you return, everything is restored. Click Reset Draw to clear all saved data and start fresh."}},{"@type":"Question","name":"What formats can I paste?","acceptedAnswer":{"@type":"Answer","text":"You can paste names separated by newlines (one per line) or by commas. The tool auto-detects the separator and parses your list instantly. Empty lines and extra whitespace are automatically cleaned up."}}]}</script>
+<style>
+body{--accent:#e11d48;--accent-subtle:rgba(225,29,72,0.1);--accent-text:#be123c;--accent-hover:#be123c;--accent-glow:rgba(225,29,72,0.18)}
+
+/* Hero */
+.hero{padding:var(--space-10) 0 var(--space-6)}
+.hero h1 .gradient-text{background:linear-gradient(135deg,#e11d48,#fb7185,#f97316)}
+
+/* Chips display */
+.chips-wrap{display:flex;flex-wrap:wrap;gap:6px;margin:var(--space-3) 0;min-height:36px}
+.chips-wrap .chip-tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:var(--accent-subtle);color:var(--accent-text);border-radius:var(--radius-full);font-size:.78rem;font-weight:500;border:1px solid rgba(225,29,72,0.15)}
+.chips-wrap .chip-tag .chip-remove{cursor:pointer;font-size:1rem;line-height:1;opacity:.5;transition:opacity .15s}
+.chips-wrap .chip-tag .chip-remove:hover{opacity:1}
+
+/* Draw area */
+.draw-area{text-align:center;padding:var(--space-6) 0 var(--space-4)}
+.winner-display{min-height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-4)}
+.winner-card{background:linear-gradient(135deg,rgba(225,29,72,0.06),rgba(249,115,22,0.06));border:2px solid var(--accent);border-radius:var(--radius-lg);padding:var(--space-8) var(--space-6);text-align:center;position:relative;overflow:hidden;animation:winnerPop .5s var(--ease-spring)}
+.winner-card .winner-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);margin-bottom:4px}
+.winner-card .winner-name{font-size:2.2rem;font-weight:800;color:var(--accent);letter-spacing:-0.03em;line-height:1.2;word-break:break-word}
+.winner-card .winner-time{font-size:.72rem;color:var(--text-tertiary);margin-top:var(--space-2)}
+@keyframes winnerPop{0%{transform:scale(.85);opacity:.3}60%{transform:scale(1.04)}100%{transform:scale(1);opacity:1}}
+
+/* Rolling animation */
+.rolling-name{font-size:2rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.03em;transition:color .1s}
+
+/* Confetti */
+.confetti-container{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.confetti-piece{position:absolute;width:8px;height:8px;border-radius:2px;animation:confettiFall 1.5s var(--ease-out) forwards}
+@keyframes confettiFall{0%{transform:translateY(-40px) rotate(0deg);opacity:1}100%{transform:translateY(200px) rotate(720deg);opacity:0}}
+
+/* History */
+.history-wrap{margin-top:var(--space-5)}
+.history-wrap h3{font-size:.85rem;font-weight:600;margin-bottom:var(--space-2);color:var(--text-secondary)}
+.history-list{display:flex;flex-direction:column;gap:var(--space-1);max-height:260px;overflow-y:auto}
+.history-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--bg-subtle);border-radius:var(--radius-sm);font-size:.8rem;border:1px solid var(--border-subtle)}
+.history-item .hi-name{font-weight:600;color:var(--text-primary)}
+.history-item .hi-time{font-size:.7rem;color:var(--text-tertiary)}
+.history-empty{color:var(--text-tertiary);font-size:.8rem;text-align:center;padding:var(--space-4)}
+
+/* Stats row */
+.stats-row{display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap;margin:var(--space-3) 0}
+.stat-badge{text-align:center;padding:var(--space-2) var(--space-4);background:var(--bg-subtle);border-radius:var(--radius-sm);border:1px solid var(--border-subtle)}
+.stat-badge .stat-val{font-size:1.2rem;font-weight:700;color:var(--accent)}
+.stat-badge .stat-lbl{font-size:.68rem;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.04em}
+
+/* Button row */
+.btn-row{display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin:var(--space-4) 0}
+.btn-outline{padding:10px 22px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.85rem;font-weight:500;font-family:var(--font-sans);cursor:pointer;background:var(--bg);color:var(--text-secondary);transition:all .15s;min-height:44px}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-subtle)}
+
+/* Draw button */
+.draw-btn{padding:14px 48px;border:none;border-radius:var(--radius-sm);font-size:1.05rem;font-weight:700;font-family:var(--font-sans);cursor:pointer;background:var(--accent);color:#fff;transition:all .15s;min-height:52px;display:inline-flex;align-items:center;gap:var(--space-2);-webkit-tap-highlight-color:transparent;letter-spacing:-0.01em}
+.draw-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px var(--accent-glow)}
+.draw-btn:active{transform:translateY(0)}
+.draw-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Responsive */
+@media(max-width:640px){
+  .hero h1{font-size:1.55rem}
+  .winner-card .winner-name{font-size:1.6rem}
+  .rolling-name{font-size:1.4rem}
+  .stats-row{gap:var(--space-2)}
+  .btn-row{flex-direction:column;align-items:stretch}
+  .btn-row .btn-outline,.btn-row .draw-btn{width:100%;justify-content:center}
+}
+@media(max-width:480px){
+  .card{padding:var(--space-5)}
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<nav class="top-nav"><div class="container">
+  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
+  <div class="links">
+    <a href="/qr-code-generator/">QR Code</a>
+    <a href="/bmi-calculator/">BMI</a>
+    <a href="/password-generator/">Password</a>
+    <a href="/age-calculator/">Age</a>
+    <a href="/percentage-calculator/">Pct/Discount</a>
+    <a href="/date-calculator/">Date</a>
+    <a href="/add-subtract-calculator/">Add/Sub</a>
+    <a href="/invoice-generator/">Invoice</a>
+    <a href="/resume-generator/">Resume</a>
+    <a href="/peso-converter/">Peso</a>
+    <a href="/group-randomizer/">Groups</a>
+    <a href="/lottery-draw/">Lottery</a>
+    <a href="/ikigai/">Ikigai</a>
+    <a href="/lottery-draw/" class="active">Lottery</a>
+  </div>
+</div></nav>
+
+<div class="page-content">
+
+<div class="hero">
+  <h1>🎲 <span class="gradient-text">Lottery Draw — Random Name Picker</span></h1>
+  <p>Paste names, spin the wheel, and pick a random winner — perfect for raffles, giveaways, and classroom picks</p>
+</div>
+
+<div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+<main class="container">
+
+  <div class="card">
+    <!-- Input -->
+    <div class="form-group">
+      <label>🎟️ Participant Names</label>
+      <div class="input-wrap">
+        <textarea id="nameInput" rows="5" placeholder="Paste names here — one per line, or comma-separated&#10;&#10;e.g.&#10;Alice&#10;Bob&#10;Charlie&#10;&#10;or: Alice, Bob, Charlie"></textarea>
+      </div>
+      <div class="chips-wrap" id="chipsWrap"></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-badge">
+        <div class="stat-val" id="totalCount">0</div>
+        <div class="stat-lbl">Total</div>
+      </div>
+      <div class="stat-badge">
+        <div class="stat-val" id="remainingCount">0</div>
+        <div class="stat-lbl">Remaining</div>
+      </div>
+      <div class="stat-badge">
+        <div class="stat-val" id="drawCount">0</div>
+        <div class="stat-lbl">Drawn</div>
+      </div>
+    </div>
+
+    <!-- Draw Area -->
+    <div class="draw-area">
+      <div class="winner-display" id="winnerDisplay">
+        <div id="rollingName" class="rolling-name" style="display:none"></div>
+        <div id="winnerCard" style="display:none"></div>
+      </div>
+      <button class="draw-btn" id="drawBtn" onclick="startDraw()" disabled>
+        🎯 Draw Winner
+      </button>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-row">
+      <button class="btn-outline" onclick="copyResults()" id="copyBtn" disabled>📋 Copy Results</button>
+      <button class="btn-outline" onclick="resetAll()">🔄 Reset Draw</button>
+    </div>
+
+    <!-- History -->
+    <div class="history-wrap">
+      <h3>📜 Draw History</h3>
+      <div class="history-list" id="historyList">
+        <div class="history-empty">No winners drawn yet. Add names and click Draw Winner!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ad-slot"><div class="ad-label">Advertisement</div><div class="ad-placeholder">Ad Space</div></div>
+
+  <div class="section">
+    <h2>How to Use the Lottery Draw</h2>
+    <p><strong>Step 1:</strong> Paste your list of participant names into the text area. You can use one name per line or separate names with commas — the tool auto-detects the format.</p>
+    <p><strong>Step 2:</strong> Click <strong>🎯 Draw Winner</strong>. Names will cycle quickly in a slot-machine style animation for about 1.5 seconds before landing on a random winner.</p>
+    <p><strong>Step 3:</strong> The winner is displayed in a celebratory card with confetti animation. They are automatically removed from the pool so they won't be picked again.</p>
+    <p><strong>Step 4:</strong> Keep drawing until all winners are selected, or click <strong>🔄 Reset Draw</strong> to start over with all participants. Use <strong>📋 Copy Results</strong> to export your draw history.</p>
+    <p>Your data is saved to your browser automatically — close the page and come back, everything is still there.</p>
+  </div>
+
+  <div class="section">
+    <h2>FAQ</h2>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How does the Lottery Draw work?</div><div class="faq-answer"><p>Paste or type a list of participant names (one per line or comma-separated), then click Draw Winner. The tool shuffles all remaining names using the Fisher-Yates algorithm and runs a quick cycling animation before landing on a random winner. Each winner is removed from the pool so they won't be drawn again unless you reset.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Is the draw truly random?</div><div class="faq-answer"><p>Yes. The Lottery Draw uses the Fisher-Yates shuffle algorithm — a proven, unbiased method for random permutation — combined with JavaScript's Math.random(). Every remaining participant has an equal chance of being selected on each draw. No weighting, no bias.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Can I draw multiple winners?</div><div class="faq-answer"><p>Absolutely! Click Draw Winner repeatedly to pick as many winners as you need. Each winner is removed from the remaining pool so there are never duplicates. You can see your full draw history with timestamps and use the Copy Results button to export everything.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Will my data be saved if I close the page?</div><div class="faq-answer"><p>Yes — your participant list and draw history are automatically saved to your browser's localStorage. When you return to the page, everything is restored exactly as you left it. Click Reset Draw to clear all saved data and start fresh.</p></div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What name formats can I paste?</div><div class="faq-answer"><p>You can paste names separated by newlines (one per line) or by commas. The tool auto-detects the separator and parses your list instantly — no manual formatting needed. Empty lines, extra spaces, and trailing commas are automatically cleaned up. Works with any language or character set.</p></div></div>
+  </div>
+
+</main>
+</div><!-- /page-content -->
+
+<div class="section" style="max-width:840px;margin-left:auto;margin-right:auto;padding:0 var(--space-4)">
+  <h2>🔗 Related Tools</h2>
+  <div class="related-links">
+    <a href="/ikigai/">Ikigai Finder</a><a href="/age-calculator/">Age Calculator</a><a href="/percentage-calculator/">Percentage Calculator</a><a href="/password-generator/">Password Generator</a>
+  </div>
+</div>
+
+<!-- ═══ Feedback Form ═══ -->
+<section class="section-feedback" style="max-width:840px;margin-left:auto;margin-right:auto">
+  <form onsubmit="submitFeedback(event,this)">
+    <div class="fb-header">
+      <span class="fb-icon">💬</span> Feedback
+      <button type="button" class="fb-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('open')">+ Name &amp; Email</button>
+    </div>
+    <div class="fb-optional">
+      <input name="name" placeholder="Your name (optional)" autocomplete="name">
+      <input name="email" type="email" placeholder="your@email.com (optional)" autocomplete="email">
+    </div>
+    <div class="fb-row">
+      <textarea name="message" rows="1" placeholder="Suggestions, bug reports, or ideas..." required></textarea>
+      <button class="fb-submit" type="submit">Send →</button>
+    </div>
+    <div class="fb-status"></div>
+  </form>
+</section>
+
+<footer style="border-top:1px solid var(--border-subtle);padding:var(--space-6) 0;margin-top:var(--space-8)">
+  <div class="container" style="text-align:center;font-size:.75rem;color:var(--text-tertiary)">
+    <p>Lottery Draw — free random name picker &amp; raffle tool. No sign-up required. Made with ♥.</p>
+  </div>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+// =============================================
+// Lottery Draw Engine
+// =============================================
+
+const STORAGE_KEY = 'lottery_draw_data';
+
+// State
+let allParticipants = [];     // all original names
+let remainingPool = [];       // names not yet drawn
+let drawnWinners = [];        // [{name, time}]
+let isDrawing = false;
+let drawInterval = null;
+
+// DOM refs
+const nameInput = document.getElementById('nameInput');
+const chipsWrap = document.getElementById('chipsWrap');
+const totalCountEl = document.getElementById('totalCount');
+const remainingCountEl = document.getElementById('remainingCount');
+const drawCountEl = document.getElementById('drawCount');
+const winnerDisplay = document.getElementById('winnerDisplay');
+const rollingNameEl = document.getElementById('rollingName');
+const winnerCardEl = document.getElementById('winnerCard');
+const drawBtn = document.getElementById('drawBtn');
+const copyBtn = document.getElementById('copyBtn');
+const historyList = document.getElementById('historyList');
+
+// ── Init ──
+function init() {
+  loadFromStorage();
+  renderAll();
+  // Render chips from stored data
+  renderChips();
+  updateStats();
+}
+
+// ── Load / Save ──
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const data = JSON.parse(raw);
+      if (Array.isArray(data.allParticipants)) allParticipants = data.allParticipants;
+      if (Array.isArray(data.remainingPool)) remainingPool = data.remainingPool;
+      if (Array.isArray(data.drawnWinners)) drawnWinners = data.drawnWinners;
+      // Restore textarea
+      if (allParticipants.length > 0) {
+        nameInput.value = allParticipants.join('\n');
+      }
+    }
+  } catch(e) {
+    // ignore
+  }
+}
+
+function saveToStorage() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      allParticipants: allParticipants,
+      remainingPool: remainingPool,
+      drawnWinners: drawnWinners
+    }));
+  } catch(e) {}
+}
+
+// ── Parse names from textarea ──
+function parseNames() {
+  const raw = nameInput.value.trim();
+  if (!raw) {
+    allParticipants = [];
+    remainingPool = [];
+    return;
+  }
+  // Detect separator: if newlines exist, split by newline; else by comma
+  let parts;
+  if (raw.includes('\n')) {
+    parts = raw.split('\n');
+  } else {
+    parts = raw.split(',');
+  }
+  // Clean up
+  const names = parts
+    .map(s => s.trim())
+    .filter(s => s.length > 0);
+  
+  allParticipants = names;
+  // Only reset pool if it's empty or all new names
+  if (remainingPool.length === 0 || !arraysOverlap(remainingPool, allParticipants)) {
+    remainingPool = [...allParticipants];
+  } else {
+    // Keep existing remainingPool but filter out any that are no longer in allParticipants
+    remainingPool = remainingPool.filter(n => allParticipants.includes(n));
+    // Add new names that aren't in remainingPool and haven't been drawn
+    const drawnNames = new Set(drawnWinners.map(d => d.name));
+    for (const name of allParticipants) {
+      if (!remainingPool.includes(name) && !drawnNames.has(name)) {
+        remainingPool.push(name);
+      }
+    }
+  }
+  
+  // Shuffle the remaining pool
+  shuffleArray(remainingPool);
+}
+
+function arraysOverlap(a, b) {
+  if (a.length === 0) return false;
+  const setB = new Set(b);
+  return a.some(x => setB.has(x));
+}
+
+// ── Fisher-Yates Shuffle ──
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+// ── Render chips ──
+function renderChips() {
+  if (allParticipants.length === 0) {
+    chipsWrap.innerHTML = '';
+    return;
+  }
+  // Show first 30, then "+N more"
+  const maxShow = 30;
+  let html = '';
+  const showNames = allParticipants.slice(0, maxShow);
+  showNames.forEach((name, idx) => {
+    const isDrawn = drawnWinners.some(d => d.name === name);
+    html += `<span class="chip-tag" style="${isDrawn ? 'opacity:.45;text-decoration:line-through' : ''}">${escapeHTML(name)}<span class="chip-remove" onclick="removeParticipant(${idx})" title="Remove">×</span></span>`;
+  });
+  if (allParticipants.length > maxShow) {
+    html += `<span class="chip-tag">+${allParticipants.length - maxShow} more</span>`;
+  }
+  chipsWrap.innerHTML = html;
+}
+
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ── Remove a participant ──
+function removeParticipant(idx) {
+  const name = allParticipants[idx];
+  allParticipants.splice(idx, 1);
+  remainingPool = remainingPool.filter(n => n !== name);
+  drawnWinners = drawnWinners.filter(d => d.name !== name);
+  // Update textarea
+  nameInput.value = allParticipants.join('\n');
+  renderChips();
+  updateStats();
+  renderHistory();
+  saveToStorage();
+}
+
+// ── Update stats ──
+function updateStats() {
+  totalCountEl.textContent = allParticipants.length;
+  remainingCountEl.textContent = remainingPool.length;
+  drawCountEl.textContent = drawnWinners.length;
+  
+  // Enable/disable draw button
+  drawBtn.disabled = remainingPool.length === 0 || isDrawing;
+  if (remainingPool.length === 0 && allParticipants.length > 0) {
+    drawBtn.textContent = '✅ All Drawn';
+  } else {
+    drawBtn.textContent = '🎯 Draw Winner';
+  }
+  
+  // Enable/disable copy button
+  copyBtn.disabled = drawnWinners.length === 0;
+}
+
+// ── Start draw animation ──
+function startDraw() {
+  if (isDrawing) return;
+  if (remainingPool.length === 0) return;
+  
+  // Parse fresh from textarea
+  parseNames();
+  saveToStorage();
+  renderChips();
+  updateStats();
+  renderHistory();
+  
+  if (remainingPool.length === 0) return;
+  
+  isDrawing = true;
+  drawBtn.disabled = true;
+  drawBtn.textContent = '🎰 Drawing...';
+  
+  // Hide winner card, show rolling name
+  winnerCardEl.style.display = 'none';
+  winnerCardEl.innerHTML = '';
+  rollingNameEl.style.display = 'block';
+  
+  // Cycle through names
+  let cycles = 0;
+  const maxCycles = 15; // ~1.5 seconds at 100ms intervals
+  let currentIdx = 0;
+  
+  drawInterval = setInterval(() => {
+    // Pick a random name from remaining pool to show
+    const randomIdx = Math.floor(Math.random() * remainingPool.length);
+    rollingNameEl.textContent = remainingPool[randomIdx];
+    cycles++;
+    
+    if (cycles >= maxCycles) {
+      clearInterval(drawInterval);
+      drawInterval = null;
+      // Pick the winner
+      announceWinner();
+    }
+  }, 100);
+}
+
+// ── Announce winner ──
+function announceWinner() {
+  // Pick a random winner from remainingPool
+  const winnerIdx = Math.floor(Math.random() * remainingPool.length);
+  const winner = remainingPool.splice(winnerIdx, 1)[0];
+  
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  
+  drawnWinners.push({ name: winner, time: timeStr });
+  
+  // Hide rolling name, show winner card
+  rollingNameEl.style.display = 'none';
+  
+  const confettiColors = ['#e11d48','#f97316','#fbbf24','#10b981','#6366f1','#ec4899','#8b5cf6'];
+  
+  winnerCardEl.innerHTML = `
+    <div class="winner-card">
+      <div class="confetti-container" id="confettiContainer"></div>
+      <div class="winner-label">🎉 Winner!</div>
+      <div class="winner-name">${escapeHTML(winner)}</div>
+      <div class="winner-time">Drawn at ${timeStr}</div>
+    </div>
+  `;
+  winnerCardEl.style.display = 'block';
+  
+  // Trigger confetti
+  setTimeout(() => {
+    const container = document.getElementById('confettiContainer');
+    if (!container) return;
+    for (let i = 0; i < 40; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.left = Math.random() * 100 + '%';
+      piece.style.top = -(Math.random() * 20) + 'px';
+      piece.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      piece.style.animationDelay = Math.random() * 0.5 + 's';
+      piece.style.animationDuration = (1 + Math.random() * 1.5) + 's';
+      piece.style.width = (4 + Math.random() * 8) + 'px';
+      piece.style.height = (4 + Math.random() * 8) + 'px';
+      container.appendChild(piece);
+    }
+    // Clean up confetti after animation
+    setTimeout(() => {
+      if (container) container.innerHTML = '';
+    }, 2500);
+  }, 50);
+  
+  isDrawing = false;
+  saveToStorage();
+  renderChips();
+  updateStats();
+  renderHistory();
+}
+
+// ── Render history ──
+function renderHistory() {
+  if (drawnWinners.length === 0) {
+    historyList.innerHTML = '<div class="history-empty">No winners drawn yet. Add names and click Draw Winner!</div>';
+    return;
+  }
+  
+  historyList.innerHTML = drawnWinners.slice().reverse().map((d, i) => `
+    <div class="history-item">
+      <span class="hi-name">#${drawnWinners.length - i} — ${escapeHTML(d.name)}</span>
+      <span class="hi-time">${d.time}</span>
+    </div>
+  `).join('');
+}
+
+// ── Copy results ──
+function copyResults() {
+  if (drawnWinners.length === 0) return;
+  
+  const text = drawnWinners.map((d, i) => `${i + 1}. ${d.name} — ${d.time}`).join('\n');
+  
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showCopyFeedback();
+    }).catch(() => {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); showCopyFeedback(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function showCopyFeedback() {
+  const btn = copyBtn;
+  const original = btn.textContent;
+  btn.textContent = '✅ Copied!';
+  setTimeout(() => { btn.textContent = original; }, 2000);
+}
+
+// ── Reset all ──
+function resetAll() {
+  allParticipants = [];
+  remainingPool = [];
+  drawnWinners = [];
+  nameInput.value = '';
+  rollingNameEl.style.display = 'none';
+  winnerCardEl.style.display = 'none';
+  winnerCardEl.innerHTML = '';
+  isDrawing = false;
+  if (drawInterval) {
+    clearInterval(drawInterval);
+    drawInterval = null;
+  }
+  chipsWrap.innerHTML = '';
+  updateStats();
+  renderHistory();
+  saveToStorage();
+}
+
+// ── Render all ──
+function renderAll() {
+  renderChips();
+  updateStats();
+  renderHistory();
+}
+
+// ── Event: Auto-parse on input/paste ──
+nameInput.addEventListener('input', function() {
+  parseNames();
+  saveToStorage();
+  renderChips();
+  updateStats();
+  renderHistory();
+});
+
+// Also parse on paste specifically (for instant feedback)
+nameInput.addEventListener('paste', function() {
+  setTimeout(() => {
+    parseNames();
+    saveToStorage();
+    renderChips();
+    updateStats();
+    renderHistory();
+  }, 50);
+});
+
+// ── FAQ toggle ──
+function toggleFAQ(el) {
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+// ── Feedback submit ──
+function submitFeedback(e, f) {
+  e.preventDefault();
+  var st = f.querySelector('.fb-status');
+  st.textContent = 'Thanks for your feedback!';
+  st.className = 'fb-status success';
+  f.reset();
+}
+
+// ── Init on load ──
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

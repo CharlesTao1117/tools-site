@@ -1,69 +1,322 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant-TW">
 <head>
+<script src="analytics.js"></script>
 <meta charset="UTF-8">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL08H6FMN6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-JL08H6FMN6');
-</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login — Nursing Exam Assistant</title>
+<title>護理國考助手 — 登入</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="登入護理國考助手 — 使用 Google 一鍵登入，或 Email 登入。">
 <link rel="stylesheet" href="/common/premium.css">
 <style>
-body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
-.auth-wrap{max-width:400px;margin:60px auto;padding:0 20px}
-.auth-card{background:var(--bg);border-radius:var(--radius-lg);border:1px solid var(--border-subtle);padding:var(--space-8);box-shadow:var(--shadow-md)}
-.auth-card h1{font-size:1.3rem;margin-bottom:4px;text-align:center}
-.auth-card .sub{font-size:.82rem;color:var(--text-tertiary);text-align:center;margin-bottom:var(--space-6)}
-.form-group{margin-bottom:var(--space-4)}
-.form-group label{display:block;font-size:.78rem;font-weight:600;color:var(--text-secondary);margin-bottom:4px}
-.form-group .input-wrap input{width:100%;padding:10px 14px;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);font-size:.9rem;font-family:var(--font-sans);background:var(--bg);color:var(--text);transition:border-color .15s}
-.form-group .input-wrap input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-subtle)}
-.btn-auth{width:100%;padding:12px;border:none;border-radius:var(--radius-sm);font-size:.95rem;font-weight:600;cursor:pointer;background:var(--accent);color:#fff;transition:all .15s;min-height:48px}
-.btn-auth:hover{opacity:.9;transform:translateY(-1px)}
-.btn-auth:disabled{opacity:.5;cursor:not-allowed}
-.auth-error{background:#ffebee;color:#c62828;padding:10px 14px;border-radius:var(--radius-sm);font-size:.82rem;margin-bottom:var(--space-4);display:none}
-.auth-success{background:#e8f5e9;color:#2e7d32;padding:10px 14px;border-radius:var(--radius-sm);font-size:.82rem;margin-bottom:var(--space-4);display:none}
-.auth-link{text-align:center;font-size:.82rem;color:var(--text-tertiary);margin-top:var(--space-4)}
-.auth-link a{color:var(--accent);text-decoration:none;font-weight:600}
-.auth-link a:hover{text-decoration:underline}
+:root {
+  --auth-primary: #0f3460;
+  --auth-accent: #e94560;
+  --auth-bg: #f4f6fb;
+  --auth-card: #ffffff;
+  --auth-border: #e8ecf4;
+  --auth-text: #1a1a2e;
+  --auth-text-secondary: #666;
+  --auth-text-muted: #999;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--auth-bg);
+  color: var(--auth-text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Layout ── */
+.auth-wrap {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
+
+.auth-card {
+  background: var(--auth-card);
+  border-radius: 20px;
+  border: 1px solid var(--auth-border);
+  padding: 36px 32px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+/* ── Header ── */
+.auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.auth-logo {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--auth-primary), #1a1a2e);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin: 0 auto 14px;
+}
+.auth-header h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--auth-primary);
+  margin-bottom: 4px;
+}
+.auth-header p {
+  font-size: 0.82rem;
+  color: var(--auth-text-muted);
+  line-height: 1.5;
+}
+
+/* ── Google Button ── */
+.btn-google {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1.5px solid var(--auth-border);
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--auth-text);
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.btn-google:hover {
+  border-color: #4285f4;
+  box-shadow: 0 2px 8px rgba(66,133,244,0.15);
+  transform: translateY(-1px);
+}
+.btn-google:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-google .g-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* ── Divider ── */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--auth-text-muted);
+  font-size: 0.75rem;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--auth-border);
+}
+
+/* ── Email Form ── */
+.form-group {
+  margin-bottom: 14px;
+}
+.form-group label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--auth-text-secondary);
+  margin-bottom: 5px;
+}
+.form-group .input-wrap {
+  position: relative;
+}
+.form-group .input-wrap input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--auth-border);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: #fafbfd;
+  color: var(--auth-text);
+  transition: all 0.15s;
+  box-sizing: border-box;
+}
+.form-group .input-wrap input:focus {
+  outline: none;
+  border-color: var(--auth-primary);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(15,52,96,0.08);
+}
+.form-group .input-wrap input::placeholder {
+  color: #bbb;
+}
+
+/* ── Submit Button ── */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: var(--auth-primary);
+  color: white;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.btn-submit:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15,52,96,0.2);
+}
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Messages ── */
+.auth-msg {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  margin-bottom: 14px;
+  display: none;
+  line-height: 1.5;
+}
+.auth-msg.error {
+  display: block;
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+.auth-msg.success {
+  display: block;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+.auth-msg.info {
+  display: block;
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #90caf9;
+}
+
+/* ── Footer ── */
+.auth-footer {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--auth-text-muted);
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--auth-border);
+}
+.auth-footer a {
+  color: var(--auth-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ── Features preview (login page value) ── */
+.auth-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--auth-border);
+}
+.auth-feat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--auth-text-secondary);
+}
+.auth-feat .af-icon { font-size: 0.9rem; }
+
+/* ── Loading spinner ── */
+.spinner-sm {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .auth-card { padding: 28px 20px; }
+  .auth-features { grid-template-columns: 1fr; }
+}
+
+/* ── Back link ── */
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.82rem;
+  color: var(--auth-text-muted);
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+.back-home:hover { color: var(--auth-primary); }
+
+/* ── Google ID (hidden, used by GIS) ── */
+#g_id_onload { display: none; }
 </style>
 </head>
 <body>
-<div class="page-wrap">
-<nav class="top-nav"><div class="container">
-  <div class="brand"><a href="/"><span class="logo-dot"></span>Free Tools</a></div>
-  <div class="links">
-    <a href="/qr-code-generator/">QR Code</a>
-    <a href="/bmi-calculator/">BMI</a>
-    <a href="/password-generator/">Password</a>
-    <a href="/age-calculator/">Age</a>
-    <a href="/percentage-calculator/">Pct/Discount</a>
-    <a href="/date-calculator/">Date</a>
-    <a href="/add-subtract-calculator/">Add/Sub</a>
-    <a href="/invoice-generator/">Invoice</a>
-    <a href="/resume-generator/">Resume</a>
-    <a href="/peso-converter/">Peso</a>
-    <a href="/ikigai/">Ikigai</a>
-    <a href="/nursing/">Nursing Exam</a>
-  </div>
-</div></nav>
-<div class="page-content">
 
 <div class="auth-wrap">
+  <a href="index.html" class="back-home">← 回到首頁</a>
+
   <div class="auth-card">
-    <h1>🔐 護理國考助手</h1>
-    <p class="sub">封測邀請 — 使用邀請碼註冊後登入</p>
 
-    <div class="auth-error" id="auth-error"></div>
-    <div class="auth-success" id="auth-success"></div>
+    <!-- Header -->
+    <div class="auth-header">
+      <div class="auth-logo">🩺</div>
+      <h1>歡迎回來</h1>
+      <p>登入後可同步學習進度、<br>使用錯題本與個人化學習計畫</p>
+    </div>
 
-    <form id="login-form" onsubmit="return handleLogin(event)">
+    <!-- Messages -->
+    <div class="auth-msg" id="auth-msg"></div>
+
+    <!-- Google Login -->
+    <button class="btn-google" id="google-btn" onclick="handleGoogleLogin()">
+      <svg class="g-icon" viewBox="0 0 24 24">
+        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+      </svg>
+      使用 Google 帳號登入
+    </button>
+
+    <!-- Divider -->
+    <div class="auth-divider">或使用 Email 登入</div>
+
+    <!-- Email Form -->
+    <form id="login-form" onsubmit="return handleEmailLogin(event)">
       <div class="form-group">
         <label for="email">Email</label>
         <div class="input-wrap">
@@ -73,43 +326,133 @@ body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
       <div class="form-group">
         <label for="password">密碼</label>
         <div class="input-wrap">
-          <input type="password" id="password" placeholder="••••••" required autocomplete="current-password">
+          <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
         </div>
       </div>
-      <button type="submit" class="btn-auth" id="login-btn">登入</button>
+      <button type="submit" class="btn-submit" id="login-btn">登入</button>
     </form>
 
-    <div class="auth-link">
-      還沒有帳號？<a href="register.html">註冊新帳號 →</a>
+    <!-- Divider -->
+    <div class="auth-divider" style="margin-top:20px">還沒有帳號？</div>
+
+    <!-- Register CTA -->
+    <button class="btn-google" onclick="location.href='register.html'" style="justify-content:center;margin-top:0">
+      ✨ 建立免費帳號（30 秒）
+    </button>
+
+    <!-- Features Preview -->
+    <div class="auth-features">
+      <div class="auth-feat"><span class="af-icon">🧠</span> 記憶曲線追蹤</div>
+      <div class="auth-feat"><span class="af-icon">📊</span> 弱點雷達分析</div>
+      <div class="auth-feat"><span class="af-icon">⏱️</span> 作答時間診斷</div>
+      <div class="auth-feat"><span class="af-icon">🏃</span> 考前衝刺模式</div>
     </div>
+
+    <!-- Footer -->
+    <div class="auth-footer">
+      登入即表示同意 <a href="../terms/index.html">服務條款</a> 與 <a href="../privacy-policy/index.html">隱私政策</a>
+    </div>
+
   </div>
 </div>
-
-</div> <!-- /page-content -->
-</div> <!-- /page-wrap -->
 
 <script>
 const API_BASE = '/api';
 
-async function handleLogin(e) {
+// ── Show message ──
+function showMsg(text, type = 'error') {
+  const el = document.getElementById('auth-msg');
+  el.textContent = text;
+  el.className = 'auth-msg ' + type;
+}
+
+// ── Google Login ──
+function handleGoogleLogin() {
+  const btn = document.getElementById('google-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner-sm" style="border-top-color:#4285f4;border-color:rgba(66,133,244,0.3)"></span> 登入中...';
+
+  // Try to use Google Identity Services if loaded
+  if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+    // GIS already initialized via meta tag — prompt the user
+    google.accounts.id.prompt();
+    // Reset button after 3s if no response
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = `
+        <svg class="g-icon" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        使用 Google 帳號登入
+      `;
+    }, 3000);
+    return;
+  }
+
+  // Fallback: direct redirect to Google OAuth endpoint
+  // This requires backend to handle Google OAuth
+  showMsg('正在連接到 Google...', 'info');
+  
+  // For now, redirect to backend Google OAuth endpoint
+  window.location.href = API_BASE + '/auth/google?redirect=' + encodeURIComponent(window.location.origin + '/nursing/dashboard.html');
+}
+
+// ── Handle Google credential response (called by GIS callback) ──
+async function handleGoogleCredential(response) {
+  showMsg('驗證中...', 'info');
+  try {
+    const res = await fetch(API_BASE + '/auth/google', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential: response.credential })
+    });
+    const data = await res.json();
+    if (data.success) {
+      localStorage.setItem('exam_ai_token', data.token);
+      localStorage.setItem('exam_ai_user', JSON.stringify(data.user));
+      showMsg('登入成功！跳轉中...', 'success');
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
+    } else {
+      showMsg(data.error || 'Google 登入失敗');
+      resetGoogleBtn();
+    }
+  } catch (err) {
+    showMsg('無法連線到伺服器，請稍後再試');
+    resetGoogleBtn();
+  }
+}
+
+function resetGoogleBtn() {
+  const btn = document.getElementById('google-btn');
+  btn.disabled = false;
+  btn.innerHTML = `
+    <svg class="g-icon" viewBox="0 0 24 24">
+      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+    </svg>
+    使用 Google 帳號登入
+  `;
+}
+
+// ── Email Login ──
+async function handleEmailLogin(e) {
   e.preventDefault();
   const btn = document.getElementById('login-btn');
-  const errorEl = document.getElementById('auth-error');
-  const successEl = document.getElementById('auth-success');
-  errorEl.style.display = 'none';
-  successEl.style.display = 'none';
-
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
 
   if (!email || !password) {
-    errorEl.textContent = '請填寫 Email 和密碼';
-    errorEl.style.display = 'block';
+    showMsg('請填寫 Email 和密碼');
     return false;
   }
 
   btn.disabled = true;
-  btn.textContent = '登入中...';
+  btn.innerHTML = '<span class="spinner-sm"></span> 登入中...';
 
   try {
     const res = await fetch(API_BASE + '/login', {
@@ -120,35 +463,47 @@ async function handleLogin(e) {
     const data = await res.json();
 
     if (data.success) {
-      // Store token
       localStorage.setItem('exam_ai_token', data.token);
       localStorage.setItem('exam_ai_user', JSON.stringify(data.user));
-      successEl.textContent = '登入成功！跳轉中...';
-      successEl.style.display = 'block';
-      setTimeout(() => {
-        window.location.href = '/nursing/quiz';
-      }, 800);
+      showMsg('登入成功！跳轉中...', 'success');
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
     } else {
-      errorEl.textContent = data.error || '登入失敗';
-      errorEl.style.display = 'block';
+      showMsg(data.error || 'Email 或密碼錯誤');
+      btn.disabled = false;
+      btn.innerHTML = '登入';
     }
   } catch (err) {
-    errorEl.textContent = '無法連線到伺服器，請稍後再試';
-    errorEl.style.display = 'block';
-  } finally {
+    showMsg('無法連線到伺服器，請稍後再試');
     btn.disabled = false;
-    btn.textContent = '登入';
+    btn.innerHTML = '登入';
   }
   return false;
 }
 
-// Redirect if already logged in
+// ── Auto-redirect if already logged in ──
 (function() {
   const token = localStorage.getItem('exam_ai_token');
   if (token) {
-    window.location.href = '/nursing/quiz';
+    window.location.href = 'dashboard.html';
   }
 })();
 </script>
+
+<!-- Google Identity Services (GIS) — uncomment and add CLIENT_ID when ready -->
+<!--
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+window.onload = function() {
+  if (typeof google !== 'undefined' && google.accounts) {
+    google.accounts.id.initialize({
+      client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+      callback: handleGoogleCredential,
+      auto_select: true
+    });
+  }
+};
+</script>
+-->
+
 </body>
 </html>
