@@ -4,154 +4,225 @@
 <script src="analytics.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>備考通 — 免費做10題，AI分析你的國考弱點在哪</title>
+<title>備考通 — 免費做10題，AI分析你的國考弱點</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta name="description" content="備考通 — 免費做10題跨科測驗，AI自動分析弱點。涵蓋高考、普考、專技、升學等所有考試。記憶曲線、錯題本、衝刺模式。">
+<meta name="description" content="備考通 — 免費做10題跨科測驗，AI自動分析弱點。涵蓋高考、普考、專技、升學等40+考試。記憶曲線、錯題本、衝刺模式。">
 <link rel="canonical" href="https://anycalculator.site/nursing/">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="/common/premium.css">
 <style>
 :root {
-  --bk-primary: #0f3460;
-  --bk-accent: #e94560;
-  --bk-card: #ffffff;
-  --bk-border: #e8ecf4;
-  --bk-text: #1a1a2e;
-  --bk-bg: #f4f6fb;
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --border: #e8ecf4;
+  --primary: #0f3460;
+  --accent: #e94560;
+  --text: #1a1a2e;
+  --text2: #555;
+  --text3: #999;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bk-bg); color: var(--bk-text); line-height: 1.6; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
 
-/* Top Bar */
-.topbar { display:flex; align-items:center; justify-content:space-between; padding:10px 20px; max-width:1100px; margin:0 auto; }
-.topbar .brand { font-size:1.1rem; font-weight:800; color:var(--bk-primary); display:flex; align-items:center; gap:8px; text-decoration:none; }
-.topbar .brand .dot { width:10px; height:10px; background:var(--bk-accent); border-radius:50%; display:inline-block; }
-.topbar .brand .sub { font-size:0.65rem; font-weight:400; color:#999; margin-left:4px; }
-.topbar .nav-links { display:flex; align-items:center; gap:4px; }
-.topbar .nav-links a { font-size:0.8rem; color:var(--bk-text); text-decoration:none; padding:6px 10px; border-radius:8px; font-weight:500; transition:background 0.12s; }
-.topbar .nav-links a:hover { background:#f0f2f8; }
-.topbar .btn-google-mini { display:inline-flex; align-items:center; gap:6px; padding:6px 16px; background:var(--bk-primary); color:white; border-radius:20px; font-size:0.75rem; font-weight:700; text-decoration:none; cursor:pointer; border:none; font-family:inherit; transition:all 0.15s; }
-.topbar .btn-google-mini:hover { opacity:0.9; transform:translateY(-1px); }
+/* ── Container ── */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
 
-/* Hero */
-.hero { background:linear-gradient(135deg,#0f3460 0%,#1a1a2e 50%,#16213e 100%); color:white; padding:56px 20px 46px; text-align:center; position:relative; overflow:hidden; }
-.hero::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at 70% 30%,rgba(233,69,96,0.08) 0%,transparent 50%); pointer-events:none; }
-.hero-badge { display:inline-block; background:rgba(233,69,96,0.18); border:1px solid rgba(233,69,96,0.25); color:#ff8a8a; padding:4px 16px; border-radius:20px; font-size:0.75rem; font-weight:600; margin-bottom:14px; letter-spacing:1px; }
-.hero h1 { font-size:2rem; line-height:1.3; margin-bottom:8px; }
-.hero h1 span { color:#e94560; }
-.hero p { font-size:0.95rem; opacity:0.8; max-width:500px; margin:0 auto 20px; line-height:1.7; }
-.hero-stats { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:20px; }
-.hero-stat { text-align:center; min-width:60px; }
-.hero-stat .num { font-size:1.4rem; font-weight:800; color:#e94560; }
-.hero-stat .label { font-size:0.7rem; opacity:0.55; margin-top:2px; }
-.hero-actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-.hero-btn { display:inline-flex; align-items:center; gap:8px; padding:13px 30px; border-radius:30px; font-size:1rem; font-weight:700; cursor:pointer; text-decoration:none; transition:all 0.2s; border:none; }
-.hero-btn-primary { background:#e94560; color:white; box-shadow:0 4px 16px rgba(233,69,96,0.3); animation:pulse-cta 2s ease-in-out infinite; }
-@keyframes pulse-cta { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
-.hero-btn-primary:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(233,69,96,0.4); animation:none; }
-.hero-btn-secondary { background:rgba(255,255,255,0.1); color:white; border:1.5px solid rgba(255,255,255,0.2); }
-.hero-btn-secondary:hover { background:rgba(255,255,255,0.16); transform:translateY(-2px); }
-
-/* Google Login */
-.google-btn-wrap { margin:16px auto 0; max-width:340px; }
-.btn-google { width:100%; display:flex; align-items:center; justify-content:center; gap:10px; padding:12px 20px; border:1.5px solid rgba(255,255,255,0.2); border-radius:12px; background:rgba(255,255,255,0.06); cursor:pointer; font-size:0.88rem; font-weight:600; color:white; transition:all 0.15s; font-family:inherit; backdrop-filter:blur(4px); }
-.btn-google:hover { background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.35); transform:translateY(-1px); }
-.btn-google svg { width:18px; height:18px; flex-shrink:0; }
-
-/* Section */
-.section { padding:46px 20px; max-width:1100px; margin:0 auto; }
-.section h2 { text-align:center; font-size:1.35rem; color:var(--bk-primary); margin-bottom:4px; }
-.section .sub { text-align:center; font-size:0.85rem; color:#888; margin-bottom:28px; }
-.section.gray { background:#f8faff; max-width:100%; margin:0; padding:46px 20px; }
-
-/* Exam Grid */
-.exam-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; }
-.exam-cat { margin-bottom:28px; }
-.exam-cat h3 { font-size:0.95rem; color:var(--bk-primary); margin-bottom:10px; display:flex; align-items:center; gap:6px; }
-.exam-btn {
-  display:flex; align-items:center; gap:8px; padding:10px 14px;
-  background:white; border:1px solid var(--bk-border); border-radius:10px;
-  cursor:pointer; font-size:0.82rem; font-weight:500; color:var(--bk-text);
-  transition:all 0.12s; width:100%; font-family:inherit; text-align:left;
+/* ── Top Bar ── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px; max-width: 1120px; margin: 0 auto;
 }
-.exam-btn:hover { border-color:var(--bk-primary); transform:translateY(-1px); box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-.exam-btn .e-icon { font-size:1.1rem; }
+.topbar .logo { font-size: 1.15rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+.topbar .logo .dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; display: inline-block; }
+.topbar nav { display: flex; align-items: center; gap: 4px; }
+.topbar nav a { font-size: 0.82rem; color: var(--text); padding: 6px 12px; border-radius: 8px; font-weight: 500; transition: background 0.12s; }
+.topbar nav a:hover { background: #eef0f6; }
+.topbar .btn-g {
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+  background: var(--primary); color: #fff; border-radius: 20px; font-size: 0.78rem; font-weight: 700; cursor: pointer;
+  border: none; font-family: inherit; transition: all 0.15s;
+}
+.topbar .btn-g:hover { opacity: 0.9; transform: translateY(-1px); }
+.topbar .btn-g svg { width: 14px; height: 14px; }
 
-/* Funnel */
-.funnel { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
-@media (max-width:640px){ .funnel{grid-template-columns:1fr 1fr} }
-.funnel-step { background:white; border-radius:14px; padding:22px 14px; border:1px solid var(--bk-border); text-align:center; position:relative; box-shadow:0 2px 8px rgba(0,0,0,0.03); }
-.funnel-step .fs-num { width:30px; height:30px; background:var(--bk-primary); color:white; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:0.8rem; margin-bottom:8px; }
-.funnel-step .fs-icon { font-size:1.5rem; margin-bottom:4px; }
-.funnel-step h3 { font-size:0.85rem; color:var(--bk-primary); margin-bottom:4px; }
-.funnel-step p { font-size:0.74rem; color:#666; line-height:1.5; }
-.funnel-step .fs-arrow { position:absolute; right:-10px; top:50%; transform:translateY(-50%); font-size:1.1rem; color:#ccc; }
-@media (max-width:640px){ .funnel-step .fs-arrow { display:none; } }
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%);
+  color: #fff; padding: 64px 20px 56px; text-align: center; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at 70% 30%, rgba(233,69,96,0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero .badge {
+  display: inline-block; background: rgba(233,69,96,0.18); border: 1px solid rgba(233,69,96,0.25);
+  color: #ff8a8a; padding: 4px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 16px; letter-spacing: 1px;
+}
+.hero h1 { font-size: 2.2rem; line-height: 1.3; margin-bottom: 10px; }
+.hero h1 span { color: var(--accent); }
+.hero p { font-size: 1rem; opacity: 0.82; max-width: 520px; margin: 0 auto 24px; line-height: 1.7; }
+.hero .stats { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 24px; }
+.hero .stats .s { text-align: center; }
+.hero .stats .s .n { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+.hero .stats .s .l { font-size: 0.72rem; opacity: 0.6; margin-top: 2px; }
+.hero .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hero .btn-p {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 30px;
+  font-size: 1rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s;
+  background: var(--accent); color: #fff; box-shadow: 0 4px 16px rgba(233,69,96,0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+.hero .btn-p:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(233,69,96,0.4); animation: none; }
+.hero .btn-s {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 30px;
+  font-size: 1rem; font-weight: 600; cursor: pointer; border: 1.5px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08); color: #fff; transition: all 0.2s; text-decoration: none;
+}
+.hero .btn-s:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
+.hero .g-wrap { margin: 18px auto 0; max-width: 340px; }
+.hero .btn-g-lg {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 12px 20px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 12px;
+  background: rgba(255,255,255,0.06); cursor: pointer; font-size: 0.9rem; font-weight: 600;
+  color: #fff; transition: all 0.15s; font-family: inherit; backdrop-filter: blur(4px);
+}
+.hero .btn-g-lg:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.35); transform: translateY(-1px); }
+.hero .btn-g-lg svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-/* Pricing */
-.pricing { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:560px; margin:0 auto; }
-@media (max-width:480px){ .pricing{grid-template-columns:1fr} }
-.plan { background:white; border-radius:14px; padding:26px; border:1px solid var(--bk-border); text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.03); }
-.plan.featured { border:2px solid var(--bk-accent); position:relative; }
-.plan.featured::before { content:'🔥 推薦'; position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--bk-accent); color:white; padding:2px 16px; border-radius:20px; font-size:0.7rem; font-weight:700; }
-.plan .p-name { font-size:1.05rem; font-weight:700; color:var(--bk-primary); }
-.plan .p-price { font-size:1.8rem; font-weight:800; color:var(--bk-primary); margin:6px 0; }
-.plan .p-price span { font-size:0.8rem; font-weight:400; color:#888; }
-.plan .p-desc { font-size:0.8rem; color:#666; margin-bottom:14px; }
-.plan .p-features { text-align:left; list-style:none; padding:0; margin-bottom:16px; }
-.plan .p-features li { font-size:0.78rem; color:#444; padding:4px 0; display:flex; align-items:center; gap:6px; }
-.plan .p-features li .ck { color:#2e7d32; }
-.plan .p-features li .no { color:#ccc; }
-.plan .p-btn { display:inline-flex; align-items:center; gap:6px; padding:9px 26px; border-radius:30px; font-size:0.85rem; font-weight:700; text-decoration:none; transition:all 0.15s; }
-.plan .p-btn-primary { background:var(--bk-accent); color:white; }
-.plan .p-btn-primary:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(233,69,96,0.3); }
-.plan .p-btn-outline { border:1.5px solid var(--bk-border); color:var(--bk-text); }
-.plan .p-btn-outline:hover { border-color:var(--bk-primary); }
+/* ── Section ── */
+.section { padding: 56px 0; }
+.section h2 { text-align: center; font-size: 1.4rem; color: var(--primary); margin-bottom: 4px; }
+.section .sub { text-align: center; font-size: 0.88rem; color: var(--text3); margin-bottom: 36px; }
+.section.gray { background: #f8faff; }
 
-/* Features */
-.feat-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+/* ── Exam Categories ── */
+.exam-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width:640px){ .exam-groups{grid-template-columns:1fr} }
+.exam-group h3 { font-size: 0.95rem; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.exam-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.exam-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 5px 12px; background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; font-size: 0.78rem; color: var(--text); cursor: pointer; transition: all 0.12s;
+}
+.exam-tag:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+.exam-tag .e-num { font-size: 0.6rem; color: var(--text3); margin-left: 2px; }
+
+/* ── Steps ── */
+.steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+@media (max-width:640px){ .steps{grid-template-columns:1fr 1fr} }
+.step {
+  background: var(--card); border-radius: 14px; padding: 24px 16px;
+  border: 1px solid var(--border); text-align: center; position: relative;
+}
+.step:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.04); }
+.step .num {
+  width: 32px; height: 32px; background: var(--primary); color: #fff; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; margin-bottom: 10px;
+}
+.step .icon { font-size: 1.6rem; margin-bottom: 6px; }
+.step h3 { font-size: 0.9rem; color: var(--primary); margin-bottom: 4px; }
+.step p { font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
+.step .arr { position: absolute; right: -10px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; color: #ccc; }
+@media (max-width:640px){ .step .arr{display:none} }
+
+/* ── Features ── */
+.feat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width:768px){ .feat-grid{grid-template-columns:1fr 1fr} }
 @media (max-width:480px){ .feat-grid{grid-template-columns:1fr} }
-.feat { background:white; border-radius:14px; padding:22px; border:1px solid var(--bk-border); transition:all 0.2s; }
-.feat:hover { transform:translateY(-2px); border-color:var(--bk-accent); box-shadow:0 6px 20px rgba(0,0,0,0.06); }
-.feat .f-icon { font-size:1.3rem; margin-bottom:6px; }
-.feat h3 { font-size:0.88rem; color:var(--bk-primary); margin-bottom:4px; }
-.feat p { font-size:0.78rem; color:#555; line-height:1.6; }
-.feat .f-tag { display:inline-block; background:#fff3e0; color:#e65100; font-size:0.6rem; font-weight:700; padding:1px 8px; border-radius:8px; margin-top:4px; }
+.feat {
+  background: var(--card); border-radius: 14px; padding: 24px 20px;
+  border: 1px solid var(--border); transition: all 0.2s;
+}
+.feat:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 6px 20px rgba(0,0,0,0.04); }
+.feat .fi { font-size: 1.5rem; margin-bottom: 8px; }
+.feat h3 { font-size: 0.92rem; color: var(--primary); margin-bottom: 4px; }
+.feat p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.feat .tag {
+  display: inline-block; background: #fff3e0; color: #e65100;
+  font-size: 0.6rem; font-weight: 700; padding: 1px 8px; border-radius: 8px; margin-top: 6px;
+}
 
-/* Testimonials */
-.tm-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-@media (max-width:480px){ .tm-grid{grid-template-columns:1fr} }
-.tm-card { background:white; border-radius:14px; padding:20px; border:1px solid var(--bk-border); }
-.tm-card .tm-q { font-size:0.82rem; color:#444; line-height:1.7; font-style:italic; margin-bottom:8px; }
-.tm-card .tm-author { font-size:0.75rem; color:var(--bk-primary); font-weight:600; }
+/* ── Pricing ── */
+.pricing { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 600px; margin: 0 auto; }
+@media (max-width:480px){ .pricing{grid-template-columns:1fr} }
+.plan {
+  background: var(--card); border-radius: 16px; padding: 28px; border: 1px solid var(--border); text-align: center;
+}
+.plan.hot { border: 2px solid var(--accent); position: relative; }
+.plan.hot::before {
+  content: '🔥 推薦'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: #fff; padding: 2px 16px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;
+}
+.plan .n { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
+.plan .p { font-size: 2rem; font-weight: 800; color: var(--primary); margin: 8px 0; }
+.plan .p span { font-size: 0.85rem; font-weight: 400; color: var(--text3); }
+.plan .d { font-size: 0.8rem; color: var(--text2); margin-bottom: 16px; }
+.plan ul { list-style: none; padding: 0; text-align: left; margin-bottom: 20px; }
+.plan ul li { font-size: 0.8rem; color: #444; padding: 5px 0; display: flex; align-items: center; gap: 6px; }
+.plan ul li .y { color: #2e7d32; }
+.plan ul li .x { color: #ccc; }
+.plan .btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 10px 28px; border-radius: 30px;
+  font-size: 0.9rem; font-weight: 700; text-decoration: none; transition: all 0.15s; width: 100%; justify-content: center;
+}
+.plan .btn-p { background: var(--accent); color: #fff; }
+.plan .btn-p:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(233,69,96,0.3); }
+.plan .btn-o { border: 1.5px solid var(--border); color: var(--text); }
+.plan .btn-o:hover { border-color: var(--primary); }
 
-/* FAQ */
-.faq { max-width:600px; margin:0 auto; }
-.faq-item { border-bottom:1px solid var(--bk-border); padding:12px 0; }
-.faq-q { font-weight:600; color:var(--bk-primary); cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; }
-.faq-q .arrow { transition:transform 0.2s; font-size:0.65rem; }
-.faq-q.open .arrow { transform:rotate(180deg); }
-.faq-a { margin-top:6px; font-size:0.8rem; color:#555; display:none; line-height:1.7; }
-.faq-a.open { display:block; }
+/* ── CTA block ── */
+.cta-block {
+  background: linear-gradient(135deg, #0f3460, #1a1a2e); color: #fff;
+  text-align: center; padding: 56px 20px;
+}
+.cta-block h2 { font-size: 1.4rem; margin-bottom: 6px; }
+.cta-block p { font-size: 0.9rem; opacity: 0.75; margin-bottom: 22px; }
+.cta-block .btn {
+  display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff;
+  padding: 14px 36px; border-radius: 30px; font-size: 1rem; font-weight: 700; text-decoration: none;
+  box-shadow: 0 4px 16px rgba(233,69,96,0.3);
+}
+.cta-block .btn:hover { transform: translateY(-2px); }
+.cta-block .g-sm {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
+  padding: 8px 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 30px; color: #fff; font-size: 0.82rem; cursor: pointer; font-family: inherit;
+}
+.cta-block .g-sm:hover { background: rgba(255,255,255,0.12); }
+.cta-block .g-sm svg { width: 16px; height: 16px; }
 
-/* Footer */
-footer { background:#1a1a2e; color:white; text-align:center; padding:24px 20px; }
-footer .links { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:10px; }
-footer .links a { font-size:0.78rem; color:rgba(255,255,255,0.6); text-decoration:none; }
-footer .links a:hover { color:white; }
-footer p { font-size:0.72rem; opacity:0.4; }
+/* ── FAQ ── */
+.faq { max-width: 640px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 14px 0; }
+.faq-q { font-weight: 600; color: var(--primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; }
+.faq-q .ar { transition: transform 0.2s; font-size: 0.7rem; }
+.faq-q.open .ar { transform: rotate(180deg); }
+.faq-a { margin-top: 8px; font-size: 0.82rem; color: var(--text2); display: none; line-height: 1.7; }
+.faq-a.open { display: block; }
+
+/* ── Footer ── */
+footer { background: #1a1a2e; color: #fff; text-align: center; padding: 28px 20px; }
+footer .links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+footer .links a { font-size: 0.8rem; color: rgba(255,255,255,0.55); }
+footer .links a:hover { color: #fff; }
+footer p { font-size: 0.74rem; opacity: 0.35; }
+
+/* ── Toast ── */
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a2e; color: #fff; padding: 14px 24px; border-radius: 12px; font-size: 0.88rem; font-weight: 600; box-shadow: 0 4px 20px rgba(0,0,0,0.2); display: none; z-index: 999; max-width: 90vw; text-align: center; }
+.toast.show { display: block; animation: ti 0.3s ease; }
+@keyframes ti { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
 @media (max-width:480px){
-  .hero h1 { font-size:1.4rem; }
-  .hero-stats { gap:10px; }
-  .hero-stat .num { font-size:1.1rem; }
+  .hero h1 { font-size: 1.5rem; }
+  .hero .stats { gap: 14px; }
+  .hero .stats .s .n { font-size: 1.2rem; }
 }
-
-.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#1a1a2e; color:white; padding:12px 22px; border-radius:12px; font-size:0.85rem; font-weight:600; box-shadow:0 4px 20px rgba(0,0,0,0.2); display:none; z-index:999; max-width:90vw; text-align:center; }
-.toast.show { display:block; animation:toastIn 0.3s ease; }
-@keyframes toastIn { from{opacity:0;transform:translateX(-50%) translateY(20px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
 </style>
-<meta property="og:title" content="備考通 — 免費做10題，AI分析你的國考弱點在哪">
+<meta property="og:title" content="備考通 — 免費做10題，AI分析你的國考弱點">
 <meta property="og:description" content="免費做10題跨科測驗，AI自動分析弱點。涵蓋高考、普考、專技、升學等所有考試。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="備考通">
@@ -160,225 +231,291 @@ footer p { font-size:0.72rem; opacity:0.4; }
 
 <div class="page-wrap">
 
-<!-- ═══ Top Bar ═══ -->
+<!-- ═══ TOP BAR ═══ -->
 <div class="topbar">
-  <a href="/" class="brand"><span class="dot"></span>備考通 <span class="sub">AI 國考備考系統</span></a>
-  <div class="nav-links">
-    <a href="#" onclick="scrollTo('exams')">考試</a>
-    <a href="#" onclick="scrollTo('features')">功能</a>
-    <a href="#" onclick="scrollTo('pricing')">方案</a>
-    <button class="btn-google-mini" onclick="handleLogin()">
-      <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#fff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#fff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      登入
+  <a href="/" class="logo"><span class="dot"></span>備考通</a>
+  <nav>
+    <a href="#" onclick="q('exams')">考試</a>
+    <a href="#" onclick="q('features')">功能</a>
+    <a href="#" onclick="q('pricing')">方案</a>
+    <a href="#" onclick="q('faq')">常見問題</a>
+    <button class="btn-g" onclick="gl()">
+      <svg viewBox="0 0 24 24"><path fill="#fff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#fff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Google 登入
     </button>
-  </div>
+  </nav>
 </div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div class="hero-badge">🆓 不用下載 · 不用信用卡</div>
-  <h1>免費做 <span>10 題</span>，AI 找出你的<br>國考弱點在哪</h1>
-  <p>涵蓋高考、普考、專技、升學等所有考試類別。10 題跨科測驗，AI 自動分析弱點分佈。</p>
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="num">10</div><div class="label">免費題數</div></div>
-    <div class="hero-stat"><div class="num">40+</div><div class="label">考試類別</div></div>
-    <div class="hero-stat"><div class="num">10年</div><div class="label">考古題覆蓋</div></div>
-    <div class="hero-stat"><div class="num">0</div><div class="label">註冊門檻</div></div>
+  <div class="badge">🩺 不用下載 · 不用信用卡 · 30秒開始</div>
+  <h1>做 <span>10 題</span>，AI 就找出你<br>國考的弱點在哪</h1>
+  <p>從高考、普考到專技、升學 — 備考通涵蓋你所有的考試。<br>10 題跨科測驗，AI 幫你分析弱點分佈，不再盲目刷題。</p>
+  <div class="stats">
+    <div class="s"><div class="n">40+</div><div class="l">考試類別</div></div>
+    <div class="s"><div class="n">10</div><div class="l">免費題數</div></div>
+    <div class="s"><div class="n">5</div><div class="l">跨科測驗</div></div>
+    <div class="s"><div class="n">0</div><div class="l">註冊門檻</div></div>
   </div>
-  <div class="hero-actions">
-    <a href="quiz.html?free=1" class="hero-btn hero-btn-primary">🎯 免費做 10 題</a>
-    <a href="#exams" class="hero-btn hero-btn-secondary">選擇考試 →</a>
+  <div class="actions">
+    <a href="quiz.html?free=1" class="btn-p">🎯 免費做 10 題</a>
+    <a href="#exams" class="btn-s">瀏覽所有考試 →</a>
   </div>
-  <div class="google-btn-wrap">
-    <button class="btn-google" onclick="handleLogin()">
+  <div class="g-wrap">
+    <button class="btn-g-lg" onclick="gl()">
       <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
       使用 Google 一鍵登入
     </button>
-    <p style="font-size:0.7rem;opacity:0.45;margin-top:6px">登入後保存學習進度 · 30 秒搞定</p>
+    <p style="font-size:0.7rem;opacity:0.45;margin-top:6px">登入後保存學習記錄 · 30秒搞定</p>
   </div>
 </section>
 
-<!-- ═══ EXAM SELECTOR ═══ -->
+<!-- ═══ EXAM CATEGORIES ═══ -->
 <section class="section" id="exams">
-  <h2>📋 選擇你的考試</h2>
-  <p class="sub">超過 40 種考試類別，全部免費做 10 題</p>
-
-  <div class="exam-cat">
-    <h3>🏛️ 公務人員</h3>
-    <div class="exam-grid">
-      <button class="exam-btn" onclick="startExam('高考三級')"><span class="e-icon">📜</span> 高考三級</button>
-      <button class="exam-btn" onclick="startExam('高考二級')"><span class="e-icon">📜</span> 高考二級</button>
-      <button class="exam-btn" onclick="startExam('普考')"><span class="e-icon">📋</span> 普考</button>
-      <button class="exam-btn" onclick="startExam('初等考試')"><span class="e-icon">📄</span> 初等考試</button>
-      <button class="exam-btn" onclick="startExam('地方特考')"><span class="e-icon">🏛️</span> 地方特考</button>
-      <button class="exam-btn" onclick="startExam('司法特考')"><span class="e-icon">⚖️</span> 司法特考</button>
-      <button class="exam-btn" onclick="startExam('警察特考')"><span class="e-icon">👮</span> 警察特考</button>
-      <button class="exam-btn" onclick="startExam('鐵路特考')"><span class="e-icon">🚂</span> 鐵路特考</button>
-      <button class="exam-btn" onclick="startExam('調查局特考')"><span class="e-icon">🔍</span> 調查局特考</button>
-      <button class="exam-btn" onclick="startExam('外交特考')"><span class="e-icon">🌏</span> 外交特考</button>
-      <button class="exam-btn" onclick="startExam('關務特考')"><span class="e-icon">🛃</span> 關務特考</button>
-      <button class="exam-btn" onclick="startExam('身心障礙特考')"><span class="e-icon">♿</span> 身心障礙特考</button>
-    </div>
-  </div>
-
-  <div class="exam-cat">
-    <h3>🩺 專技人員</h3>
-    <div class="exam-grid">
-      <button class="exam-btn" onclick="startExam('律師')"><span class="e-icon">⚖️</span> 律師</button>
-      <button class="exam-btn" onclick="startExam('會計師')"><span class="e-icon">📊</span> 會計師</button>
-      <button class="exam-btn" onclick="startExam('醫師')"><span class="e-icon">🩺</span> 醫師</button>
-      <button class="exam-btn" onclick="startExam('牙醫師')"><span class="e-icon">🦷</span> 牙醫師</button>
-      <button class="exam-btn" onclick="startExam('藥師')"><span class="e-icon">💊</span> 藥師</button>
-      <button class="exam-btn" onclick="startExam('護理師')"><span class="e-icon">🩺</span> 護理師</button>
-      <button class="exam-btn" onclick="startExam('物理治療師')"><span class="e-icon">🦵</span> 物理治療師</button>
-      <button class="exam-btn" onclick="startExam('職能治療師')"><span class="e-icon">🤲</span> 職能治療師</button>
-      <button class="exam-btn" onclick="startExam('營養師')"><span class="e-icon">🥗</span> 營養師</button>
-      <button class="exam-btn" onclick="startExam('社工師')"><span class="e-icon">🤝</span> 社工師</button>
-      <button class="exam-btn" onclick="startExam('不動產經紀人')"><span class="e-icon">🏠</span> 不動產經紀人</button>
-      <button class="exam-btn" onclick="startExam('地政士')"><span class="e-icon">📝</span> 地政士</button>
-    </div>
-  </div>
-
-  <div class="exam-cat">
-    <h3>📚 升學考試</h3>
-    <div class="exam-grid">
-      <button class="exam-btn" onclick="startExam('學測')"><span class="e-icon">📚</span> 學測</button>
-      <button class="exam-btn" onclick="startExam('分科測驗')"><span class="e-icon">📖</span> 分科測驗</button>
-      <button class="exam-btn" onclick="startExam('國中會考')"><span class="e-icon">🎒</span> 國中會考</button>
-      <button class="exam-btn" onclick="startExam('統測')"><span class="e-icon">🔧</span> 統測</button>
-    </div>
-  </div>
-
-  <div class="exam-cat">
-    <h3>🎓 其他</h3>
-    <div class="exam-grid">
-      <button class="exam-btn" onclick="startExam('教師資格考')"><span class="e-icon">🍎</span> 教師資格考</button>
-      <button class="exam-btn" onclick="startExam('證券商業務員')"><span class="e-icon">📈</span> 證券商業務員</button>
-      <button class="exam-btn" onclick="startExam('投信投顧業務員')"><span class="e-icon">💰</span> 投信投顧業務員</button>
-      <button class="exam-btn" onclick="startExam('期貨業務員')"><span class="e-icon">📊</span> 期貨業務員</button>
+  <div class="wrap">
+    <h2>📋 涵蓋所有考試</h2>
+    <p class="sub">從公務人員到專技證照，你想考的都在這裡</p>
+    <div class="exam-groups">
+      <div class="exam-group">
+        <h3>🏛️ 公務人員考試</h3>
+        <div class="exam-tags">
+          <span class="exam-tag" onclick="sel('高考三級')">高考三級 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('高考二級')">高考二級 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('普考')">普考 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('初等考試')">初等考試 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('地方特考')">地方特考 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('司法特考')">司法特考 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('警察特考')">警察特考 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('鐵路特考')">鐵路特考 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('關務特考')">關務特考 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('調查局特考')">調查局 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('外交特考')">外交特考 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('原住民特考')">原住民特考 <span class="e-num">10年</span></span>
+        </div>
+      </div>
+      <div class="exam-group">
+        <h3>🩺 專技人員考試</h3>
+        <div class="exam-tags">
+          <span class="exam-tag" onclick="sel('律師')">律師 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('會計師')">會計師 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('醫師')">醫師 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('護理師')">護理師 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('藥師')">藥師 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('物理治療師')">物理治療師 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('社工師')">社工師 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('不動產經紀人')">不動產經紀人 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('記帳士')">記帳士 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('營養師')">營養師 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('醫事檢驗師')">醫事檢驗師 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('地政士')">地政士 <span class="e-num">10年</span></span>
+        </div>
+      </div>
+      <div class="exam-group">
+        <h3>📚 升學考試</h3>
+        <div class="exam-tags">
+          <span class="exam-tag" onclick="sel('學測')">學測 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('分科測驗')">分科測驗 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('會考')">國中會考 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('統測')">統測 <span class="e-num">10年</span></span>
+        </div>
+      </div>
+      <div class="exam-group">
+        <h3>🎓 其他考試</h3>
+        <div class="exam-tags">
+          <span class="exam-tag" onclick="sel('教師資格考')">教師資格考 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('證券商業務員')">證券商業務員 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('投信投顧')">投信投顧 <span class="e-num">10年</span></span>
+          <span class="exam-tag" onclick="sel('期貨業務員')">期貨業務員 <span class="e-num">10年</span></span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ FUNNEL ═══ -->
+<!-- ═══ STEPS ═══ -->
 <section class="section gray">
-  <h2>🚀 4 步：從免費到上榜</h2>
-  <p class="sub">不用花錢就知道自己的弱點在哪</p>
-  <div class="funnel">
-    <div class="funnel-step">
-      <div class="fs-num">1</div>
-      <div class="fs-icon">🔑</div>
-      <h3>一鍵登入</h3>
-      <p>Google 帳號 30 秒搞定，跨裝置同步。</p>
-      <div class="fs-arrow">→</div>
-    </div>
-    <div class="funnel-step">
-      <div class="fs-num">2</div>
-      <div class="fs-icon">🎯</div>
-      <h3>免費做 10 題</h3>
-      <p>選你的考試，跨科目隨機出題。</p>
-      <div class="fs-arrow">→</div>
-    </div>
-    <div class="funnel-step">
-      <div class="fs-num">3</div>
-      <div class="fs-icon">📊</div>
-      <h3>AI 分析弱點</h3>
-      <p>系統比對概念群，告訴你弱在哪。</p>
-      <div class="fs-arrow">→</div>
-    </div>
-    <div class="funnel-step">
-      <div class="fs-num">4</div>
-      <div class="fs-icon">🚀</div>
-      <h3>解鎖完整功能</h3>
-      <p>無限刷題、記憶曲線、考前衝刺模式。</p>
+  <div class="wrap">
+    <h2>🚀 4 步：從免費到上榜</h2>
+    <p class="sub">不用花錢就知道自己的弱點在哪</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <div class="icon">🔑</div>
+        <h3>一鍵登入</h3>
+        <p>Google 帳號 30 秒搞定，不用記密碼。</p>
+        <div class="arr">→</div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div class="icon">🎯</div>
+        <h3>免費做10題</h3>
+        <p>跨考科隨機出題，每題計時+自評。</p>
+        <div class="arr">→</div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div class="icon">📊</div>
+        <h3>AI分析弱點</h3>
+        <p>系統比對概念群，告訴你弱在哪。</p>
+        <div class="arr">→</div>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <div class="icon">🚀</div>
+        <h3>解鎖完整版</h3>
+        <p>升級無限刷題、記憶曲線、衝刺模式。</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ FEATURES ═══ -->
 <section class="section" id="features">
-  <h2>🧠 學習科學引擎：不只刷題</h2>
-  <p class="sub">記憶曲線 · 時間分析 · 元認知 · 衝刺模式</p>
-  <div class="feat-grid">
-    <div class="feat"><div class="f-icon">🧠</div><h3>記憶曲線追蹤</h3><p>SM-2 算法算出你每科的 retention，低於 60% 自動排複習。不再讀過就忘。</p><span class="f-tag">Pro</span></div>
-    <div class="feat"><div class="f-icon">⏱️</div><h3>作答時間分析</h3><p>答對但花很久 = 知識不穩。弱點分數 = 錯誤率 × 作答時間。</p><span class="f-tag">Pro</span></div>
-    <div class="feat"><div class="f-icon">🎯</div><h3>元認知監控</h3><p>每題自評信心對比實際正確率，揪出你以為你會但你不會的盲點。</p><span class="f-tag">Pro</span></div>
-    <div class="feat"><div class="f-icon">🏃</div><h3>考前衝刺模式</h3><p>設定考試日期，AI 三階段衝刺，最後一週只練錯最多的題目。</p><span class="f-tag">Pro</span></div>
-    <div class="feat"><div class="f-icon">🔁</div><h3>概念集群 Drill</h3><p>答錯後自動從同概念群挑題強化，直到真正掌握。</p><span class="f-tag">Pro</span></div>
-    <div class="feat"><div class="f-icon">📇</div><h3>錯題本 + 記憶小卡</h3><p>錯題按概念群分組，可匯出 Anki/PDF。附「為什麼錯」+ 口訣。</p><span class="f-tag">Pro</span></div>
+  <div class="wrap">
+    <h2>🧠 學習科學引擎</h2>
+    <p class="sub">不是題庫，是真正幫你學會的系統</p>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="fi">🧠</div>
+        <h3>記憶曲線追蹤</h3>
+        <p>SM-2 算法算出每科 retention，低於 60% 自動排複習。不再讀過就忘。</p>
+        <span class="tag">Pro</span>
+      </div>
+      <div class="feat">
+        <div class="fi">⏱️</div>
+        <h3>作答時間分析</h3>
+        <p>答對但花很久＝知識不穩。弱點分數＝錯誤率 × 作答時間。</p>
+        <span class="tag">Pro</span>
+      </div>
+      <div class="feat">
+        <div class="fi">🎯</div>
+        <h3>元認知監控</h3>
+        <p>自評信心對比實際正確率，揪出「你會但你以為不會」的盲點。</p>
+        <span class="tag">Pro</span>
+      </div>
+      <div class="feat">
+        <div class="fi">🏃</div>
+        <h3>考前衝刺模式</h3>
+        <p>設定考試日期 → AI 三階段衝刺：基礎→強化→最後一週只練錯題。</p>
+        <span class="tag">Pro</span>
+      </div>
+      <div class="feat">
+        <div class="f-icon">🏷️</div>
+        <h3>錯題根因分類</h3>
+        <p>不只是記下你錯了——AI 幫你分析「為什麼錯」：概念不熟？看錯題目？選項混淆？臨床判斷錯誤？每週給你錯因報告。</p>
+        <span class="f-tag">新功能</span>
+      </div>
+      <div class="feat">
+        <div class="f-icon">☀️</div>
+        <h3>五分鐘晨間複習</h3>
+        <p>每天早上推播 3 個知識點 + 1 題。專為實習考生設計——打開、5 分鐘、關掉、進臨床。最低摩擦的習慣錨點。</p>
+        <span class="f-tag">新功能</span>
+      </div>
+      <div class="feat">
+        <div class="f-icon">📦</div>
+        <h3>考前 30 天衝刺包</h3>
+        <p>考前自動打包你的個人衝刺清單：弱點排行榜 + retention<60% 知識點 + 未練題型。每天自動分配任務。</p>
+        <span class="f-tag">新功能</span>
+      </div>
+      <div class="feat">
+        <div class="f-icon">📈</div>
+        <h3>考古題出題預測</h3>
+        <p>AI 分析 5 年出題軌跡，預測今年最可能考什麼。必考（紅）、高機率（橙）、偶考（灰）三層分類，不再瞎猜。</p>
+        <span class="f-tag">新功能</span>
+      </div>
+      <div class="feat">
+        <div class="f-icon">🏥</div>
+        <h3>臨床情境題專項</h3>
+        <p>近年大量增加的 scenario 題型，解題邏輯跟一般選擇題完全不同。專項訓練模式，練過再上考場。</p>
+        <span class="f-tag">新功能</span>
+      </div>
+      <div class="feat">
+        <div class="f-icon">💊</div>
+        <h3>藥理記憶輔助</h3>
+        <p>藥理是所有考生最痛的科目。AI 自動生成口訣、易混淆藥物比對、副作用記憶卡。用族群概念組織藥物。</p>
+        <span class="f-tag">新功能</span>
+      </div>
+      </div>
   </div>
 </section>
 
 <!-- ═══ PRICING ═══ -->
 <section class="section gray" id="pricing">
-  <h2>📋 免費 vs Pro</h2>
-  <p class="sub">免費讓你體驗核心價值，Pro 讓你真正上榜</p>
-  <div class="pricing">
-    <div class="plan">
-      <div class="p-name">🎈 免費版</div>
-      <div class="p-price">$0</div>
-      <div class="p-desc">試用體驗，了解弱點</div>
-      <ul class="p-features">
-        <li><span class="ck">✅</span> Google 一鍵登入</li>
-        <li><span class="ck">✅</span> 免費 10 題測驗</li>
-        <li><span class="ck">✅</span> 基本弱點分析</li>
-        <li><span class="no">✗</span> 完整題庫</li>
-        <li><span class="no">✗</span> 概念集群 drill</li>
-        <li><span class="no">✗</span> 記憶曲線追蹤</li>
-        <li><span class="no">✗</span> 考前衝刺模式</li>
-      </ul>
-      <a href="quiz.html?free=1" class="p-btn p-btn-outline" style="width:100%;justify-content:center">🎯 免費試用</a>
+  <div class="wrap">
+    <h2>💰 免費 vs Pro</h2>
+    <p class="sub">免費讓你體驗核心價值，Pro 讓你真正上榜</p>
+    <div class="pricing">
+      <div class="plan">
+        <div class="n">🎈 免費版</div>
+        <div class="p">$0</div>
+        <div class="d">試用體驗，了解弱點</div>
+        <ul>
+          <li><span class="y">✅</span> Google 一鍵登入</li>
+          <li><span class="y">✅</span> 免費 10 題跨科測驗</li>
+          <li><span class="y">✅</span> 基本弱點分析</li>
+          <li><span class="x">✗</span> 完整題庫（全考種）</li>
+          <li><span class="x">✗</span> 記憶曲線＋時間分析</li>
+          <li><span class="x">✗</span> 考前衝刺＋AI 讀書計畫</li>
+        </ul>
+        <a href="quiz.html?free=1" class="btn btn-o">🎯 免費試用</a>
+      </div>
+      <div class="plan hot">
+        <div class="n">🚀 Pro 版</div>
+        <div class="p">$199 <span>/月</span></div>
+        <div class="d">或 $1,999/年（省 16%）</div>
+        <ul>
+          <li><span class="y">✅</span> 所有考試題庫無限刷</li>
+          <li><span class="y">✅</span> 記憶曲線＋SM-2 排程</li>
+          <li><span class="y">✅</span> 作答時間＋元認知分析</li>
+          <li><span class="y">✅</span> 考前衝刺＋AI 讀書計畫</li>
+          <li><span class="y">✅</span> 概念 drill 無限次</li>
+          <li><span class="y">✅</span> 錯題本＋記憶小卡匯出</li>
+        </ul>
+        <a href="#" class="btn btn-p" onclick="up()">🔥 升級 Pro</a>
+      </div>
     </div>
-    <div class="plan featured">
-      <div class="p-name">🚀 Pro 版</div>
-      <div class="p-price">$199 <span>/月</span></div>
-      <div class="p-desc">或 $1,999/年（省 16%）</div>
-      <ul class="p-features">
-        <li><span class="ck">✅</span> Google 一鍵登入</li>
-        <li><span class="ck">✅</span> 無限題庫</li>
-        <li><span class="ck">✅</span> 完整弱點雷達</li>
-        <li><span class="ck">✅</span> 概念集群 drill 無限次</li>
-        <li><span class="ck">✅</span> 記憶曲線 + SM-2</li>
-        <li><span class="ck">✅</span> 作答時間 + 元認知分析</li>
-        <li><span class="ck">✅</span> 考前衝刺 + AI 讀書計畫</li>
-        <li><span class="ck">✅</span> 錯題本 + 記憶小卡匯出</li>
-      </ul>
-      <a href="#" class="p-btn p-btn-primary" style="width:100%;justify-content:center" onclick="upgrade()">🔥 升級 Pro</a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ TESTIMONIALS ═══ -->
-<section class="section">
-  <h2>💬 考生怎麼說</h2>
-  <p class="sub">AI 分析讓他們發現從沒注意到的弱點</p>
-  <div class="tm-grid">
-    <div class="tm-card"><div class="tm-q">「AI 從我 23 題錯題歸納出三個致命模式——我自己完全沒發現這規律。」</div><div class="tm-author">— 張同學 · 護理系</div></div>
-    <div class="tm-card"><div class="tm-q">「AI 跟我說藥理正確率 40% 不用救了，把時間投資基本護理更划算。這策略完全正確。」</div><div class="tm-author">— 吳同學 · 護理四技</div></div>
-    <div class="tm-card"><div class="tm-q">「AI 幫我算出各科投資報酬率，調配後總分直接跳 12 分。」</div><div class="tm-author">— 劉同學 · 114 年及格</div></div>
-    <div class="tm-card"><div class="tm-q">「最驚豔的是答錯後 AI 說『這題考 AIDS 伺機性感染，你上次錯同概念在 113 年』。」</div><div class="tm-author">— 李同學 · 臨床護理師</div></div>
   </div>
 </section>
 
 <!-- ═══ CTA ═══ -->
-<section style="background:linear-gradient(135deg,#0f3460,#1a1a2e);color:white;text-align:center;padding:46px 20px">
-  <h2 style="font-size:1.35rem;margin-bottom:6px">10 題就知道你的弱點</h2>
-  <p style="font-size:0.88rem;opacity:0.7;margin-bottom:18px">免費 · 不用下載 · 不用信用卡</p>
-  <a href="quiz.html?free=1" style="display:inline-flex;align-items:center;gap:8px;background:#e94560;color:white;padding:13px 34px;border-radius:30px;font-size:1rem;font-weight:700;text-decoration:none;box-shadow:0 4px 16px rgba(233,69,96,0.3)">🎯 免費做 10 題</a>
-  <div style="margin-top:12px">
-    <button onclick="handleLogin()" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);color:white;padding:9px 22px;border-radius:30px;font-size:0.82rem;font-weight:600;border:1px solid rgba(255,255,255,0.15);cursor:pointer;font-family:inherit">Google 一鍵登入</button>
+<section class="cta-block">
+  <h2>10 題就知道你的弱點</h2>
+  <p>免費 · 不用下載 · 不用信用卡 · 涵蓋所有考試</p>
+  <a href="quiz.html?free=1" class="btn">🎯 免費做 10 題</a>
+  <div>
+    <button class="g-sm" onclick="gl()">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#fff"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#fff"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#fff"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#fff"/></svg>
+      使用 Google 一鍵登入
+    </button>
   </div>
 </section>
 
 <!-- ═══ FAQ ═══ -->
 <section class="section" id="faq">
-  <div class="faq">
-    <h2 style="text-align:center;font-size:1.25rem;color:var(--bk-primary);margin-bottom:18px">常見問題</h2>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>免費 10 題做完之後呢？</span><span class="arrow">▼</span></div><div class="faq-a">做完後 AI 會分析你的弱點分佈。如果想看到完整弱點雷達圖、繼續做更多題、使用記憶曲線追蹤，可以升級 Pro 版。</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>一定要登入才能做嗎？</span><span class="arrow">▼</span></div><div class="faq-a">建議登入 Google，作答記錄和弱點分析可跨裝置保存。不登入也可以做，但記錄只存在當前瀏覽器。</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Pro 版多少錢？怎麼付款？</span><span class="arrow">▼</span></div><div class="faq-a">Pro 版 $199/月 或 $1,999/年。支援信用卡、LINE Pay、ATM（藍新金流）。年繳平均每月 $167。</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>題目涵蓋哪些範圍？</span><span class="arrow">▼</span></div><div class="faq-a">收錄近 10 年各類考試考古題：公務人員（高考/普考/特考）、專技人員（律師/醫師/護理師等）、升學考試（學測/會考/統測）、教師資格考、金融證照等。</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>跟刷題王有什麼不同？</span><span class="arrow">▼</span></div><div class="faq-a">刷題王是「AI 解析錯題」，我們是「學習科學引擎」。記憶曲線追蹤、作答時間分析、元認知監控、考前衝刺模式——這些刷題王都沒有。</div></div>
+  <div class="wrap">
+    <div class="faq">
+      <h2 style="text-align:center;font-size:1.3rem;color:var(--primary);margin-bottom:20px">常見問題</h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="tf(this)"><span>免費10題做完之後呢？</span><span class="ar">▼</span></div>
+        <div class="faq-a">做完後 AI 分析你的弱點分佈。如果想看到完整弱點雷達、繼續做更多題、使用記憶曲線等功能，可升級 Pro 版。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="tf(this)"><span>一定要登入嗎？</span><span class="ar">▼</span></div>
+        <div class="faq-a">建議登入 Google 帳號，這樣記錄可跨裝置保存。不登入也可以做，但記錄只存在當前瀏覽器。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="tf(this)"><span>Pro 版多少錢？怎麼付款？</span><span class="ar">▼</span></div>
+        <div class="faq-a">$199/月 或 $1,999/年（年繳平均每月 $167）。支援信用卡、LINE Pay、ATM（透過藍新金流）。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="tf(this)"><span>題目來源可靠嗎？</span><span class="ar">▼</span></div>
+        <div class="faq-a">所有題目來自考選部公布的歷屆考古題（105-115年），以及各官方考試機構。答案經過校驗。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="tf(this)"><span>跟其他刷題平台有什麼不同？</span><span class="ar">▼</span></div>
+        <div class="faq-a">其他平台是「AI 解析錯題」，我們是「學習科學引擎」——記憶曲線、作答時間分析、元認知監控、考前衝刺模式，這些別人沒有。</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -391,39 +528,35 @@ footer p { font-size:0.72rem; opacity:0.4; }
     <a href="analytics.html">弱點分析</a>
     <a href="login.html">登入</a>
   </div>
-  <p>© 2026 備考通 — AI 國考備考系統</p>
+  <p>© 2026 備考通 | 40+ 考試 · 記憶曲線 · 弱點分析 · 考前衝刺</p>
 </footer>
 
-</div>
+</div> <!-- /page-wrap -->
 
 <div class="toast" id="toast"></div>
 
 <script>
-function toggleFaq(el) {
-  el.classList.toggle('open');
-  el.nextElementSibling.classList.toggle('open');
+function tf(el) { el.classList.toggle('open'); el.nextElementSibling.classList.toggle('open'); }
+function q(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }
+
+function st(m) { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
+
+function gl() {
+  if (localStorage.getItem('exam_ai_token')) { window.location.href = 'quiz.html?free=1'; return; }
+  if (typeof google !== 'undefined' && google.accounts) { google.accounts.id.prompt(); return; }
+  window.location.href = 'login.html?redirect=quiz.html%3Ffree%3D1';
 }
-function scrollTo(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior:'smooth' });
+
+function up() {
+  if (!localStorage.getItem('exam_ai_token')) { st('請先登入 Google 帳號'); gl(); return; }
+  st('🔥 Pro 版即將開放，敬請期待！');
 }
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
-function handleLogin() {
-  if (localStorage.getItem('exam_ai_token')) { window.location.href='dashboard.html'; return; }
-  window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.pathname + '?free=1');
-}
-function startExam(name) {
-  localStorage.setItem('exam_ai_current_exam', name);
-  window.location.href = 'quiz.html?free=1';
-}
-function upgrade() {
-  const token = localStorage.getItem('exam_ai_token');
-  if (!token) { showToast('請先登入 Google 帳號'); handleLogin(); return; }
-  showToast('🔥 Pro 版即將開放，敬請期待！');
+
+function sel(exam) {
+  localStorage.setItem('exam_ai_selected_exam', exam);
+  window.location.href = 'quiz.html?free=1&exam=' + encodeURIComponent(exam);
 }
 </script>
+
 </body>
 </html>
