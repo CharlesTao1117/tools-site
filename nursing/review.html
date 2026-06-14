@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>錯題本 | 備考通</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="備考通錯題本 — 收錄所有答錯題目，依概念集群分類，支援強化練習與錯題重練。">
+<style>
+:root {
+  --bg: #0a0e17;
+  --card: #111827;
+  --border: #1f2937;
+  --accent: #ef4444;
+  --primary: #3b82f6;
+  --text: #e5e7eb;
+  --text2: #9ca3af;
+  --text3: #6b7280;
+  --green: #22c55e;
+  --orange: #f59e0b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Top Nav ── */
+.topnav {
+  background: #0d1321; border-bottom: 1px solid var(--border);
+  padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.topnav .logo {
+  font-size: 1.1rem; font-weight: 800; color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.topnav .logo .dot {
+  width: 10px; height: 10px; background: var(--accent); border-radius: 50%; display: inline-block;
+}
+.topnav nav { display: flex; gap: 2px; flex-wrap: wrap; }
+.topnav nav a {
+  font-size: 0.78rem; color: var(--text2); padding: 6px 12px; border-radius: 8px;
+  font-weight: 500; transition: all 0.15s;
+}
+.topnav nav a:hover { background: #1f2937; color: var(--text); text-decoration: none; }
+.topnav nav a.active { background: var(--primary); color: #fff; }
+
+/* ── Container ── */
+.container { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* ── Stats Header ── */
+.stats-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;
+}
+@media (max-width: 500px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+.stat-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px; text-align: center;
+}
+.stat-card .stat-num { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+.stat-card .stat-label { font-size: 0.78rem; color: var(--text2); margin-top: 4px; }
+.stat-card.total .stat-num { color: var(--text); }
+.stat-card.conquered .stat-num { color: var(--green); }
+.stat-card.pending .stat-num { color: var(--accent); }
+
+/* ── Filter Bar ── */
+.filter-bar {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;
+}
+.filter-bar select, .filter-bar button {
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 14px; font-size: 0.8rem; color: var(--text); font-family: inherit;
+  cursor: pointer;
+}
+.filter-bar select:hover, .filter-bar button:hover { border-color: var(--text2); }
+.filter-bar .sort-btn { font-weight: 600; }
+.filter-bar .sort-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* ── Cluster Drill Buttons ── */
+.cluster-drill-bar {
+  display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;
+}
+.cluster-drill-bar .cd-label { font-size: 0.78rem; color: var(--text2); margin-right: 4px; }
+.cluster-drill-btn {
+  background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3);
+  color: var(--orange); padding: 6px 14px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: all 0.15s; white-space: nowrap;
+}
+.cluster-drill-btn:hover { background: rgba(245,158,11,0.2); transform: translateY(-1px); }
+
+/* ── Wrong Question List ── */
+.wb-item {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px; margin-bottom: 12px; transition: all 0.15s;
+}
+.wb-item:hover { border-color: var(--text3); }
+.wb-item .wb-q { font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px; color: var(--text); }
+.wb-item .wb-meta {
+  display: flex; gap: 12px; flex-wrap: wrap; font-size: 0.78rem; margin-bottom: 6px;
+}
+.wb-item .wb-meta .wb-your { color: var(--accent); font-weight: 600; }
+.wb-item .wb-meta .wb-correct { color: var(--green); font-weight: 600; }
+.wb-item .wb-meta .wb-info { color: var(--text3); }
+.wb-item .wb-cluster-tag {
+  display: inline-block; background: rgba(245,158,11,0.12); color: var(--orange);
+  padding: 2px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 600;
+  margin-top: 4px;
+}
+.wb-item .wb-error-count {
+  display: inline-block; background: rgba(239,68,68,0.15); color: var(--accent);
+  padding: 2px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: 700;
+  margin-left: 6px;
+}
+.wb-item .wb-actions {
+  display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px;
+}
+.wb-item .wb-review-badge {
+  display: inline-block; background: rgba(34,197,94,0.1); color: var(--green);
+  padding: 2px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: 600;
+  margin-left: 6px;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 4px; padding: 7px 14px;
+  border-radius: 8px; font-size: 0.78rem; font-weight: 600; cursor: pointer;
+  border: none; font-family: inherit; transition: all 0.15s;
+}
+.btn-sm { padding: 5px 12px; font-size: 0.72rem; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { opacity: 0.9; }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--text2); }
+.btn-danger { background: transparent; border: 1px solid rgba(239,68,68,0.3); color: var(--accent); }
+.btn-danger:hover { background: rgba(239,68,68,0.1); }
+.btn-success { background: transparent; border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+.btn-success:hover { background: rgba(34,197,94,0.1); }
+.btn-drill {
+  background: linear-gradient(135deg, #f59e0b, #d97706); color: #000;
+  font-weight: 700; padding: 10px 20px;
+}
+.btn-drill:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+
+/* ── Empty State ── */
+.empty-state { text-align: center; padding: 60px 20px; }
+.empty-state .icon { font-size: 3.5rem; margin-bottom: 16px; }
+.empty-state h2 { font-size: 1.2rem; color: var(--text); margin-bottom: 8px; }
+.empty-state p { font-size: 0.9rem; color: var(--text2); margin-bottom: 6px; }
+
+/* ── Confirm Modal ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+  z-index: 200; justify-content: center; align-items: center;
+}
+.modal-overlay.show { display: flex; }
+.modal-box {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 28px; max-width: 400px; width: 90%; text-align: center;
+}
+.modal-box h3 { font-size: 1.05rem; margin-bottom: 12px; }
+.modal-box p { font-size: 0.85rem; color: var(--text2); margin-bottom: 20px; }
+.modal-box .modal-actions { display: flex; gap: 10px; justify-content: center; }
+
+/* ── Section Header ── */
+.section-header {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+  gap: 10px; margin-bottom: 16px;
+}
+.section-header h1 { font-size: 1.3rem; display: flex; align-items: center; gap: 8px; }
+
+/* ── Page-specific ── */
+.bulk-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════ Top Nav ═══════ -->
+<nav class="topnav">
+  <a href="index.html" class="logo"><span class="dot"></span>備考通</a>
+  <nav>
+    <a href="index.html">首頁</a>
+    <a href="diagnosis.html">診斷</a>
+    <a href="plan.html">計畫</a>
+    <a href="quiz.html">刷題</a>
+    <a href="explanation.html">解析</a>
+    <a href="review.html" class="active">錯題</a>
+    <a href="tutor.html">家教</a>
+    <a href="report.html">報告</a>
+    <a href="group.html">群組</a>
+    <a href="settings.html">設定</a>
+  </nav>
+</nav>
+
+<div class="container" id="app">
+  <div style="text-align:center;padding:40px;color:var(--text3)">
+    載入錯題本中...
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal-box">
+    <h3 id="modal-title">確認操作</h3>
+    <p id="modal-msg"></p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">取消</button>
+      <button class="btn btn-danger" id="modal-confirm-btn">確認</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   REVIEW PAGE — Wrong Answer Notebook
+   Reads bekao_wrong_book + nursingWrongBook
+   Merges, dedupes, renders with filters & actions
+   ═══════════════════════════════════════════ */
+
+let wrongBook = [];
+let clustersData = [];
+let currentSort = 'newest';
+let currentSubjectFilter = 'all';
+let currentClusterFilter = 'all';
+let pendingModalCallback = null;
+
+(async function init() {
+  // Load wrong books
+  loadWrongBooks();
+
+  // Load clusters for drill
+  try {
+    const res = await fetch('data/concept_clusters.json');
+    if (res.ok) {
+      const json = await res.json();
+      clustersData = json.clusters || [];
+    }
+  } catch(e) { /* use fallback */ }
+
+  render();
+})();
+
+function loadWrongBooks() {
+  wrongBook = [];
+  const merged = {};
+
+  // Load bekao_wrong_book
+  try {
+    const raw = localStorage.getItem('bekao_wrong_book');
+    if (raw) {
+      const items = JSON.parse(raw);
+      items.forEach(item => {
+        merged[item.qid] = item;
+      });
+    }
+  } catch(e) {}
+
+  // Load nursingWrongBook
+  try {
+    const raw = localStorage.getItem('nursingWrongBook');
+    if (raw) {
+      const items = JSON.parse(raw);
+      items.forEach(item => {
+        if (!merged[item.qid]) {
+          merged[item.qid] = item;
+        } else {
+          // Merge: take the one with higher errorCount
+          const existing = merged[item.qid];
+          if ((item.errorCount || 1) > (existing.errorCount || 1)) {
+            merged[item.qid] = item;
+          }
+          // Update timestamp to latest
+          if (item.timestamp > existing.timestamp) {
+            merged[item.qid].timestamp = item.timestamp;
+          }
+        }
+      });
+    }
+  } catch(e) {}
+
+  // Also read reviewed status
+  let reviewedMap = {};
+  try {
+    const raw = localStorage.getItem('bekao_reviewed_qids');
+    if (raw) reviewedMap = JSON.parse(raw);
+  } catch(e) {}
+
+  wrongBook = Object.values(merged).map(item => ({
+    ...item,
+    reviewed: !!reviewedMap[item.qid],
+    errorCount: item.errorCount || 1
+  }));
+}
+
+function getFilteredAndSorted() {
+  let items = [...wrongBook];
+
+  // Filter by subject
+  if (currentSubjectFilter !== 'all') {
+    items = items.filter(item => item.subject === currentSubjectFilter);
+  }
+
+  // Filter by cluster
+  if (currentClusterFilter !== 'all') {
+    items = items.filter(item => item.clusterConcept === currentClusterFilter);
+  }
+
+  // Sort
+  switch(currentSort) {
+    case 'newest':
+      items.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+      break;
+    case 'oldest':
+      items.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+      break;
+    case 'most_errors':
+      items.sort((a, b) => (b.errorCount || 1) - (a.errorCount || 1));
+      break;
+    case 'by_cluster':
+      items.sort((a, b) => (a.clusterConcept || '').localeCompare(b.clusterConcept || ''));
+      break;
+  }
+
+  return items;
+}
+
+function getSubjects() {
+  const subjects = new Set();
+  wrongBook.forEach(item => {
+    if (item.subject) subjects.add(item.subject);
+  });
+  return Array.from(subjects).sort();
+}
+
+function getClusters() {
+  const clusters = new Set();
+  wrongBook.forEach(item => {
+    if (item.clusterConcept) clusters.add(item.clusterConcept);
+  });
+  return Array.from(clusters).sort();
+}
+
+function render() {
+  const app = document.getElementById('app');
+  const filtered = getFilteredAndSorted();
+  const totalWrong = wrongBook.length;
+  const conquered = wrongBook.filter(item => item.reviewed).length;
+  const pending = totalWrong - conquered;
+
+  if (totalWrong === 0) {
+    app.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">📖</div>
+        <h2>錯題本是空的</h2>
+        <p>你還沒有任何錯題記錄。</p>
+        <p>完成測驗後，答錯的題目會自動收錄到這裡。</p>
+        <a href="quiz.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex">開始測驗 →</a>
+      </div>`;
+    return;
+  }
+
+  const subjects = getSubjects();
+  const clusters = getClusters();
+  const clusterConceptsForDrill = new Set();
+  filtered.forEach(item => {
+    if (item.clusterConcept) clusterConceptsForDrill.add(item.clusterConcept);
+  });
+
+  // Build subject filter options
+  let subjectOptions = '<option value="all">全部科目</option>';
+  subjects.forEach(s => {
+    subjectOptions += `<option value="${s.replace(/"/g, '&quot;')}" ${currentSubjectFilter === s ? 'selected' : ''}>${s}</option>`;
+  });
+
+  // Build cluster filter options
+  let clusterOptions = '<option value="all">全部概念</option>';
+  clusters.forEach(c => {
+    clusterOptions += `<option value="${c.replace(/"/g, '&quot;')}" ${currentClusterFilter === c ? 'selected' : ''}>${c}</option>`;
+  });
+
+  // Build cluster drill buttons
+  let clusterDrillHtml = '';
+  if (clusterConceptsForDrill.size > 0) {
+    clusterDrillHtml = '<div class="cluster-drill-bar"><span class="cd-label">🎯 概念強化：</span>';
+    clusterConceptsForDrill.forEach(concept => {
+      clusterDrillHtml += `<button class="cluster-drill-btn" onclick="startClusterDrill('${concept.replace(/'/g, "\\'")}')">📌 ${concept}</button>`;
+    });
+    clusterDrillHtml += '</div>';
+  }
+
+  // Build wrong question items
+  let itemsHtml = '';
+  filtered.forEach(item => {
+    const timeStr = item.timestamp ? new Date(item.timestamp).toLocaleDateString('zh-TW') : '未知';
+    itemsHtml += `
+      <div class="wb-item">
+        <div class="wb-q">${item.text}</div>
+        <div class="wb-meta">
+          <span class="wb-your">❌ 你選：${item.yourAnswer}</span>
+          <span class="wb-correct">✅ 正確：${item.correctAnswer}</span>
+          <span class="wb-info">${item.subject || ''} · ${item.year || ''}年</span>
+          <span class="wb-info">${timeStr}</span>
+        </div>
+        <div>
+          ${item.clusterConcept ? `<span class="wb-cluster-tag">📌 ${item.clusterConcept}</span>` : ''}
+          ${item.errorCount > 1 ? `<span class="wb-error-count">錯 ${item.errorCount} 次</span>` : ''}
+          ${item.reviewed ? `<span class="wb-review-badge">✅ 已複習</span>` : ''}
+        </div>
+        <div class="wb-actions">
+          <button class="btn btn-sm btn-outline" onclick="retryQuestion('${item.qid}')">🔄 重新作答</button>
+          <button class="btn btn-sm ${item.reviewed ? 'btn-outline' : 'btn-success'}" onclick="toggleReviewed('${item.qid}')">${item.reviewed ? '↩ 標記未複習' : '✅ 標記已複習'}</button>
+          <button class="btn btn-sm btn-danger" onclick="removeFromBook('${item.qid}')">🗑 移除</button>
+        </div>
+      </div>`;
+  });
+
+  app.innerHTML = `
+    <!-- Stats Header -->
+    <div class="stats-row">
+      <div class="stat-card total">
+        <div class="stat-num">${totalWrong}</div>
+        <div class="stat-label">總錯題數</div>
+      </div>
+      <div class="stat-card conquered">
+        <div class="stat-num">${conquered}</div>
+        <div class="stat-label">已複習</div>
+      </div>
+      <div class="stat-card pending">
+        <div class="stat-num">${pending}</div>
+        <div class="stat-label">待複習</div>
+      </div>
+    </div>
+
+    <!-- Bulk Actions -->
+    <div class="bulk-actions">
+      <button class="btn btn-drill" onclick="retryAllWrong()">🎯 全部重練</button>
+      <button class="btn btn-danger" onclick="confirmClearAll()">🗑 清空錯題本</button>
+    </div>
+
+    ${clusterDrillHtml}
+
+    <!-- Filter & Sort Bar -->
+    <div class="filter-bar">
+      <span style="font-size:0.78rem;color:var(--text2)">篩選：</span>
+      <select id="subject-filter" onchange="onFilterChange('subject', this.value)">
+        ${subjectOptions}
+      </select>
+      <select id="cluster-filter" onchange="onFilterChange('cluster', this.value)">
+        ${clusterOptions}
+      </select>
+      <span style="font-size:0.78rem;color:var(--text2);margin-left:8px">排序：</span>
+      <button class="sort-btn ${currentSort === 'newest' ? 'active' : ''}" onclick="onSortChange('newest')">最新</button>
+      <button class="sort-btn ${currentSort === 'oldest' ? 'active' : ''}" onclick="onSortChange('oldest')">最早</button>
+      <button class="sort-btn ${currentSort === 'most_errors' ? 'active' : ''}" onclick="onSortChange('most_errors')">最多錯</button>
+      <button class="sort-btn ${currentSort === 'by_cluster' ? 'active' : ''}" onclick="onSortChange('by_cluster')">依概念</button>
+    </div>
+
+    <!-- Results count -->
+    <p style="font-size:0.78rem;color:var(--text3);margin-bottom:12px">
+      顯示 ${filtered.length} / ${totalWrong} 題
+      ${currentSubjectFilter !== 'all' ? ' · 科目：' + currentSubjectFilter : ''}
+      ${currentClusterFilter !== 'all' ? ' · 概念：' + currentClusterFilter : ''}
+    </p>
+
+    <!-- Wrong Question List -->
+    <div id="wb-list">
+      ${itemsHtml}
+    </div>
+  `;
+}
+
+/* ── Filter & Sort ── */
+function onFilterChange(type, value) {
+  if (type === 'subject') currentSubjectFilter = value;
+  if (type === 'cluster') currentClusterFilter = value;
+  render();
+}
+
+function onSortChange(sort) {
+  currentSort = sort;
+  render();
+}
+
+/* ── Actions ── */
+function retryQuestion(qid) {
+  // Navigate to quiz with this question
+  sessionStorage.setItem('bekao_retry_qid', qid);
+  window.location.href = 'quiz.html?retry=' + encodeURIComponent(qid);
+}
+
+function toggleReviewed(qid) {
+  let reviewedMap = {};
+  try {
+    const raw = localStorage.getItem('bekao_reviewed_qids');
+    if (raw) reviewedMap = JSON.parse(raw);
+  } catch(e) {}
+
+  if (reviewedMap[qid]) {
+    delete reviewedMap[qid];
+  } else {
+    reviewedMap[qid] = Date.now();
+  }
+
+  try {
+    localStorage.setItem('bekao_reviewed_qids', JSON.stringify(reviewedMap));
+  } catch(e) {}
+
+  // Update in-memory
+  const item = wrongBook.find(e => e.qid === qid);
+  if (item) item.reviewed = !!reviewedMap[qid];
+
+  render();
+}
+
+function removeFromBook(qid) {
+  // Remove from both localStorage keys
+  ['bekao_wrong_book', 'nursingWrongBook'].forEach(key => {
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw) {
+        const items = JSON.parse(raw);
+        const filtered = items.filter(e => e.qid !== qid);
+        localStorage.setItem(key, JSON.stringify(filtered));
+      }
+    } catch(e) {}
+  });
+
+  // Reload and re-render
+  loadWrongBooks();
+  render();
+}
+
+function confirmClearAll() {
+  showModal('清空錯題本', '確定要清除所有錯題記錄嗎？此操作無法復原。', () => {
+    try {
+      localStorage.removeItem('bekao_wrong_book');
+      localStorage.removeItem('nursingWrongBook');
+      localStorage.removeItem('bekao_reviewed_qids');
+    } catch(e) {}
+    wrongBook = [];
+    render();
+  });
+}
+
+function retryAllWrong() {
+  if (wrongBook.length === 0) return;
+  // Store all wrong qids in sessionStorage
+  const qids = wrongBook.map(item => item.qid);
+  sessionStorage.setItem('bekao_retry_all_qids', JSON.stringify(qids));
+  window.location.href = 'quiz.html?retry=all';
+}
+
+function startClusterDrill(concept) {
+  // Find cluster in clustersData
+  const cluster = clustersData.find(c => c.concept === concept);
+  if (cluster) {
+    sessionStorage.setItem('bekao_drill_cluster', JSON.stringify({
+      cluster_id: cluster.cluster_id,
+      concept: concept
+    }));
+    sessionStorage.setItem('bekao_drill_source', 'review');
+    window.location.href = 'quiz.html#drill';
+  } else {
+    alert('找不到此概念的題庫資料，請從測驗頁面搜尋相關題目。');
+  }
+}
+
+/* ── Modal ── */
+function showModal(title, msg, callback) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-msg').textContent = msg;
+  document.getElementById('modal-confirm-btn').onclick = () => {
+    closeModal();
+    if (callback) callback();
+  };
+  document.getElementById('confirm-modal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('confirm-modal').classList.remove('show');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>備考通 - AI 考試診斷</title>
+<style>
+:root {
+  --bg: #0a0e17;
+  --card: #111827;
+  --border: #1f2937;
+  --accent: #ef4444;
+  --primary: #3b82f6;
+  --text: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Nav ── */
+nav {
+  background: #0d1321;
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+nav .logo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-right: 32px;
+}
+nav .logo .dot {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px var(--accent);
+}
+nav .links { display: flex; gap: 4px; overflow-x: auto; flex: 1; }
+nav .links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+nav .links a:hover { color: var(--text); background: #1a2236; }
+nav .links a.active { color: var(--accent); font-weight: 600; }
+
+/* ── Layout ── */
+.container { max-width: 900px; margin: 0 auto; padding: 24px; }
+
+/* ── Cards ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Form Elements ── */
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.form-group select, .form-group input {
+  width: 100%;
+  padding: 10px 14px;
+  background: #0d1321;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+.form-group select:focus, .form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.form-group input[type="range"] {
+  padding: 0;
+  accent-color: var(--primary);
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.slider-row input[type="range"] { flex: 1; }
+.slider-row .slider-value {
+  min-width: 60px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* ── Subject Assessment ── */
+.subject-row {
+  background: #0d1321;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.subject-row .subj-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.subject-row .subj-name { font-weight: 600; font-size: 0.95rem; }
+.subject-row .subj-score { color: var(--primary); font-size: 0.85rem; }
+.subject-row .subj-sliders {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.subject-row .mini-slider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.subject-row .mini-slider label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.subject-row .mini-slider input[type="range"] {
+  flex: 1;
+  accent-color: var(--primary);
+}
+.subject-row .mini-slider .val {
+  font-size: 0.8rem;
+  color: var(--text);
+  min-width: 32px;
+}
+
+/* ── Stars ── */
+.stars { display: flex; gap: 4px; }
+.stars .star {
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #374151;
+  transition: color 0.15s;
+}
+.stars .star.active { color: #f59e0b; }
+
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 12px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: #dc2626; }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 12px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { background: rgba(59,130,246,0.1); }
+
+/* ── Results Section ── */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+.result-stat {
+  background: #0d1321;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+.result-stat .r-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.result-stat .r-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
+.result-stat .r-value.danger { color: var(--accent); }
+.result-stat .r-value.warning { color: var(--yellow); }
+.result-stat .r-value.success { color: var(--green); }
+
+.high-risk-list { list-style: none; margin-top: 8px; }
+.high-risk-list li {
+  padding: 10px 14px;
+  background: #0d1321;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.high-risk-list .risk-badge {
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.risk-high { background: rgba(239,68,68,0.2); color: var(--accent); }
+.risk-medium { background: rgba(234,179,8,0.2); color: var(--yellow); }
+
+.emergency-plan { margin-top: 12px; }
+.emergency-plan h4 { font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+.emergency-plan .day-card {
+  background: #0d1321;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+.emergency-plan .day-card strong { color: var(--primary); }
+
+#resultsSection { display: none; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .results-grid { grid-template-columns: 1fr 1fr; }
+  nav { padding: 0 12px; }
+  nav .logo { margin-right: 12px; font-size: 1.1rem; }
+  nav .links a { padding: 8px 6px; font-size: 0.75rem; }
+  .subject-row .subj-sliders { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .results-grid { grid-template-columns: 1fr; }
+  .card { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<nav>
+  <a href="index.html" class="logo">備考通<span class="dot"></span></a>
+  <div class="links">
+    <a href="index.html">總覽</a>
+    <a href="diagnosis.html" class="active">診斷</a>
+    <a href="plan.html">計畫</a>
+    <a href="quiz.html">刷題</a>
+    <a href="explanation.html">解析</a>
+    <a href="review.html">錯題</a>
+    <a href="tutor.html">家教</a>
+    <a href="report.html">報告</a>
+    <a href="group.html">群組</a>
+    <a href="settings.html">設定</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- Exam Settings Card -->
+  <div class="card">
+    <h3>📋 考試設定</h3>
+    <div class="form-group">
+      <label>考試類別</label>
+      <select id="examCategory">
+        <option value="">請選擇…</option>
+        <option value="public">公務人員</option>
+        <option value="professional">專技人員</option>
+        <option value="academic">升學</option>
+        <option value="teacher">教師</option>
+        <option value="license">證照</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>子類別</label>
+      <select id="examSubcategory">
+        <option value="">請先選擇類別</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>考試日期</label>
+      <input type="date" id="examDate">
+    </div>
+    <div class="form-group">
+      <label>每日可用時數</label>
+      <div class="slider-row">
+        <input type="range" id="dailyHours" min="1" max="8" value="4" step="0.5">
+        <span class="slider-value" id="hoursDisplay">4h</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subject Self-Assessment -->
+  <div class="card">
+    <h3>📚 科目自評</h3>
+    <div id="subjectList"></div>
+  </div>
+
+  <!-- Diagnose Button -->
+  <div style="text-align:center;margin-bottom:24px;">
+    <button class="btn-primary" id="diagnoseBtn" onclick="runDiagnosis()">🚀 開始 AI 診斷</button>
+  </div>
+
+  <!-- Results Section -->
+  <div id="resultsSection">
+    <div class="card">
+      <h3>📊 診斷結果</h3>
+      <div class="results-grid">
+        <div class="result-stat">
+          <div class="r-value" id="passProbability">--%</div>
+          <div class="r-label">預估通過率</div>
+        </div>
+        <div class="result-stat">
+          <div class="r-value" id="timePressure">--</div>
+          <div class="r-label">時間壓力</div>
+        </div>
+        <div class="result-stat">
+          <div class="r-value" id="overallScore">--</div>
+          <div class="r-label">綜合評分</div>
+        </div>
+        <div class="result-stat">
+          <div class="r-value" id="readinessLabel">--</div>
+          <div class="r-label">備考狀態</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>⚠️ 高風險科目</h3>
+      <ul class="high-risk-list" id="highRiskList"></ul>
+    </div>
+
+    <div class="card">
+      <h3>📅 七日緊急計畫</h3>
+      <div class="emergency-plan" id="emergencyPlan"></div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:24px;">
+      <a href="plan.html" class="btn-primary" onclick="saveAndGo()">生成個人備考計畫 →</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Exam subcategories ──
+const subcategories = {
+  public: ['高考一般行政', '高考人事行政', '高考財稅行政', '普考一般行政', '普考人事行政', '初等考試', '地方特考三等', '地方特考四等'],
+  professional: ['律師', '會計師', '醫師', '護理師', '藥師', '社工師', '不動產估價師'],
+  academic: ['大學學測', '大學分科測驗', '國中會考', '研究所'],
+  teacher: ['教師檢定', '教師甄試-國小', '教師甄試-國中', '教師甄試-高中'],
+  license: ['不動產經紀人', '地政士', '記帳士', '技術士技能檢定', '金融證照']
+};
+
+// ── Default subjects ──
+const defaultSubjects = ['國文', '法學知識', '行政法', '行政學', '公共政策'];
+
+// ── Init ──
+(function() {
+  // Load saved settings
+  const saved = localStorage.getItem('bekao_settings');
+  if (saved) {
+    const s = JSON.parse(saved);
+    if (s.exam_category) document.getElementById('examCategory').value = s.exam_category;
+    if (s.exam_date) document.getElementById('examDate').value = s.exam_date;
+    if (s.daily_hours) {
+      document.getElementById('dailyHours').value = s.daily_hours;
+      document.getElementById('hoursDisplay').textContent = s.daily_hours + 'h';
+    }
+    updateSubcategories();
+    if (s.exam_category && s.subjects) {
+      renderSubjects(s.subjects, s.exam_category);
+    } else {
+      renderSubjects(null, null);
+    }
+  } else {
+    renderSubjects(null, null);
+  }
+
+  // Category change handler
+  document.getElementById('examCategory').addEventListener('change', function() {
+    updateSubcategories();
+  });
+
+  // Hours slider
+  document.getElementById('dailyHours').addEventListener('input', function() {
+    document.getElementById('hoursDisplay').textContent = this.value + 'h';
+  });
+})();
+
+function updateSubcategories() {
+  const cat = document.getElementById('examCategory').value;
+  const sub = document.getElementById('examSubcategory');
+  sub.innerHTML = '<option value="">請選擇…</option>';
+  if (cat && subcategories[cat]) {
+    subcategories[cat].forEach(s => {
+      sub.innerHTML += `<option value="${s}">${s}</option>`;
+    });
+  }
+}
+
+function renderSubjects(savedSubjects, category) {
+  // If saved subjects exist, use them; otherwise defaults
+  const subjects = (savedSubjects && savedSubjects.length > 0)
+    ? savedSubjects
+    : defaultSubjects.map((name, i) => ({ name, progress: 50, confidence: 3 }));
+
+  const container = document.getElementById('subjectList');
+  container.innerHTML = subjects.map((s, i) => {
+    const progress = s.progress || 50;
+    const confidence = s.confidence || 3;
+    return `
+      <div class="subject-row" data-idx="${i}">
+        <div class="subj-header">
+          <span class="subj-name">${typeof s === 'string' ? s : s.name}</span>
+          <span class="subj-score">進度 ${progress}%</span>
+        </div>
+        <div class="subj-sliders">
+          <div class="mini-slider">
+            <label>進度</label>
+            <input type="range" min="0" max="100" value="${progress}" class="progress-slider" data-idx="${i}">
+            <span class="val progress-val">${progress}%</span>
+          </div>
+          <div class="mini-slider">
+            <label>信心</label>
+            <div class="stars star-rating" data-idx="${i}">
+              ${[1,2,3,4,5].map(star => 
+                `<span class="star ${star <= confidence ? 'active' : ''}" data-star="${star}" onclick="setStar(${i}, ${star})">★</span>`
+              ).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Bind progress sliders
+  document.querySelectorAll('.progress-slider').forEach(slider => {
+    slider.addEventListener('input', function() {
+      const val = this.value;
+      const idx = this.dataset.idx;
+      const row = document.querySelector(`.subject-row[data-idx="${idx}"]`);
+      row.querySelector('.subj-score').textContent = '進度 ' + val + '%';
+      row.querySelector('.progress-val').textContent = val + '%';
+    });
+  });
+}
+
+function setStar(subjIdx, starVal) {
+  const stars = document.querySelectorAll(`.star-rating[data-idx="${subjIdx}"] .star`);
+  stars.forEach((s, i) => {
+    if (i < starVal) s.classList.add('active');
+    else s.classList.remove('active');
+  });
+}
+
+// ── AI Diagnosis Logic ──
+function runDiagnosis() {
+  // Collect data
+  const examCategory = document.getElementById('examCategory').value;
+  const examSubcategory = document.getElementById('examSubcategory').value;
+  const examDate = document.getElementById('examDate').value;
+  const dailyHours = parseFloat(document.getElementById('dailyHours').value);
+
+  if (!examCategory) { alert('請選擇考試類別'); return; }
+  if (!examDate) { alert('請選擇考試日期'); return; }
+
+  // Collect subjects
+  const subjectRows = document.querySelectorAll('.subject-row');
+  const subjects = [];
+  subjectRows.forEach(row => {
+    const name = row.querySelector('.subj-name').textContent;
+    const progress = parseInt(row.querySelector('.progress-slider').value);
+    const stars = row.querySelectorAll('.star.active').length;
+    subjects.push({ name, progress, confidence: stars });
+  });
+
+  const avgProgress = subjects.reduce((a, b) => a + b.progress, 0) / subjects.length;
+  const avgConfidence = subjects.reduce((a, b) => a + b.confidence, 0) / subjects.length;
+
+  // Days remaining
+  const today = new Date(); today.setHours(0,0,0,0);
+  const exam = new Date(examDate);
+  const daysRemaining = Math.max(0, Math.ceil((exam.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
+
+  // Pass probability (client-side heuristic)
+  const progressScore = avgProgress / 100;
+  const confidenceScore = avgConfidence / 5;
+  const timeScore = Math.min(daysRemaining / 180, 1.5); // 180 days = full prep, more is bonus
+  const hoursScore = Math.min(dailyHours / 6, 1); // 6h is ideal
+
+  let passProb = Math.round((progressScore * 0.35 + confidenceScore * 0.25 + timeScore * 0.25 + hoursScore * 0.15) * 100);
+  passProb = Math.min(passProb, 98);
+  passProb = Math.max(passProb, 5);
+
+  // Time pressure
+  let timePressure = '低';
+  let tpClass = 'success';
+  const idealDays = (100 - avgProgress) * 2; // rough: need 2 days per % remaining
+  if (daysRemaining < idealDays * 0.7) { timePressure = '高'; tpClass = 'danger'; }
+  else if (daysRemaining < idealDays * 1.3) { timePressure = '中'; tpClass = 'warning'; }
+
+  // Overall score (0-100)
+  const overallScore = Math.round(avgProgress * 0.5 + avgConfidence * 10);
+
+  // Readiness
+  let readiness = '準備不足', rClass = 'danger';
+  if (passProb >= 75) { readiness = '準備充足'; rClass = 'success'; }
+  else if (passProb >= 50) { readiness = '尚可，需加強'; rClass = 'warning'; }
+
+  // High risk subjects
+  const highRiskSubjects = subjects
+    .filter(s => s.progress < 50 || s.confidence < 3)
+    .sort((a, b) => a.progress - b.progress)
+    .slice(0, 5);
+
+  // Update UI
+  document.getElementById('resultsSection').style.display = 'block';
+  document.getElementById('passProbability').textContent = passProb + '%';
+  document.getElementById('passProbability').className = 'r-value ' + (passProb >= 70 ? 'success' : passProb >= 40 ? 'warning' : 'danger');
+
+  document.getElementById('timePressure').textContent = timePressure;
+  document.getElementById('timePressure').className = 'r-value ' + tpClass;
+
+  document.getElementById('overallScore').textContent = overallScore;
+  document.getElementById('overallScore').className = 'r-value ' + (overallScore >= 70 ? 'success' : overallScore >= 40 ? 'warning' : 'danger');
+
+  document.getElementById('readinessLabel').textContent = readiness;
+  document.getElementById('readinessLabel').className = 'r-value ' + rClass;
+
+  // High risk list
+  const riskList = document.getElementById('highRiskList');
+  if (highRiskSubjects.length === 0) {
+    riskList.innerHTML = '<li style="color:var(--green);justify-content:center;">🎉 所有科目狀況良好，繼續保持！</li>';
+  } else {
+    riskList.innerHTML = highRiskSubjects.map(s => `
+      <li>
+        <span>${s.name}</span>
+        <span class="risk-badge ${s.progress < 30 ? 'risk-high' : 'risk-medium'}">
+          ${s.progress < 30 ? '高風險' : '中風險'} · 進度${s.progress}% · 信心${s.confidence}/5
+        </span>
+      </li>
+    `).join('');
+  }
+
+  // Emergency 7-day plan
+  const planEl = document.getElementById('emergencyPlan');
+  const focusSubject = highRiskSubjects.length > 0 ? highRiskSubjects[0].name : subjects[0].name;
+  const dayPlans = [
+    { day: 'Day 1', task: `專注${focusSubject}基礎概念複習，建立知識框架` },
+    { day: 'Day 2', task: `刷${focusSubject}題目 50 題，記錄錯題` },
+    { day: 'Day 3', task: `檢討錯題，整理${focusSubject}重點筆記` },
+    { day: 'Day 4', task: `綜合科目刷題 100 題，模擬考試節奏` },
+    { day: 'Day 5', task: `弱點科目針對練習，強化記憶` },
+    { day: 'Day 6', task: `全真模擬考，計時答題` },
+    { day: 'Day 7', task: `總複習，回顧錯題本，調整心態` },
+  ];
+  planEl.innerHTML = dayPlans.map(d => `
+    <div class="day-card">
+      <strong>${d.day}</strong> — ${d.task}
+    </div>
+  `).join('');
+
+  // Save to localStorage
+  const settings = {
+    exam_name: examSubcategory || examCategory,
+    exam_category: examCategory,
+    exam_subcategory: examSubcategory,
+    exam_date: examDate,
+    daily_hours: dailyHours,
+    subjects: subjects,
+    ai_style: 'coach',
+    diagnosis: {
+      pass_probability: passProb,
+      time_pressure: timePressure,
+      overall_score: overallScore,
+      readiness: readiness,
+      timestamp: new Date().toISOString()
+    }
+  };
+  localStorage.setItem('bekao_settings', JSON.stringify(settings));
+
+  // Update stats with cluster weakness
+  const stats = JSON.parse(localStorage.getItem('bekao_stats') || '{"total_answered":0,"total_correct":0,"total_wrong":0,"streak_days":0,"accuracy_history":[],"cluster_weakness":{}}');
+  subjects.forEach(s => {
+    if (!stats.cluster_weakness[s.name]) {
+      stats.cluster_weakness[s.name] = { concept: s.name, wrong_count: Math.round((100 - s.progress) / 10), total_seen: 10 };
+    }
+  });
+  localStorage.setItem('bekao_stats', JSON.stringify(stats));
+
+  // Scroll to results
+  document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function saveAndGo() {
+  // Trigger save again just to be safe
+  if (document.getElementById('resultsSection').style.display === 'none') {
+    runDiagnosis();
+  }
+  // Also generate a plan if none exists
+  const plan = localStorage.getItem('bekao_plan');
+  if (!plan) {
+    const tasks = [
+      { id: '1', content: '重點科目讀書', type: 'study', duration: 60, status: 'pending' },
+      { id: '2', content: '刷題練習', type: 'quiz', duration: 45, status: 'pending' },
+      { id: '3', content: '錯題複習', type: 'review', duration: 30, status: 'pending' },
+      { id: '4', content: '弱點科目加強', type: 'wrong_drill', duration: 30, status: 'pending' },
+      { id: '5', content: '每日打卡', type: 'checkin', duration: 5, status: 'pending' },
+    ];
+    localStorage.setItem('bekao_plan', JSON.stringify({
+      daily: tasks,
+      weekly_settings: { study_pct: 40, quiz_pct: 35, review_pct: 25 }
+    }));
+  }
+}
+</script>
+
+</body>
+</html>

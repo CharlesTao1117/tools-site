@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>備考通 - 個人備考計畫</title>
+<style>
+:root {
+  --bg: #0a0e17;
+  --card: #111827;
+  --border: #1f2937;
+  --accent: #ef4444;
+  --primary: #3b82f6;
+  --text: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Nav ── */
+nav {
+  background: #0d1321;
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+nav .logo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-right: 32px;
+}
+nav .logo .dot {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px var(--accent);
+}
+nav .links { display: flex; gap: 4px; overflow-x: auto; flex: 1; }
+nav .links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+nav .links a:hover { color: var(--text); background: #1a2236; }
+nav .links a.active { color: var(--accent); font-weight: 600; }
+
+/* ── Layout ── */
+.container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+
+/* ── Cards ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Date Header ── */
+.date-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.date-header .date-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.date-header .date-text span {
+  color: var(--accent);
+}
+.date-header .motivation {
+  font-size: 0.9rem;
+  color: var(--primary);
+  font-style: italic;
+}
+
+/* ── Progress Bar ── */
+.progress-section { margin-bottom: 20px; }
+.progress-section .progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.progress-track {
+  height: 10px;
+  background: #1e293b;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--green));
+  border-radius: 5px;
+  transition: width 0.5s;
+}
+
+/* ── Task List ── */
+.task-list { list-style: none; }
+.task-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #1a2236;
+  transition: all 0.2s;
+}
+.task-list li:last-child { border-bottom: none; }
+.task-list li.completed { opacity: 0.6; }
+.task-list li.completed .task-name { text-decoration: line-through; color: var(--text-secondary); }
+.task-checkbox {
+  width: 22px; height: 22px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.task-checkbox.done {
+  background: var(--green);
+  border-color: var(--green);
+}
+.task-checkbox.done::after {
+  content: '✓';
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.task-icon {
+  font-size: 1.3rem;
+  width: 32px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.task-info { flex: 1; min-width: 0; }
+.task-info .task-name { font-size: 0.95rem; font-weight: 500; }
+.task-info .task-type {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.task-duration {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  flex-shrink: 0;
+  min-width: 50px;
+  text-align: right;
+}
+.task-status {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.task-status.pending { background: rgba(234,179,8,0.2); color: var(--yellow); }
+.task-status.done { background: rgba(34,197,94,0.2); color: var(--green); }
+
+/* ── Buttons ── */
+.btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: #dc2626; }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-outline:hover { border-color: var(--text-secondary); color: var(--text); }
+.btn-blue {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-blue:hover { background: #2563eb; }
+
+/* ── Weekly Grid ── */
+.weekly-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+.day-cell {
+  background: #0d1321;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 8px;
+  text-align: center;
+}
+.day-cell .day-name {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.day-cell .day-date {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.day-cell.today { border-color: var(--accent); }
+.day-cell .time-blocks { display: flex; flex-direction: column; gap: 3px; }
+.day-cell .time-block {
+  height: 6px;
+  border-radius: 3px;
+}
+.time-study { background: var(--primary); }
+.time-quiz { background: var(--yellow); }
+.time-review { background: var(--green); }
+
+/* ── Allocation Bars ── */
+.allocation-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.allocation-bar .label {
+  min-width: 50px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.allocation-bar .track {
+  flex: 1;
+  height: 14px;
+  background: #1e293b;
+  border-radius: 7px;
+  overflow: hidden;
+  display: flex;
+}
+.allocation-bar .track .fill-study { background: var(--primary); }
+.allocation-bar .track .fill-quiz { background: var(--yellow); }
+.allocation-bar .track .fill-review { background: var(--green); }
+.allocation-bar .pct {
+  min-width: 45px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* ── Legend ── */
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+.legend span { display: flex; align-items: center; gap: 4px; }
+.legend .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+}
+.empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+.empty-state .btn-primary { margin-top: 16px; display: inline-block; text-decoration: none; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .weekly-grid { grid-template-columns: repeat(4, 1fr); }
+  nav { padding: 0 12px; }
+  nav .logo { margin-right: 12px; font-size: 1.1rem; }
+  nav .links a { padding: 8px 6px; font-size: 0.75rem; }
+  .btn-row { flex-direction: column; }
+}
+@media (max-width: 480px) {
+  .weekly-grid { grid-template-columns: repeat(2, 1fr); }
+  .card { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<nav>
+  <a href="index.html" class="logo">備考通<span class="dot"></span></a>
+  <div class="links">
+    <a href="index.html">總覽</a>
+    <a href="diagnosis.html">診斷</a>
+    <a href="plan.html" class="active">計畫</a>
+    <a href="quiz.html">刷題</a>
+    <a href="explanation.html">解析</a>
+    <a href="review.html">錯題</a>
+    <a href="tutor.html">家教</a>
+    <a href="report.html">報告</a>
+    <a href="group.html">群組</a>
+    <a href="settings.html">設定</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- Date Header -->
+  <div class="date-header">
+    <div class="date-text" id="dateDisplay">--</div>
+    <div class="motivation" id="motivationText">每一天的堅持，都是通往成功的階梯 💪</div>
+  </div>
+
+  <!-- Empty State (no plan) -->
+  <div id="emptyState" class="card empty-state" style="display:none;">
+    <div class="icon">📋</div>
+    <p>尚無備考計畫，前往 AI 診斷生成你的專屬計畫！</p>
+    <a href="diagnosis.html" class="btn-primary">前往診斷 →</a>
+  </div>
+
+  <!-- Plan Content -->
+  <div id="planContent">
+
+    <!-- Progress -->
+    <div class="card">
+      <h3>📊 今日進度</h3>
+      <div class="progress-section">
+        <div class="progress-header">
+          <span id="completionText">已完成 0/5 任務</span>
+          <span id="completionPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Today's Tasks -->
+      <ul class="task-list" id="taskList"></ul>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="completeAll()">✅ 全部完成</button>
+        <button class="btn-outline" onclick="reshuffle()">🔄 重新排程</button>
+        <button class="btn-outline" onclick="editPlan()">✏️ 編輯計畫</button>
+        <button class="btn-blue" onclick="exportPlan()">📤 匯出</button>
+      </div>
+    </div>
+
+    <!-- Weekly Plan -->
+    <div class="card">
+      <h3>📅 一週計畫</h3>
+      <div class="weekly-grid" id="weeklyGrid"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--primary)"></span>讀書 Study</span>
+        <span><span class="dot" style="background:var(--yellow)"></span>刷題 Quiz</span>
+        <span><span class="dot" style="background:var(--green)"></span>複習 Review</span>
+      </div>
+    </div>
+
+    <!-- Subject Time Allocation -->
+    <div class="card">
+      <h3>⏱️ 時間分配</h3>
+      <div id="allocationBars"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── Helpers ──
+function loadPlan() {
+  const raw = localStorage.getItem('bekao_plan');
+  return raw ? JSON.parse(raw) : null;
+}
+function savePlan(plan) {
+  localStorage.setItem('bekao_plan', JSON.stringify(plan));
+}
+
+// ── Default plan generator ──
+function getDefaultPlan() {
+  const settings = JSON.parse(localStorage.getItem('bekao_settings') || 'null');
+  const dailyHours = settings ? (settings.daily_hours || 4) : 4;
+  const tasks = [
+    { id: '1', content: '重點科目讀書', type: 'study', duration: Math.round(dailyHours * 15), status: 'pending' },
+    { id: '2', content: '刷題練習', type: 'quiz', duration: Math.round(dailyHours * 11), status: 'pending' },
+    { id: '3', content: '重點複習與筆記整理', type: 'review', duration: Math.round(dailyHours * 7.5), status: 'pending' },
+    { id: '4', content: '錯題本練習', type: 'wrong_drill', duration: Math.round(dailyHours * 7.5), status: 'pending' },
+    { id: '5', content: '每日打卡簽到', type: 'checkin', duration: 5, status: 'pending' },
+  ];
+  return {
+    daily: tasks,
+    weekly_settings: { study_pct: 40, quiz_pct: 35, review_pct: 25 }
+  };
+}
+
+// ── Init ──
+(function() {
+  // Date
+  const now = new Date();
+  const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+  const dateStr = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 星期${weekdays[now.getDay()]}`;
+  document.getElementById('dateDisplay').textContent = '📆 ' + dateStr;
+
+  // Motivation messages
+  const motivations = [
+    '每一天的堅持，都是通往成功的階梯 💪',
+    '今天的努力，是明天的實力 🔥',
+    '滴水穿石，不是力量大而是功夫深 ⚡',
+    '成功沒有捷徑，每一步都算數 🎯',
+    '比昨天更強，就是最好的進步 📈',
+  ];
+  document.getElementById('motivationText').textContent = motivations[now.getDay() % motivations.length];
+
+  // Load or create plan
+  let plan = loadPlan();
+  if (!plan || !plan.daily || plan.daily.length === 0) {
+    plan = getDefaultPlan();
+    savePlan(plan);
+  }
+
+  renderTasks(plan);
+  renderWeekly(plan);
+  renderAllocation(plan);
+
+  // Checkin handler
+  handleCheckin();
+})();
+
+// ── Render Today's Tasks ──
+function renderTasks(plan) {
+  const taskIcons = { 'study': '📖', 'quiz': '🎯', 'review': '🔄', 'wrong_drill': '📚', 'checkin': '✅' };
+  const taskTypeNames = { 'study': '讀書', 'quiz': '刷題', 'review': '複習', 'wrong_drill': '錯題練習', 'checkin': '打卡' };
+  const list = document.getElementById('taskList');
+  const tasks = plan.daily || [];
+
+  const doneCount = tasks.filter(t => t.status === 'done').length;
+  const pct = tasks.length > 0 ? Math.round((doneCount / tasks.length) * 100) : 0;
+  document.getElementById('completionText').textContent = `已完成 ${doneCount}/${tasks.length} 任務`;
+  document.getElementById('completionPct').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  list.innerHTML = tasks.map((t, i) => `
+    <li class="${t.status === 'done' ? 'completed' : ''}">
+      <div class="task-checkbox ${t.status === 'done' ? 'done' : ''}" onclick="toggleTask(${i})"></div>
+      <div class="task-icon">${taskIcons[t.type] || '📌'}</div>
+      <div class="task-info">
+        <div class="task-name">${t.content}</div>
+        <div class="task-type">${taskTypeNames[t.type] || t.type}</div>
+      </div>
+      <div class="task-duration">${t.duration}m</div>
+      <div class="task-status ${t.status}">${t.status === 'done' ? '已完成' : '待辦'}</div>
+    </li>
+  `).join('');
+}
+
+// ── Toggle Task ──
+function toggleTask(idx) {
+  const plan = loadPlan();
+  if (!plan || !plan.daily || !plan.daily[idx]) return;
+  plan.daily[idx].status = plan.daily[idx].status === 'done' ? 'pending' : 'done';
+  savePlan(plan);
+  renderTasks(plan);
+  renderWeekly(plan);
+}
+
+// ── Complete All ──
+function completeAll() {
+  const plan = loadPlan();
+  if (!plan || !plan.daily) return;
+  plan.daily.forEach(t => t.status = 'done');
+  savePlan(plan);
+  renderTasks(plan);
+  renderWeekly(plan);
+
+  // Also handle checkin
+  const checkin = JSON.parse(localStorage.getItem('bekao_checkin') || '{"streak":0,"last_checkin_date":null,"history":[]}');
+  const today = new Date().toISOString().split('T')[0];
+  if (checkin.last_checkin_date !== today) {
+    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+    const yStr = yesterday.toISOString().split('T')[0];
+    if (checkin.last_checkin_date === yStr) {
+      checkin.streak = (checkin.streak || 0) + 1;
+    } else {
+      checkin.streak = 1;
+    }
+    checkin.last_checkin_date = today;
+    checkin.history.push({ date: today, streak: checkin.streak });
+    localStorage.setItem('bekao_checkin', JSON.stringify(checkin));
+  }
+}
+
+// ── Reshuffle ──
+function reshuffle() {
+  const plan = loadPlan();
+  if (!plan || !plan.daily) return;
+  const incomplete = plan.daily.filter(t => t.status === 'pending');
+  const complete = plan.daily.filter(t => t.status === 'done');
+  // Shuffle incomplete
+  for (let i = incomplete.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [incomplete[i], incomplete[j]] = [incomplete[j], incomplete[i]];
+  }
+  plan.daily = [...complete, ...incomplete];
+  savePlan(plan);
+  renderTasks(plan);
+}
+
+// ── Edit Plan ──
+function editPlan() {
+  const plan = loadPlan();
+  if (!plan || !plan.daily) return;
+  const dailyHours = parseFloat(prompt('每日可用時數（小時）：', '4')) || 4;
+  const totalMin = dailyHours * 60;
+  plan.daily = [
+    { id: '1', content: '重點科目讀書', type: 'study', duration: Math.round(totalMin * 0.4), status: 'pending' },
+    { id: '2', content: '刷題練習', type: 'quiz', duration: Math.round(totalMin * 0.25), status: 'pending' },
+    { id: '3', content: '重點複習與筆記整理', type: 'review', duration: Math.round(totalMin * 0.15), status: 'pending' },
+    { id: '4', content: '錯題本練習', type: 'wrong_drill', duration: Math.round(totalMin * 0.15), status: 'pending' },
+    { id: '5', content: '每日打卡簽到', type: 'checkin', duration: 5, status: 'pending' },
+  ];
+  plan.weekly_settings = { study_pct: 40, quiz_pct: 35, review_pct: 25 };
+  savePlan(plan);
+  renderTasks(plan);
+  renderWeekly(plan);
+  renderAllocation(plan);
+}
+
+// ── Export ──
+function exportPlan() {
+  const plan = loadPlan();
+  if (!plan || !plan.daily) return;
+
+  let text = '備考通 - 個人備考計畫\n';
+  text += '='.repeat(40) + '\n\n';
+  text += '📋 今日任務：\n';
+  const typeNames = { 'study': '讀書', 'quiz': '刷題', 'review': '複習', 'wrong_drill': '錯題練習', 'checkin': '打卡' };
+  plan.daily.forEach((t, i) => {
+    const status = t.status === 'done' ? '✓' : '☐';
+    text += `  ${status} ${t.content} - ${t.duration}分鐘 (${typeNames[t.type] || t.type})\n`;
+  });
+
+  const doneCount = plan.daily.filter(t => t.status === 'done').length;
+  const pct = Math.round((doneCount / plan.daily.length) * 100);
+  text += `\n完成率: ${pct}%\n`;
+
+  const ws = plan.weekly_settings || { study_pct: 40, quiz_pct: 35, review_pct: 25 };
+  text += `\n時間分配: 讀書${ws.study_pct}% · 刷題${ws.quiz_pct}% · 複習${ws.review_pct}%\n`;
+  text += `\n匯出時間: ${new Date().toLocaleString('zh-TW')}\n`;
+
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = '備考通計畫_' + new Date().toISOString().split('T')[0] + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Render Weekly ──
+function renderWeekly(plan) {
+  const grid = document.getElementById('weeklyGrid');
+  const today = new Date();
+  const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+  const ws = plan.weekly_settings || { study_pct: 40, quiz_pct: 35, review_pct: 25 };
+
+  // Generate 7 days from today
+  let html = '';
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    const isToday = i === 0;
+    const dayName = isToday ? '今天' : '星期' + weekdays[d.getDay()];
+    const dateLabel = `${d.getMonth()+1}/${d.getDate()}`;
+
+    html += `
+      <div class="day-cell ${isToday ? 'today' : ''}">
+        <div class="day-name">${dayName}</div>
+        <div class="day-date">${dateLabel}</div>
+        <div class="time-blocks">
+          <div class="time-block time-study" style="width:100%" title="讀書 ${ws.study_pct}%"></div>
+          <div class="time-block time-quiz" style="width:${(ws.quiz_pct/ws.study_pct*100)}%" title="刷題 ${ws.quiz_pct}%"></div>
+          <div class="time-block time-review" style="width:${(ws.review_pct/ws.study_pct*100)}%" title="複習 ${ws.review_pct}%"></div>
+        </div>
+      </div>
+    `;
+  }
+  grid.innerHTML = html;
+}
+
+// ── Render Allocation ──
+function renderAllocation(plan) {
+  const container = document.getElementById('allocationBars');
+  const ws = plan.weekly_settings || { study_pct: 40, quiz_pct: 35, review_pct: 25 };
+  const total = ws.study_pct + ws.quiz_pct + ws.review_pct;
+
+  container.innerHTML = `
+    <div class="allocation-bar">
+      <span class="label">讀書</span>
+      <div class="track">
+        <div class="fill-study" style="width:${(ws.study_pct/total)*100}%"></div>
+      </div>
+      <span class="pct" style="color:var(--primary)">${ws.study_pct}%</span>
+    </div>
+    <div class="allocation-bar">
+      <span class="label">刷題</span>
+      <div class="track">
+        <div class="fill-quiz" style="width:${(ws.quiz_pct/total)*100}%"></div>
+      </div>
+      <span class="pct" style="color:var(--yellow)">${ws.quiz_pct}%</span>
+    </div>
+    <div class="allocation-bar">
+      <span class="label">複習</span>
+      <div class="track">
+        <div class="fill-review" style="width:${(ws.review_pct/total)*100}%"></div>
+      </div>
+      <span class="pct" style="color:var(--green)">${ws.review_pct}%</span>
+    </div>
+  `;
+}
+
+// ── Handle Checkin ──
+function handleCheckin() {
+  const checkin = JSON.parse(localStorage.getItem('bekao_checkin') || '{"streak":0,"last_checkin_date":null,"history":[]}');
+  const today = new Date().toISOString().split('T')[0];
+
+  // If already checked in today, no auto-checkin
+  if (checkin.last_checkin_date === today) return;
+
+  // If all tasks done, auto-checkin
+  const plan = loadPlan();
+  if (plan && plan.daily && plan.daily.every(t => t.status === 'done')) {
+    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+    const yStr = yesterday.toISOString().split('T')[0];
+    if (checkin.last_checkin_date === yStr) {
+      checkin.streak = (checkin.streak || 0) + 1;
+    } else {
+      checkin.streak = 1;
+    }
+    checkin.last_checkin_date = today;
+    checkin.history.push({ date: today, streak: checkin.streak });
+    localStorage.setItem('bekao_checkin', JSON.stringify(checkin));
+  }
+}
+</script>
+
+</body>
+</html>

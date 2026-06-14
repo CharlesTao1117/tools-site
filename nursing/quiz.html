@@ -525,6 +525,21 @@ body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
     <a href="/nursing/" class="active">Nursing Exam</a>
   </div>
 </div></nav>
+<!-- ═══ 備考通 sub-nav ═══ -->
+<nav class="bekao-subnav" style="background:#0d1321;border-bottom:1px solid #1f2937;padding:0;display:flex;justify-content:center;overflow-x:auto">
+  <div style="display:flex;gap:2px;padding:6px 16px;max-width:1200px;width:100%">
+    <a href="index.html" style="color:#9ca3af;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#e5e7eb'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af'">首頁</a>
+    <a href="diagnosis.html" style="color:#9ca3af;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#e5e7eb'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af'">診斷</a>
+    <a href="plan.html" style="color:#9ca3af;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#e5e7eb'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af'">計畫</a>
+    <a href="quiz.html" style="color:#3b82f6;background:rgba(59,130,246,0.12);text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:600;white-space:nowrap">刷題</a>
+    <a href="explanation.html" style="color:#9ca3af;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#e5e7eb'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af'">解析</a>
+    <a href="review.html" style="color:#9ca3af;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#e5e7eb'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af'">錯題</a>
+    <a href="tutor.html" style="color:#9ca3af;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#e5e7eb'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af'">家教</a>
+    <a href="report.html" style="color:#9ca3af;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#e5e7eb'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af'">報告</a>
+    <a href="group.html" style="color:#9ca3af;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#e5e7eb'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af'">群組</a>
+    <a href="settings.html" style="color:#9ca3af;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#e5e7eb'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af'">設定</a>
+  </div>
+</nav>
 <div class="page-content">
 
 <header>
@@ -612,6 +627,10 @@ body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
 
     <div class="drill-btn-wrap hidden" id="drill-btn-wrap">
       <button class="btn-drill" id="drill-btn">🎯 強化練習此概念（同概念不同題）</button>
+    </div>
+
+    <div class="drill-btn-wrap" id="explanation-link-wrap" style="display:none">
+      <a href="explanation.html" style="display:inline-block;padding:8px 20px;border:1px solid #3b82f6;border-radius:8px;color:#3b82f6;text-decoration:none;font-size:0.88rem;font-weight:600;transition:all 0.15s" onmouseover="this.style.background='rgba(59,130,246,0.1)'" onmouseout="this.style.background='transparent'">🔍 查看完整解析 →</a>
     </div>
 
     <div class="next-wrap hidden" id="next-wrap">
@@ -1058,6 +1077,26 @@ function onAnswer(selected, question) {
     addToWrongBook(question, selected, correct, clusterInfo);
   }
 
+  // Save explanation data for standalone explanation.html
+  try {
+    sessionStorage.setItem('bekao_current_explanation', JSON.stringify({
+      qid: qid,
+      question: {
+        text: question.text,
+        options: question.options,
+        correct_answer: correct,
+        subject_name: question.subject_name || '',
+        year: question.year || '',
+        session_code: question.session_code || '',
+        number: question.number || ''
+      },
+      selected: selected,
+      isCorrect: isCorrect,
+      clusterInfo: clusterInfo || null,
+      timestamp: Date.now()
+    }));
+  } catch(e) { /* ignore */ }
+
   // Show drill button if wrong and cluster exists
   const drillWrap = document.getElementById('drill-btn-wrap');
   if (!isCorrect && clusterInfo) {
@@ -1071,6 +1110,10 @@ function onAnswer(selected, question) {
   const nextWrap = document.getElementById('next-wrap');
   const nextBtn = document.getElementById('next-btn');
   nextWrap.classList.remove('hidden');
+
+  // Show "View Full Explanation" link
+  const explLinkWrap = document.getElementById('explanation-link-wrap');
+  if (explLinkWrap) explLinkWrap.style.display = 'block';
 
   if (currentIndex + 1 >= sessionQuestions.length) {
     nextBtn.textContent = '查看結果 →';

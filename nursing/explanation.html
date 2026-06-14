@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 深度解析 | 備考通</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="AI 深度解析 — 每一題的詳細解釋、選項分析、錯誤原因、記憶口訣、同概念題目推薦。">
+<style>
+:root {
+  --bg: #0a0e17;
+  --card: #111827;
+  --border: #1f2937;
+  --accent: #ef4444;
+  --primary: #3b82f6;
+  --text: #e5e7eb;
+  --text2: #9ca3af;
+  --text3: #6b7280;
+  --green: #22c55e;
+  --orange: #f59e0b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Top Nav ── */
+.topnav {
+  background: #0d1321; border-bottom: 1px solid var(--border);
+  padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.topnav .logo {
+  font-size: 1.1rem; font-weight: 800; color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.topnav .logo .dot {
+  width: 10px; height: 10px; background: var(--accent); border-radius: 50%; display: inline-block;
+}
+.topnav nav { display: flex; gap: 2px; flex-wrap: wrap; }
+.topnav nav a {
+  font-size: 0.78rem; color: var(--text2); padding: 6px 12px; border-radius: 8px;
+  font-weight: 500; transition: all 0.15s;
+}
+.topnav nav a:hover { background: #1f2937; color: var(--text); text-decoration: none; }
+.topnav nav a.active { background: var(--primary); color: #fff; }
+
+/* ── Container ── */
+.container { max-width: 800px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* ── Banner ── */
+.result-banner {
+  border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; display: flex; align-items: center; gap: 14px;
+  font-weight: 700; font-size: 1.05rem;
+}
+.result-banner.correct { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+.result-banner.wrong { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--accent); }
+.result-banner .banner-icon { font-size: 1.8rem; }
+.result-banner .banner-detail { font-size: 0.85rem; font-weight: 400; opacity: 0.9; margin-top: 2px; }
+
+/* ── Question Card ── */
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px;
+}
+.card h2 { font-size: 1rem; color: var(--text); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.card h3 { font-size: 0.9rem; color: var(--text); margin-bottom: 8px; }
+.q-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.q-meta .tag {
+  display: inline-block; padding: 3px 10px; border-radius: 12px;
+  font-size: 0.72rem; font-weight: 600;
+}
+.q-meta .tag-subject { background: rgba(59,130,246,0.15); color: var(--primary); }
+.q-meta .tag-year { background: rgba(239,68,68,0.12); color: var(--accent); }
+.q-meta .tag-cluster { background: rgba(245,158,11,0.15); color: var(--orange); }
+.q-text { font-size: 1rem; line-height: 1.8; margin-bottom: 16px; color: var(--text); }
+
+/* ── Option Analysis ── */
+.option-item {
+  display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; border-radius: 10px;
+  margin-bottom: 8px; border: 1px solid var(--border); background: #0d1321;
+  transition: all 0.15s;
+}
+.option-item .o-label {
+  font-weight: 700; min-width: 28px; font-size: 0.9rem; padding-top: 1px;
+}
+.option-item .o-body { flex: 1; font-size: 0.88rem; line-height: 1.5; }
+.option-item .o-indicator { font-size: 0.8rem; font-weight: 700; white-space: nowrap; }
+.option-item.correct-opt { border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.06); }
+.option-item.correct-opt .o-label { color: var(--green); }
+.option-item.wrong-opt { border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.06); }
+.option-item.wrong-opt .o-label { color: var(--accent); }
+.option-item.your-pick { border-color: rgba(245,158,11,0.5); }
+.option-item.your-pick .o-label { color: var(--orange); }
+
+/* ── Explanation sections ── */
+.explain-section {
+  margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
+}
+.explain-section .es-title {
+  font-weight: 600; font-size: 0.85rem; color: var(--primary); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.explain-section .es-body { font-size: 0.88rem; line-height: 1.7; color: var(--text2); }
+
+/* ── Mnemonic Card ── */
+.mnemonic-card {
+  background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(239,68,68,0.05));
+  border: 1px solid rgba(59,130,246,0.2); border-radius: 10px; padding: 14px 16px;
+  margin-top: 8px;
+}
+.mnemonic-card .mn-title { font-size: 0.82rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+.mnemonic-card .mn-body { font-size: 0.85rem; line-height: 1.6; color: var(--text); }
+
+/* ── Similar Questions ── */
+.similar-item {
+  background: #0d1321; border: 1px solid var(--border); border-radius: 8px;
+  padding: 12px 14px; margin-bottom: 8px; cursor: pointer; transition: all 0.15s;
+}
+.similar-item:hover { border-color: var(--primary); background: rgba(59,130,246,0.05); }
+.similar-item .sq-text { font-size: 0.85rem; color: var(--text); margin-bottom: 4px; }
+.similar-item .sq-meta { font-size: 0.72rem; color: var(--text3); }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px;
+  border-radius: 10px; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+  border: none; font-family: inherit; transition: all 0.15s;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--text2); }
+.btn-danger { background: transparent; border: 1px solid rgba(239,68,68,0.4); color: var(--accent); }
+.btn-danger:hover { background: rgba(239,68,68,0.1); }
+.btn-drill {
+  background: linear-gradient(135deg, #f59e0b, #d97706); color: #000;
+  font-weight: 700; padding: 12px 24px; font-size: 0.9rem;
+}
+.btn-drill:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+.actions-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+/* ── Error Cause ── */
+.error-cause {
+  background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 10px; padding: 14px 16px;
+}
+.error-cause .ec-title { font-size: 0.82rem; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+.error-cause .ec-item { font-size: 0.85rem; line-height: 1.6; color: var(--text2); margin-bottom: 4px; }
+
+/* ── Fallback ── */
+.fallback-notice {
+  background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 8px; padding: 10px 14px; font-size: 0.78rem; color: var(--orange);
+  margin-bottom: 12px; text-align: center;
+}
+
+/* ── Empty / Loading ── */
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text3); }
+.empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+.empty-state h2 { font-size: 1.2rem; color: var(--text); margin-bottom: 8px; }
+.empty-state p { font-size: 0.9rem; }
+
+.loading { text-align: center; padding: 60px 20px; color: var(--text3); }
+.spinner {
+  width: 36px; height: 36px; border: 3px solid var(--border);
+  border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .topnav nav a { font-size: 0.7rem; padding: 4px 8px; }
+  .card { padding: 14px; }
+  .option-item { padding: 10px 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ Top Nav ═══════ -->
+<nav class="topnav">
+  <a href="index.html" class="logo"><span class="dot"></span>備考通</a>
+  <nav>
+    <a href="index.html">首頁</a>
+    <a href="diagnosis.html">診斷</a>
+    <a href="plan.html">計畫</a>
+    <a href="quiz.html">刷題</a>
+    <a href="explanation.html" class="active">解析</a>
+    <a href="review.html">錯題</a>
+    <a href="tutor.html">家教</a>
+    <a href="report.html">報告</a>
+    <a href="group.html">群組</a>
+    <a href="settings.html">設定</a>
+  </nav>
+</nav>
+
+<div class="container" id="app">
+  <div class="loading" id="loading-state">
+    <div class="spinner"></div>
+    <p>載入題目解析中...</p>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   EXPLANATION PAGE — AI Deep Explanation
+   Reads sessionStorage 'bekao_current_explanation'
+   Fetches enriched data from data/enriched_explanations_20.json
+   ═══════════════════════════════════════════ */
+
+let enrichedData = {};
+
+(async function init() {
+  const app = document.getElementById('app');
+
+  // 1. Read current explanation from sessionStorage
+  let expData = null;
+  try {
+    const raw = sessionStorage.getItem('bekao_current_explanation');
+    if (raw) expData = JSON.parse(raw);
+  } catch(e) { /* ignore */ }
+
+  // 2. Load enriched explanations (non-blocking, we handle fallback)
+  try {
+    const res = await fetch('data/enriched_explanations_20.json');
+    if (res.ok) {
+      const json = await res.json();
+      enrichedData = json.by_qid || {};
+    }
+  } catch(e) { /* use fallback */ }
+
+  if (!expData) {
+    // No explanation data — show empty state
+    app.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">📋</div>
+        <h2>尚無題目解析資料</h2>
+        <p>請先從測驗頁面完成作答，系統會自動帶入題目解析。</p>
+        <p style="margin-top:12px"><a href="quiz.html" class="btn btn-primary">前往測驗 →</a></p>
+      </div>`;
+    return;
+  }
+
+  renderExplanation(expData);
+})();
+
+function renderExplanation(data) {
+  const { qid, question, selected, isCorrect, clusterInfo } = data;
+  const correct = question.correct_answer;
+  const enriched = enrichedData[qid] || null;
+  const hasEnriched = !!enriched;
+
+  const letters = ['A', 'B', 'C', 'D'];
+
+  // Build option analysis
+  let optionsHtml = '';
+  letters.forEach(l => {
+    let optClass = '';
+    let indicator = '';
+    if (l === correct) { optClass = 'correct-opt'; indicator = '✅ 正確'; }
+    else if (l === selected && !isCorrect) { optClass = 'wrong-opt'; indicator = '← 你選的'; }
+
+    // Check if this option was user's pick when correct
+    if (l === selected && isCorrect) { optClass = 'correct-opt your-pick'; indicator = '← 你選的'; }
+
+    let explainText = '';
+    if (hasEnriched && enriched.why_wrong && enriched.why_wrong[l]) {
+      explainText = enriched.why_wrong[l];
+    } else if (l === correct) {
+      explainText = '此為正確答案。';
+    } else {
+      explainText = '此選項不符合題意。';
+    }
+
+    optionsHtml += `
+      <div class="option-item ${optClass}">
+        <span class="o-label">${l}</span>
+        <div class="o-body">${explainText}</div>
+        ${indicator ? `<span class="o-indicator">${indicator}</span>` : ''}
+      </div>`;
+  });
+
+  // Similar questions (from cluster)
+  let similarHtml = '';
+  if (clusterInfo && clusterInfo.cluster_id) {
+    similarHtml = `
+      <div class="card">
+        <h2>📚 同概念題目</h2>
+        <p style="font-size:0.82rem;color:var(--text3);margin-bottom:10px">此題屬於「${clusterInfo.concept}」概念集群</p>
+        <div id="similar-questions">
+          <div class="fallback-notice">載入中...</div>
+        </div>
+      </div>`;
+  } else if (hasEnriched && enriched.cluster) {
+    similarHtml = `
+      <div class="card">
+        <h2>📚 相關概念</h2>
+        <p style="font-size:0.82rem;color:var(--text3);margin-bottom:10px">此題所屬集群：${enriched.cluster}</p>
+        <p style="font-size:0.82rem;color:var(--text2)">可回到測驗頁面選擇對應科目進行更多練習。</p>
+      </div>`;
+  }
+
+  // Mnemonic / concept summary
+  let mnemonicHtml = '';
+  if (hasEnriched && enriched.explanation_simple) {
+    mnemonicHtml = `
+      <div class="card">
+        <h2>💡 簡單記</h2>
+        <div class="mnemonic-card">
+          <div class="mn-body">${enriched.explanation_simple}</div>
+        </div>
+      </div>`;
+  } else if (clusterInfo) {
+    mnemonicHtml = `
+      <div class="card">
+        <h2>💡 觀念摘要</h2>
+        <div class="mnemonic-card">
+          <div class="mn-body">此題測驗「${clusterInfo.concept}」相關知識。建議針對此概念進行系統性複習，掌握核心觀念後即可應對各種變化題型。</div>
+        </div>
+      </div>`;
+  }
+
+  // Error cause analysis
+  let errorCauseHtml = '';
+  if (!isCorrect) {
+    const conceptName = clusterInfo ? clusterInfo.concept : (enriched ? enriched.topic : '此題觀念');
+    errorCauseHtml = `
+      <div class="card">
+        <h2>🔍 錯誤原因分析</h2>
+        <div class="error-cause">
+          <div class="ec-title">📌 觀念混淆：${conceptName}</div>
+          <div class="ec-item">• 你可能混淆了「${conceptName}」的核心概念或與其他相似觀念搞混。</div>
+          <div class="ec-item">• 建議使用下方的「強化練習」功能，透過不同題目建立正確觀念。</div>
+          ${clusterInfo && clusterInfo.repeat_count ? `<div class="ec-item">• 此概念在歷年國考中出現 <strong>${clusterInfo.repeat_count} 次</strong>，為高頻考點。</div>` : ''}
+        </div>
+      </div>`;
+  }
+
+  // Clinical case
+  let clinicalHtml = '';
+  if (hasEnriched && enriched.clinical_case) {
+    clinicalHtml = `
+      <div class="card">
+        <h2>📋 臨床情境</h2>
+        <div class="es-body">${enriched.clinical_case}</div>
+      </div>`;
+  }
+
+  // Build full page
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <!-- Result Banner -->
+    <div class="result-banner ${isCorrect ? 'correct' : 'wrong'}">
+      <span class="banner-icon">${isCorrect ? '✅' : '❌'}</span>
+      <div>
+        <div>${isCorrect ? '答對了！' : '答錯了'}</div>
+        <div class="banner-detail">
+          你選了 <strong>${selected}</strong>，正確答案是 <strong>${correct}</strong>
+        </div>
+      </div>
+    </div>
+
+    ${!hasEnriched ? '<div class="fallback-notice">📋 基本模式 — 此題暫無 AI 深度解析資料，顯示基本分析</div>' : ''}
+
+    <!-- Question -->
+    <div class="card">
+      <div class="q-meta">
+        <span class="tag tag-subject">${question.subject_name || '護理'}</span>
+        <span class="tag tag-year">${question.year || '?'}年${question.exam_round || ''}</span>
+        ${clusterInfo ? `<span class="tag tag-cluster">📌 ${clusterInfo.concept}</span>` : ''}
+        ${hasEnriched && enriched.cluster && !clusterInfo ? `<span class="tag tag-cluster">📌 ${enriched.cluster}</span>` : ''}
+      </div>
+      <div class="q-text">${question.text}</div>
+
+      <!-- Option-by-option analysis -->
+      <h3 style="margin-bottom:10px;color:var(--text)">📝 選項解析</h3>
+      ${optionsHtml}
+    </div>
+
+    ${errorCauseHtml}
+    ${mnemonicHtml}
+    ${clinicalHtml}
+    ${similarHtml}
+
+    <!-- Actions -->
+    <div class="card">
+      <div class="actions-row">
+        <button class="btn btn-outline" onclick="addToWrongBook()" id="btn-wrongbook">
+          📚 ${isCorrect ? '加入錯題本（複習用）' : '加入錯題本'}
+        </button>
+        <button class="btn btn-outline" onclick="goBackToQuiz()">
+          ${isCorrect ? '下一題 →' : '回到測驗 →'}
+        </button>
+        <button class="btn btn-outline" onclick="endSession()">結束練習</button>
+      </div>
+      ${!isCorrect && clusterInfo ? `
+      <div class="actions-row" style="margin-top:8px">
+        <button class="btn btn-drill" onclick="startDrill()">🎯 此概念強化練習</button>
+      </div>` : ''}
+    </div>
+  `;
+
+  // Store current data for button handlers
+  window._expData = data;
+
+  // Load similar questions from concept_clusters.json
+  if (clusterInfo && clusterInfo.cluster_id) {
+    loadSimilarQuestions(clusterInfo, qid);
+  }
+
+  // Update wrong book button state
+  updateWrongBookButton(qid);
+}
+
+async function loadSimilarQuestions(clusterInfo, currentQid) {
+  const container = document.getElementById('similar-questions');
+  if (!container) return;
+
+  try {
+    const res = await fetch('data/concept_clusters.json');
+    if (!res.ok) throw new Error('Failed');
+    const data = await res.json();
+    const clusters = data.clusters || [];
+    const cluster = clusters.find(c => c.cluster_id === clusterInfo.cluster_id);
+
+    if (!cluster || !cluster.questions) {
+      container.innerHTML = '<p style="font-size:0.82rem;color:var(--text3)">暫無同概念其他題目。</p>';
+      return;
+    }
+
+    const otherQuestions = cluster.questions.filter(q => q.qid !== currentQid);
+    if (otherQuestions.length === 0) {
+      container.innerHTML = '<p style="font-size:0.82rem;color:var(--text3)">此概念僅有此題。</p>';
+      return;
+    }
+
+    const displayQuestions = otherQuestions.slice(0, 5);
+    let html = '';
+    displayQuestions.forEach(q => {
+      html += `
+        <div class="similar-item" onclick="navigateToQuestion('${q.qid}')">
+          <div class="sq-text">${q.text.length > 80 ? q.text.slice(0, 80) + '...' : q.text}</div>
+          <div class="sq-meta">${q.year || ''}年 · 答案：${q.answer}</div>
+        </div>`;
+    });
+    container.innerHTML = html;
+  } catch(e) {
+    container.innerHTML = '<p style="font-size:0.82rem;color:var(--text3)">無法載入同概念題目。</p>';
+  }
+}
+
+function navigateToQuestion(qid) {
+  // Store in sessionStorage and reload
+  const expData = window._expData;
+  if (expData) {
+    // Try to find question data from concept_clusters
+    sessionStorage.setItem('bekao_navigate_qid', qid);
+    alert('此功能需要從測驗頁面載入完整題目。請回到測驗頁面搜尋此題。');
+  }
+}
+
+/* ── Button Actions ── */
+
+function addToWrongBook() {
+  const data = window._expData;
+  if (!data) return;
+
+  const { qid, question, selected, isCorrect, clusterInfo } = data;
+
+  // Read existing wrong books
+  let wrongBook = [];
+  try {
+    const raw = localStorage.getItem('bekao_wrong_book');
+    if (raw) wrongBook = JSON.parse(raw);
+  } catch(e) { wrongBook = []; }
+
+  // Also merge nursingWrongBook
+  let nursingWB = [];
+  try {
+    const raw = localStorage.getItem('nursingWrongBook');
+    if (raw) nursingWB = JSON.parse(raw);
+  } catch(e) { nursingWB = []; }
+
+  const entry = {
+    qid: qid,
+    text: question.text,
+    options: question.options,
+    yourAnswer: selected,
+    correctAnswer: question.correct_answer,
+    subject: question.subject_name || '',
+    year: question.year || '',
+    clusterId: clusterInfo ? clusterInfo.cluster_id : null,
+    clusterConcept: clusterInfo ? clusterInfo.concept : null,
+    timestamp: Date.now(),
+    errorCount: 1
+  };
+
+  // Dedupe in bekao_wrong_book
+  const existingIdx = wrongBook.findIndex(e => e.qid === qid);
+  if (existingIdx >= 0) {
+    wrongBook[existingIdx].errorCount = (wrongBook[existingIdx].errorCount || 1) + 1;
+    wrongBook[existingIdx].timestamp = Date.now();
+    wrongBook[existingIdx].yourAnswer = selected;
+  } else {
+    wrongBook.push(entry);
+  }
+
+  // Also update nursingWrongBook for compatibility
+  const nIdx = nursingWB.findIndex(e => e.qid === qid);
+  if (nIdx >= 0) {
+    nursingWB[nIdx].errorCount = (nursingWB[nIdx].errorCount || 1) + 1;
+    nursingWB[nIdx].timestamp = Date.now();
+  } else {
+    nursingWB.push({...entry});
+  }
+
+  try {
+    localStorage.setItem('bekao_wrong_book', JSON.stringify(wrongBook));
+    localStorage.setItem('nursingWrongBook', JSON.stringify(nursingWB));
+  } catch(e) { /* quota */ }
+
+  const btn = document.getElementById('btn-wrongbook');
+  if (btn) {
+    btn.textContent = '✅ 已加入錯題本';
+    btn.style.borderColor = 'var(--green)';
+    btn.style.color = 'var(--green)';
+    setTimeout(() => {
+      btn.textContent = '📚 加入錯題本';
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    }, 2000);
+  }
+}
+
+function updateWrongBookButton(qid) {
+  try {
+    const raw = localStorage.getItem('bekao_wrong_book');
+    if (raw) {
+      const wb = JSON.parse(raw);
+      if (wb.find(e => e.qid === qid)) {
+        const btn = document.getElementById('btn-wrongbook');
+        if (btn) btn.textContent = '📚 已在錯題本中';
+      }
+    }
+  } catch(e) {}
+}
+
+function goBackToQuiz() {
+  // Try to go back to quiz or to review
+  if (document.referrer && document.referrer.includes('quiz.html')) {
+    window.history.back();
+  } else {
+    window.location.href = 'quiz.html';
+  }
+}
+
+function endSession() {
+  sessionStorage.removeItem('bekao_current_explanation');
+  window.location.href = 'quiz.html';
+}
+
+function startDrill() {
+  const data = window._expData;
+  if (!data || !data.clusterInfo) return;
+
+  // Store drill state in sessionStorage for quiz.html to pick up
+  sessionStorage.setItem('bekao_drill_cluster', JSON.stringify({
+    cluster_id: data.clusterInfo.cluster_id,
+    concept: data.clusterInfo.concept
+  }));
+  sessionStorage.setItem('bekao_drill_source', 'explanation');
+
+  // Redirect to quiz.html which will handle the drill
+  window.location.href = 'quiz.html#drill';
+}
+</script>
+
+</body>
+</html>

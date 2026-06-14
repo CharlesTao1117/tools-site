@@ -1,560 +1,554 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-TW">
 <head>
-<script src="analytics.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>備考通 — 免費做10題，AI分析你的國考弱點</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta name="description" content="備考通 — 免費做10題跨科測驗，AI自動分析弱點。涵蓋高考、普考、專技、升學等40+考試。記憶曲線、錯題本、衝刺模式。">
-<link rel="canonical" href="https://anycalculator.site/nursing/">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="/common/premium.css">
+<title>備考通 - 備考指揮中心</title>
 <style>
 :root {
-  --bg: #f4f6fb;
-  --card: #ffffff;
-  --border: #e8ecf4;
-  --primary: #0f3460;
-  --accent: #e94560;
-  --text: #1a1a2e;
-  --text2: #555;
-  --text3: #999;
+  --bg: #0a0e17;
+  --card: #111827;
+  --border: #1f2937;
+  --accent: #ef4444;
+  --primary: #3b82f6;
+  --text: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --radius: 12px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-a { text-decoration: none; color: inherit; }
-
-/* ── Container ── */
-.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
-
-/* ── Top Bar ── */
-.topbar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 20px; max-width: 1120px; margin: 0 auto;
-}
-.topbar .logo { font-size: 1.15rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-.topbar .logo .dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; display: inline-block; }
-.topbar nav { display: flex; align-items: center; gap: 4px; }
-.topbar nav a { font-size: 0.82rem; color: var(--text); padding: 6px 12px; border-radius: 8px; font-weight: 500; transition: background 0.12s; }
-.topbar nav a:hover { background: #eef0f6; }
-.topbar .btn-g {
-  display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
-  background: var(--primary); color: #fff; border-radius: 20px; font-size: 0.78rem; font-weight: 700; cursor: pointer;
-  border: none; font-family: inherit; transition: all 0.15s;
-}
-.topbar .btn-g:hover { opacity: 0.9; transform: translateY(-1px); }
-.topbar .btn-g svg { width: 14px; height: 14px; }
-
-/* ── Hero ── */
-.hero {
-  background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 50%, #16213e 100%);
-  color: #fff; padding: 64px 20px 56px; text-align: center; position: relative; overflow: hidden;
-}
-.hero::before {
-  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-  background: radial-gradient(circle at 70% 30%, rgba(233,69,96,0.08) 0%, transparent 50%);
-  pointer-events: none;
-}
-.hero .badge {
-  display: inline-block; background: rgba(233,69,96,0.18); border: 1px solid rgba(233,69,96,0.25);
-  color: #ff8a8a; padding: 4px 16px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 16px; letter-spacing: 1px;
-}
-.hero h1 { font-size: 2.2rem; line-height: 1.3; margin-bottom: 10px; }
-.hero h1 span { color: var(--accent); }
-.hero p { font-size: 1rem; opacity: 0.82; max-width: 520px; margin: 0 auto 24px; line-height: 1.7; }
-.hero .stats { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 24px; }
-.hero .stats .s { text-align: center; }
-.hero .stats .s .n { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
-.hero .stats .s .l { font-size: 0.72rem; opacity: 0.6; margin-top: 2px; }
-.hero .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.hero .btn-p {
-  display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 30px;
-  font-size: 1rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s;
-  background: var(--accent); color: #fff; box-shadow: 0 4px 16px rgba(233,69,96,0.3);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
-.hero .btn-p:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(233,69,96,0.4); animation: none; }
-.hero .btn-s {
-  display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 30px;
-  font-size: 1rem; font-weight: 600; cursor: pointer; border: 1.5px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.08); color: #fff; transition: all 0.2s; text-decoration: none;
-}
-.hero .btn-s:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
-.hero .g-wrap { margin: 18px auto 0; max-width: 340px; }
-.hero .btn-g-lg {
-  width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 12px 20px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 12px;
-  background: rgba(255,255,255,0.06); cursor: pointer; font-size: 0.9rem; font-weight: 600;
-  color: #fff; transition: all 0.15s; font-family: inherit; backdrop-filter: blur(4px);
-}
-.hero .btn-g-lg:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.35); transform: translateY(-1px); }
-.hero .btn-g-lg svg { width: 18px; height: 18px; flex-shrink: 0; }
-
-/* ── Section ── */
-.section { padding: 56px 0; }
-.section h2 { text-align: center; font-size: 1.4rem; color: var(--primary); margin-bottom: 4px; }
-.section .sub { text-align: center; font-size: 0.88rem; color: var(--text3); margin-bottom: 36px; }
-.section.gray { background: #f8faff; }
-
-/* ── Exam Categories ── */
-.exam-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-@media (max-width:640px){ .exam-groups{grid-template-columns:1fr} }
-.exam-group h3 { font-size: 0.95rem; color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-.exam-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.exam-tag {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 5px 12px; background: var(--card); border: 1px solid var(--border);
-  border-radius: 8px; font-size: 0.78rem; color: var(--text); cursor: pointer; transition: all 0.12s;
-}
-.exam-tag:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
-.exam-tag .e-num { font-size: 0.6rem; color: var(--text3); margin-left: 2px; }
-
-/* ── Steps ── */
-.steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
-@media (max-width:640px){ .steps{grid-template-columns:1fr 1fr} }
-.step {
-  background: var(--card); border-radius: 14px; padding: 24px 16px;
-  border: 1px solid var(--border); text-align: center; position: relative;
-}
-.step:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.04); }
-.step .num {
-  width: 32px; height: 32px; background: var(--primary); color: #fff; border-radius: 50%;
-  display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; margin-bottom: 10px;
-}
-.step .icon { font-size: 1.6rem; margin-bottom: 6px; }
-.step h3 { font-size: 0.9rem; color: var(--primary); margin-bottom: 4px; }
-.step p { font-size: 0.76rem; color: var(--text2); line-height: 1.5; }
-.step .arr { position: absolute; right: -10px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; color: #ccc; }
-@media (max-width:640px){ .step .arr{display:none} }
-
-/* ── Features ── */
-.feat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-@media (max-width:768px){ .feat-grid{grid-template-columns:1fr 1fr} }
-@media (max-width:480px){ .feat-grid{grid-template-columns:1fr} }
-.feat {
-  background: var(--card); border-radius: 14px; padding: 24px 20px;
-  border: 1px solid var(--border); transition: all 0.2s;
-}
-.feat:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 6px 20px rgba(0,0,0,0.04); }
-.feat .fi { font-size: 1.5rem; margin-bottom: 8px; }
-.feat h3 { font-size: 0.92rem; color: var(--primary); margin-bottom: 4px; }
-.feat p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
-.feat .tag {
-  display: inline-block; background: #fff3e0; color: #e65100;
-  font-size: 0.6rem; font-weight: 700; padding: 1px 8px; border-radius: 8px; margin-top: 6px;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
 }
 
-/* ── Pricing ── */
-.pricing { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 600px; margin: 0 auto; }
-@media (max-width:480px){ .pricing{grid-template-columns:1fr} }
-.plan {
-  background: var(--card); border-radius: 16px; padding: 28px; border: 1px solid var(--border); text-align: center;
+/* ── Top Nav ── */
+nav {
+  background: #0d1321;
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-.plan.hot { border: 2px solid var(--accent); position: relative; }
-.plan.hot::before {
-  content: '🔥 推薦'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-  background: var(--accent); color: #fff; padding: 2px 16px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;
+nav .logo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-right: 32px;
 }
-.plan .n { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
-.plan .p { font-size: 2rem; font-weight: 800; color: var(--primary); margin: 8px 0; }
-.plan .p span { font-size: 0.85rem; font-weight: 400; color: var(--text3); }
-.plan .d { font-size: 0.8rem; color: var(--text2); margin-bottom: 16px; }
-.plan ul { list-style: none; padding: 0; text-align: left; margin-bottom: 20px; }
-.plan ul li { font-size: 0.8rem; color: #444; padding: 5px 0; display: flex; align-items: center; gap: 6px; }
-.plan ul li .y { color: #2e7d32; }
-.plan ul li .x { color: #ccc; }
-.plan .btn {
-  display: inline-flex; align-items: center; gap: 6px; padding: 10px 28px; border-radius: 30px;
-  font-size: 0.9rem; font-weight: 700; text-decoration: none; transition: all 0.15s; width: 100%; justify-content: center;
+nav .logo .dot {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px var(--accent);
 }
-.plan .btn-p { background: var(--accent); color: #fff; }
-.plan .btn-p:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(233,69,96,0.3); }
-.plan .btn-o { border: 1.5px solid var(--border); color: var(--text); }
-.plan .btn-o:hover { border-color: var(--primary); }
+nav .links {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  flex: 1;
+}
+nav .links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+nav .links a:hover { color: var(--text); background: #1a2236; }
+nav .links a.active { color: var(--accent); font-weight: 600; }
 
-/* ── CTA block ── */
-.cta-block {
-  background: linear-gradient(135deg, #0f3460, #1a1a2e); color: #fff;
-  text-align: center; padding: 56px 20px;
+/* ── Layout ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+/* ── Countdown Banner ── */
+.banner {
+  background: linear-gradient(135deg, #1a1f35 0%, #111827 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
-.cta-block h2 { font-size: 1.4rem; margin-bottom: 6px; }
-.cta-block p { font-size: 0.9rem; opacity: 0.75; margin-bottom: 22px; }
-.cta-block .btn {
-  display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff;
-  padding: 14px 36px; border-radius: 30px; font-size: 1rem; font-weight: 700; text-decoration: none;
-  box-shadow: 0 4px 16px rgba(233,69,96,0.3);
+.banner-left h2 { font-size: 1.1rem; color: var(--text-secondary); font-weight: 400; }
+.banner-left .days { font-size: 2.8rem; font-weight: 700; color: var(--text); }
+.banner-left .days span { color: var(--accent); }
+.banner-center {
+  text-align: center;
 }
-.cta-block .btn:hover { transform: translateY(-2px); }
-.cta-block .g-sm {
-  display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
-  padding: 8px 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 30px; color: #fff; font-size: 0.82rem; cursor: pointer; font-family: inherit;
+.banner-center .phase {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid;
 }
-.cta-block .g-sm:hover { background: rgba(255,255,255,0.12); }
-.cta-block .g-sm svg { width: 16px; height: 16px; }
+.phase.foundation { color: #f59e0b; border-color: #f59e0b; background: rgba(245,158,11,0.1); }
+.phase.strengthen { color: #f97316; border-color: #f97316; background: rgba(249,115,22,0.1); }
+.phase.sprint { color: var(--accent); border-color: var(--accent); background: rgba(239,68,68,0.1); }
+.banner-right { text-align: right; }
+.banner-right .completion { font-size: 1.6rem; font-weight: 700; color: var(--green); }
+.banner-right .label { font-size: 0.8rem; color: var(--text-secondary); }
 
-/* ── FAQ ── */
-.faq { max-width: 640px; margin: 0 auto; }
-.faq-item { border-bottom: 1px solid var(--border); padding: 14px 0; }
-.faq-q { font-weight: 600; color: var(--primary); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; }
-.faq-q .ar { transition: transform 0.2s; font-size: 0.7rem; }
-.faq-q.open .ar { transform: rotate(180deg); }
-.faq-a { margin-top: 8px; font-size: 0.82rem; color: var(--text2); display: none; line-height: 1.7; }
-.faq-a.open { display: block; }
+/* ── Stat Cards Row ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.stat-card .stat-icon { font-size: 1.5rem; margin-bottom: 8px; }
+.stat-card .stat-value { font-size: 1.8rem; font-weight: 700; color: var(--text); }
+.stat-card .stat-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
 
-/* ── Footer ── */
-footer { background: #1a1a2e; color: #fff; text-align: center; padding: 28px 20px; }
-footer .links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
-footer .links a { font-size: 0.8rem; color: rgba(255,255,255,0.55); }
-footer .links a:hover { color: #fff; }
-footer p { font-size: 0.74rem; opacity: 0.35; }
+/* ── Grid ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
 
-/* ── Toast ── */
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a2e; color: #fff; padding: 14px 24px; border-radius: 12px; font-size: 0.88rem; font-weight: 600; box-shadow: 0 4px 20px rgba(0,0,0,0.2); display: none; z-index: 999; max-width: 90vw; text-align: center; }
-.toast.show { display: block; animation: ti 0.3s ease; }
-@keyframes ti { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+/* ── Cards ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card h3 .icon { font-size: 1.2rem; }
 
-@media (max-width:480px){
-  .hero h1 { font-size: 1.5rem; }
-  .hero .stats { gap: 14px; }
-  .hero .stats .s .n { font-size: 1.2rem; }
+/* ── Today's Tasks ── */
+.task-list { list-style: none; }
+.task-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #1a2236;
+}
+.task-list li:last-child { border-bottom: none; }
+.task-list .task-checkbox {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.task-list .task-checkbox.done {
+  background: var(--green);
+  border-color: var(--green);
+}
+.task-list .task-checkbox.done::after { content: '✓'; color: #fff; font-size: 0.75rem; }
+.task-list .task-info { flex: 1; }
+.task-list .task-name { font-size: 0.95rem; }
+.task-list .task-meta { font-size: 0.8rem; color: var(--text-secondary); }
+.task-list .task-duration { font-size: 0.8rem; color: var(--primary); flex-shrink: 0; }
+.btn-primary {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 16px;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover { background: #dc2626; }
+
+/* ── Weakness Subjects ── */
+.weakness-list { list-style: none; }
+.weakness-list li { margin-bottom: 12px; }
+.weakness-list .subject-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+.weakness-list .subject-score { font-weight: 600; font-size: 0.85rem; }
+.weakness-list .bar-track {
+  height: 8px;
+  background: #1e293b;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.weakness-list .bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s;
+}
+.bar-fill.red { background: var(--accent); }
+.bar-fill.yellow { background: var(--yellow); }
+.bar-fill.green { background: var(--green); }
+
+/* ── AI Suggestion ── */
+.ai-suggestion {
+  background: linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(59,130,246,0.02) 100%);
+  border-left: 3px solid var(--primary);
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* ── Quick Entry ── */
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.quick-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 12px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.2s;
+}
+.quick-btn:hover { border-color: var(--accent); transform: translateY(-2px); }
+.quick-btn .icon { font-size: 2rem; margin-bottom: 8px; }
+.quick-btn .label { font-size: 0.85rem; color: var(--text-secondary); }
+
+/* ── Onboarding ── */
+.onboarding {
+  text-align: center;
+  padding: 80px 20px;
+}
+.onboarding h2 { font-size: 1.5rem; color: var(--text); margin-bottom: 12px; }
+.onboarding p { color: var(--text-secondary); margin-bottom: 24px; }
+.onboarding .btn-primary { font-size: 1rem; padding: 12px 32px; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .grid-2 { grid-template-columns: 1fr; }
+  .quick-grid { grid-template-columns: repeat(3, 1fr); }
+  nav { padding: 0 12px; }
+  nav .logo { margin-right: 12px; font-size: 1.1rem; }
+  nav .links a { padding: 8px 6px; font-size: 0.75rem; }
+  .banner { flex-direction: column; text-align: center; }
+  .banner-right { text-align: center; }
+}
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .quick-grid { grid-template-columns: repeat(2, 1fr); }
+  .banner-left .days { font-size: 2rem; }
 }
 </style>
-<meta property="og:title" content="備考通 — 免費做10題，AI分析你的國考弱點">
-<meta property="og:description" content="免費做10題跨科測驗，AI自動分析弱點。涵蓋高考、普考、專技、升學等所有考試。">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="備考通">
 </head>
 <body>
 
-<div class="page-wrap">
+<!-- Top Navigation -->
+<nav>
+  <a href="index.html" class="logo">備考通<span class="dot"></span></a>
+  <div class="links">
+    <a href="index.html" class="active">總覽</a>
+    <a href="diagnosis.html">診斷</a>
+    <a href="plan.html">計畫</a>
+    <a href="quiz.html">刷題</a>
+    <a href="explanation.html">解析</a>
+    <a href="review.html">錯題</a>
+    <a href="tutor.html">家教</a>
+    <a href="report.html">報告</a>
+    <a href="group.html">群組</a>
+    <a href="settings.html">設定</a>
+  </div>
+</nav>
 
-<!-- ═══ TOP BAR ═══ -->
-<div class="topbar">
-  <a href="/" class="logo"><span class="dot"></span>備考通</a>
-  <nav>
-    <a href="#" onclick="q('exams')">考試</a>
-    <a href="#" onclick="q('features')">功能</a>
-    <a href="#" onclick="q('pricing')">方案</a>
-    <a href="#" onclick="q('faq')">常見問題</a>
-    <button class="btn-g" onclick="gl()">
-      <svg viewBox="0 0 24 24"><path fill="#fff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#fff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      Google 登入
-    </button>
-  </nav>
+<div class="container" id="app">
+  <!-- Onboarding (shown when no settings exist) -->
+  <div id="onboardingSection" class="onboarding" style="display:none;">
+    <h2>🎯 歡迎使用備考通</h2>
+    <p>這是你專屬的備考指揮中心。先設定你的考試目標，AI 會幫你規劃最佳備考路線。</p>
+    <a href="diagnosis.html" class="btn-primary">設定你的考試目標 →</a>
+  </div>
+
+  <!-- Main Dashboard -->
+  <div id="dashboardSection">
+
+    <!-- Countdown Banner -->
+    <div class="banner" id="countdownBanner">
+      <div class="banner-left">
+        <h2>距 離 考 試</h2>
+        <div class="days"><span id="daysRemaining">--</span> 天</div>
+      </div>
+      <div class="banner-center">
+        <span class="phase" id="phaseBadge">--</span>
+      </div>
+      <div class="banner-right">
+        <div class="completion" id="todayCompletion">0%</div>
+        <div class="label">今日完成率</div>
+      </div>
+    </div>
+
+    <!-- 4 Stat Cards -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-value" id="statAnswered">0</div>
+        <div class="stat-label">刷題數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value" id="statAccuracy">0%</div>
+        <div class="stat-label">正確率</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-value" id="statHours">0h</div>
+        <div class="stat-label">學習時數</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-value" id="statStreak">0</div>
+        <div class="stat-label">連續天數</div>
+      </div>
+    </div>
+
+    <!-- Quick Entry Buttons -->
+    <div class="quick-grid">
+      <a href="quiz.html" class="quick-btn">
+        <div class="icon">🎯</div>
+        <div class="label">刷題</div>
+      </a>
+      <a href="diagnosis.html" class="quick-btn">
+        <div class="icon">🩺</div>
+        <div class="label">診斷</div>
+      </a>
+      <a href="review.html" class="quick-btn">
+        <div class="icon">📚</div>
+        <div class="label">錯題</div>
+      </a>
+      <a href="tutor.html" class="quick-btn">
+        <div class="icon">🤖</div>
+        <div class="label">問AI</div>
+      </a>
+      <a href="report.html" class="quick-btn">
+        <div class="icon">📊</div>
+        <div class="label">報告</div>
+      </a>
+    </div>
+
+    <!-- Two-column: Today's Tasks + Weakness -->
+    <div class="grid-2">
+      <!-- Today's Tasks -->
+      <div class="card">
+        <h3><span class="icon">📋</span>今日任務</h3>
+        <ul class="task-list" id="todayTasks"></ul>
+        <a href="plan.html" class="btn-primary">開始執行 →</a>
+      </div>
+
+      <!-- Weakness Subjects -->
+      <div class="card">
+        <h3><span class="icon">⚠️</span>弱點科目</h3>
+        <ul class="weakness-list" id="weaknessList"></ul>
+        <div id="weaknessEmpty" style="color:var(--text-secondary);font-size:0.9rem;">尚無答題數據，開始刷題後會顯示弱點分析。</div>
+      </div>
+    </div>
+
+    <!-- AI Suggestion -->
+    <div class="card" style="margin-bottom:24px;">
+      <h3><span class="icon">🤖</span>AI 建議</h3>
+      <div class="ai-suggestion" id="aiSuggestion">載入中…</div>
+    </div>
+
+  </div>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<section class="hero">
-  <div class="badge">🩺 不用下載 · 不用信用卡 · 30秒開始</div>
-  <h1>做 <span>10 題</span>，AI 就找出你<br>國考的弱點在哪</h1>
-  <p>從高考、普考到專技、升學 — 備考通涵蓋你所有的考試。<br>10 題跨科測驗，AI 幫你分析弱點分佈，不再盲目刷題。</p>
-  <div class="stats">
-    <div class="s"><div class="n">40+</div><div class="l">考試類別</div></div>
-    <div class="s"><div class="n">10</div><div class="l">免費題數</div></div>
-    <div class="s"><div class="n">5</div><div class="l">跨科測驗</div></div>
-    <div class="s"><div class="n">0</div><div class="l">註冊門檻</div></div>
-  </div>
-  <div class="actions">
-    <a href="quiz.html?free=1" class="btn-p">🎯 免費做 10 題</a>
-    <a href="#exams" class="btn-s">瀏覽所有考試 →</a>
-  </div>
-  <div class="g-wrap">
-    <button class="btn-g-lg" onclick="gl()">
-      <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      使用 Google 一鍵登入
-    </button>
-    <p style="font-size:0.7rem;opacity:0.45;margin-top:6px">登入後保存學習記錄 · 30秒搞定</p>
-  </div>
-</section>
-
-<!-- ═══ EXAM CATEGORIES ═══ -->
-<section class="section" id="exams">
-  <div class="wrap">
-    <h2>📋 涵蓋所有考試</h2>
-    <p class="sub">從公務人員到專技證照，你想考的都在這裡</p>
-    <div class="exam-groups">
-      <div class="exam-group">
-        <h3>🏛️ 公務人員考試</h3>
-        <div class="exam-tags">
-          <span class="exam-tag" onclick="sel('高考三級')">高考三級 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('高考二級')">高考二級 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('普考')">普考 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('初等考試')">初等考試 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('地方特考')">地方特考 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('司法特考')">司法特考 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('警察特考')">警察特考 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('鐵路特考')">鐵路特考 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('關務特考')">關務特考 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('調查局特考')">調查局 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('外交特考')">外交特考 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('原住民特考')">原住民特考 <span class="e-num">10年</span></span>
-        </div>
-      </div>
-      <div class="exam-group">
-        <h3>🩺 專技人員考試</h3>
-        <div class="exam-tags">
-          <span class="exam-tag" onclick="sel('律師')">律師 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('會計師')">會計師 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('醫師')">醫師 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('護理師')">護理師 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('藥師')">藥師 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('物理治療師')">物理治療師 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('社工師')">社工師 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('不動產經紀人')">不動產經紀人 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('記帳士')">記帳士 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('營養師')">營養師 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('醫事檢驗師')">醫事檢驗師 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('地政士')">地政士 <span class="e-num">10年</span></span>
-        </div>
-      </div>
-      <div class="exam-group">
-        <h3>📚 升學考試</h3>
-        <div class="exam-tags">
-          <span class="exam-tag" onclick="sel('學測')">學測 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('分科測驗')">分科測驗 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('會考')">國中會考 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('統測')">統測 <span class="e-num">10年</span></span>
-        </div>
-      </div>
-      <div class="exam-group">
-        <h3>🎓 其他考試</h3>
-        <div class="exam-tags">
-          <span class="exam-tag" onclick="sel('教師資格考')">教師資格考 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('證券商業務員')">證券商業務員 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('投信投顧')">投信投顧 <span class="e-num">10年</span></span>
-          <span class="exam-tag" onclick="sel('期貨業務員')">期貨業務員 <span class="e-num">10年</span></span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ STEPS ═══ -->
-<section class="section gray">
-  <div class="wrap">
-    <h2>🚀 4 步：從免費到上榜</h2>
-    <p class="sub">不用花錢就知道自己的弱點在哪</p>
-    <div class="steps">
-      <div class="step">
-        <div class="num">1</div>
-        <div class="icon">🔑</div>
-        <h3>一鍵登入</h3>
-        <p>Google 帳號 30 秒搞定，不用記密碼。</p>
-        <div class="arr">→</div>
-      </div>
-      <div class="step">
-        <div class="num">2</div>
-        <div class="icon">🎯</div>
-        <h3>免費做10題</h3>
-        <p>跨考科隨機出題，每題計時+自評。</p>
-        <div class="arr">→</div>
-      </div>
-      <div class="step">
-        <div class="num">3</div>
-        <div class="icon">📊</div>
-        <h3>AI分析弱點</h3>
-        <p>系統比對概念群，告訴你弱在哪。</p>
-        <div class="arr">→</div>
-      </div>
-      <div class="step">
-        <div class="num">4</div>
-        <div class="icon">🚀</div>
-        <h3>解鎖完整版</h3>
-        <p>升級無限刷題、記憶曲線、衝刺模式。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FEATURES ═══ -->
-<section class="section" id="features">
-  <div class="wrap">
-    <h2>🧠 學習科學引擎</h2>
-    <p class="sub">不是題庫，是真正幫你學會的系統</p>
-    <div class="feat-grid">
-      <div class="feat">
-        <div class="fi">🧠</div>
-        <h3>記憶曲線追蹤</h3>
-        <p>SM-2 算法算出每科 retention，低於 60% 自動排複習。不再讀過就忘。</p>
-        <span class="tag">Pro</span>
-      </div>
-      <div class="feat">
-        <div class="fi">⏱️</div>
-        <h3>作答時間分析</h3>
-        <p>答對但花很久＝知識不穩。弱點分數＝錯誤率 × 作答時間。</p>
-        <span class="tag">Pro</span>
-      </div>
-      <div class="feat">
-        <div class="fi">🎯</div>
-        <h3>元認知監控</h3>
-        <p>自評信心對比實際正確率，揪出「你會但你以為不會」的盲點。</p>
-        <span class="tag">Pro</span>
-      </div>
-      <div class="feat">
-        <div class="fi">🏃</div>
-        <h3>考前衝刺模式</h3>
-        <p>設定考試日期 → AI 三階段衝刺：基礎→強化→最後一週只練錯題。</p>
-        <span class="tag">Pro</span>
-      </div>
-      <div class="feat">
-        <div class="f-icon">🏷️</div>
-        <h3>錯題根因分類</h3>
-        <p>不只是記下你錯了——AI 幫你分析「為什麼錯」：概念不熟？看錯題目？選項混淆？臨床判斷錯誤？每週給你錯因報告。</p>
-        <span class="f-tag">新功能</span>
-      </div>
-      <div class="feat">
-        <div class="f-icon">☀️</div>
-        <h3>五分鐘晨間複習</h3>
-        <p>每天早上推播 3 個知識點 + 1 題。專為實習考生設計——打開、5 分鐘、關掉、進臨床。最低摩擦的習慣錨點。</p>
-        <span class="f-tag">新功能</span>
-      </div>
-      <div class="feat">
-        <div class="f-icon">📦</div>
-        <h3>考前 30 天衝刺包</h3>
-        <p>考前自動打包你的個人衝刺清單：弱點排行榜 + retention<60% 知識點 + 未練題型。每天自動分配任務。</p>
-        <span class="f-tag">新功能</span>
-      </div>
-      <div class="feat">
-        <div class="f-icon">📈</div>
-        <h3>考古題出題預測</h3>
-        <p>AI 分析 5 年出題軌跡，預測今年最可能考什麼。必考（紅）、高機率（橙）、偶考（灰）三層分類，不再瞎猜。</p>
-        <span class="f-tag">新功能</span>
-      </div>
-      <div class="feat">
-        <div class="f-icon">🏥</div>
-        <h3>臨床情境題專項</h3>
-        <p>近年大量增加的 scenario 題型，解題邏輯跟一般選擇題完全不同。專項訓練模式，練過再上考場。</p>
-        <span class="f-tag">新功能</span>
-      </div>
-      <div class="feat">
-        <div class="f-icon">💊</div>
-        <h3>藥理記憶輔助</h3>
-        <p>藥理是所有考生最痛的科目。AI 自動生成口訣、易混淆藥物比對、副作用記憶卡。用族群概念組織藥物。</p>
-        <span class="f-tag">新功能</span>
-      </div>
-      </div>
-  </div>
-</section>
-
-<!-- ═══ PRICING ═══ -->
-<section class="section gray" id="pricing">
-  <div class="wrap">
-    <h2>💰 免費 vs Pro</h2>
-    <p class="sub">免費讓你體驗核心價值，Pro 讓你真正上榜</p>
-    <div class="pricing">
-      <div class="plan">
-        <div class="n">🎈 免費版</div>
-        <div class="p">$0</div>
-        <div class="d">試用體驗，了解弱點</div>
-        <ul>
-          <li><span class="y">✅</span> Google 一鍵登入</li>
-          <li><span class="y">✅</span> 免費 10 題跨科測驗</li>
-          <li><span class="y">✅</span> 基本弱點分析</li>
-          <li><span class="x">✗</span> 完整題庫（全考種）</li>
-          <li><span class="x">✗</span> 記憶曲線＋時間分析</li>
-          <li><span class="x">✗</span> 考前衝刺＋AI 讀書計畫</li>
-        </ul>
-        <a href="quiz.html?free=1" class="btn btn-o">🎯 免費試用</a>
-      </div>
-      <div class="plan hot">
-        <div class="n">🚀 Pro 版</div>
-        <div class="p">$199 <span>/月</span></div>
-        <div class="d">或 $1,999/年（省 16%）</div>
-        <ul>
-          <li><span class="y">✅</span> 所有考試題庫無限刷</li>
-          <li><span class="y">✅</span> 記憶曲線＋SM-2 排程</li>
-          <li><span class="y">✅</span> 作答時間＋元認知分析</li>
-          <li><span class="y">✅</span> 考前衝刺＋AI 讀書計畫</li>
-          <li><span class="y">✅</span> 概念 drill 無限次</li>
-          <li><span class="y">✅</span> 錯題本＋記憶小卡匯出</li>
-        </ul>
-        <a href="#" class="btn btn-p" onclick="up()">🔥 升級 Pro</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CTA ═══ -->
-<section class="cta-block">
-  <h2>10 題就知道你的弱點</h2>
-  <p>免費 · 不用下載 · 不用信用卡 · 涵蓋所有考試</p>
-  <a href="quiz.html?free=1" class="btn">🎯 免費做 10 題</a>
-  <div>
-    <button class="g-sm" onclick="gl()">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#fff"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#fff"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#fff"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#fff"/></svg>
-      使用 Google 一鍵登入
-    </button>
-  </div>
-</section>
-
-<!-- ═══ FAQ ═══ -->
-<section class="section" id="faq">
-  <div class="wrap">
-    <div class="faq">
-      <h2 style="text-align:center;font-size:1.3rem;color:var(--primary);margin-bottom:20px">常見問題</h2>
-      <div class="faq-item">
-        <div class="faq-q" onclick="tf(this)"><span>免費10題做完之後呢？</span><span class="ar">▼</span></div>
-        <div class="faq-a">做完後 AI 分析你的弱點分佈。如果想看到完整弱點雷達、繼續做更多題、使用記憶曲線等功能，可升級 Pro 版。</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="tf(this)"><span>一定要登入嗎？</span><span class="ar">▼</span></div>
-        <div class="faq-a">建議登入 Google 帳號，這樣記錄可跨裝置保存。不登入也可以做，但記錄只存在當前瀏覽器。</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="tf(this)"><span>Pro 版多少錢？怎麼付款？</span><span class="ar">▼</span></div>
-        <div class="faq-a">$199/月 或 $1,999/年（年繳平均每月 $167）。支援信用卡、LINE Pay、ATM（透過藍新金流）。</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="tf(this)"><span>題目來源可靠嗎？</span><span class="ar">▼</span></div>
-        <div class="faq-a">所有題目來自考選部公布的歷屆考古題（105-115年），以及各官方考試機構。答案經過校驗。</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="tf(this)"><span>跟其他刷題平台有什麼不同？</span><span class="ar">▼</span></div>
-        <div class="faq-a">其他平台是「AI 解析錯題」，我們是「學習科學引擎」——記憶曲線、作答時間分析、元認知監控、考前衝刺模式，這些別人沒有。</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <div class="links">
-    <a href="dashboard.html">儀表板</a>
-    <a href="quiz.html">測驗</a>
-    <a href="review.html">搜尋錯題</a>
-    <a href="analytics.html">弱點分析</a>
-    <a href="login.html">登入</a>
-  </div>
-  <p>© 2026 備考通 | 40+ 考試 · 記憶曲線 · 弱點分析 · 考前衝刺</p>
-</footer>
-
-</div> <!-- /page-wrap -->
-
-<div class="toast" id="toast"></div>
-
 <script>
-function tf(el) { el.classList.toggle('open'); el.nextElementSibling.classList.toggle('open'); }
-function q(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }
-
-function st(m) { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
-
-function gl() {
-  if (localStorage.getItem('exam_ai_token')) { window.location.href = 'quiz.html?free=1'; return; }
-  if (typeof google !== 'undefined' && google.accounts) { google.accounts.id.prompt(); return; }
-  window.location.href = 'login.html?redirect=quiz.html%3Ffree%3D1';
+// ── localStorage helpers ──
+function loadSettings() {
+  const raw = localStorage.getItem('bekao_settings');
+  return raw ? JSON.parse(raw) : null;
+}
+function loadStats() {
+  const raw = localStorage.getItem('bekao_stats');
+  return raw ? JSON.parse(raw) : { total_answered: 0, total_correct: 0, total_wrong: 0, streak_days: 0, accuracy_history: [], cluster_weakness: {} };
+}
+function loadPlan() {
+  const raw = localStorage.getItem('bekao_plan');
+  return raw ? JSON.parse(raw) : null;
+}
+function loadCheckin() {
+  const raw = localStorage.getItem('bekao_checkin');
+  return raw ? JSON.parse(raw) : { streak: 0, last_checkin_date: null, history: [] };
 }
 
-function up() {
-  if (!localStorage.getItem('exam_ai_token')) { st('請先登入 Google 帳號'); gl(); return; }
-  st('🔥 Pro 版即將開放，敬請期待！');
-}
+// ── Main ──
+(function() {
+  const settings = loadSettings();
+  const stats = loadStats();
+  const plan = loadPlan();
+  const checkin = loadCheckin();
 
-function sel(exam) {
-  localStorage.setItem('exam_ai_selected_exam', exam);
-  window.location.href = 'quiz.html?free=1&exam=' + encodeURIComponent(exam);
+  // If no settings, show onboarding
+  if (!settings) {
+    document.getElementById('dashboardSection').style.display = 'none';
+    document.getElementById('onboardingSection').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('onboardingSection').style.display = 'none';
+  document.getElementById('dashboardSection').style.display = 'block';
+
+  // ── Countdown ──
+  const examDate = settings.exam_date ? new Date(settings.exam_date) : null;
+  const daysRemainingEl = document.getElementById('daysRemaining');
+  const phaseBadge = document.getElementById('phaseBadge');
+  if (examDate) {
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const diffTime = examDate.getTime() - today.getTime();
+    const diffDays = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+    daysRemainingEl.textContent = diffDays;
+
+    let phase = '基礎期', phaseClass = 'foundation';
+    if (diffDays <= 30) { phase = '衝刺期'; phaseClass = 'sprint'; }
+    else if (diffDays <= 90) { phase = '強化期'; phaseClass = 'strengthen'; }
+    phaseBadge.textContent = phase;
+    phaseBadge.className = 'phase ' + phaseClass;
+  }
+
+  // ── Today's Completion ──
+  let completionPct = 0;
+  if (plan && plan.daily) {
+    const done = plan.daily.filter(t => t.status === 'done').length;
+    completionPct = plan.daily.length > 0 ? Math.round((done / plan.daily.length) * 100) : 0;
+  }
+  document.getElementById('todayCompletion').textContent = completionPct + '%';
+
+  // ── Stat Cards ──
+  document.getElementById('statAnswered').textContent = stats.total_answered || 0;
+  const acc = stats.total_answered > 0 ? Math.round((stats.total_correct / stats.total_answered) * 100) : 0;
+  document.getElementById('statAccuracy').textContent = acc + '%';
+  const totalHours = settings.daily_hours ? (settings.daily_hours * (checkin.history ? checkin.history.length : 0)) : 0;
+  document.getElementById('statHours').textContent = totalHours + 'h';
+  document.getElementById('statStreak').textContent = checkin.streak || 0;
+
+  // ── Today's Tasks ──
+  const taskIcons = { 'study': '📖', 'quiz': '🎯', 'review': '🔄', 'wrong_drill': '📚', 'checkin': '✅' };
+  const taskTypeNames = { 'study': '讀書', 'quiz': '刷題', 'review': '複習', 'wrong_drill': '錯題練習', 'checkin': '打卡' };
+  const todayTasksEl = document.getElementById('todayTasks');
+  if (plan && plan.daily && plan.daily.length > 0) {
+    todayTasksEl.innerHTML = plan.daily.slice(0, 5).map((t, i) => `
+      <li>
+        <div class="task-checkbox ${t.status === 'done' ? 'done' : ''}" onclick="toggleTask(${i})" data-idx="${i}"></div>
+        <div class="task-info">
+          <div class="task-name">${taskIcons[t.type] || '📌'} ${t.content || taskTypeNames[t.type] || '任務'}</div>
+          <div class="task-meta">${taskTypeNames[t.type] || t.type}</div>
+        </div>
+        <div class="task-duration">${t.duration || 30}m</div>
+      </li>
+    `).join('');
+  } else {
+    todayTasksEl.innerHTML = `
+      <li><div class="task-checkbox"></div><div class="task-info"><div class="task-name">📖 讀書</div><div class="task-meta">基礎學習</div></div><div class="task-duration">60m</div></li>
+      <li><div class="task-checkbox"></div><div class="task-info"><div class="task-name">🎯 刷題練習</div><div class="task-meta">題庫練習</div></div><div class="task-duration">45m</div></li>
+      <li><div class="task-checkbox"></div><div class="task-info"><div class="task-name">🔄 複習</div><div class="task-meta">重點回顧</div></div><div class="task-duration">30m</div></li>
+      <li><div class="task-checkbox"></div><div class="task-info"><div class="task-name">📚 錯題複習</div><div class="task-meta">錯題本</div></div><div class="task-duration">30m</div></li>
+      <li><div class="task-checkbox"></div><div class="task-info"><div class="task-name">✅ 打卡</div><div class="task-meta">每日簽到</div></div><div class="task-duration">5m</div></li>
+    `;
+  }
+
+  // ── Weakness Subjects ──
+  const weaknessListEl = document.getElementById('weaknessList');
+  const weaknessEmptyEl = document.getElementById('weaknessEmpty');
+  const weaknesses = stats.cluster_weakness || {};
+  const weakEntries = Object.entries(weaknesses).filter(([_,v]) => v.wrong_count > 0);
+  if (weakEntries.length > 0) {
+    weaknessEmptyEl.style.display = 'none';
+    const sorted = weakEntries.sort((a,b) => {
+      const aRate = b[1].wrong_count / Math.max(b[1].total_seen, 1);
+      const bRate = a[1].wrong_count / Math.max(a[1].total_seen, 1);
+      return aRate - bRate;
+    }).slice(0, 5);
+    weaknessListEl.innerHTML = sorted.map(([cid, data]) => {
+      const rate = data.total_seen > 0 ? Math.round((1 - data.wrong_count / data.total_seen) * 100) : 0;
+      let barClass = 'red';
+      if (rate >= 70) barClass = 'green';
+      else if (rate >= 50) barClass = 'yellow';
+      return `
+        <li>
+          <div class="subject-header">
+            <span>${data.concept || cid}</span>
+            <span class="subject-score" style="color:${rate<50?'var(--accent)':rate<70?'var(--yellow)':'var(--green)'}">${rate}%</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill ${barClass}" style="width:${rate}%"></div></div>
+        </li>
+      `;
+    }).join('');
+  }
+
+  // ── AI Suggestion ──
+  const aiEl = document.getElementById('aiSuggestion');
+  let aiMsg = '';
+  if (acc < 50) {
+    aiMsg = '⚠️ 你的整體正確率偏低，建議聚焦基礎觀念，優先複習常錯題型。每天至少安排 1 小時針對性練習。';
+  } else if (acc < 70) {
+    aiMsg = '📈 你的表現正在進步中！繼續維持刷題節奏，特別注意錯題本中的概念弱點。建議搭配診斷功能找出高風險科目。';
+  } else {
+    aiMsg = '🔥 表現優異！你的正確率相當不錯。繼續挑戰進階題型，保持每日複習節奏。考慮增加模擬考來熟悉考試壓力。';
+  }
+  if (checkin.streak >= 7) {
+    aiMsg += ' 🏆 你已連續 ' + checkin.streak + ' 天打卡，毅力驚人！保持下去。';
+  } else if (checkin.streak > 0) {
+    aiMsg += ' 💪 連續 ' + checkin.streak + ' 天打卡，繼續保持！';
+  } else {
+    aiMsg += ' 📅 今天還沒打卡喔，記得完成今日任務並簽到！';
+  }
+  aiEl.textContent = aiMsg;
+
+})();
+
+// ── Task Toggle (inline onclick) ──
+function toggleTask(idx) {
+  const plan = JSON.parse(localStorage.getItem('bekao_plan') || 'null');
+  if (!plan || !plan.daily || !plan.daily[idx]) return;
+  plan.daily[idx].status = plan.daily[idx].status === 'done' ? 'pending' : 'done';
+  localStorage.setItem('bekao_plan', JSON.stringify(plan));
+  location.reload();
 }
 </script>
 

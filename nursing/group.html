@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>群組陪跑 | 備考通</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="備考通群組陪跑 — 每日打卡、群組任務、排行榜、小組挑戰，與戰友一起備考上榜。">
+<style>
+:root {
+  --bg: #0a0e17;
+  --card: #111827;
+  --border: #1f2937;
+  --accent: #ef4444;
+  --primary: #3b82f6;
+  --text: #e5e7eb;
+  --text2: #9ca3af;
+  --text3: #6b7280;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --orange: #f59e0b;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Top Nav ── */
+.topnav { background: #0d1321; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.topnav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 56px; }
+.topnav .logo { font-size: 1.1rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.topnav .logo .dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; display: inline-block; animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.topnav nav { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+.topnav nav a { font-size: 0.78rem; color: var(--text2); padding: 6px 10px; border-radius: 8px; font-weight: 500; transition: all 0.15s; white-space: nowrap; }
+.topnav nav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+.topnav nav a.active { color: var(--primary); background: rgba(59,130,246,0.12); font-weight: 600; }
+.topnav .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; padding: 4px; }
+@media (max-width: 900px) {
+  .topnav nav { display: none; position: absolute; top: 56px; left: 0; right: 0; background: #0d1321; flex-direction: column; padding: 12px; border-bottom: 1px solid var(--border); gap: 4px; }
+  .topnav nav.open { display: flex; }
+  .topnav nav a { padding: 10px 12px; width: 100%; }
+  .topnav .mobile-menu-btn { display: block; }
+}
+
+/* ── Container ── */
+.container { max-width: 1000px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* ── Page Header ── */
+.page-header { margin-bottom: 24px; }
+.page-header h1 { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.page-header .subtitle { font-size: 0.85rem; color: var(--text2); margin-top: 4px; }
+
+/* ── Tab Row ── */
+.tab-row { display: flex; gap: 4px; margin-bottom: 24px; background: var(--card); border-radius: var(--radius); padding: 4px; border: 1px solid var(--border); width: fit-content; }
+.tab-btn { padding: 8px 18px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; background: transparent; color: var(--text2); transition: all 0.15s; font-family: inherit; }
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { background: var(--primary); color: #fff; }
+
+/* ── Tab Panels ── */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── Check-in Card ── */
+.checkin-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px;
+  text-align: center; margin-bottom: 20px;
+}
+.checkin-card .streak-num { font-size: 3.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.checkin-card .streak-label { font-size: 1rem; color: var(--text); margin-top: 4px; }
+.checkin-card .streak-sub { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
+.checkin-btn {
+  display: inline-block; margin-top: 18px;
+  background: linear-gradient(135deg, var(--accent), #dc2626);
+  color: #fff; padding: 14px 40px; border-radius: 14px;
+  font-size: 1.05rem; font-weight: 700; cursor: pointer; border: none; font-family: inherit;
+  transition: all 0.2s;
+}
+.checkin-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(239,68,68,0.3); }
+.checkin-btn.done {
+  background: linear-gradient(135deg, var(--green), #16a34a);
+  cursor: default; box-shadow: 0 4px 12px rgba(34,197,94,0.2);
+}
+.checkin-btn.done:hover { transform: none; }
+
+/* ── Calendar Strip ── */
+.cal-strip { display: flex; gap: 6px; margin-top: 16px; justify-content: center; flex-wrap: wrap; }
+.cal-day {
+  width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: 0.75rem; font-weight: 700;
+  background: var(--bg); border: 1px solid var(--border); color: var(--text3);
+}
+.cal-day.checked { background: var(--green); border-color: var(--green); color: #fff; }
+.cal-day.today { border-color: var(--primary); }
+
+/* ── Card ── */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+.card h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+/* ── Leaderboard ── */
+.lb-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.lb-item:last-child { border-bottom: none; }
+.lb-rank { font-size: 1rem; font-weight: 700; min-width: 32px; }
+.lb-rank.rank-1 { color: #f59e0b; }
+.lb-rank.rank-2 { color: #9ca3af; }
+.lb-rank.rank-3 { color: #cd7f32; }
+.lb-avatar {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
+}
+.lb-info { flex: 1; min-width: 0; }
+.lb-name { font-size: 0.88rem; font-weight: 600; }
+.lb-meta { font-size: 0.72rem; color: var(--text2); }
+.lb-stats { text-align: right; }
+.lb-stat-val { font-size: 0.9rem; font-weight: 700; }
+.lb-stat-label { font-size: 0.68rem; color: var(--text3); }
+
+/* ── Group Tasks ── */
+.task-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.task-item:last-child { border-bottom: none; }
+.task-status {
+  width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  cursor: pointer; transition: all 0.2s;
+}
+.task-status.done { background: var(--green); border-color: var(--green); }
+.task-status.done::after { content: '✓'; color: #fff; font-size: 0.7rem; }
+.task-body { flex: 1; }
+.task-title { font-size: 0.88rem; font-weight: 500; }
+.task-sub { font-size: 0.72rem; color: var(--text2); }
+.task-progress { font-size: 0.78rem; color: var(--text2); flex-shrink: 0; }
+
+/* ── Challenge Cards ── */
+.challenge-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 14px; cursor: pointer;
+  transition: all 0.15s;
+}
+.challenge-card:hover { border-color: var(--primary); transform: translateY(-1px); }
+.challenge-icon { font-size: 2rem; flex-shrink: 0; }
+.challenge-info { flex: 1; }
+.challenge-title { font-size: 0.9rem; font-weight: 600; }
+.challenge-desc { font-size: 0.75rem; color: var(--text2); margin-top: 2px; }
+.challenge-status {
+  padding: 4px 12px; border-radius: 12px; font-size: 0.72rem; font-weight: 600;
+  white-space: nowrap; flex-shrink: 0;
+}
+.challenge-status.active { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
+.challenge-status.upcoming { background: rgba(59,130,246,0.1); color: var(--primary); border: 1px solid rgba(59,130,246,0.2); }
+
+/* ── AI Announcement ── */
+.ai-announce {
+  background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(239,68,68,0.05));
+  border: 1px solid rgba(59,130,246,0.2); border-radius: var(--radius);
+  padding: 18px; margin-bottom: 20px;
+}
+.ai-announce .ai-header { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.9rem; color: var(--primary); margin-bottom: 8px; }
+.ai-announce .ai-body { font-size: 0.85rem; color: var(--text2); line-height: 1.7; }
+
+/* ── Empty State ── */
+.empty-state { text-align: center; padding: 40px 20px; }
+.empty-state .icon { font-size: 2.5rem; margin-bottom: 12px; }
+.empty-state h3 { font-size: 1rem; color: var(--text); margin-bottom: 6px; }
+.empty-state p { font-size: 0.82rem; color: var(--text2); }
+
+/* ── Toast ── */
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--green); color: #fff; padding: 10px 24px; border-radius: 10px; font-size: 0.82rem; font-weight: 600; z-index: 999; display: none; white-space: nowrap; }
+.toast.show { display: block; animation: toastIn 0.3s ease; }
+@keyframes toastIn { from{opacity:0;transform:translateX(-50%) translateY(16px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .lb-stats { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ TOP NAV ═══ -->
+<header class="topnav">
+  <div class="topnav-inner">
+    <a href="index.html" class="logo"><span class="dot"></span>備考通</a>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.topnav nav').classList.toggle('open')" aria-label="選單">☰</button>
+    <nav>
+      <a href="index.html">首頁</a>
+      <a href="diagnosis.html">診斷</a>
+      <a href="plan.html">計畫</a>
+      <a href="quiz.html">刷題</a>
+      <a href="explanation.html">解析</a>
+      <a href="review.html">錯題</a>
+      <a href="tutor.html">家教</a>
+      <a href="report.html">報告</a>
+      <a href="group.html" class="active">群組</a>
+      <a href="settings.html">設定</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="page-header">
+    <h1>👥 群組陪跑</h1>
+    <div class="subtitle">與戰友一起備考，每日打卡、小組挑戰、互相督促</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tab-row" id="tabRow">
+    <button class="tab-btn active" data-tab="checkin">✅ 打卡</button>
+    <button class="tab-btn" data-tab="leaderboard">🏆 排行</button>
+    <button class="tab-btn" data-tab="tasks">📋 任務</button>
+    <button class="tab-btn" data-tab="challenges">⚔️ 挑戰</button>
+  </div>
+
+  <!-- ────────── CHECKIN TAB ────────── -->
+  <div class="tab-panel active" id="tab-checkin">
+    <div class="checkin-card" id="checkinCard">
+      <div class="streak-num" id="streakNum">0</div>
+      <div class="streak-label">連續打卡天數</div>
+      <div class="streak-sub" id="streakSub">今天還沒有打卡喔</div>
+      <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">✅ 今日打卡</button>
+      <div class="cal-strip" id="calStrip"></div>
+    </div>
+
+    <div class="ai-announce">
+      <div class="ai-header">🤖 AI 群公告</div>
+      <div class="ai-body" id="aiAnnounceBody">
+        堅持就是勝利！每天打卡建立習慣。研究顯示連續打卡 21 天以上，備考成功率提升 3 倍。今天你打卡了嗎？
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔥 本週群組打卡率</h2>
+      <div style="display:flex;gap:6px;align-items:flex-end;height:80px;margin-top:12px" id="weekChart"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:0.68rem;color:var(--text3)" id="weekLabels"></div>
+    </div>
+  </div>
+
+  <!-- ────────── LEADERBOARD TAB ────────── -->
+  <div class="tab-panel" id="tab-leaderboard">
+    <div class="card">
+      <h2>🏆 本週刷題排行</h2>
+      <div id="leaderboardList"></div>
+      <div class="empty-state" id="lbEmpty" style="display:none">
+        <div class="icon">🏆</div>
+        <h3>排行榜功能需要登入</h3>
+        <p>群組功能目前為 MVP 展示模式，完整排行榜需要使用者登入系統。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📊 我的排名</h2>
+      <div class="lb-item">
+        <div class="lb-rank" style="color:var(--primary)">#--</div>
+        <div class="lb-avatar" style="background:var(--accent)">我</div>
+        <div class="lb-info">
+          <div class="lb-name">你</div>
+          <div class="lb-meta" id="myRankMeta">開始刷題來上榜吧！</div>
+        </div>
+        <div class="lb-stats">
+          <div class="lb-stat-val" id="myRankQ">--</div>
+          <div class="lb-stat-label">本週刷題</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────── TASKS TAB ────────── -->
+  <div class="tab-panel" id="tab-tasks">
+    <div class="card">
+      <h2>📋 本週群組任務</h2>
+      <div id="groupTasks">
+        <div class="task-item">
+          <div class="task-status done" onclick="toggleGroupTask(this)"></div>
+          <div class="task-body">
+            <div class="task-title">每日打卡連續 7 天</div>
+            <div class="task-sub">建立學習習慣的第一步</div>
+          </div>
+          <div class="task-progress">0/7</div>
+        </div>
+        <div class="task-item">
+          <div class="task-status" onclick="toggleGroupTask(this)"></div>
+          <div class="task-body">
+            <div class="task-title">本週刷題 100 題</div>
+            <div class="task-sub">不限科目，累積刷題量</div>
+          </div>
+          <div class="task-progress" id="taskQuizProgress">0/100</div>
+        </div>
+        <div class="task-item">
+          <div class="task-status" onclick="toggleGroupTask(this)"></div>
+          <div class="task-body">
+            <div class="task-title">完成一次弱點特攻</div>
+            <div class="task-sub">針對最弱概念做 5 題強化練習</div>
+          </div>
+          <div class="task-progress">0/1</div>
+        </div>
+        <div class="task-item">
+          <div class="task-status" onclick="toggleGroupTask(this)"></div>
+          <div class="task-body">
+            <div class="task-title">錯題本複習 10 題</div>
+            <div class="task-sub">從錯題本中重做 10 題</div>
+          </div>
+          <div class="task-progress">0/10</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────── CHALLENGES TAB ────────── -->
+  <div class="tab-panel" id="tab-challenges">
+    <div class="challenge-card" onclick="showToast('此功能需要登入後解鎖')">
+      <div class="challenge-icon">⚔️</div>
+      <div class="challenge-info">
+        <div class="challenge-title">七日衝刺挑戰</div>
+        <div class="challenge-desc">連續 7 天完成每日任務，解鎖衝刺徽章</div>
+      </div>
+      <div class="challenge-status active">進行中</div>
+    </div>
+    <div class="challenge-card" onclick="showToast('此功能需要登入後解鎖')">
+      <div class="challenge-icon">🎯</div>
+      <div class="challenge-info">
+        <div class="challenge-title">百題達人</div>
+        <div class="challenge-desc">單週刷題破 100 題，挑戰你的極限</div>
+      </div>
+      <div class="challenge-status active">進行中</div>
+    </div>
+    <div class="challenge-card" onclick="showToast('此功能需要登入後解鎖')">
+      <div class="challenge-icon">📚</div>
+      <div class="challenge-info">
+        <div class="challenge-title">錯題清零行動</div>
+        <div class="challenge-desc">將錯題本中所有題目至少複習一次</div>
+      </div>
+      <div class="challenge-status upcoming">即將開始</div>
+    </div>
+    <div class="challenge-card" onclick="showToast('此功能需要登入後解鎖')">
+      <div class="challenge-icon">🏅</div>
+      <div class="challenge-info">
+        <div class="challenge-title">模擬考挑戰賽</div>
+        <div class="challenge-desc">限時 50 題模擬考，群組排名對戰</div>
+      </div>
+      <div class="challenge-status upcoming">即將開始</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════
+   GROUP PAGE — Check-in, Leaderboard, Tasks, Challenges
+   MVP with localStorage for check-in data
+   ═══════════════════════════════════════════ */
+
+// ── Data helpers ──
+function getCheckin() {
+  try {
+    const raw = localStorage.getItem('bekao_checkin');
+    return raw ? JSON.parse(raw) : { streak: 0, last_checkin_date: null, history: [] };
+  } catch(e) { return { streak: 0, last_checkin_date: null, history: [] }; }
+}
+
+function saveCheckin(data) {
+  try { localStorage.setItem('bekao_checkin', JSON.stringify(data)); } catch(e) {}
+}
+
+function getStats() {
+  try {
+    const raw = localStorage.getItem('bekao_stats');
+    return raw ? JSON.parse(raw) : { total_answered: 0 };
+  } catch(e) { return { total_answered: 0 }; }
+}
+
+// ── Tab Switching ──
+document.getElementById('tabRow').addEventListener('click', (e) => {
+  if (!e.target.classList.contains('tab-btn')) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + e.target.dataset.tab).classList.add('active');
+});
+
+// ── Check-in ──
+function doCheckin() {
+  const data = getCheckin();
+  const today = new Date().toISOString().split('T')[0];
+
+  if (data.last_checkin_date === today) {
+    showToast('今天已經打卡過了！💪');
+    return;
+  }
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+  if (data.last_checkin_date === yesterdayStr) {
+    data.streak = (data.streak || 0) + 1;
+  } else if (data.last_checkin_date !== today) {
+    data.streak = 1;
+  }
+
+  data.last_checkin_date = today;
+  if (!data.history) data.history = [];
+  data.history.push(today);
+  // Dedupe
+  data.history = [...new Set(data.history)].sort();
+
+  saveCheckin(data);
+  renderCheckin();
+  showToast('✅ 打卡成功！連續 ' + data.streak + ' 天！');
+}
+
+function renderCheckin() {
+  const data = getCheckin();
+  const today = new Date().toISOString().split('T')[0];
+  const isCheckedToday = data.last_checkin_date === today;
+
+  document.getElementById('streakNum').textContent = data.streak || 0;
+
+  const btn = document.getElementById('checkinBtn');
+  if (isCheckedToday) {
+    btn.textContent = '✅ 今日已打卡';
+    btn.classList.add('done');
+    btn.onclick = null;
+  } else {
+    btn.textContent = '✅ 今日打卡';
+    btn.classList.remove('done');
+    btn.onclick = doCheckin;
+  }
+
+  document.getElementById('streakSub').textContent = isCheckedToday
+    ? '🔥 繼續保持！連續 ' + data.streak + ' 天'
+    : '今天還沒有打卡喔';
+
+  // Calendar strip - last 14 days
+  const calStrip = document.getElementById('calStrip');
+  let calHtml = '';
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().split('T')[0];
+    const checked = (data.history || []).includes(dateStr);
+    const isToday = dateStr === today;
+    calHtml += `<div class="cal-day${checked ? ' checked' : ''}${isToday ? ' today' : ''}">${d.getDate()}</div>`;
+  }
+  calStrip.innerHTML = calHtml;
+
+  // Week chart (mock group check-in rate)
+  const weekChart = document.getElementById('weekChart');
+  const weekLabels = document.getElementById('weekLabels');
+  const days = ['一', '二', '三', '四', '五', '六', '日'];
+  const rates = [65, 72, 58, 80, 75, 45, 60];
+  weekChart.innerHTML = rates.map(r =>
+    `<div style="flex:1;background:${r > 70 ? 'var(--green)' : r > 50 ? 'var(--yellow)' : 'var(--accent)'};border-radius:4px 4px 0 0;height:${r}%;min-width:20px;opacity:0.85"></div>`
+  ).join('');
+  weekLabels.innerHTML = days.map(d => `<span>${d}</span>`).join('');
+
+  // Update task progress
+  updateTaskProgress();
+}
+
+// ── Leaderboard ──
+function renderLeaderboard() {
+  const stats = getStats();
+  const myQ = stats.total_answered || 0;
+  document.getElementById('myRankQ').textContent = myQ + ' 題';
+  if (myQ === 0) {
+    document.getElementById('myRankMeta').textContent = '開始刷題來上榜吧！';
+  } else {
+    document.getElementById('myRankMeta').textContent = '繼續努力提升排名！';
+  }
+
+  // Mock leaderboard
+  const lb = [
+    { rank: 1, name: '護理小尖兵', q: 247, streak: 14, avatar: '護' },
+    { rank: 2, name: '國考必勝', q: 198, streak: 12, avatar: '國' },
+    { rank: 3, name: '藥理天后', q: 165, streak: 8, avatar: '藥' },
+    { rank: 4, name: '內外高手', q: 142, streak: 10, avatar: '內' },
+    { rank: 5, name: '基礎達人', q: 128, streak: 6, avatar: '基' },
+    { rank: 6, name: '產兒專攻', q: 115, streak: 9, avatar: '產' },
+    { rank: 7, name: '精神之光', q: 98, streak: 5, avatar: '精' },
+  ];
+
+  const lbList = document.getElementById('leaderboardList');
+  lbList.innerHTML = lb.map(p => `
+    <div class="lb-item">
+      <div class="lb-rank ${p.rank <= 3 ? 'rank-' + p.rank : ''}">#${p.rank}</div>
+      <div class="lb-avatar">${p.avatar}</div>
+      <div class="lb-info">
+        <div class="lb-name">${p.name}</div>
+        <div class="lb-meta">🔥 連續 ${p.streak} 天</div>
+      </div>
+      <div class="lb-stats">
+        <div class="lb-stat-val">${p.q}</div>
+        <div class="lb-stat-label">本週刷題</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── Task Progress ──
+function updateTaskProgress() {
+  const stats = getStats();
+  const quizProgress = document.getElementById('taskQuizProgress');
+  if (quizProgress) {
+    const q = stats.total_answered || 0;
+    quizProgress.textContent = Math.min(q, 100) + '/100';
+  }
+}
+
+function toggleGroupTask(el) {
+  el.classList.toggle('done');
+  const done = document.querySelectorAll('#groupTasks .task-status.done').length;
+  const total = document.querySelectorAll('#groupTasks .task-status').length;
+  showToast(`已完成 ${done}/${total} 項任務`);
+}
+
+// ── Toast ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── Init ──
+renderCheckin();
+renderLeaderboard();
+updateTaskProgress();
+</script>
+
+</body>
+</html>

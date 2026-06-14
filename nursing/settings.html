@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>個人設定 | 備考通</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="備考通個人設定 — 設定目標考試、考試日期、每日學習時間、通知偏好、AI 風格。">
+<style>
+:root {
+  --bg: #0a0e17;
+  --card: #111827;
+  --border: #1f2937;
+  --accent: #ef4444;
+  --primary: #3b82f6;
+  --text: #e5e7eb;
+  --text2: #9ca3af;
+  --text3: #6b7280;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --orange: #f59e0b;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Top Nav ── */
+.topnav { background: #0d1321; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.topnav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 56px; }
+.topnav .logo { font-size: 1.1rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.topnav .logo .dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; display: inline-block; animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.topnav nav { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+.topnav nav a { font-size: 0.78rem; color: var(--text2); padding: 6px 10px; border-radius: 8px; font-weight: 500; transition: all 0.15s; white-space: nowrap; }
+.topnav nav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+.topnav nav a.active { color: var(--primary); background: rgba(59,130,246,0.12); font-weight: 600; }
+.topnav .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; padding: 4px; }
+@media (max-width: 900px) {
+  .topnav nav { display: none; position: absolute; top: 56px; left: 0; right: 0; background: #0d1321; flex-direction: column; padding: 12px; border-bottom: 1px solid var(--border); gap: 4px; }
+  .topnav nav.open { display: flex; }
+  .topnav nav a { padding: 10px 12px; width: 100%; }
+  .topnav .mobile-menu-btn { display: block; }
+}
+
+/* ── Container ── */
+.container { max-width: 700px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* ── Page Header ── */
+.page-header { margin-bottom: 24px; }
+.page-header h1 { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.page-header .subtitle { font-size: 0.85rem; color: var(--text2); margin-top: 4px; }
+
+/* ── Card ── */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; }
+.card h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+/* ── Form Groups ── */
+.form-group { margin-bottom: 18px; }
+.form-group:last-child { margin-bottom: 0; }
+.form-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+.form-hint { font-size: 0.72rem; color: var(--text3); margin-top: 4px; }
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="time"],
+select {
+  width: 100%; background: #0d1321; border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 14px; font-size: 0.88rem; color: var(--text); font-family: inherit;
+  outline: none; transition: border-color 0.15s;
+}
+input:focus, select:focus { border-color: var(--primary); }
+input::placeholder { color: var(--text3); }
+
+/* Custom select style */
+select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+
+/* Range slider */
+.range-group { display: flex; align-items: center; gap: 12px; }
+input[type="range"] {
+  flex: 1; -webkit-appearance: none; appearance: none; height: 6px;
+  background: var(--border); border-radius: 3px; outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 20px; height: 20px;
+  border-radius: 50%; background: var(--primary); cursor: pointer;
+  border: 2px solid var(--card); box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.range-value { min-width: 48px; text-align: center; font-weight: 700; font-size: 0.9rem; }
+
+/* Radio / Toggle */
+.toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.toggle-row:last-child { border-bottom: none; }
+.toggle-label { font-size: 0.88rem; }
+.toggle-desc { font-size: 0.72rem; color: var(--text3); }
+.toggle-switch {
+  position: relative; width: 44px; height: 24px; flex-shrink: 0; cursor: pointer;
+}
+.toggle-switch input { display: none; }
+.toggle-slider {
+  position: absolute; inset: 0; background: var(--border); border-radius: 12px; transition: all 0.2s;
+}
+.toggle-slider::before {
+  content: ''; position: absolute; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--text); top: 3px; left: 3px; transition: all 0.2s;
+}
+.toggle-switch input:checked + .toggle-slider { background: var(--primary); }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+/* Radio group */
+.radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.radio-option {
+  padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border);
+  background: #0d1321; font-size: 0.85rem; cursor: pointer; transition: all 0.15s;
+  color: var(--text2); font-family: inherit; white-space: nowrap;
+}
+.radio-option:hover { border-color: var(--text2); color: var(--text); }
+.radio-option.selected { border-color: var(--primary); color: var(--primary); background: rgba(59,130,246,0.1); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 10px 24px;
+  border-radius: 10px; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+  border: none; font-family: inherit; transition: all 0.15s;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-accent { background: var(--accent); color: #fff; }
+.btn-accent:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--text2); }
+.btn-danger-outline { background: transparent; border: 1px solid rgba(239,68,68,0.3); color: var(--accent); }
+.btn-danger-outline:hover { background: rgba(239,68,68,0.08); }
+.btn-success { background: var(--green); color: #fff; }
+.btn-success:hover { opacity: 0.9; }
+
+.actions-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+
+/* Exam card */
+.exam-card {
+  background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(239,68,68,0.03));
+  border: 1px solid rgba(59,130,246,0.15); border-radius: var(--radius);
+  padding: 18px; margin-bottom: 16px;
+}
+.exam-card .exam-name { font-size: 1rem; font-weight: 700; }
+.exam-card .exam-info { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
+.exam-card .exam-countdown { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.exam-card .days-badge {
+  display: inline-block; padding: 4px 14px; border-radius: 20px;
+  font-size: 0.8rem; font-weight: 700;
+}
+.exam-card .days-badge.urgent { background: rgba(239,68,68,0.15); color: var(--accent); }
+.exam-card .days-badge.medium { background: rgba(245,158,11,0.15); color: var(--orange); }
+.exam-card .days-badge.comfortable { background: rgba(34,197,94,0.12); color: var(--green); }
+
+/* Toast */
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--green); color: #fff; padding: 10px 24px; border-radius: 10px; font-size: 0.82rem; font-weight: 600; z-index: 999; display: none; white-space: nowrap; }
+.toast.show { display: block; animation: toastIn 0.3s ease; }
+@keyframes toastIn { from{opacity:0;transform:translateX(-50%) translateY(16px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+
+/* Danger Zone */
+.danger-zone {
+  background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2);
+  border-radius: var(--radius); padding: 18px;
+}
+.danger-zone h3 { font-size: 0.9rem; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.danger-zone p { font-size: 0.8rem; color: var(--text2); margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ TOP NAV ═══ -->
+<header class="topnav">
+  <div class="topnav-inner">
+    <a href="index.html" class="logo"><span class="dot"></span>備考通</a>
+    <button class="mobile-menu-btn" onclick="document.querySelector('.topnav nav').classList.toggle('open')" aria-label="選單">☰</button>
+    <nav>
+      <a href="index.html">首頁</a>
+      <a href="diagnosis.html">診斷</a>
+      <a href="plan.html">計畫</a>
+      <a href="quiz.html">刷題</a>
+      <a href="explanation.html">解析</a>
+      <a href="review.html">錯題</a>
+      <a href="tutor.html">家教</a>
+      <a href="report.html">報告</a>
+      <a href="group.html">群組</a>
+      <a href="settings.html" class="active">設定</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="page-header">
+    <h1>⚙️ 個人設定</h1>
+    <div class="subtitle">設定你的考試目標和學習偏好，系統會據此產生個人化建議</div>
+  </div>
+
+  <!-- ── Current Exam Status ── -->
+  <div class="exam-card" id="examStatusCard" style="display:none">
+    <div class="exam-name" id="statusExamName">--</div>
+    <div class="exam-info" id="statusExamInfo">--</div>
+    <div class="exam-countdown">
+      <span class="days-badge" id="statusDaysBadge">-- 天</span>
+      <span id="statusHours" style="font-size:0.8rem;color:var(--text2)">--</span>
+    </div>
+  </div>
+
+  <!-- ── Section 1: Exam Target ── -->
+  <div class="card">
+    <h2>🎯 目標考試</h2>
+
+    <div class="form-group">
+      <label class="form-label">考試類別</label>
+      <select id="examCategory">
+        <option value="nursing">護理師</option>
+        <option value="civil_general">高考三級（一般行政）</option>
+        <option value="civil_tech">高考三級（技術類）</option>
+        <option value="entry_general">普考（一般行政）</option>
+        <option value="entry_tech">普考（技術類）</option>
+        <option value="local3">地方特考三等</option>
+        <option value="local4">地方特考四等</option>
+        <option value="pharmacist">藥師</option>
+        <option value="nurse_practitioner">專科護理師</option>
+        <option value="other">其他考試</option>
+      </select>
+      <div class="form-hint">目前僅護理師有完整題庫，其他考種即將上線</div>
+    </div>
+
+    <div class="form-group" id="otherExamGroup" style="display:none">
+      <label class="form-label">考試名稱（自行輸入）</label>
+      <input type="text" id="examNameCustom" placeholder="例如：司法特考三等">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">考試日期</label>
+      <input type="date" id="examDate">
+      <div class="form-hint">此日期用於計算倒數天數與生成備考計畫</div>
+    </div>
+  </div>
+
+  <!-- ── Section 2: Study Time ── -->
+  <div class="card">
+    <h2>⏱️ 學習時間</h2>
+
+    <div class="form-group">
+      <label class="form-label">每日可用學習時間</label>
+      <div class="range-group">
+        <input type="range" id="dailyHours" min="0.5" max="8" step="0.5" value="2" oninput="updateRangeValue('dailyHours', 'dailyHoursVal')">
+        <span class="range-value" id="dailyHoursVal">2 小時</span>
+      </div>
+      <div class="form-hint">拖曳滑桿設定你每天平均可投入的學習時間</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">偏好學習時段</label>
+      <div class="radio-group" id="preferredTimeRadio">
+        <button class="radio-option" data-value="morning" onclick="selectRadio(this)">🌅 早上</button>
+        <button class="radio-option selected" data-value="afternoon" onclick="selectRadio(this)">☀️ 下午</button>
+        <button class="radio-option" data-value="evening" onclick="selectRadio(this)">🌙 晚上</button>
+        <button class="radio-option" data-value="flexible" onclick="selectRadio(this)">🔄 彈性</button>
+      </div>
+      <div class="form-hint">系統會依此調整每日任務的難度分配建議</div>
+    </div>
+  </div>
+
+  <!-- ── Section 3: Notification Style ── -->
+  <div class="card">
+    <h2>🔔 通知與提醒</h2>
+
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">每日學習提醒</div>
+        <div class="toggle-desc">在設定時段發送學習提醒</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="reminderEnabled" checked onchange="saveAllSettings()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">錯題警報</div>
+        <div class="toggle-desc">錯題累積超過 10 題時提醒複習</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="wrongAlertEnabled" checked onchange="saveAllSettings()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">週報通知</div>
+        <div class="toggle-desc">每週一發送上週學習摘要</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="weeklyReportEnabled" checked onchange="saveAllSettings()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">連續打卡提醒</div>
+        <div class="toggle-desc">若接近斷簽時發送提醒</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="streakAlertEnabled" checked onchange="saveAllSettings()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="form-group" style="margin-top:14px">
+      <label class="form-label">通知方式</label>
+      <div class="radio-group" id="notifyMethodRadio">
+        <button class="radio-option selected" data-value="browser" onclick="selectRadio(this)">🌐 瀏覽器</button>
+        <button class="radio-option" data-value="none" onclick="selectRadio(this)">🔇 無</button>
+      </div>
+      <div class="form-hint">完整通知功能需使用者登入後啟用</div>
+    </div>
+  </div>
+
+  <!-- ── Section 4: AI Style ── -->
+  <div class="card">
+    <h2>🤖 AI 風格</h2>
+
+    <div class="form-group">
+      <label class="form-label">AI 家教語氣</label>
+      <div class="radio-group" id="aiStyleRadio">
+        <button class="radio-option" data-value="encouraging" onclick="selectRadio(this)">💪 鼓勵型</button>
+        <button class="radio-option selected" data-value="balanced" onclick="selectRadio(this)">⚖️ 平衡型</button>
+        <button class="radio-option" data-value="strict" onclick="selectRadio(this)">🎖️ 嚴格型</button>
+      </div>
+      <div class="form-hint">影響 AI 家教和診斷報告的語氣風格</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">難度偏好</label>
+      <div class="radio-group" id="difficultyRadio">
+        <button class="radio-option" data-value="easy" onclick="selectRadio(this)">🟢 偏易</button>
+        <button class="radio-option selected" data-value="mixed" onclick="selectRadio(this)">🟡 混合</button>
+        <button class="radio-option" data-value="hard" onclick="selectRadio(this)">🔴 偏難</button>
+      </div>
+      <div class="form-hint">影響刷題時的題目難度分佈（需要題庫有難度標記）</div>
+    </div>
+  </div>
+
+  <!-- ── Save ── -->
+  <div class="actions-row" style="margin-bottom:16px">
+    <button class="btn btn-primary" onclick="saveAllSettings()">💾 儲存設定</button>
+    <button class="btn btn-outline" onclick="loadSettings()">↩ 重設</button>
+  </div>
+
+  <!-- ── Danger Zone ── -->
+  <div class="danger-zone">
+    <h3>⚠️ 資料管理</h3>
+    <p>清除所有本機學習資料（包括答題紀錄、錯題本、打卡紀錄、設定）。此操作無法復原。</p>
+    <div class="actions-row">
+      <button class="btn btn-danger-outline" onclick="resetAllData()">🗑 清除所有資料</button>
+      <button class="btn btn-outline" onclick="exportData()">📤 匯出資料</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════
+   SETTINGS PAGE — Exam target, date, study time, notifications
+   Reads/writes bekao_settings in localStorage
+   ═══════════════════════════════════════════ */
+
+const CATEGORY_NAMES = {
+  'nursing': '護理師國考',
+  'civil_general': '高考三級（一般行政）',
+  'civil_tech': '高考三級（技術類）',
+  'entry_general': '普考（一般行政）',
+  'entry_tech': '普考（技術類）',
+  'local3': '地方特考三等',
+  'local4': '地方特考四等',
+  'pharmacist': '藥師國考',
+  'nurse_practitioner': '專科護理師',
+  'other': '其他考試'
+};
+
+// ── Load settings ──
+function getSettings() {
+  try {
+    const raw = localStorage.getItem('bekao_settings');
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+function saveSettings(settings) {
+  try { localStorage.setItem('bekao_settings', JSON.stringify(settings)); } catch(e) { showToast('儲存失敗：本機儲存空間不足'); }
+}
+
+function loadSettings() {
+  const s = getSettings();
+  if (!s) {
+    // Defaults
+    document.getElementById('examCategory').value = 'nursing';
+    document.getElementById('examDate').value = '';
+    document.getElementById('dailyHours').value = 2;
+    updateRangeValue('dailyHours', 'dailyHoursVal');
+    hideOtherExam();
+    renderExamStatus();
+    return;
+  }
+
+  document.getElementById('examCategory').value = s.exam_category || 'nursing';
+  if (s.exam_category === 'other') {
+    document.getElementById('otherExamGroup').style.display = 'block';
+    document.getElementById('examNameCustom').value = s.exam_name || '';
+  } else {
+    hideOtherExam();
+  }
+
+  document.getElementById('examDate').value = s.exam_date || '';
+  document.getElementById('dailyHours').value = s.daily_hours || 2;
+  updateRangeValue('dailyHours', 'dailyHoursVal');
+
+  // Radio: preferred time
+  setRadio('preferredTimeRadio', s.preferred_time || 'afternoon');
+  // Radio: notify method
+  setRadio('notifyMethodRadio', s.notify_method || 'browser');
+  // Radio: AI style
+  setRadio('aiStyleRadio', s.ai_style || 'balanced');
+  // Radio: difficulty
+  setRadio('difficultyRadio', s.difficulty || 'mixed');
+
+  // Toggles
+  document.getElementById('reminderEnabled').checked = s.reminder_enabled !== false;
+  document.getElementById('wrongAlertEnabled').checked = s.wrong_alert_enabled !== false;
+  document.getElementById('weeklyReportEnabled').checked = s.weekly_report_enabled !== false;
+  document.getElementById('streakAlertEnabled').checked = s.streak_alert_enabled !== false;
+
+  renderExamStatus();
+}
+
+function hideOtherExam() {
+  document.getElementById('otherExamGroup').style.display = 'none';
+}
+
+function setRadio(groupId, value) {
+  const group = document.getElementById(groupId);
+  group.querySelectorAll('.radio-option').forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.value === value);
+  });
+}
+
+function getRadioValue(groupId) {
+  const group = document.getElementById(groupId);
+  const selected = group.querySelector('.radio-option.selected');
+  return selected ? selected.dataset.value : null;
+}
+
+// ── Save All ──
+function saveAllSettings() {
+  const category = document.getElementById('examCategory').value;
+  let examName = CATEGORY_NAMES[category] || category;
+  if (category === 'other') {
+    examName = document.getElementById('examNameCustom').value.trim() || '未命名考試';
+  }
+
+  const settings = {
+    exam_category: category,
+    exam_name: examName,
+    exam_date: document.getElementById('examDate').value || null,
+    daily_hours: parseFloat(document.getElementById('dailyHours').value) || 2,
+    preferred_time: getRadioValue('preferredTimeRadio'),
+    notify_method: getRadioValue('notifyMethodRadio'),
+    ai_style: getRadioValue('aiStyleRadio'),
+    difficulty: getRadioValue('difficultyRadio'),
+    reminder_enabled: document.getElementById('reminderEnabled').checked,
+    wrong_alert_enabled: document.getElementById('wrongAlertEnabled').checked,
+    weekly_report_enabled: document.getElementById('weeklyReportEnabled').checked,
+    streak_alert_enabled: document.getElementById('streakAlertEnabled').checked,
+    updated_at: new Date().toISOString()
+  };
+
+  saveSettings(settings);
+  renderExamStatus();
+  showToast('✅ 設定已儲存');
+}
+
+// ── Render Exam Status ──
+function renderExamStatus() {
+  const s = getSettings();
+  const card = document.getElementById('examStatusCard');
+  if (!s || !s.exam_date) {
+    card.style.display = 'none';
+    return;
+  }
+
+  card.style.display = 'block';
+  document.getElementById('statusExamName').textContent = s.exam_name || '未設定';
+
+  const examDate = new Date(s.exam_date + 'T00:00:00');
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diffDays = Math.max(0, Math.ceil((examDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
+
+  document.getElementById('statusExamInfo').textContent =
+    `考試日期：${examDate.toLocaleDateString('zh-TW')} · 每日 ${s.daily_hours || 2} 小時`;
+
+  const badge = document.getElementById('statusDaysBadge');
+  badge.textContent = diffDays + ' 天';
+  badge.className = 'days-badge';
+  if (diffDays <= 30) badge.classList.add('urgent');
+  else if (diffDays <= 90) badge.classList.add('medium');
+  else badge.classList.add('comfortable');
+
+  const totalHours = diffDays * (s.daily_hours || 2);
+  document.getElementById('statusHours').textContent = `預估可用 ${totalHours} 小時`;
+}
+
+// ── Range slider ──
+function updateRangeValue(rangeId, displayId) {
+  const val = document.getElementById(rangeId).value;
+  document.getElementById(displayId).textContent = val + ' 小時';
+}
+
+// ── Radio select ──
+function selectRadio(btn) {
+  const group = btn.parentElement;
+  group.querySelectorAll('.radio-option').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+// ── Exam category change ──
+document.getElementById('examCategory').addEventListener('change', function() {
+  if (this.value === 'other') {
+    document.getElementById('otherExamGroup').style.display = 'block';
+  } else {
+    document.getElementById('otherExamGroup').style.display = 'none';
+  }
+});
+
+// ── Danger Zone ──
+function resetAllData() {
+  if (!confirm('確定要清除所有本機學習資料嗎？\n\n包括：答題紀錄、錯題本、打卡紀錄、設定\n\n此操作無法復原！')) return;
+
+  const keys = [
+    'bekao_settings', 'bekao_stats', 'bekao_plan', 'bekao_checkin',
+    'bekao_wrong_book', 'nursingWrongBook', 'bekao_reviewed_qids',
+    'bekao_current_explanation', 'bekao_drill_cluster', 'bekao_drill_source',
+    'bekao_retry_qid', 'bekao_retry_all_qids'
+  ];
+  keys.forEach(k => { try { localStorage.removeItem(k); } catch(e) {} });
+  try { sessionStorage.clear(); } catch(e) {}
+
+  showToast('🗑 所有資料已清除');
+  setTimeout(() => location.reload(), 1000);
+}
+
+function exportData() {
+  const data = {};
+  const keys = ['bekao_settings', 'bekao_stats', 'bekao_plan', 'bekao_checkin', 'bekao_wrong_book'];
+  keys.forEach(k => {
+    try {
+      const raw = localStorage.getItem(k);
+      data[k] = raw ? JSON.parse(raw) : null;
+    } catch(e) { data[k] = null; }
+  });
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'bekao-backup-' + new Date().toISOString().split('T')[0] + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('📤 資料已匯出');
+}
+
+// ── Toast ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── Init ──
+loadSettings();
+</script>
+
+</body>
+</html>
