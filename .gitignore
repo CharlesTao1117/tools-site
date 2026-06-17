@@ -1,0 +1,5 @@
+# Nursing data backups
+nursing/data/questions_backup_*.json
+
+# Development templates (not part of the site)
+/templates/
