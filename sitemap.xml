@@ -187,4 +187,28 @@
     <changefreq>monthly</changefreq>
     <lastmod>2026-06-09</lastmod>
   </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/tutor</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-06-17</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/explanation</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-06-17</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/group</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-06-17</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/settings</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-06-17</lastmod>
+  </url>
 </urlset>
