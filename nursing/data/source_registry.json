@@ -1,14 +1,3 @@
-# 護理師國考題庫 資料來源註冊表
-# 最後更新: 2026-06-03
-# 路徑: tools-site/nursing/data/source_registry.json
-#
-# 使用說明:
-# 1. 所有 PDF 來自考選部官方考畢試題 (https://wwwq.moex.gov.tw/)
-# 2. 鏡像站: 5138.com.tw (考神網) 提供 Google Drive 連結
-# 3. 下載方式: curl -sL -o file.pdf "https://drive.google.com/uc?export=download&id=FILE_ID"
-# 4. 解析方式: pymupdf (fitz) 擷取文字 + 座標定位解析答案表
-# 5. 新增考次: 依 session_code 加入 sources 陣列，填寫對應的試題/答案 Google Drive ID
-
 {
   "meta": {
     "exam_name": "專門職業及技術人員高等考試護理師",
@@ -16,245 +5,53 @@
     "source_primary": "考選部考畢試題查詢平台",
     "source_primary_url": "https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx",
     "source_mirror": "考神網 5138.com.tw",
-    "source_mirror_pattern": "https://www.5138.com.tw/exam/exam-{page_id}.html",
     "pdf_host": "Google Drive (公開分享)",
-    "download_method": "curl -sL -o {filename} 'https://drive.google.com/uc?export=download&id={file_id}'",
     "parse_tool": "pymupdf (fitz) 文字擷取 + 座標定位答案表",
-    "parser_script": "/tmp/build_112030_questions.py (可複用於其他考次)",
-    "last_updated": "2026-06-03",
-    "total_questions": 2641,
-    "sessions_count": 9,
-    "years_covered": [2022, 2023, 2024, 2025, 2026]
+    "last_updated": "2026-06-15",
+    "total_questions": 7704,
+    "sessions_count": 23,
+    "years_covered": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
+    "answer_coverage": "92.0% (616 missing / 7704 total)"
   },
   "sources": [
-    {
-      "session_code": "111030",
-      "year": 2022,
-      "exam_round": "第一次",
-      "questions": 400,
-      "subject_breakdown": {
-        "basic_medical": 80,
-        "fundamental_nursing": 80,
-        "med_surg_nursing": 80,
-        "ob_peds_nursing": 80,
-        "psych_community_nursing": 80
-      },
-      "source_url": "https://www.5138.com.tw/exam/exam-5338.html",
-      "drive_files": {
-        "questions": {},
-        "answers": {}
-      },
-      "notes": "最早收錄的考次，各科 80 題"
-    },
-    {
-      "session_code": "111110",
-      "year": 2022,
-      "exam_round": "第二次",
-      "questions": 370,
-      "subject_breakdown": {
-        "basic_medical": 50,
-        "fundamental_nursing": 80,
-        "med_surg_nursing": 80,
-        "ob_peds_nursing": 80,
-        "psych_community_nursing": 80
-      },
-      "source_url": "https://www.5138.com.tw/exam/exam-5339.html",
-      "drive_files": {
-        "questions": {},
-        "answers": {}
-      },
-      "notes": "基礎醫學 50 題，其餘 80 題"
-    },
-    {
-      "session_code": "112030",
-      "year": 2023,
-      "exam_round": "第一次",
-      "questions": 370,
-      "subject_breakdown": {
-        "basic_medical": 50,
-        "fundamental_nursing": 80,
-        "med_surg_nursing": 80,
-        "ob_peds_nursing": 80,
-        "psych_community_nursing": 80
-      },
-      "source_url": "https://www.5138.com.tw/exam/exam-5342.html",
-      "drive_files": {
-        "questions": {
-          "basic_medical": "14e0BwYgZWXh4wmhl2uNaTNALYtkLu4KY",
-          "fundamental_nursing": "1kiWLDNVlitt3lw5vVoy8-xcAtaUJ6xA6",
-          "med_surg_nursing": "12QOtpSibA05mbF4z4sLsgiZAMvKTcwJF",
-          "ob_peds_nursing": "1_rl_W-5SomEcVBi5JZWWxdKhdW_4LItu",
-          "psych_community_nursing": "1TjxNPP6aSvHqVajWP8h_H7Vren_QYd3U"
-        },
-        "answers": {
-          "basic_medical": "1Zztr2Q7kBlUGUnDcYLG1DglgRoko_HM8",
-          "fundamental_nursing": "1WrqBVjmReZ8riLIMif7MruUOTpXffq67",
-          "med_surg_nursing": "14YGrBGX-1Fs7e7mqpXgI5Awfcan2yrGB",
-          "ob_peds_nursing": "1rWntANjHWml5MbMS2PDzn9E9G2UTDDX8",
-          "psych_community_nursing": "1BbBrELlu4-HSclmJK_zzhe4om1QI9Lle"
-        },
-        "corrections": {
-          "psych_community_nursing": "1xaSyaK6a9sg6YxTk3fLrxK7Y_56c5d7J"
-        }
-      },
-      "notes": "2026-06-03 新增，補齊五年內唯一缺漏的考次"
-    },
-    {
-      "session_code": "112180",
-      "year": 2023,
-      "exam_round": "第二次",
-      "questions": 250,
-      "subject_breakdown": {
-        "basic_medical": 50,
-        "fundamental_nursing": 50,
-        "med_surg_nursing": 50,
-        "ob_peds_nursing": 50,
-        "psych_community_nursing": 50
-      },
-      "source_url": "https://www.5138.com.tw/exam/exam-5343.html",
-      "drive_files": {
-        "questions": {},
-        "answers": {}
-      },
-      "notes": "各科 50 題"
-    },
-    {
-      "session_code": "113030",
-      "year": 2024,
-      "exam_round": "第一次",
-      "questions": 251,
-      "subject_breakdown": {
-        "basic_medical": 50,
-        "fundamental_nursing": 50,
-        "med_surg_nursing": 50,
-        "ob_peds_nursing": 50,
-        "psych_community_nursing": 51
-      },
-      "source_url": "https://www.5138.com.tw/exam/exam-5344.html",
-      "drive_files": {
-        "questions": {},
-        "answers": {}
-      },
-      "notes": ""
-    },
-    {
-      "session_code": "113180",
-      "year": 2024,
-      "exam_round": "第二次",
-      "questions": 250,
-      "subject_breakdown": {
-        "basic_medical": 50,
-        "fundamental_nursing": 50,
-        "med_surg_nursing": 50,
-        "ob_peds_nursing": 50,
-        "psych_community_nursing": 50
-      },
-      "source_url": "https://www.5138.com.tw/exam/exam-5345.html",
-      "drive_files": {
-        "questions": {},
-        "answers": {}
-      },
-      "notes": ""
-    },
-    {
-      "session_code": "114030",
-      "year": 2025,
-      "exam_round": "第一次",
-      "questions": 250,
-      "subject_breakdown": {
-        "basic_medical": 50,
-        "fundamental_nursing": 50,
-        "med_surg_nursing": 50,
-        "ob_peds_nursing": 50,
-        "psych_community_nursing": 50
-      },
-      "source_url": "https://www.5138.com.tw/exam/exam-5346.html",
-      "drive_files": {
-        "questions": {},
-        "answers": {}
-      },
-      "notes": ""
-    },
-    {
-      "session_code": "114170",
-      "year": 2025,
-      "exam_round": "第二次",
-      "questions": 250,
-      "subject_breakdown": {
-        "basic_medical": 50,
-        "fundamental_nursing": 50,
-        "med_surg_nursing": 50,
-        "ob_peds_nursing": 50,
-        "psych_community_nursing": 50
-      },
-      "source_url": "https://www.5138.com.tw/exam/exam-5347.html",
-      "drive_files": {
-        "questions": {},
-        "answers": {}
-      },
-      "notes": ""
-    },
-    {
-      "session_code": "115030",
-      "year": 2026,
-      "exam_round": "第一次",
-      "questions": 250,
-      "subject_breakdown": {
-        "basic_medical": 50,
-        "fundamental_nursing": 50,
-        "med_surg_nursing": 50,
-        "ob_peds_nursing": 50,
-        "psych_community_nursing": 50
-      },
-      "source_url": "https://www.5138.com.tw/exam/exam-5348.html",
-      "drive_files": {
-        "questions": {},
-        "answers": {}
-      },
-      "notes": ""
-    }
+    {"session_code": "106030", "year": 2017, "exam_round": "第一次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 42},
+    {"session_code": "106110", "year": 2017, "exam_round": "第二次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 43},
+    {"session_code": "106111", "year": 2017, "exam_round": "第二次(花東補考)", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 43},
+    {"session_code": "107030", "year": 2018, "exam_round": "第一次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 43},
+    {"session_code": "107110", "year": 2018, "exam_round": "第二次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 45},
+    {"session_code": "108020", "year": 2019, "exam_round": "第一次", "questions": 320, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 32, "notes": "s0505 PDF corrupt — 80 Q missing. 需重新下載"},
+    {"session_code": "108110", "year": 2019, "exam_round": "第二次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 41},
+    {"session_code": "109030", "year": 2020, "exam_round": "第一次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 41},
+    {"session_code": "109110", "year": 2020, "exam_round": "第二次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 42},
+    {"session_code": "110030", "year": 2021, "exam_round": "第一次", "questions": 400, "subject_codes": "s0301-s0305 (Q104/A104)", "missing_answers": 41},
+    {"session_code": "110110", "year": 2021, "exam_round": "第二次", "questions": 400, "subject_codes": "s0301-s0305 (Q104/A104)", "missing_answers": 40},
+    {"session_code": "111030", "year": 2022, "exam_round": "第一次", "questions": 400, "subject_codes": "s0301-s0305 (Q104/A104)", "missing_answers": 42},
+    {"session_code": "111110", "year": 2022, "exam_round": "第二次", "questions": 370, "subject_codes": "s0301-s0305 (Q104/A104)", "missing_answers": 111, "notes": "s0305 答案 PDF 缺失 — 80 Q 缺答案. 需從考神網補下載"},
+    {"session_code": "112030", "year": 2023, "exam_round": "第一次", "questions": 370, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 0},
+    {"session_code": "112160", "year": 2023, "exam_round": "第三次", "questions": 248, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 0},
+    {"session_code": "112180", "year": 2023, "exam_round": "第二次", "questions": 250, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 2},
+    {"session_code": "113030", "year": 2024, "exam_round": "第一次", "questions": 251, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 1},
+    {"session_code": "113160", "year": 2024, "exam_round": "第三次", "questions": 248, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 0},
+    {"session_code": "113180", "year": 2024, "exam_round": "第二次", "questions": 250, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 2},
+    {"session_code": "114030", "year": 2025, "exam_round": "第一次", "questions": 250, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 1},
+    {"session_code": "114160", "year": 2025, "exam_round": "第三次", "questions": 247, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 0},
+    {"session_code": "114170", "year": 2025, "exam_round": "第二次", "questions": 250, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 0},
+    {"session_code": "115030", "year": 2026, "exam_round": "第一次", "questions": 250, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 4}
   ],
   "available_not_collected": [
-    {
-      "session_code": "110030",
-      "year": 2021,
-      "exam_round": "第一次",
-      "url": "https://www.5138.com.tw/exam/exam-5336.html",
-      "reason": "超出五年範圍，可做擴充用"
-    },
-    {
-      "session_code": "110180",
-      "year": 2021,
-      "exam_round": "第二次",
-      "url": "https://www.5138.com.tw/exam/exam-5337.html",
-      "reason": "超出五年範圍，可做擴充用"
-    },
-    {
-      "session_code": "109030",
-      "year": 2020,
-      "exam_round": "第一次",
-      "url": "https://www.5138.com.tw/exam/exam-5334.html",
-      "reason": "超出五年範圍"
-    },
-    {
-      "session_code": "109180",
-      "year": 2020,
-      "exam_round": "第二次",
-      "url": "https://www.5138.com.tw/exam/exam-5335.html",
-      "reason": "超出五年範圍"
-    }
+    {"session_code": "105030", "year": 2016, "exam_round": "第一次", "reason": "護理師考題已存在硬碟但使用更早期格式 (Q109/A109, s0501-s0505)，待適配解析"},
+    {"session_code": "105090", "year": 2016, "exam_round": "第二次?", "reason": "同上"},
+    {"session_code": "104030", "year": 2015, "exam_round": "第一次", "reason": "同上"},
+    {"session_code": "104100", "year": 2015, "exam_round": "第二次", "reason": "同上"},
+    {"session_code": "103030", "year": 2014, "exam_round": "第一次", "reason": "同上"},
+    {"session_code": "103100", "year": 2014, "exam_round": "第二次", "reason": "同上"},
+    {"session_code": "102110", "year": 2013, "exam_round": "第二次", "reason": "同上"},
+    {"session_code": "101030", "year": 2012, "exam_round": "第一次", "reason": "最早期格式，需獨立解析"}
   ],
-  "download_procedure": {
-    "steps": [
-      "1. 找到對應考次的 5138.com.tw 頁面 (https://www.5138.com.tw/exam/exam-{id}.html)",
-      "2. 用瀏覽器打開，從 console 取得所有 Google Drive 連結",
-      "3. 下載試題 PDF: curl -sL -o {file}.pdf 'https://drive.google.com/uc?export=download&id={file_id}'",
-      "4. 下載答案 PDF: 同上",
-      "5. 用 pymupdf 解析 PDF 文字 (支援 fitz 和文字區塊座標)",
-      "6. 使用 /tmp/build_112030_questions.py 為模板，修改 session_code 後執行",
-      "7. 合併至 questions.json"
-    ],
-    "parser_template": "/Users/calmestao/.hermes/hermes-agent/exam_question_parser.py",
-    "notes": "答案 PDF 有多欄表格，需要使用 text blocks 座標定位解析"
-  }
+  "known_issues": [
+    "108020 精神科 Q106 PDF 損壞（0 bytes 文字），需從考神網重新下載 Google Drive 連結",
+    "111110 精神科答案 PDF 缺失，需從考神網補下載",
+    "106-110 年約 10% 答案因 grid parser 座標偏差未能匹配，需手動校對或優化 parser",
+    "2022 年（111030/111110）答案缺口較大（~20%），部分來自 grid parser 誤差，部分來自 PDF 缺失"
+  ]
 }
