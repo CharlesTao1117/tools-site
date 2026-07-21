@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>備考通 - 備考指揮中心</title>
+<title>易考通 - 備考指揮中心</title>
+<link rel="manifest" href="/nursing/manifest.json">
+<meta name="theme-color" content="#0f3460">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="易考通">
 <style>
 :root {
   --bg: #0a0e17;
@@ -282,7 +286,7 @@ nav .links a.active { color: var(--accent); font-weight: 600; }
 
 <!-- Top Navigation -->
 <nav>
-  <a href="index.html" class="logo">備考通<span class="dot"></span></a>
+  <a href="index.html" class="logo">易考通<span class="dot"></span></a>
   <div class="links">
     <a href="index.html" class="active">總覽</a>
     <a href="diagnosis.html">診斷</a>
@@ -300,7 +304,7 @@ nav .links a.active { color: var(--accent); font-weight: 600; }
 <div class="container" id="app">
   <!-- Onboarding (shown when no settings exist) -->
   <div id="onboardingSection" class="onboarding" style="display:none;">
-    <h2>🎯 歡迎使用備考通</h2>
+    <h2>🎯 歡迎使用易考通</h2>
     <p>這是你專屬的備考指揮中心。先設定你的考試目標，AI 會幫你規劃最佳備考路線。</p>
     <a href="diagnosis.html" class="btn-primary">設定你的考試目標 →</a>
   </div>
@@ -549,6 +553,15 @@ function toggleTask(idx) {
   plan.daily[idx].status = plan.daily[idx].status === 'done' ? 'pending' : 'done';
   localStorage.setItem('bekao_plan', JSON.stringify(plan));
   location.reload();
+}
+
+// ── PWA: Register Service Worker ──
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/nursing/service-worker.js')
+      .then(() => console.log('SW registered'))
+      .catch((err) => console.warn('SW registration failed:', err));
+  });
 }
 </script>
 

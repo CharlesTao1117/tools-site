@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 深度解析 | 備考通</title>
+<title>AI 深度解析 | 易考通</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="description" content="AI 深度解析 — 每一題的詳細解釋、選項分析、錯誤原因、記憶口訣、同概念題目推薦。">
 <style>
@@ -183,7 +183,7 @@ a:hover { text-decoration: underline; }
 
 <!-- ═══════ Top Nav ═══════ -->
 <nav class="topnav">
-  <a href="index.html" class="logo"><span class="dot"></span>備考通</a>
+  <a href="index.html" class="logo"><span class="dot"></span>易考通</a>
   <nav>
     <a href="index.html">首頁</a>
     <a href="diagnosis.html">診斷</a>
@@ -209,7 +209,7 @@ a:hover { text-decoration: underline; }
 /* ═══════════════════════════════════════════
    EXPLANATION PAGE — AI Deep Explanation
    Reads sessionStorage 'bekao_current_explanation'
-   Fetches enriched data from data/enriched_explanations_20.json
+   Fetches enriched data from data/enriched_explanations.json
    ═══════════════════════════════════════════ */
 
 let enrichedData = {};
@@ -226,7 +226,7 @@ let enrichedData = {};
 
   // 2. Load enriched explanations (non-blocking, we handle fallback)
   try {
-    const res = await fetch('data/enriched_explanations_20.json');
+    const res = await fetch('data/enriched_explanations.json');
     if (res.ok) {
       const json = await res.json();
       enrichedData = json.by_qid || {};

@@ -7,10 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>護理師國考模擬測驗 | 護理國考助手</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <meta name="description" content="3,384 題護理師國考考古題，科目分類測驗，即時正誤回饋，概念集群強化練習，弱點分析，錯題本。涵蓋基礎醫學、基本護理、內外科、產兒科、精神社區。">
+  <meta name="description" content="7,704 題護理師國考考古題，科目分類測驗，即時正誤回饋，概念集群強化練習，弱點分析，錯題本。涵蓋基礎醫學、基本護理、內外科、產兒科、精神社區。">
   <link rel="canonical" href="https://anycalculator.site/nursing/quiz">
   <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="/common/premium.css">
+<link rel="manifest" href="/nursing/manifest.json">
+<meta name="theme-color" content="#0f3460">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="易考通">
   <style>
 body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
     /* ── Quiz-specific styles ── */
@@ -502,7 +506,7 @@ body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
 
     <!-- Open Graph -->
     <meta property="og:title" content="護理師國考模擬測驗 | 護理國考助手">
-    <meta property="og:description" content="3,384 題護理師國考考古題，科目分類測驗，即時正誤回饋，概念集群強化練習，弱點分析，錯題本。">
+    <meta property="og:description" content="7,704 題護理師國考考古題，科目分類測驗，即時正誤回饋，概念集群強化練習，弱點分析，錯題本。">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="護理國考助手">
 </head>
@@ -525,7 +529,7 @@ body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
     <a href="/nursing/" class="active">Nursing Exam</a>
   </div>
 </div></nav>
-<!-- ═══ 備考通 sub-nav ═══ -->
+<!-- ═══ 易考通 sub-nav ═══ -->
 <nav class="bekao-subnav" style="background:#0d1321;border-bottom:1px solid #1f2937;padding:0;display:flex;justify-content:center;overflow-x:auto">
   <div style="display:flex;gap:2px;padding:6px 16px;max-width:1200px;width:100%">
     <a href="index.html" style="color:#9ca3af;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;white-space:nowrap;transition:all 0.15s" onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.color='#e5e7eb'" onmouseout="this.style.background='transparent';this.style.color='#9ca3af'">首頁</a>
@@ -546,7 +550,7 @@ body{--accent:#0f3460;--accent-subtle:rgba(15,52,96,0.12);--accent-text:#0a2540}
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
     <div>
       <h1>📝 護理師國考免費線上測驗</h1>
-      <p>內含 3,384 題歷年考古題 · 五大考科 · 概念強化 drill · 錯題本</p>
+      <p>內含 <span id="qcount-label">...</span> 題歷年考古題 · 五大考科 · 概念強化 drill · 錯題本</p>
     </div>
     <div style="display:flex;align-items:center;gap:10px;font-size:.78rem">
       <span id="user-badge" style="background:#f0f4ff;padding:4px 12px;border-radius:20px;color:#0f3460;font-weight:600">👤 <span id="user-name">載入中</span></span>
@@ -820,7 +824,8 @@ let enrichedData = {};  // qid → { explanation_simple, why_wrong, clinical_cas
       fetch('data/questions.json'),
       fetch('data/subjects.json'),
       fetch('data/concept_clusters.json'),
-      fetch('data/enriched_explanations_20.json').catch(() => null)
+            fetch('data/enriched_explanations.json').catch(() => null)
+    ]);
     ]);
     allQuestions = await qRes.json();
     subjects = await sRes.json();
@@ -847,6 +852,11 @@ let enrichedData = {};  // qid → { explanation_simple, why_wrong, clinical_cas
     });
 
     renderSubjectCards();
+
+    // Update total question count label
+    const totalQ = subjects.reduce((sum, s) => sum + s.question_count, 0);
+    const qLabel = document.getElementById('qcount-label');
+    if (qLabel) qLabel.textContent = totalQ.toLocaleString();
 
     // Quick diagnosis mode: check sessionStorage flag from landing page
     try {
@@ -1664,6 +1674,37 @@ function logout() {
     window.location.href = '/nursing/login.html';
   }
 }
+
+/* ── PWA: Register Service Worker ── */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/nursing/service-worker.js')
+      .then(() => console.log('SW registered'))
+      .catch((err) => console.warn('SW registration failed:', err));
+  });
+}
+
+/* ── PWA: Subscribe to daily question periodic sync ── */
+async function subscribeDailyQuestion() {
+  if (!('serviceWorker' in navigator) || !('PeriodicSyncManager' in window)) return;
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    const status = await reg.periodicSync.getTags();
+    if (!status.includes('bekao-daily-question')) {
+      await reg.periodicSync.register('bekao-daily-question', {
+        minInterval: 24 * 60 * 60 * 1000 // once per day
+      });
+      console.log('Daily question sync registered');
+    }
+  } catch (e) {
+    console.warn('Periodic sync not supported:', e);
+  }
+}
+// Call on settings page or after login
+if (localStorage.getItem('exam_ai_token')) {
+  setTimeout(subscribeDailyQuestion, 3000);
+}
+
 </script>
 </body>
 </html>

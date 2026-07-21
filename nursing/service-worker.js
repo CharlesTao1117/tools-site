@@ -1,5 +1,5 @@
 /**
- * 備考通 Service Worker v1.0
+ * 易考通 Service Worker v1.0
  * Daily question push notification + offline fallback
  */
 const CACHE = 'bekao-v1';

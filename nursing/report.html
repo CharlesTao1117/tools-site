@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>學習報告 | 備考通</title>
+<title>學習報告 | 易考通</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root {
@@ -155,7 +155,7 @@ a { text-decoration: none; color: inherit; }
 <!-- ═══ TOP NAV ═══ -->
 <header class="topnav">
   <div class="topnav-inner">
-    <a href="index.html" class="logo"><span class="dot"></span>備考通</a>
+    <a href="index.html" class="logo"><span class="dot"></span>易考通</a>
     <button class="mobile-menu-btn" onclick="document.querySelector('.topnav nav').classList.toggle('open')" aria-label="選單">☰</button>
     <nav>
       <a href="index.html">首頁</a>
@@ -601,7 +601,7 @@ function downloadReport() {
   const dateStr = new Date().toLocaleDateString('zh-TW');
   
   const report = `══════════════════════════════
-  備考通 學習報告
+  易考通 學習報告
   日期: ${dateStr}
   考試: ${examName}
 ══════════════════════════════
@@ -622,7 +622,7 @@ ${(settings && settings.subjects ? settings.subjects : []).map(s => `  • ${s.n
 ${Object.entries(stats.cluster_weakness || {}).sort((a,b) => b[1].wrong_count - a[1].wrong_count).slice(0,5).map(([id, d], i) => `  ${i+1}. ${d.concept || id}: ${d.wrong_count} 錯 / ${d.total_seen || '?'} 次`).join('\n') || '  尚無弱點數據'}
 
 ══════════════════════════════
-  備考通 — AI 國考準備平台
+  易考通 — AI 國考準備平台
   https://anycalculator.site/nursing/
 ══════════════════════════════`;
 

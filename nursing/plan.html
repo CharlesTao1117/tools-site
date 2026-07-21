@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>備考通 - 個人備考計畫</title>
+<title>易考通 - 個人備考計畫</title>
 <style>
 :root {
   --bg: #0a0e17;
@@ -344,7 +344,7 @@ nav .links a.active { color: var(--accent); font-weight: 600; }
 
 <!-- Top Navigation -->
 <nav>
-  <a href="index.html" class="logo">備考通<span class="dot"></span></a>
+  <a href="index.html" class="logo">易考通<span class="dot"></span></a>
   <div class="links">
     <a href="index.html">總覽</a>
     <a href="diagnosis.html">診斷</a>
@@ -585,7 +585,7 @@ function exportPlan() {
   const plan = loadPlan();
   if (!plan || !plan.daily) return;
 
-  let text = '備考通 - 個人備考計畫\n';
+  let text = '易考通 - 個人備考計畫\n';
   text += '='.repeat(40) + '\n\n';
   text += '📋 今日任務：\n';
   const typeNames = { 'study': '讀書', 'quiz': '刷題', 'review': '複習', 'wrong_drill': '錯題練習', 'checkin': '打卡' };
@@ -606,7 +606,7 @@ function exportPlan() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = '備考通計畫_' + new Date().toISOString().split('T')[0] + '.txt';
+  a.download = '易考通計畫_' + new Date().toISOString().split('T')[0] + '.txt';
   a.click();
   URL.revokeObjectURL(url);
 }
