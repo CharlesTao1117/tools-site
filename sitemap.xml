@@ -211,4 +211,46 @@
     <changefreq>weekly</changefreq>
     <lastmod>2026-06-17</lastmod>
   </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/dashboard</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-25</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/diagnosis</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-25</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/login</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-25</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/plan</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-25</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/register</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-25</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/report</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-25</lastmod>
+  </url>
+  <url>
+    <loc>https://anycalculator.site/nursing/review</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2026-07-25</lastmod>
+  </url>
 </urlset>
