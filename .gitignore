@@ -3,3 +3,10 @@ nursing/data/questions_backup_*.json
 
 # Development templates (not part of the site)
 /templates/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
