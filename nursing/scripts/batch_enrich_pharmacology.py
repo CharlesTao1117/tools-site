@@ -153,10 +153,7 @@ def get_pharmacology_questions(questions, clusters_data=None):
 
 def generate_enriched_for_question(question, cluster_id=None, cluster_name=None):
     """
-    🚧 SKELETON: Replace this function with actual LLM API call.
-
-    This function receives a single question dict and should return
-    the enriched explanation dict for that question.
+    Generate enriched explanation for a single question via LLM API.
 
     Question dict shape:
       {
@@ -173,26 +170,54 @@ def generate_enriched_for_question(question, cluster_id=None, cluster_name=None)
     Returns: dict with keys: explanation_simple, why_wrong, clinical_case, difficulty, topic, cluster
              or None on failure.
     """
-    # ─── TODO: Connect to LLM API (e.g., OpenAI, Claude, or local model) ───
-    # Example:
-    #   response = call_llm_api(
-    #       system_prompt=BUILD_SYSTEM_PROMPT(question, cluster_id, cluster_name),
-    #       user_prompt=BUILD_USER_PROMPT(question),
-    #       temperature=0.7,
-    #   )
-    #   return parse_llm_response(response)
+    import requests
+    import os
 
     qid = question.get("id", "unknown")
-    text = question.get("text", "")[:60]
-    options = question.get("options", {})
-    correct = question.get("correct_answer", "?")
     
-    print(f"    ⚠️  SKELETON: qid={qid} — implement generate_enriched_for_question()")
-    print(f"       Text: {text}...")
-    print(f"       Correct: {correct}, Options: {list(options.keys())}")
+    # Try multiple sources for the API key
+    api_key = os.environ.get("OPENCODE_GO_API_KEY")
+    if not api_key:
+        # Fallback: try from HERMES config or other env vars
+        api_key = os.environ.get("HERMES_OPENCODE_GO_API_KEY", "")
+    if not api_key:
+        print(f"    ❌ qid={qid}: No API key available (OPENCODE_GO_API_KEY not set)")
+        return None
 
-    # Placeholder: return None to skip
-    return None
+    system_prompt = BUILD_SYSTEM_PROMPT(question, cluster_id, cluster_name)
+    user_prompt = BUILD_USER_PROMPT(question)
+    
+    payload = {
+        "model": "deepseek-v4-flash",
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        "temperature": 0.7,
+        "max_tokens": 1500,
+    }
+    
+    try:
+        resp = requests.post(
+            "https://opencode.ai/zen/go/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json=payload,
+            timeout=120,
+        )
+        if resp.status_code != 200:
+            print(f"    ❌ qid={qid}: API error {resp.status_code}: {resp.text[:200]}")
+            return None
+        
+        result = resp.json()
+        content = result["choices"][0]["message"]["content"]
+        return parse_llm_response(content)
+    
+    except Exception as e:
+        print(f"    ❌ qid={qid}: Exception: {e}")
+        return None
 
 
 def BUILD_SYSTEM_PROMPT(question, cluster_id=None, cluster_name=None):

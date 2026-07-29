@@ -1,8 +1,21 @@
 {
   "_comment": "EXAM-AI Private QA — Enriched Explanations. PRIVATE QA ONLY.",
-  "version": "2026-07-02",
-  "enriched_count": 60,
+  "version": "2026-07-27",
+  "enriched_count": 61,
   "by_qid": {
+    "111030_s0301_q49": {
+      "explanation_simple": "Dobutamine 就像心臟的「專屬加油器」，只會去踩心臟上的 β1「油門踏板」，讓心肌收縮更有力、打出更多血液。β2 是肺部的「氣管放鬆鈕」，D1/D2 則是腎臟血管開關，都不是 Dobutamine 主要踩的踏板，所以無法有效增加心輸出量。",
+      "why_wrong": {
+        "A": "β1 腎上腺素受體：正確。Dobutamine 選擇性活化 β1 受體，增強心肌收縮力與心輸出量，為急性心衰竭的首選強心劑。",
+        "B": "β2 腎上腺素受體：錯誤。β2 主要在支氣管平滑肌，活化後引起支氣管擴張，非 Dobutamine 的主要作用標的。",
+        "C": "D1 多巴胺受體：錯誤。D1 活化使腎血管擴張與尿量增加，此為低劑量 Dopamine 的作用機轉，非 Dobutamine 的主要標的。",
+        "D": "D2 多巴胺受體：錯誤。D2 位於中樞神經與腎臟，與增強心收縮力無直接相關，非 Dobutamine 的作用目標。"
+      },
+      "clinical_case": "65 歲男性，因急性心肌梗塞後心因性休克入院，血壓 80/50 mmHg、四肢冰冷、尿量減少。醫師開立 Dobutamine 靜脈滴注 5 μg/kg/min，護理師每 15 分鐘監測血壓與心律。給藥 30 分鐘後血壓回升至 100/65 mmHg，四肢回溫，尿量增加，病人喘促改善。Dobutamine 透過活化心臟 β1 受體增強心肌收縮力。",
+      "difficulty": 2,
+      "topic": "Dobutamine 藥理機轉（β1 受體活化）",
+      "cluster": "C012 止痛與麻醉"
+    },
     "111030_s0301_q50": {
       "explanation_simple": "想像心臟是一個精密的節拍器，Halothane 就像是一個會讓節拍器「漏拍」的不穩定電池——它會讓心肌對兒茶酚胺（catecholamine）變得過度敏感，容易打亂心跳節律。其他三個麻醉藥就像是比較穩定的電池，不太會讓節拍器亂掉，所以心律不整的風險較低。",
       "why_wrong": {
