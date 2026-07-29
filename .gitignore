@@ -1,5 +1,18 @@
 # Nursing data backups
 nursing/data/questions_backup_*.json
+nursing/data/enriched_explanations_backup_*.json
+
+# Development / cron check scripts
+nursing/scripts/cron_*.py
+nursing/scripts/add_enriched_entries*.py
+nursing/data/_cron_*.py
+nursing/data/_check_*.py
+nursing/data/check_*.py
+nursing/data/verify_*.py
+nursing/_check_*.py
+
+# Production logs (tracked separately as documentation)
+# nursing/data/enriched_production_log_*.md
 
 # Development templates (not part of the site)
 /templates/
