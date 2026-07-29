@@ -34,20 +34,34 @@ Day 63 避免第三次零產出。提交工作樹變更 + 透過 delegate_task �
 - 5 題皆存在於 questions.json，答案正確
 - enriched_count: 66 / 7,704（0.86%，較昨日 0.79% 微升）
 
+### 任務 4：Batch 2 Enriched 擴產（11:00 時段 × 5）
+**狀態**: ✅ 完成
+
+**新增 5 題（66→71）**:
+
+| qid | 主題 | 難度 | 領域 |
+|---|---|---|---|
+| 112030_s0104_q18 | 剖腹產麻醉方式選擇（腰椎硬膜外麻醉） | 2 | 產兒科護理學 |
+| 112160_s0104_q31 | Fentanyl 經皮貼片用於兒童（72h 更換） | 2 | 產兒科護理學 |
+| 113030_s0101_q34 | 類鴉片藥物戒斷症候群（體溫過低不屬之） | 3 | 基礎醫學 |
+| 113030_s0101_q35 | Fexofenadine 不具鎮靜作用（血腦障壁） | 2 | 基礎醫學 |
+| 112030_s0102_q34 | 口腔潰瘍適用溶液（生理食鹽水+麻醉劑） | 2 | 基本護理學 |
+
+**C012 止痛與麻醉集群**: 10→15 題（累計 15/7,704）
+
 ### 瓶頸觀測
-- delegate_task 單產一題約 11-55s（取決於模型負載），較前次評測的 150s 大幅改善
-- 平行 3 任務最快可在 57s 內完成 3 題
-- 剩餘 7,638 題待 enriched，以平行 3 題/60s 計：~42.4 小時
+- delegate_task 平行 3 批生產效率穩定（batch 2 五題含 AI 生產約 290s）
+- 剩餘 7,633 題待 enriched（71/7,704 = 0.92%）
 - LINE Bot 阻塞持續（Day 63）
 
 ### 下一步
-1. Untracked 20 檔分類 + .gitignore
-2. 後續深度工作時段繼續 C012-C018 藥理學集群擴產
-3. 解封 LINE Bot 驗收
+1. 後續深度工作時段繼續 C012-C018 藥理學集群擴產（剩 5,261 藥理相關未完成）
+2. 解封 LINE Bot 驗收
+3. 考慮 batch_enrich_pharmacology.py 直接執行加速
 
 ### 資料檔案
-- `data/enriched_explanations.json` — 66 entries, v2026-07-29
+- `data/enriched_explanations.json` — 71 entries, v2026-07-29
 - `data/enriched_explanations_backup_20260729.json` — 全量備份
 - `scripts/batch_enrich_pharmacology.py` — 批次生成腳本
+- `scripts/merge_enriched_batch2.py` — 批次 2 寫入腳本
 - `scripts/add_enriched_entries.py` — 批次 1 寫入腳本
-- `scripts/add_enriched_entries_2.py` — 批次 2 寫入腳本
