@@ -443,6 +443,23 @@ body{--accent:#7c3aed;--accent-subtle:rgba(124,58,237,0.1);--accent-text:#6d28d9
   <div class="tip-box"><strong>⚠️ This tool is not:</strong> A clinical assessment, a personality test, or a substitute for professional career counseling. It is a self-reflection aid designed to surface patterns and prompt action — not to make decisions for you.</div>
 </section>
 
+<!-- ── Section 4.5: Methodology ── -->
+<section class="article-section" id="methodology">
+  <h2>🔬 How This Ikigai Assessment Works — Methodology</h2>
+  <p>The Ikigai Finder uses a <strong>self-rated multi-dimensional scoring model</strong> to quantify four life dimensions on a 0–100 scale. Unlike forced-choice personality inventories, this tool treats each dimension independently — you rate passion, mission, vocation, and profession separately, and the engine computes their interactions mathematically.</p>
+
+  <h3>Scoring Engine</h3>
+  <p>Each slider value feeds into three parallel computations:</p>
+  <ul>
+    <li><strong>Profile Type Classification:</strong> The engine computes the overall average and the spread (max − min) to classify users into one of 8 archetypes: Balanced Ikigai, Dreamer, Purpose-Driven, Skilled & Paid, Explorer, Comfortable, Passion-Driven, or Searching. The classification logic weighs both absolute scores and relative balance.</li>
+    <li><strong>Radar Chart:</strong> Four-axis polygon rendered on an HTML5 canvas. Each axis extends from center (0) to perimeter (100), with the filled area representing overall life balance. Larger, more symmetrical polygons indicate stronger ikigai alignment.</li>
+    <li><strong>Intersection Scoring:</strong> The four circle-pair overlaps — Passion×Mission, Passion×Vocation, Vocation×Profession, Mission×Profession — are computed as the arithmetic mean of the two dimension scores, normalized to a 0–100% match. These reveal which synergies are already strong and which need development.</li>
+  </ul>
+
+  <h3>Action Recommendation Logic</h3>
+  <p>For any dimension scoring below 50%, the engine surfaces a targeted, evidence-based action step. These recommendations are ordered from lowest to highest score to prioritize the most urgent growth area. When all dimensions exceed 50%, the tool recommends maintenance strategies. All results are saved to localStorage for session persistence and quarterly progress tracking.</p>
+</section>
+
 <!-- ── Section 5: FAQ ── -->
 <section class="article-section" id="faq">
   <h2>❓ Frequently Asked Questions</h2>
