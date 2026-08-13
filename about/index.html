@@ -9,83 +9,92 @@
   gtag('config', 'G-JL08H6FMN6');
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318270958837564"
-     crossorigin="anonymous"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title data-i18n="about_title">About | Free Online Tools</title>
-<title>About — Free Online Tools</title>
+     crossorigin="anonymous"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>About | Free Online Tools</title>
 <meta name="robots" content="noindex, follow">
-<meta name="description" content="About Free Online Tools.">
+<meta name="description" content="About Free Online Tools — our mission, how we build and test calculators, methodology, and data-handling practices.">
   <link rel="stylesheet" href="/common/ads.css">
   <style>
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.8;max-width:720px;margin:0 auto;padding:20px;color:#1e293b}
 a{color:#6366f1}
 h1{font-size:1.6rem;margin-bottom:20px}
+h2{font-size:1.2rem;margin-top:32px;margin-bottom:12px}
 nav{display:flex;gap:20px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
 nav a{text-decoration:none;color:#64748b;font-size:0.9rem}
 nav a:hover{color:#6366f1}
-#langToggle{
-  background:#f8fafc;border:2px solid #e2e8f0;border-radius:20px;
-  padding:4px 14px;font-size:0.8rem;font-weight:600;cursor:pointer;
-  color:#1e293b;transition:all .2s;margin-left:auto
-}
-#langToggle:hover{border-color:#6366f1;color:#6366f1}
+.site-footer{text-align:center;padding:20px 0;border-top:1px solid #e2e8f0;margin-top:40px;font-size:0.85rem;color:#64748b}
+.site-footer a{color:#6366f1;text-decoration:none;margin:0 6px}
 </style></head>
 <body>
 <nav>
-  <a href="/" data-i18n="nav_home">Home</a>
-  <a href="/about/" data-i18n="about_nav">About</a>
-  <button id="langToggle" onclick="i18n.toggle()">中文</button>
+  <a href="/">Home</a>
+  <a href="/about/">About</a>
+  <a href="/contact/">Contact</a>
+  <a href="/privacy-policy/">Privacy</a>
+  <a href="/terms/">Terms</a>
 </nav>
+
 <!-- Ad Slot: Top Banner -->
 <div class="ad-slot">
   <div class="ad-label">Advertisement</div>
-  <!-- Google AdSense code goes here -->
-  <div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div>
+  <div class="ad-placeholder" style="text-align:center">Ad Space (728x90)</div>
 </div>
-<h1 data-i18n="about_h1">ℹ️ About This Site</h1>
-<p data-i18n="about_intro">Free Online Tools is a collection of handy utilities — QR Code Generator, BMI Calculator, and more coming soon.</p>
-<h2 data-i18n="about_philosophy_h">Our Philosophy</h2>
-<p data-i18n="about_philosophy_body">We believe online tools should be free, fast, and privacy-respecting. All tools are pure frontend — no backend server, your data never leaves your browser.</p>
-<h2 data-i18n="about_tech_h">Technology</h2>
-<p><span data-i18n="about_tech_body">Static site · Cloudflare Pages · Pure HTML/CSS/JS</span><br><span data-i18n="about_license">License: MIT</span></p>
-<p><a href="/" data-i18n="about_back">← Back to Home</a></p>
+
+<h1>About Free Online Tools</h1>
+
+<p>Free Online Tools (anycalculator.site) is a collection of practical, browser-based utilities built for everyday tasks. We started with a simple question: why should calculating a BMI, generating a QR code, or creating a password require downloading an app, signing up for an account, or handing over personal data? The answer is: it should not. So we built a site where every tool runs entirely in your browser, loads in seconds, and asks for nothing in return.</p>
+
+<h2>Our Mission</h2>
+<p>Our mission is to provide fast, free, and privacy-respecting tools that work on any device without friction. We believe utility software should be lightweight, transparent, and accessible to everyone. There are no paywalls, no sign-up walls, and no data collection behind our calculators. You open the page, use the tool, and move on with your day.</p>
+<p>The site currently hosts over a dozen tools, including a QR Code and Barcode Generator, BMI Calculator, Password Generator, Age Calculator, Percentage and Discount Calculator, Date Calculator, Add/Subtract Calculator, Invoice Generator, Resume Generator, Philippine Peso Converter, Group Randomizer, Lottery Draw, and an Ikigai Finder. We also maintain a dedicated nursing calculators section with clinical tools such as APGAR scoring, creatinine clearance, IV drip rates, pediatric fluid maintenance, and more.</p>
+
+<h2>Who Operates This Site</h2>
+<p>This site is operated by a small, independent team of developers based in Southeast Asia. We are not a venture-backed startup or a large corporation. We are builders who got tired of cluttered, ad-heavy tool sites that tracked users and buried the actual utility under popups and redirects. We wanted something better — a clean, fast, no-nonsense alternative.</p>
+<p>The team includes contributors with backgrounds in software engineering, health sciences, and user experience design. Our nursing calculator sub-site was developed in consultation with practicing nurses to ensure clinical relevance and accuracy of the formulas used.</p>
+
+<h2>How Tools Are Built and Tested</h2>
+<p>Every tool on this site is built as a pure frontend application using standard web technologies: HTML, CSS, and JavaScript. There is no backend server processing your inputs. When you type your weight into the BMI Calculator, that calculation happens in your browser's JavaScript engine — the data never travels to a server.</p>
+<p>Our development process follows these principles:</p>
+<ul style="margin:8px 0;padding-left:24px;color:#475569;font-size:0.92rem">
+  <li><strong>Accuracy first:</strong> Each calculator's formula is sourced from established references (e.g. WHO for BMI, Cockcroft-Gault for creatinine clearance) and verified against known test cases before publication.</li>
+  <li><strong>Cross-browser testing:</strong> Tools are tested on Chrome, Safari, Firefox, and Edge across both desktop and mobile devices. We support modern browsers and degrade gracefully on older ones.</li>
+  <li><strong>Accessibility:</strong> We design for readability, keyboard navigation, and mobile-first responsiveness. Large touch targets, clear labels, and high-contrast text are baseline requirements.</li>
+  <li><strong>No tracking of inputs:</strong> Because all processing is client-side, we have no server logs of what you calculate. There is nothing to leak, nothing to breach.</li>
+</ul>
+
+<h2>Methodology Commitment</h2>
+<p>We are committed to transparency in how our tools work. When a calculator uses a specific formula or standard (e.g. the Du Bois formula for body surface area, or the Modified Glasgow Coma Scale), we document it on the tool's page or in the FAQ section. If a tool provides health-related calculations (BMI, APGAR, pediatric fluids), we include clear disclaimers stating that the output is for educational and screening purposes only, not a substitute for professional medical advice.</p>
+<p>When we discover an error or receive a bug report, we prioritize fixes. Our contact page (<a href="/contact/">/contact/</a>) provides a direct channel for reporting issues, and we typically respond within 2-3 business days.</p>
+
+<h2>Data-Handling Summary</h2>
+<p>Because our tools run entirely in your browser, the data handling model is simple:</p>
+<ul style="margin:8px 0;padding-left:24px;color:#475569;font-size:0.92rem">
+  <li><strong>Tool inputs:</strong> All calculations, generations, and processing happen locally in your browser. We do not collect, store, or transmit the data you enter into any tool.</li>
+  <li><strong>Feedback form:</strong> If you voluntarily submit the feedback form on our homepage, your name, email, and message are sent to our support inbox via a third-party form service (FormSubmit). This is the only situation where user-provided data leaves the browser, and it only happens when you explicitly submit the form.</li>
+  <li><strong>Analytics:</strong> We use Google Analytics to understand aggregate traffic patterns (page views, browser types, geographic regions). This data is anonymized and does not include tool inputs.</li>
+  <li><strong>Advertising:</strong> We use Google AdSense to display ads. Google may set cookies to serve relevant ads. You can manage ad personalization through your Google Ads settings.</li>
+</ul>
+<p>For full details, see our <a href="/privacy-policy/">Privacy Policy</a>.</p>
+
+<h2>Technology</h2>
+<p>This site is built as a static site hosted on Cloudflare Pages. It uses vanilla HTML, CSS, and JavaScript — no frameworks, no build step, no dependencies to install. The source code is open source under the MIT license and available on <a href="https://github.com/CharlesTao1117/tools-site" target="_blank">GitHub</a>. We welcome contributions, issue reports, and feature suggestions from the community.</p>
+
+<h2>License</h2>
+<p>All content and code on this site are open source under the MIT license. You are free to use, modify, and distribute the code for personal or commercial purposes, provided you include the original license notice.</p>
+
+<p><a href="/">&larr; Back to Home</a></p>
 
 <!-- Ad Slot: Bottom Banner -->
 <div class="ad-slot">
   <div class="ad-label">Advertisement</div>
-  <!-- Google AdSense code goes here -->
-  <div class="ad-placeholder" style="text-align:center">📢 Ad Space (728×90)</div>
+  <div class="ad-placeholder" style="text-align:center">Ad Space (728x90)</div>
 </div>
 
-<script src="/common/i18n.js"></script>
-<script>
-i18n.register({
-  about_title:{en:'About | Free Online Tools',zh:'關於我們 | 工具站'},
-  about_nav:{en:'About',zh:'關於我們'},
-  about_h1:{en:'ℹ️ About This Site',zh:'ℹ️ 關於本站'},
-  about_intro:{en:'Free Online Tools is a collection of handy utilities — QR Code Generator, BMI Calculator, and more coming soon.',zh:'工具站是一個免費的線上工具集合，提供 QR Code 產生器、BMI 計算機等實用工具。'},
-  about_philosophy_h:{en:'Our Philosophy',zh:'理念'},
-  about_philosophy_body:{en:'We believe online tools should be free, fast, and privacy-respecting. All tools are pure frontend — no backend server, your data never leaves your browser.',zh:'我們相信網路工具應該是免費、快速、注重隱私的。所有工具都是純前端應用，不使用後端伺服器，您的資料不會離開瀏覽器。'},
-  about_tech_h:{en:'Technology',zh:'技術'},
-  about_tech_body:{en:'Static site · Cloudflare Pages · Pure HTML/CSS/JS',zh:'靜態網站 · Cloudflare Pages · 純 HTML/CSS/JS'},
-  about_license:{en:'License: MIT',zh:'開源授權：MIT'},
-  about_back:{en:'← Back to Home',zh:'← 返回首頁'},
-});
-i18n.init();
-</script>
+<footer class="site-footer">
+  <a href="/about/">About</a> &middot;
+  <a href="/contact/">Contact</a> &middot;
+  <a href="/privacy-policy/">Privacy Policy</a> &middot;
+  <a href="/terms/">Terms of Service</a>
+</footer>
 
-<script>
-async function submitFeedback(e,f){
-  e.preventDefault();const st=f.querySelector('.fb-status');
-  const btn=f.querySelector('.fb-submit');
-  btn.disabled=true;st.textContent='Sending...';st.className='fb-status';
-  const d={name:(f.name?.value||''),email:(f.email?.value||''),message:f.message.value,page:location.pathname};
-  try{
-    const r=await fetch('https://formsubmit.co/ajax/cs@anycalculator.site',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)});
-    const j=await r.json();
-    if(j.success){st.textContent='✅ Sent!';st.className='fb-status success';f.reset();}
-    else{st.textContent='❌ '+j.error;st.className='fb-status error';}
-  }catch(e){st.textContent='❌ Failed. Try again.';st.className='fb-status error';}
-  btn.disabled=false;
-}
-</script>
 </body>
 </html>
