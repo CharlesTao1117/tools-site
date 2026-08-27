@@ -16,3 +16,10 @@ nursing/_check_*.py
 
 # Development templates (not part of the site)
 /templates/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
