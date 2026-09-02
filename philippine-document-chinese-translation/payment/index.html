@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>GCash Payment | Official Document Translation</title>
+<meta name="description" content="Review your translation service price and scan the matching GCash payment QR.">
+<style>
+:root{--ink:#14241f;--ink-soft:#334b43;--paper:#f7f2e8;--white:#fffdf8;--accent:#c65335;--accent-dark:#9e3d26;--line:rgba(20,36,31,.15);--muted:#66746e;--blue:#0866df;--serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;--sans:"Avenir Next",Avenir,"Segoe UI",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}.shell{width:min(1080px,calc(100% - 40px));margin:0 auto}a{color:inherit}.topbar{border-bottom:1px solid var(--line);background:rgba(247,242,232,.92)}.topbar-inner{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:1rem}.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:650}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--ink);font-family:var(--serif)}.back{font-size:.78rem;font-weight:650;text-underline-offset:4px}.progress{display:flex;align-items:center;gap:.55rem;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em}.progress b{color:var(--accent)}
+main{padding:54px 0 84px}.heading{display:grid;grid-template-columns:.68fr 1.32fr;gap:3rem;margin-bottom:2.8rem}.eyebrow{color:var(--accent);font-size:.7rem;font-weight:750;letter-spacing:.12em;text-transform:uppercase}.heading h1{max-width:680px;margin:0;font-family:var(--serif);font-size:clamp(2.7rem,5vw,4.5rem);font-weight:500;line-height:.95;letter-spacing:-.055em}.heading p{max-width:60ch;margin:1.1rem 0 0;color:var(--muted);font-size:.85rem;line-height:1.65}
+.payment-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.78fr);gap:1px;background:var(--line);box-shadow:0 24px 70px rgba(28,45,38,.1)}.config,.checkout{background:var(--white)}.config{padding:2.25rem}.section-label{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}.section-label h2{margin:0;font-family:var(--serif);font-size:1.45rem;font-weight:500}.section-label span{color:var(--muted);font-size:.68rem}.service-list{display:grid;gap:.65rem}.service-option{position:relative;display:grid;grid-template-columns:24px 1fr auto;gap:.9rem;align-items:center;padding:1rem;border:1px solid var(--line);cursor:pointer;transition:border-color .2s ease,background .2s ease,transform .2s ease}.service-option:hover{border-color:var(--accent);transform:translateY(-1px)}.service-option:has(input:checked){border-color:var(--accent);background:#fff7f2}.service-option input{width:17px;height:17px;accent-color:var(--accent)}.service-option strong{display:block;font-family:var(--serif);font-size:1.02rem;font-weight:500}.service-option small{display:block;margin-top:.25rem;color:var(--muted);font-size:.66rem;line-height:1.45}.service-price{font-family:var(--serif);font-size:1.04rem;font-weight:600;white-space:nowrap}.page-control{display:grid;grid-template-columns:1fr 130px;gap:1rem;align-items:center;margin-top:1.8rem;padding-top:1.6rem;border-top:1px solid var(--line)}.page-control label{font-family:var(--serif);font-size:1.08rem}.page-control label small{display:block;margin-top:.3rem;color:var(--muted);font-family:var(--sans);font-size:.66rem}.page-control input{width:100%;height:46px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:700 1rem var(--sans);text-align:center}.page-control input:focus{outline:3px solid rgba(198,83,53,.2);border-color:var(--accent)}.formula{margin:1.25rem 0 0;padding:1rem;background:var(--paper);color:var(--muted);font-size:.69rem;line-height:1.55}
+.checkout{padding:1.4rem;background:#172a24;color:#fff}.amount-card{display:flex;align-items:end;justify-content:space-between;gap:1rem;padding:1.1rem 1.15rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.15)}.amount-card span{color:#b8c3bf;font-size:.68rem}.amount{font-family:var(--serif);font-size:2.25rem;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.04em}.qr-frame{margin:1rem 0;background:#fff;padding:.8rem}.qr-frame img{display:block;width:100%;max-height:430px;object-fit:contain}.qr-note{padding:.2rem .25rem .9rem;text-align:center;color:#c5cfcb;font-size:.7rem;line-height:1.5}.qr-note strong{color:#fff}.payment-steps{display:grid;gap:.75rem;padding:1rem .25rem .25rem}.payment-step{display:grid;grid-template-columns:24px 1fr;gap:.7rem;color:#c5cfcb;font-size:.7rem;line-height:1.45}.payment-step b{display:grid;place-items:center;width:22px;height:22px;border:1px solid rgba(255,255,255,.28);color:#fff;font-size:.62rem}.warning{margin-top:1.5rem;padding:1rem 1.1rem;border-left:3px solid var(--accent);background:#efe8dc;color:var(--ink-soft);font-size:.7rem;line-height:1.6}.warning strong{color:var(--ink)}.status{display:none;margin-top:1rem;padding:.8rem 1rem;background:#fff7f2;border:1px solid rgba(198,83,53,.3);color:var(--accent-dark);font-size:.7rem;line-height:1.5}.status.show{display:block}.footer{padding:1.8rem 0 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.66rem}.footer-inner{display:flex;justify-content:space-between;gap:1rem}
+@media(max-width:800px){.heading,.payment-grid{grid-template-columns:1fr}.heading{gap:1.2rem}.config{padding:1.5rem}.checkout{padding:1rem}.qr-frame img{max-height:520px}}@media(max-width:480px){.shell{width:min(100% - 24px,1080px)}main{padding-top:36px}.heading h1{font-size:2.7rem}.progress{display:none}.service-option{grid-template-columns:22px 1fr}.service-price{grid-column:2}.page-control{grid-template-columns:1fr 96px}.footer-inner{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="shell topbar-inner"><a class="brand" href="../"><span class="brand-mark" aria-hidden="true">譯</span><span>Official Document Translation</span></a><div class="progress"><span>Request</span><span>→</span><b>Payment</b><span>→</span><span>Verification</span></div><a class="back" href="../">Back to service</a></div></header>
+<main>
+<div class="shell">
+  <div class="heading"><div class="eyebrow">GCash payment</div><div><h1>Payment verification starts the work.</h1><p>Select the same service and page count shown in your document request. The matching QR and total update immediately. OCR, translation, and human review remain paused until the payment is verified.</p></div></div>
+  <div class="payment-grid">
+    <section class="config" aria-labelledby="service-title">
+      <div class="section-label"><h2 id="service-title">Choose your service</h2><span>One document</span></div>
+      <div class="service-list">
+        <label class="service-option"><input type="radio" name="service" value="instant" data-base="499" checked><span><strong>Instant Self Review</strong><small>Immediate processing after payment verification when eligible</small></span><span class="service-price">PHP 499</span></label>
+        <label class="service-option"><input type="radio" name="service" value="human" data-base="699"><span><strong>Professional Human Review</strong><small>Critical names, dates, numbers and addresses checked</small></span><span class="service-price">PHP 699</span></label>
+        <label class="service-option"><input type="radio" name="service" value="rush" data-base="999"><span><strong>Human Review + Same-Day Priority</strong><small>Eligible orders receive priority processing before the confirmed cutoff</small></span><span class="service-price">PHP 999</span></label>
+      </div>
+      <div class="page-control"><label for="pages">Total pages<small>First 2 pages are included</small></label><input id="pages" type="number" min="1" max="30" value="1" inputmode="numeric"></div>
+      <p class="formula">Additional pages cost PHP 300 each, starting from page 3. This calculator covers one independent document. If one upload contains multiple documents or an unsupported format, wait for the manually confirmed quote.</p>
+      <div class="status" id="status" role="status"></div>
+    </section>
+    <aside class="checkout" aria-live="polite">
+      <div class="amount-card"><span>Total to pay<br><span id="summary">Instant Self Review · 1 page</span></span><strong class="amount" id="total">PHP 499</strong></div>
+      <div class="qr-frame"><img id="qr" src="gcash-499.jpg" width="659" height="1280" alt="GCash payment QR for PHP 499"></div>
+      <div class="qr-note" id="qr-note"><strong>PHP 499 is embedded in this QR.</strong><br>Confirm the amount in GCash before sending.</div>
+      <div class="payment-steps"><div class="payment-step"><b>1</b><span>Open GCash and scan the QR above.</span></div><div class="payment-step"><b>2</b><span>Confirm the recipient and exact amount shown on this page.</span></div><div class="payment-step"><b>3</b><span>Save the payment receipt. A screenshot alone does not mean payment is verified.</span></div></div>
+    </aside>
+  </div>
+  <div class="warning"><strong>Your file is not processed before payment verification.</strong> Payment is checked manually. A screenshot changes the order to PAYMENT_SUBMITTED only; OCR, translation, and review start after an administrator confirms the transaction as PAYMENT_VERIFIED. Do not pay an estimated amount for multiple or unsupported documents.</div>
+</div>
+</main>
+<footer class="footer"><div class="shell footer-inner"><span>&copy; 2026 Official Document Translation</span><span>Payment status: pending manual verification</span></div></footer>
+<script>
+(function(){
+  var services={instant:{name:"Instant Self Review",base:499},human:{name:"Professional Human Review",base:699},rush:{name:"Human Review + Same-Day Priority",base:999}};
+  var radios=Array.prototype.slice.call(document.querySelectorAll('input[name="service"]'));
+  var pages=document.getElementById("pages"),total=document.getElementById("total"),summary=document.getElementById("summary"),qr=document.getElementById("qr"),note=document.getElementById("qr-note"),status=document.getElementById("status");
+  function selected(){return document.querySelector('input[name="service"]:checked').value}
+  function clampPages(){var value=parseInt(pages.value,10)||1;value=Math.max(1,Math.min(30,value));pages.value=value;return value}
+  function update(){
+    var key=selected(),service=services[key],pageCount=clampPages(),extra=Math.max(0,pageCount-2),amount=service.base+extra*300,fixed=key==="instant"&&amount===499;
+    total.textContent="PHP "+amount.toLocaleString("en-PH");
+    summary.textContent=service.name+" · "+pageCount+" page"+(pageCount===1?"":"s");
+    qr.src=fixed?"gcash-499.jpg":"gcash-flexible.jpg";
+    qr.alt=fixed?"GCash payment QR for PHP 499":"GCash payment QR requiring the customer to enter PHP "+amount.toLocaleString("en-PH");
+    note.innerHTML=fixed?"<strong>PHP 499 is embedded in this QR.</strong><br>Confirm the amount in GCash before sending.":"<strong>Enter PHP "+amount.toLocaleString("en-PH")+" manually in GCash.</strong><br>This QR does not contain a fixed amount.";
+    status.textContent=extra?extra+" additional page"+(extra===1?"":"s")+" × PHP 300 added to the service price.":"Up to 2 pages are included in the service price.";
+    status.className="status show";
+    var query=new URLSearchParams({service:key,pages:String(pageCount)});
+    history.replaceState(null,"","?"+query.toString());
+  }
+  var initial=new URLSearchParams(location.search),initialService=initial.get("service"),initialPages=initial.get("pages");
+  if(services[initialService]){radios.forEach(function(r){r.checked=r.value===initialService})}
+  if(initialPages){pages.value=initialPages}
+  radios.forEach(function(r){r.addEventListener("change",update)});pages.addEventListener("input",update);update();
+})();
+</script>
+</body>
+</html>

@@ -124,6 +124,50 @@ a:hover { text-decoration: underline; }
   padding: 2px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: 600;
   margin-left: 6px;
 }
+/* SM-2 Due for Review badge */
+.wb-item .wb-due-badge {
+  display: inline-block; background: rgba(239,68,68,0.15); color: var(--accent);
+  padding: 2px 8px; border-radius: 8px; font-size: 0.7rem; font-weight: 700;
+  margin-left: 6px; animation: duePulse 2s infinite;
+}
+@keyframes duePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ── Error Cause Chart ── */
+.error-chart-section {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px; margin-bottom: 16px;
+}
+.error-chart-section h3 {
+  font-size: 0.85rem; color: var(--text); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.error-chart-empty {
+  text-align: center; color: var(--text3); font-size: 0.8rem; padding: 12px 0;
+}
+.ec-bar-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.ec-bar-label {
+  width: 80px; font-size: 0.75rem; color: var(--text2); text-align: right;
+  flex-shrink: 0;
+}
+.ec-bar-track {
+  flex: 1; background: rgba(31,41,55,0.5); border-radius: 6px; height: 22px;
+  overflow: hidden; position: relative;
+}
+.ec-bar-fill {
+  height: 100%; border-radius: 6px; transition: width 0.3s ease;
+  display: flex; align-items: center; padding-left: 8px;
+  font-size: 0.7rem; font-weight: 600; color: #fff; min-width: 30px;
+}
+.ec-bar-fill.c1 { background: linear-gradient(90deg, #ef4444, #f87171); }
+.ec-bar-fill.c2 { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.ec-bar-fill.c3 { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.ec-bar-fill.c4 { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+.ec-bar-fill.c5 { background: linear-gradient(90deg, #6b7280, #9ca3af); }
 
 /* ── Buttons ── */
 .btn {
@@ -296,6 +340,71 @@ function loadWrongBooks() {
   }));
 }
 
+/* ── SM-2 Spaced Repetition ── */
+const SM2_INITIAL_EASE = 2.5;
+const SM2_MIN_EASE = 1.3;
+const DAY_MS = 86400000;
+
+function sm2Compute(entry, quality) {
+  // quality: 0-5 scale (0=complete blackout, 5=perfect)
+  let ef = entry.sm2_ease_factor || SM2_INITIAL_EASE;
+  let interval = entry.sm2_interval || 1;
+  let reviews = entry.sm2_reviews_count || 0;
+
+  if (quality < 3) {
+    // Failed: reset
+    interval = 1;
+    reviews = 0;
+    ef = Math.max(SM2_MIN_EASE, ef - 0.2);
+  } else {
+    // Passed
+    if (reviews === 0) {
+      interval = 1;
+    } else if (reviews === 1) {
+      interval = 6;
+    } else {
+      interval = Math.round(interval * ef);
+    }
+    reviews++;
+    // Update ease factor
+    ef = ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+    ef = Math.max(SM2_MIN_EASE, ef);
+  }
+
+  const nextReview = Date.now() + interval * DAY_MS;
+
+  return {
+    sm2_ease_factor: Math.round(ef * 100) / 100,
+    sm2_interval: interval,
+    sm2_next_review_date: nextReview,
+    sm2_reviews_count: reviews
+  };
+}
+
+function sm2IsDue(entry) {
+  if (!entry.sm2_next_review_date) return false;
+  return entry.sm2_next_review_date <= Date.now();
+}
+
+function sm2PersistToStorage(entry) {
+  // Update the entry in bekao_wrong_book
+  try {
+    const raw = localStorage.getItem('bekao_wrong_book');
+    const items = raw ? JSON.parse(raw) : [];
+    const idx = items.findIndex(e => e.qid === entry.qid);
+    const updated = { ...entry };
+    // Remove transient fields
+    delete updated.reviewed;
+    delete updated.errorCount;
+    if (idx >= 0) {
+      items[idx] = updated;
+    } else {
+      items.push(updated);
+    }
+    localStorage.setItem('bekao_wrong_book', JSON.stringify(items));
+  } catch(e) { /* quota issue */ }
+}
+
 function getFilteredAndSorted() {
   let items = [...wrongBook];
 
@@ -342,6 +451,66 @@ function getClusters() {
     if (item.clusterConcept) clusters.add(item.clusterConcept);
   });
   return Array.from(clusters).sort();
+}
+
+/* ── Error Cause Chart ── */
+const ERROR_CAUSE_CATEGORIES = [
+  { key: '概念混淆', label: '概念混淆', cssClass: 'c1' },
+  { key: '粗心', label: '粗心大意', cssClass: 'c2' },
+  { key: '記憶模糊', label: '記憶模糊', cssClass: 'c3' },
+  { key: '審題錯誤', label: '審題錯誤', cssClass: 'c4' },
+  { key: '其他', label: '其他', cssClass: 'c5' },
+];
+
+function renderErrorChart() {
+  const container = document.getElementById('error-chart');
+  if (!container) return;
+
+  // Collect cause distribution from CURRENTLY FILTERED wrongBook items
+  const filtered = getFilteredAndSorted();
+  const causeCounts = {};
+  let hasCause = false;
+
+  filtered.forEach(item => {
+    const cause = item.cause || item.errorCause || item.error_cause;
+    if (cause) {
+      hasCause = true;
+      // Normalize cause names
+      const normalized = normalizeCause(cause);
+      causeCounts[normalized] = (causeCounts[normalized] || 0) + 1;
+    }
+  });
+
+  if (!hasCause) {
+    container.innerHTML = '<div class="error-chart-empty">尚無錯誤原因資料 — 完成更多練習後此處將顯示錯誤原因分布</div>';
+    return;
+  }
+
+  const entries = Object.entries(causeCounts).sort((a, b) => b[1] - a[1]);
+  const maxCount = Math.max(...entries.map(e => e[1]), 1);
+
+  let html = '';
+  entries.forEach(([cause, count], i) => {
+    const meta = ERROR_CAUSE_CATEGORIES.find(c => c.key === cause) || { cssClass: 'c5', label: cause };
+    const pct = Math.round((count / maxCount) * 100);
+    html += `
+      <div class="ec-bar-row">
+        <div class="ec-bar-label">${meta.label}</div>
+        <div class="ec-bar-track">
+          <div class="ec-bar-fill ${meta.cssClass}" style="width:${pct}%">${count}題</div>
+        </div>
+      </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function normalizeCause(cause) {
+  const c = cause.trim();
+  if (c.includes('概念混乱') || c.includes('概念混淆')) return '概念混淆';
+  if (c.includes('粗心')) return '粗心';
+  if (c.includes('记忆模糊') || c.includes('記憶模糊') || c.includes('忘記')) return '記憶模糊';
+  if (c.includes('审题') || c.includes('審題') || c.includes('題意') || c.includes('看錯')) return '審題錯誤';
+  return '其他';
 }
 
 function render() {
@@ -409,6 +578,8 @@ function render() {
           ${item.clusterConcept ? `<span class="wb-cluster-tag">📌 ${item.clusterConcept}</span>` : ''}
           ${item.errorCount > 1 ? `<span class="wb-error-count">錯 ${item.errorCount} 次</span>` : ''}
           ${item.reviewed ? `<span class="wb-review-badge">✅ 已複習</span>` : ''}
+          ${sm2IsDue(item) ? `<span class="wb-due-badge">⏰ 待複習</span>` : ''}
+          ${item.sm2_reviews_count > 0 ? `<span style="font-size:0.68rem;color:var(--text3);margin-left:4px">SM-2: ${item.sm2_interval}d · EF ${item.sm2_ease_factor}</span>` : ''}
         </div>
         <div class="wb-actions">
           <button class="btn btn-sm btn-outline" onclick="retryQuestion('${item.qid}')">🔄 重新作答</button>
@@ -433,6 +604,12 @@ function render() {
         <div class="stat-num">${pending}</div>
         <div class="stat-label">待複習</div>
       </div>
+    </div>
+
+    <!-- Error Cause Chart -->
+    <div class="error-chart-section">
+      <h3>📊 錯誤原因分布</h3>
+      <div id="error-chart"></div>
     </div>
 
     <!-- Bulk Actions -->
@@ -471,6 +648,9 @@ function render() {
       ${itemsHtml}
     </div>
   `;
+
+  // Render error chart inline after DOM update
+  renderErrorChart();
 }
 
 /* ── Filter & Sort ── */
@@ -499,6 +679,8 @@ function toggleReviewed(qid) {
     if (raw) reviewedMap = JSON.parse(raw);
   } catch(e) {}
 
+  const isNowReviewed = !reviewedMap[qid];
+
   if (reviewedMap[qid]) {
     delete reviewedMap[qid];
   } else {
@@ -511,7 +693,16 @@ function toggleReviewed(qid) {
 
   // Update in-memory
   const item = wrongBook.find(e => e.qid === qid);
-  if (item) item.reviewed = !!reviewedMap[qid];
+  if (!item) { render(); return; }
+  item.reviewed = !!reviewedMap[qid];
+
+  // SM-2: when marking as reviewed (not un-reviewing), update SM-2 state
+  if (isNowReviewed) {
+    const sm2 = sm2Compute(item, 4); // quality=4: correct with hesitation
+    Object.assign(item, sm2);
+    // Also persist the updated entry (with SM-2 fields) to bekao_wrong_book
+    sm2PersistToStorage(item);
+  }
 
   render();
 }

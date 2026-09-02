@@ -1,0 +1,14 @@
+{
+  "fullText": "DEMO CERTIFICATE\nName: JUAN TEST\nDate: AUGUST 25, 2026\nDocument No: DEMO-123456\n",
+  "pages": [{
+    "pageNumber": 1,
+    "width": 1000,
+    "height": 1400,
+    "tokens": [
+      { "text": "JUAN TEST", "confidence": 0.987, "pageNumber": 1, "boundingBox": { "x": 0.22, "y": 0.31, "width": 0.27, "height": 0.04 } },
+      { "text": "AUGUST 25, 2026", "confidence": 0.97, "pageNumber": 1, "boundingBox": { "x": 0.22, "y": 0.37, "width": 0.3, "height": 0.04 } },
+      { "text": "DEMO-123456", "confidence": 0.82, "pageNumber": 1, "boundingBox": { "x": 0.22, "y": 0.43, "width": 0.25, "height": 0.04 } }
+    ]
+  }],
+  "quality": { "score": 0.94, "issues": [] }
+}

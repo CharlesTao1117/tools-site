@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "official-document-translation-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-27",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true,
+    "logs": { "head_sampling_rate": 1 }
+  },
+  "vars": {
+    "GOOGLE_CLOUD_PROJECT_ID": "replace-me",
+    "GOOGLE_CLOUD_LOCATION": "asia-southeast1",
+    "GOOGLE_DOCUMENT_AI_PROCESSOR_ID": "replace-me",
+    "GEMINI_OCR_MODEL": "gemini-3.6-flash",
+    "GEMINI_MODEL_CLASSIFICATION": "gemini-2.5-flash",
+    "GEMINI_MODEL_EXTRACTION": "gemini-2.5-flash",
+    "GEMINI_MODEL_TRANSLATION": "gemini-2.5-flash",
+    "OCR_PROVIDER": "gemini",
+    "ENABLE_GOOGLE_DOCUMENT_AI": "false",
+    "ENABLE_GEMINI_OCR": "true",
+    "ENABLE_GEMINI": "true",
+    "ENABLE_OCR_QUALITY_CHECK": "true",
+    "ENABLE_BOUNDING_BOX_REVIEW": "true",
+    "PERSIST_OCR_CONTENT": "false",
+    "OCR_LOW_CONFIDENCE_THRESHOLD": "0.75",
+    "OCR_QUALITY_REUPLOAD_THRESHOLD": "0.55",
+    "TEMPLATE_LOW_CONFIDENCE_THRESHOLD": "0.8",
+    "ALLOWED_ORIGIN": "https://anycalculator.site"
+  },
+  "d1_databases": [{
+    "binding": "TRANSLATION_DB",
+    "database_name": "official-document-translation",
+    "database_id": "860302c9-c8ac-4dc2-b954-a93fbb0b68b6",
+    "migrations_dir": "migrations"
+  }]
+}
