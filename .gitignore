@@ -16,3 +16,4 @@ nursing/_check_*.py
 
 # Development templates (not part of the site)
 /templates/
+tmp_enrich/
