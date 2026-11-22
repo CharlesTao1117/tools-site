@@ -792,6 +792,7 @@ let sessionQuestions = [];
 let currentIndex = 0;
 let score = 0;
 let answerLog = [];            // { question, selected, isCorrect }
+let sessionStartTs = 0;        // quiz session start (for study-time tracking)
 
 /* Drill state */
 let drillClusterId = null;
@@ -833,7 +834,6 @@ let enrichedData = {};  // qid → { explanation_simple, why_wrong, clinical_cas
       fetch('data/subjects.json'),
       fetch('data/concept_clusters.json'),
             fetch('data/enriched_explanations.json').catch(() => null)
-    ]);
     ]);
     allQuestions = await qRes.json();
     subjects = await sRes.json();
@@ -941,6 +941,7 @@ function startQuiz(subjectId, subjectName) {
   score = 0;
   answerLog = [];
   drillClusterId = null;
+  sessionStartTs = Date.now();
 
   let pool = subjectId === 'all'
     ? allQuestions.slice()
@@ -1338,6 +1339,9 @@ function showResults() {
   // Weakness analysis
   renderWeaknessAnalysis();
 
+  // Persist session attempts (study-time & cluster mastery data for report.html)
+  persistAttemptLog();
+
   // Wrong question review
   const reviewList = document.getElementById('review-list');
   const wrongAnswers = answerLog.filter(a => !a.isCorrect);
@@ -1383,6 +1387,47 @@ function showResults() {
       shareSection.appendChild(cta);
     }
   }
+}
+
+/* ═══════════════════════════════════════════
+   ATTEMPT LOG PERSISTENCE (report.html charts)
+   exam_ai_attempts: per-session {date, ts, total, correct, wrong, seconds, subject}
+   exam_ai_cluster_attempts: cumulative {clusterId: {concept, attempts, wrong}}
+   ═══════════════════════════════════════════ */
+
+function persistAttemptLog() {
+  try {
+    const total = sessionQuestions.length;
+    if (!total || !answerLog.length) return;
+    const correct = answerLog.filter(a => a.isCorrect).length;
+    const now = Date.now();
+    const seconds = sessionStartTs > 0 ? Math.max(0, Math.round((now - sessionStartTs) / 1000)) : 0;
+    const date = new Date().toISOString().split('T')[0];
+
+    // Per-session record
+    let attempts = [];
+    try { attempts = JSON.parse(localStorage.getItem('exam_ai_attempts') || '[]'); } catch (e) {}
+    attempts.push({
+      date, ts: now, total, correct, wrong: total - correct, seconds,
+      subject: currentSubject ? currentSubject.id : 'all'
+    });
+    if (attempts.length > 500) attempts = attempts.slice(-500);
+    localStorage.setItem('exam_ai_attempts', JSON.stringify(attempts));
+
+    // Cumulative per-cluster attempts (enables true mastery = (attempts-wrong)/attempts)
+    let clusterAttempts = {};
+    try { clusterAttempts = JSON.parse(localStorage.getItem('exam_ai_cluster_attempts') || '{}'); } catch (e) {}
+    answerLog.forEach(a => {
+      const ci = a.clusterInfo;
+      if (!ci || !ci.cluster_id) return;
+      if (!clusterAttempts[ci.cluster_id]) {
+        clusterAttempts[ci.cluster_id] = { concept: ci.concept, attempts: 0, wrong: 0 };
+      }
+      clusterAttempts[ci.cluster_id].attempts++;
+      if (!a.isCorrect) clusterAttempts[ci.cluster_id].wrong++;
+    });
+    localStorage.setItem('exam_ai_cluster_attempts', JSON.stringify(clusterAttempts));
+  } catch (e) { /* silent — never block the result page */ }
 }
 
 /* ═══════════════════════════════════════════

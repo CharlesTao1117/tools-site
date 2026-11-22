@@ -553,7 +553,8 @@ function resetAllData() {
     'bekao_settings', 'bekao_stats', 'bekao_plan', 'bekao_checkin',
     'bekao_wrong_book', 'nursingWrongBook', 'bekao_reviewed_qids',
     'bekao_current_explanation', 'bekao_drill_cluster', 'bekao_drill_source',
-    'bekao_retry_qid', 'bekao_retry_all_qids'
+    'bekao_retry_qid', 'bekao_retry_all_qids',
+    'exam_ai_attempts', 'exam_ai_cluster_attempts'
   ];
   keys.forEach(k => { try { localStorage.removeItem(k); } catch(e) {} });
   try { sessionStorage.clear(); } catch(e) {}
@@ -564,7 +565,7 @@ function resetAllData() {
 
 function exportData() {
   const data = {};
-  const keys = ['bekao_settings', 'bekao_stats', 'bekao_plan', 'bekao_checkin', 'bekao_wrong_book'];
+  const keys = ['bekao_settings', 'bekao_stats', 'bekao_plan', 'bekao_checkin', 'bekao_wrong_book', 'exam_ai_attempts', 'exam_ai_cluster_attempts'];
   keys.forEach(k => {
     try {
       const raw = localStorage.getItem(k);

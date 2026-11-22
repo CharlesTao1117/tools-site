@@ -111,6 +111,18 @@ a { text-decoration: none; color: inherit; }
 .cluster-btn { padding: 6px 14px; background: var(--primary); color: #fff; border: none; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-family: inherit; transition: all 0.15s; white-space: nowrap; }
 .cluster-btn:hover { opacity: 0.85; }
 
+/* ── Cluster Mastery Radar (SVG) ── */
+.radar-svg-wrap { display: flex; justify-content: center; }
+.chart-note { font-size: 0.72rem; color: var(--text2); margin-top: 10px; line-height: 1.5; }
+
+/* ── Study Distribution Chart ── */
+.dist-chart { display: flex; align-items: flex-end; gap: 4px; height: 150px; padding: 8px 0 0; }
+.dist-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
+.dist-bar { width: 100%; max-width: 26px; border-radius: 4px 4px 0 0; background: var(--primary); opacity: 0.85; min-height: 3px; transition: height 0.5s ease; }
+.dist-bar.today { background: var(--accent); opacity: 0.9; }
+.dist-val { font-size: 0.62rem; color: var(--text2); font-weight: 600; }
+.dist-date { font-size: 0.58rem; color: var(--text3); white-space: nowrap; }
+
 /* ── Mini Timeline ── */
 .timeline { display: flex; gap: 6px; align-items: flex-end; height: 80px; padding: 4px 0; }
 .timeline-day { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
@@ -241,6 +253,22 @@ a { text-decoration: none; color: inherit; }
       <div id="weaknessClusters"></div>
     </div>
 
+    <!-- Cluster Mastery Radar (SVG) -->
+    <div class="section-card">
+      <h2><span class="s-icon">🕸</span>概念集群掌握度雷達</h2>
+      <div class="radar-svg-wrap">
+        <svg id="clusterRadar" width="380" height="320" viewBox="0 0 380 320" role="img" aria-label="概念集群掌握度雷達圖"></svg>
+      </div>
+      <div class="chart-note" id="radarNote"></div>
+    </div>
+
+    <!-- Study Distribution (SVG bars) -->
+    <div class="section-card">
+      <h2><span class="s-icon">⏱</span>學習時數分佈（近 14 天）</h2>
+      <div class="dist-chart" id="studyDistChart"></div>
+      <div class="chart-note" id="studyDistNote"></div>
+    </div>
+
     <!-- Recent Progress Timeline -->
     <div class="section-card">
       <h2><span class="s-icon">📈</span>近期正確率趨勢 (7天)</h2>
@@ -361,18 +389,21 @@ let currentPeriod = 'week';
 
 function renderAll() {
   const stats = getStats();
-  const hasData = stats && (stats.total_answered > 0);
+  const hasStats = stats && (stats.total_answered > 0);
+  const hasChartData = getMergedWrongBooks().length > 0 || getAttemptSessions().length > 0;
 
-  document.getElementById('emptyState').style.display = hasData ? 'none' : 'block';
-  document.getElementById('reportContent').style.display = hasData ? 'block' : 'none';
+  document.getElementById('emptyState').style.display = (hasStats || hasChartData) ? 'none' : 'block';
+  document.getElementById('reportContent').style.display = (hasStats || hasChartData) ? 'block' : 'none';
 
-  if (!hasData) return;
+  if (!hasStats && !hasChartData) return;
 
   renderKeyNumbers(stats);
   renderSubjectMastery(stats);
   renderErrorChart(stats);
   renderWeaknessClusters(stats);
   renderProgressTimeline(stats);
+  renderClusterRadar();
+  renderStudyDist();
   renderAISuggestion(stats);
 }
 
@@ -551,6 +582,217 @@ function renderProgressTimeline(stats) {
       </div>
     `;
   }).join('');
+}
+
+// ═══════════════════════════════════════════
+// VISUALIZATION — Cluster Radar + Study Distribution
+// Data sources (all real, no fabricated numbers):
+//   • bekao_wrong_book + nursingWrongBook (merged, deduped by qid) — wrong answers w/ cluster + timestamp
+//   • exam_ai_cluster_attempts (written by quiz.html on session end) — cumulative attempts per cluster
+//   • exam_ai_attempts (written by quiz.html on session end) — per-session {date, total, correct, seconds}
+// ═══════════════════════════════════════════
+
+function getMergedWrongBooks() {
+  const merged = {};
+  ['bekao_wrong_book', 'nursingWrongBook'].forEach(key => {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) return;
+      JSON.parse(raw).forEach(item => {
+        if (!item || !item.qid) return;
+        if (!merged[item.qid]) { merged[item.qid] = item; }
+        else if ((item.errorCount || 1) > (merged[item.qid].errorCount || 1)) {
+          merged[item.qid] = item;
+        } else if (item.timestamp && merged[item.qid].timestamp && item.timestamp > merged[item.qid].timestamp) {
+          merged[item.qid].timestamp = item.timestamp;
+        }
+      });
+    } catch (e) {}
+  });
+  return Object.values(merged);
+}
+
+function getAttemptSessions() {
+  try { return JSON.parse(localStorage.getItem('exam_ai_attempts') || '[]') || []; }
+  catch (e) { return []; }
+}
+
+function getClusterAttempts() {
+  try { return JSON.parse(localStorage.getItem('exam_ai_cluster_attempts') || '{}') || {}; }
+  catch (e) { return {}; }
+}
+
+function renderClusterRadar() {
+  const svg = document.getElementById('clusterRadar');
+  const note = document.getElementById('radarNote');
+  if (!svg) return;
+
+  // Collect per-cluster data
+  const clusters = {};
+  const attemptsByCluster = getClusterAttempts();
+
+  getMergedWrongBooks().forEach(e => {
+    if (!e.clusterId) return;
+    if (!clusters[e.clusterId]) clusters[e.clusterId] = { concept: e.clusterConcept || null, wrong: 0 };
+    clusters[e.clusterId].wrong++;
+  });
+
+  // Merge cumulative attempt data (authoritative once available)
+  Object.entries(attemptsByCluster).forEach(([id, m]) => {
+    if (!clusters[id]) clusters[id] = { concept: m.concept || null, wrong: 0 };
+    if (m.concept && !clusters[id].concept) clusters[id].concept = m.concept;
+    clusters[id].attempts = (clusters[id].attempts || 0) + (m.attempts || 0);
+    clusters[id].wrongCumulative = (clusters[id].wrongCumulative || 0) + (m.wrong || 0);
+  });
+
+  const entries = Object.entries(clusters)
+    .map(([id, c]) => ({
+      id,
+      concept: c.concept || `集群 ${id}`,
+      wrong: c.wrong || 0,
+      attempts: c.attempts || 0
+    }))
+    // Rank: prefer total attempts (mastery view), fall back to wrong concentration
+    .sort((a, b) => (b.attempts - a.attempts) || (b.wrong - a.wrong))
+    .slice(0, 8);
+
+  if (entries.length === 0) {
+    svg.innerHTML = '';
+    note.textContent = '尚無集群數據 — 完成測驗後，這裡會顯示各概念集群的掌握度雷達。';
+    return;
+  }
+
+  const hasAttempts = entries.some(e => e.attempts > 0);
+  // In mastery mode only keep clusters with attempt data (no fabricated zeros)
+  const plotEntries = hasAttempts ? entries.filter(e => e.attempts > 0) : entries;
+  const cx = 190, cy = 158, radius = 100, levels = 5;
+  const n = plotEntries.length;
+  const angle = i => -Math.PI / 2 + (i * 2 * Math.PI) / n;
+
+  // Axis value: mastery % (0-100) when attempt totals exist; else relative wrong concentration
+  const valueOf = e => {
+    if (hasAttempts && e.attempts > 0) {
+      return Math.max(0, Math.round(((e.attempts - (e.wrongCumulative || e.wrong)) / e.attempts) * 100));
+    }
+    return null; // wrong-concentration mode handled below
+  };
+
+  let svgParts = [];
+
+  // Grid rings
+  for (let lv = 1; lv <= levels; lv++) {
+    const r = (radius / levels) * lv;
+    const pts = plotEntries.map((_, i) => `${(cx + r * Math.cos(angle(i))).toFixed(1)},${(cy + r * Math.sin(angle(i))).toFixed(1)}`).join(' ');
+    svgParts.push(`<polygon points="${pts}" fill="none" stroke="#1f2937" stroke-width="1"/>`);
+    if (lv === levels) {
+      svgParts.push(`<text x="${cx + 4}" y="${cy - r + 4}" font-size="9" fill="#6b7280">100%</text>`);
+    }
+  }
+
+  // Axes + labels
+  plotEntries.forEach((e, i) => {
+    const ax = cx + radius * Math.cos(angle(i));
+    const ay = cy + radius * Math.sin(angle(i));
+    svgParts.push(`<line x1="${cx}" y1="${cy}" x2="${ax.toFixed(1)}" y2="${ay.toFixed(1)}" stroke="#1f2937" stroke-width="1"/>`);
+    const lr = radius + 24;
+    const lx = cx + lr * Math.cos(angle(i));
+    const ly = cy + lr * Math.sin(angle(i));
+    const anchor = Math.abs(Math.cos(angle(i))) < 0.3 ? 'middle' : (Math.cos(angle(i)) > 0 ? 'start' : 'end');
+    const label = e.concept.length > 6 ? e.concept.slice(0, 6) + '…' : e.concept;
+    svgParts.push(`<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" font-size="9.5" fill="#9ca3af" text-anchor="${anchor}" dominant-baseline="middle">${label.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</text>`);
+  });
+
+  // Data polygon
+  let pts;
+  if (hasAttempts) {
+    pts = plotEntries.map((e, i) => {
+      const v = valueOf(e) ?? 0;
+      const r = (v / 100) * radius;
+      return `${(cx + r * Math.cos(angle(i))).toFixed(1)},${(cy + r * Math.sin(angle(i))).toFixed(1)}`;
+    }).join(' ');
+    const poly = `<polygon points="${pts}" fill="rgba(59,130,246,0.18)" stroke="#3b82f6" stroke-width="2" stroke-linejoin="round"/>`;
+    svgParts.push(poly);
+    plotEntries.forEach((e, i) => {
+      const v = valueOf(e) ?? 0;
+      const r = (v / 100) * radius;
+      svgParts.push(`<circle cx="${(cx + r * Math.cos(angle(i))).toFixed(1)}" cy="${(cy + r * Math.sin(angle(i))).toFixed(1)}" r="3" fill="${v >= 60 ? '#22c55e' : v >= 40 ? '#eab308' : '#ef4444'}"><title>${e.concept}：掌握度 ${v}%（${e.attempts} 題中錯 ${e.wrongCumulative || e.wrong}）</title></circle>`);
+    });
+  } else {
+    // Wrong-concentration mode: value = wrong count relative to max (weakness severity, not mastery)
+    const maxWrong = Math.max(...entries.map(e => e.wrong), 1);
+    pts = entries.map((e, i) => {
+      const r = (e.wrong / maxWrong) * radius;
+      return `${(cx + r * Math.cos(angle(i))).toFixed(1)},${(cy + r * Math.sin(angle(i))).toFixed(1)}`;
+    }).join(' ');
+    svgParts.push(`<polygon points="${pts}" fill="rgba(239,68,68,0.18)" stroke="#ef4444" stroke-width="2" stroke-linejoin="round"/>`);
+    entries.forEach((e, i) => {
+      const r = (e.wrong / maxWrong) * radius;
+      svgParts.push(`<circle cx="${(cx + r * Math.cos(angle(i))).toFixed(1)}" cy="${(cy + r * Math.sin(angle(i))).toFixed(1)}" r="3" fill="#ef4444"><title>${e.concept}：答錯 ${e.wrong} 次</title></circle>`);
+    });
+  }
+
+  svg.innerHTML = svgParts.join('');
+
+  if (hasAttempts) {
+    const weakest = plotEntries.sort((a, b) => valueOf(a) - valueOf(b))[0];
+    note.innerHTML = `實心區域 = 各集群掌握度（答對率）。最需加強：<b style="color:var(--accent)">${weakest.concept}</b>（掌握度 ${valueOf(weakest)}%）。資料來源：本機作答紀錄。`;
+  } else {
+    note.innerHTML = `⚠️ 目前以「答錯集中度」呈現（紅色區域越大 = 該集群答錯越多）。<b>缺欄位：作答總數（attempts）尚未累積</b> — 完成新版測驗後（quiz 已記錄每次作答）將自動切換為真實掌握度模式。`;
+  }
+}
+
+function renderStudyDist() {
+  const container = document.getElementById('studyDistChart');
+  const note = document.getElementById('studyDistNote');
+  if (!container) return;
+
+  const sessions = getAttemptSessions().filter(s => s && s.date);
+  if (sessions.length === 0) {
+    container.innerHTML = '<div style="width:100%;text-align:center;color:var(--text3);font-size:0.8rem;padding:40px 0">尚無作答時長紀錄 — 完成一回合測驗後（quiz 會記錄作答秒數），這裡會顯示每日學習時數分佈。</div>';
+    note.textContent = '';
+    return;
+  }
+
+  // Aggregate by date over the last 14 days (minutes per day; fall back to question count)
+  const byDay = {};
+  sessions.forEach(s => {
+    if (!byDay[s.date]) byDay[s.date] = { seconds: 0, questions: 0 };
+    byDay[s.date].seconds += (s.seconds || 0);
+    byDay[s.date].questions += (s.total || 0);
+  });
+
+  const days = [];
+  const today = new Date();
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    days.push(d.toISOString().split('T')[0]);
+  }
+
+  const hasTime = days.some(d => (byDay[d] && byDay[d].seconds > 0));
+  const maxVal = Math.max(...days.map(d => {
+    if (!byDay[d]) return 0;
+    return hasTime ? Math.round(byDay[d].seconds / 60) : byDay[d].questions;
+  }), 1);
+  const todayStr = today.toISOString().split('T')[0];
+
+  container.innerHTML = days.map(date => {
+    const rec = byDay[date];
+    const val = rec ? (hasTime ? Math.round(rec.seconds / 60) : rec.questions) : 0;
+    const h = Math.max(val > 0 ? 4 : 2, Math.round((val / maxVal) * 110));
+    const label = hasTime ? `${val} 分` : `${val} 題`;
+    return `
+      <div class="dist-col">
+        <div class="dist-val">${val > 0 ? label : ''}</div>
+        <div class="dist-bar ${date === todayStr ? 'today' : ''}" style="height:${h}px" title="${date}: ${val > 0 ? label : '無紀錄'}"></div>
+        <div class="dist-date">${date.slice(5)}</div>
+      </div>
+    `;
+  }).join('');
+
+  note.textContent = hasTime
+    ? `每日學習時數（依測驗作答時間累計，紅色 = 今日）。共 ${Object.keys(byDay).length} 天有作答紀錄。`
+    : `⚠️ 缺欄位：作答時長（seconds）尚未累積 — 目前以「每日作答題數」呈現；新版測驗完成後自動切換為時數分佈。`;
 }
 
 function renderAISuggestion(stats) {
