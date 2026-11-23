@@ -310,10 +310,42 @@ a { text-decoration: none; color: inherit; }
 // DATA LAYER
 // ═══════════════════════════════════════════
 
-function getStats() {
+function getRawStats() {
   try {
     return JSON.parse(localStorage.getItem('bekao_stats')) || null;
   } catch(e) { return null; }
+}
+
+function getStats() {
+  const base = getRawStats();
+  // 資料源統一（2026-11-23）：quiz 流程從未寫入 bekao_stats，關鍵數字恆為 0。
+  // 現改由 exam_ai_attempts / exam_ai_cluster_attempts 推導，與 cluster radar / study dist 同源。
+  const sessions = getAttemptSessions();
+  if (sessions.length > 0) {
+    const stats = base || {};
+    let total = 0, correct = 0, seconds = 0;
+    const byDate = {};
+    sessions.forEach(a => {
+      total += a.total || 0;
+      correct += a.correct || 0;
+      seconds += a.seconds || 0;
+      const d = a.date || (a.ts ? new Date(a.ts).toISOString().split('T')[0] : null);
+      if (d) {
+        if (!byDate[d]) byDate[d] = { date: d, total: 0, correct: 0 };
+        byDate[d].total += a.total || 0;
+        byDate[d].correct += a.correct || 0;
+      }
+    });
+    stats.total_answered = total;
+    stats.total_correct = correct;
+    stats.total_wrong = total - correct;
+    stats.total_hours = Math.round(seconds / 360) / 10; // 秒 → 小時（一位小數）
+    stats.accuracy_history = Object.values(byDate)
+      .sort((x, y) => (x.date < y.date ? -1 : 1))
+      .map(e => ({ date: e.date, pct: e.total > 0 ? Math.round((e.correct / e.total) * 100) : 0 }));
+    return stats;
+  }
+  return base;
 }
 
 function getSettings() {
@@ -334,11 +366,10 @@ function getWrongBook() {
   } catch(e) { return []; }
 }
 
-// Generate demo data if no stats exist (for preview purposes, but show empty state)
+// Ensure a base bekao_stats structure exists (no demo values; real numbers come from attempt sessions)
 function ensureStats() {
-  let stats = getStats();
+  let stats = getRawStats();
   if (!stats) {
-    // Create default stats structure with some demo data
     const today = new Date();
     const days = [];
     for (let i = 6; i >= 0; i--) {
@@ -346,7 +377,7 @@ function ensureStats() {
       d.setDate(d.getDate() - i);
       days.push({
         date: d.toISOString().split('T')[0],
-        pct: Math.round(60 + Math.random() * 35)
+        pct: 0
       });
     }
     stats = {
@@ -508,10 +539,17 @@ function renderErrorChart(stats) {
 function renderWeaknessClusters(stats) {
   const clusters = stats.cluster_weakness || {};
   const entries = Object.entries(clusters);
-  
+
+  // 資料源統一: bekao_stats.cluster_weakness 從未被 quiz 寫入 → 改由 exam_ai_cluster_attempts 推導（與雷達圖同源）
+  const fromAttempts = entries.length === 0
+    ? Object.entries(getClusterAttempts())
+        .filter(([, m]) => (m.wrong || 0) > 0)
+        .map(([id, m]) => [id, { wrong_count: m.wrong || 0, concept: m.concept || null, total_seen: m.attempts || 0 }])
+    : entries;
+
   let items;
-  if (entries.length > 0) {
-    items = entries
+  if (fromAttempts.length > 0) {
+    items = fromAttempts
       .sort((a, b) => b[1].wrong_count - a[1].wrong_count)
       .slice(0, 5)
       .map(([id, data], i) => ({
