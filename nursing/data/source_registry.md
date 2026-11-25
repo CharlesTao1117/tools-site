@@ -3,6 +3,8 @@
 **路徑**: `tools-site/nursing/data/source_registry.md`  
 **最後更新**: 2026-06-03
 
+> ⚠️ **2026-11-25 註記**：本 md 為 12 場次（3,384 題）舊快照。權威來源為 `source_registry.json`（23 場次 / 7,704 題，2017–2026第一次，live 已驗證一致）。最新題源追溯驗證報告：`source_traceability_report_20261125.md`。
+
 ---
 
 ## 資料來源總覽

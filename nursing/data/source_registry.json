@@ -10,48 +10,263 @@
     "last_updated": "2026-06-15",
     "total_questions": 7704,
     "sessions_count": 23,
-    "years_covered": [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
+    "years_covered": [
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
     "answer_coverage": "92.0% (616 missing / 7704 total)"
   },
   "sources": [
-    {"session_code": "106030", "year": 2017, "exam_round": "第一次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 42},
-    {"session_code": "106110", "year": 2017, "exam_round": "第二次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 43},
-    {"session_code": "106111", "year": 2017, "exam_round": "第二次(花東補考)", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 43},
-    {"session_code": "107030", "year": 2018, "exam_round": "第一次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 43},
-    {"session_code": "107110", "year": 2018, "exam_round": "第二次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 45},
-    {"session_code": "108020", "year": 2019, "exam_round": "第一次", "questions": 320, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 32, "notes": "s0505 PDF corrupt — 80 Q missing. 需重新下載"},
-    {"session_code": "108110", "year": 2019, "exam_round": "第二次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 41},
-    {"session_code": "109030", "year": 2020, "exam_round": "第一次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 41},
-    {"session_code": "109110", "year": 2020, "exam_round": "第二次", "questions": 400, "subject_codes": "s0501-s0505 (Q106/A106)", "missing_answers": 42},
-    {"session_code": "110030", "year": 2021, "exam_round": "第一次", "questions": 400, "subject_codes": "s0301-s0305 (Q104/A104)", "missing_answers": 41},
-    {"session_code": "110110", "year": 2021, "exam_round": "第二次", "questions": 400, "subject_codes": "s0301-s0305 (Q104/A104)", "missing_answers": 40},
-    {"session_code": "111030", "year": 2022, "exam_round": "第一次", "questions": 400, "subject_codes": "s0301-s0305 (Q104/A104)", "missing_answers": 42},
-    {"session_code": "111110", "year": 2022, "exam_round": "第二次", "questions": 370, "subject_codes": "s0301-s0305 (Q104/A104)", "missing_answers": 111, "notes": "s0305 答案 PDF 缺失 — 80 Q 缺答案. 需從考神網補下載"},
-    {"session_code": "112030", "year": 2023, "exam_round": "第一次", "questions": 370, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 0},
-    {"session_code": "112160", "year": 2023, "exam_round": "第三次", "questions": 248, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 0},
-    {"session_code": "112180", "year": 2023, "exam_round": "第二次", "questions": 250, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 2},
-    {"session_code": "113030", "year": 2024, "exam_round": "第一次", "questions": 251, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 1},
-    {"session_code": "113160", "year": 2024, "exam_round": "第三次", "questions": 248, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 0},
-    {"session_code": "113180", "year": 2024, "exam_round": "第二次", "questions": 250, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 2},
-    {"session_code": "114030", "year": 2025, "exam_round": "第一次", "questions": 250, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 1},
-    {"session_code": "114160", "year": 2025, "exam_round": "第三次", "questions": 247, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 0},
-    {"session_code": "114170", "year": 2025, "exam_round": "第二次", "questions": 250, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 0},
-    {"session_code": "115030", "year": 2026, "exam_round": "第一次", "questions": 250, "subject_codes": "s0101-s0105 (Q101/A101)", "missing_answers": 4}
+    {
+      "session_code": "106030",
+      "year": 2017,
+      "exam_round": "第一次",
+      "questions": 400,
+      "subject_codes": "s0501-s0505 (Q106/A106)",
+      "missing_answers": 42
+    },
+    {
+      "session_code": "106110",
+      "year": 2017,
+      "exam_round": "第二次",
+      "questions": 400,
+      "subject_codes": "s0501-s0505 (Q106/A106)",
+      "missing_answers": 43
+    },
+    {
+      "session_code": "106111",
+      "year": 2017,
+      "exam_round": "第二次(花東補考)",
+      "questions": 400,
+      "subject_codes": "s0501-s0505 (Q106/A106)",
+      "missing_answers": 43
+    },
+    {
+      "session_code": "107030",
+      "year": 2018,
+      "exam_round": "第一次",
+      "questions": 400,
+      "subject_codes": "s0501-s0505 (Q106/A106)",
+      "missing_answers": 43
+    },
+    {
+      "session_code": "107110",
+      "year": 2018,
+      "exam_round": "第二次",
+      "questions": 400,
+      "subject_codes": "s0501-s0505 (Q106/A106)",
+      "missing_answers": 45
+    },
+    {
+      "session_code": "108020",
+      "year": 2019,
+      "exam_round": "第一次",
+      "questions": 320,
+      "subject_codes": "s0501-s0505 (Q106/A106)",
+      "missing_answers": 32,
+      "notes": "s0505 PDF corrupt — 80 Q missing. 需重新下載"
+    },
+    {
+      "session_code": "108110",
+      "year": 2019,
+      "exam_round": "第二次",
+      "questions": 400,
+      "subject_codes": "s0501-s0505 (Q106/A106)",
+      "missing_answers": 41
+    },
+    {
+      "session_code": "109030",
+      "year": 2020,
+      "exam_round": "第一次",
+      "questions": 400,
+      "subject_codes": "s0501-s0505 (Q106/A106)",
+      "missing_answers": 41
+    },
+    {
+      "session_code": "109110",
+      "year": 2020,
+      "exam_round": "第二次",
+      "questions": 400,
+      "subject_codes": "s0501-s0505 (Q106/A106)",
+      "missing_answers": 42
+    },
+    {
+      "session_code": "110030",
+      "year": 2021,
+      "exam_round": "第一次",
+      "questions": 400,
+      "subject_codes": "s0301-s0305 (Q104/A104)",
+      "missing_answers": 41
+    },
+    {
+      "session_code": "110110",
+      "year": 2021,
+      "exam_round": "第二次",
+      "questions": 400,
+      "subject_codes": "s0301-s0305 (Q104/A104)",
+      "missing_answers": 40
+    },
+    {
+      "session_code": "111030",
+      "year": 2022,
+      "exam_round": "第一次",
+      "questions": 400,
+      "subject_codes": "s0301-s0305 (Q104/A104)",
+      "missing_answers": 42
+    },
+    {
+      "session_code": "111110",
+      "year": 2022,
+      "exam_round": "第二次",
+      "questions": 370,
+      "subject_codes": "s0301-s0305 (Q104/A104)",
+      "missing_answers": 111,
+      "notes": "s0305 答案 PDF 缺失 — 80 Q 缺答案. 需從考神網補下載"
+    },
+    {
+      "session_code": "112030",
+      "year": 2023,
+      "exam_round": "第一次",
+      "questions": 370,
+      "subject_codes": "s0101-s0105 (Q101/A101)",
+      "missing_answers": 0
+    },
+    {
+      "session_code": "112160",
+      "year": 2023,
+      "exam_round": "第三次",
+      "questions": 248,
+      "subject_codes": "s0101-s0105 (Q101/A101)",
+      "missing_answers": 0
+    },
+    {
+      "session_code": "112180",
+      "year": 2023,
+      "exam_round": "第二次",
+      "questions": 250,
+      "subject_codes": "s0101-s0105 (Q101/A101)",
+      "missing_answers": 2
+    },
+    {
+      "session_code": "113030",
+      "year": 2024,
+      "exam_round": "第一次",
+      "questions": 251,
+      "subject_codes": "s0101-s0105 (Q101/A101)",
+      "missing_answers": 1
+    },
+    {
+      "session_code": "113160",
+      "year": 2024,
+      "exam_round": "第三次",
+      "questions": 248,
+      "subject_codes": "s0101-s0105 (Q101/A101)",
+      "missing_answers": 0
+    },
+    {
+      "session_code": "113180",
+      "year": 2024,
+      "exam_round": "第二次",
+      "questions": 250,
+      "subject_codes": "s0101-s0105 (Q101/A101)",
+      "missing_answers": 2
+    },
+    {
+      "session_code": "114030",
+      "year": 2025,
+      "exam_round": "第一次",
+      "questions": 250,
+      "subject_codes": "s0101-s0105 (Q101/A101)",
+      "missing_answers": 1
+    },
+    {
+      "session_code": "114160",
+      "year": 2025,
+      "exam_round": "第三次",
+      "questions": 247,
+      "subject_codes": "s0101-s0105 (Q101/A101)",
+      "missing_answers": 0
+    },
+    {
+      "session_code": "114170",
+      "year": 2025,
+      "exam_round": "第二次",
+      "questions": 250,
+      "subject_codes": "s0101-s0105 (Q101/A101)",
+      "missing_answers": 0
+    },
+    {
+      "session_code": "115030",
+      "year": 2026,
+      "exam_round": "第一次",
+      "questions": 250,
+      "subject_codes": "s0101-s0105 (Q101/A101)",
+      "missing_answers": 4
+    }
   ],
   "available_not_collected": [
-    {"session_code": "105030", "year": 2016, "exam_round": "第一次", "reason": "護理師考題已存在硬碟但使用更早期格式 (Q109/A109, s0501-s0505)，待適配解析"},
-    {"session_code": "105090", "year": 2016, "exam_round": "第二次?", "reason": "同上"},
-    {"session_code": "104030", "year": 2015, "exam_round": "第一次", "reason": "同上"},
-    {"session_code": "104100", "year": 2015, "exam_round": "第二次", "reason": "同上"},
-    {"session_code": "103030", "year": 2014, "exam_round": "第一次", "reason": "同上"},
-    {"session_code": "103100", "year": 2014, "exam_round": "第二次", "reason": "同上"},
-    {"session_code": "102110", "year": 2013, "exam_round": "第二次", "reason": "同上"},
-    {"session_code": "101030", "year": 2012, "exam_round": "第一次", "reason": "最早期格式，需獨立解析"}
+    {
+      "session_code": "105030",
+      "year": 2016,
+      "exam_round": "第一次",
+      "reason": "護理師考題已存在硬碟但使用更早期格式 (Q109/A109, s0501-s0505)，待適配解析"
+    },
+    {
+      "session_code": "105090",
+      "year": 2016,
+      "exam_round": "第二次?",
+      "reason": "同上"
+    },
+    {
+      "session_code": "104030",
+      "year": 2015,
+      "exam_round": "第一次",
+      "reason": "同上"
+    },
+    {
+      "session_code": "104100",
+      "year": 2015,
+      "exam_round": "第二次",
+      "reason": "同上"
+    },
+    {
+      "session_code": "103030",
+      "year": 2014,
+      "exam_round": "第一次",
+      "reason": "同上"
+    },
+    {
+      "session_code": "103100",
+      "year": 2014,
+      "exam_round": "第二次",
+      "reason": "同上"
+    },
+    {
+      "session_code": "102110",
+      "year": 2013,
+      "exam_round": "第二次",
+      "reason": "同上"
+    },
+    {
+      "session_code": "101030",
+      "year": 2012,
+      "exam_round": "第一次",
+      "reason": "最早期格式，需獨立解析"
+    }
   ],
   "known_issues": [
     "108020 精神科 Q106 PDF 損壞（0 bytes 文字），需從考神網重新下載 Google Drive 連結",
     "111110 精神科答案 PDF 缺失，需從考神網補下載",
     "106-110 年約 10% 答案因 grid parser 座標偏差未能匹配，需手動校對或優化 parser",
-    "2022 年（111030/111110）答案缺口較大（~20%），部分來自 grid parser 誤差，部分來自 PDF 缺失"
+    "2022 年（111030/111110）答案缺口較大（~20%），部分來自 grid parser 誤差，部分來自 PDF 缺失",
+    "2026-11-25 驗證新發現：113030_s0105_q48（2024第一次 精神科）與 110030_s0303_q74（2021第一次 內外科）缺 options 欄位（答案欄位在、選項無），live quiz 對此 2 題渲染無選項題目；需從考選部/5138 原始 PDF 回填（P1）。報告：source_traceability_report_20261125.md"
   ]
 }
